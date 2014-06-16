@@ -1,0 +1,20 @@
+import(
+  spsurvey,
+  xtable,
+  XML,
+  stringr,
+  sp,
+  car
+  )
+
+export(
+  cdfPlot,
+  cdfStats,
+  cdfTable,
+  coordenadas,
+  gcpDiff,
+  gcpVector,
+  readsat,
+  toar,
+  stepVIF
+  )
