@@ -1,3 +1,18 @@
+#  file pedometrics/R/cdfTable.R
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+#
 #  Purpose        : tex table with descriptive statistics of a CDF
 #  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #  Contributions  : ; 
@@ -14,11 +29,7 @@
 #               with programming style convention. Corrected funtion definition.
 #               (by A. Samuel-Rosa)
 #  25 May 2014: Added option to return a data.frame object.
-
-cdfTable <- 
-  function(x, ...) {
-    UseMethod("cdfTable")
-  }
+#  16 Jun 2014: Corrected function call. Improved documentation.
 
 cdfTable <- 
 function(x, type = "xy", rounding = 0, tex = FALSE, data.frame = FALSE) {
@@ -33,7 +44,7 @@ function(x, type = "xy", rounding = 0, tex = FALSE, data.frame = FALSE) {
   #
   # Returns:
   #   Table with descriptive statistics.
-  
+  #
   if(type == "xy") {
     tb <- data.frame(c("Mean", "Absolute mean", "Squared mean"),
                      round(c(cdfStats(x, "dx")[1, 3],

@@ -1,4 +1,4 @@
-#  file pedometria/R/gcpDelta.R
+#  file pedometrics/R/gcpDiff.R
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 #
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
-
+#
 #  Purpose        : calculate differences between xyz coordinates
 #  Maintainer     : A Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #  Contributions  :  
@@ -20,17 +20,13 @@
 #  Depends        : gcpDiff()
 #  Note           : tested only in Ubuntu 13.10
 #  TODOs          :
-
+#
 #  Timeline
 #     Dec 2013: First version. (by A. Samuel-Rosa)
 #  23 Mar 2014: Changed function name from deltagcp() to gcpDiff() to comply
 #               with programming style convention. Corrected funtion definition.
 #               (by A. Samuel-Rosa)
-
-gcpDiff <- 
-  function(measured, predicted, ...) {
-    UseMethod("gcpDiff")
-  }
+#  16 Jun 2014: Corrected function call. Improved documentation.
 
 gcpDiff <- 
   function(measured, predicted, type = "xy", aggregate = FALSE, rounding = 0) {
@@ -45,7 +41,7 @@ gcpDiff <-
     #
     # Returns:
     #   A data frame with differences in xy or z coordinates.
-    
+    #
     if(type == "xy") {  # difference in the geographic space
       measured <- coordenadas(measured)
       predicted <- coordenadas(predicted)
