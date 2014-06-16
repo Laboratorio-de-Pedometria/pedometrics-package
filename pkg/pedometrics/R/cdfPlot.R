@@ -17,7 +17,7 @@
 #  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #  Contributions  : 
 #  Version        : 0.1-0
-#  Depends on     : spsurvey,
+#  Depends on     : spsurvey
 #  Dependency of  : 
 #  Note           : Known to work only with quantitative variables.
 #                   Tested only with Ubuntu.
@@ -31,13 +31,9 @@
 #  19 May 2014: Changed legend from 'Confidence Limits' to 'CL' to guarantee
 #               better plotting of the legend. Added option to show the
 #               parameters of the cdf (mean, median, and percentile).
-#  20 May 2015: Added argument to define if the confidence limits of the CDF
+#  20 May 2014: Added argument to define if the confidence limits of the CDF
 #               should be included in the plot.
-
-cdfPlot <-
-  function(obj, ind, ...) {
-    UseMethod("cdfPlot")
-  }
+#  16 Jun 2014: Corrected function call.
 
 cdfPlot <- 
   function (obj, ind, units.cdf = "percent", type.plot = "s", 
@@ -55,7 +51,7 @@ cdfPlot <-
     #
     # Returns:
     #   A plot of estimated CDF with confidence limits.
-    
+    #
     op <- par(mgp = c(1.7, 0.6, 0), mar = c(3, 3, 2, 4) + 0.1)
     obj <- obj
     ind <- ind
