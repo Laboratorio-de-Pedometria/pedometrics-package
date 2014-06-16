@@ -15,7 +15,6 @@ cdfPlot(obj, ind, units.cdf = "percent", type.plot = "s",
         show.param = TRUE, round = 0, col.param = "black", ...)
 }
 \arguments{
-  \emph{From spsurvey:}
     \item{units.cdf}{
       Indicator for the type of units in which the CDF is plotted, where
       \dQuote{percent} means the plot is in terms of percent of the population, 
@@ -125,12 +124,22 @@ Tom Kincaid \email{Kincaid.Tom@epa.gov}\cr
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \note{
-This function was originaly named \code{plot.cdf()}.
+Most of the source code that constitutes this function was originaly published 
+in the R-package \pkg{spsurvey}, version 2.6 (2013-09-20). The authors were asked to
+include a few new functionalities, but did not seem to be interested in doing
+so. This implementation is a way of including the new functionalities required
+to the development of my PhD research project. When citing this function, the
+original authors of the R-package \pkg{spsurvey} should also be cited.
 
-Care should be taken with possible extra conflict between the arguments of the
-original function \code{cdf.plot()} and those passed to \code{plot()}.
+Care should be taken with possible conflicts between the arguments of the
+original function \code{\link[spsurvey]cdf.plot()} and those passed to 
+\code{plot()}. The existence of conflicts between these two functions was also a 
+reason for creating a new implementation.
 
-This function was not tested using categorical variables.
+If appropriate, this function can be merged with the original function in the
+near future.
+
+This function was not ment to be used with categorical variables.
 }
 \seealso{
 \code{\link[spsurvey]{cdf.plot}}.

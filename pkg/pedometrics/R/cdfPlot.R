@@ -19,9 +19,16 @@
 #  Version        : 0.1-0
 #  Depends on     : spsurvey
 #  Dependency of  : 
-#  Note           : Known to work only with quantitative variables.
-#                   Tested only with Ubuntu.
-#  TODOs          : Clean the code. Remove unecessary arguments.
+#  Notes          : - Known to work only with quantitative variables.
+#                   - Tested only with Ubuntu.
+#                   - Most of the code used here was originaly published in the
+#                   R-package spsurvey, version 2.6 (2013-09-20). The authors 
+#                   were asked to include new functionalities, but did not 
+#                   seem to be interested in doing so. This implementation is a
+#                   way of including the new functionalities required in my PhD
+#                   research project.
+#  TODOs          : Clean the code. Remove unecessary arguments coming from the
+#                   original function in the R-package spsurvey.
 #
 #  Timeline
 #     Dec 2013: first version (by A. Samuel-Rosa)
