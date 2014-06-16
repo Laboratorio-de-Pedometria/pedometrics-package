@@ -1,4 +1,4 @@
-#  file pedometria/R/gcpVector.R
+#  file pedometrics/R/gcpVector.R
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -12,7 +12,7 @@
 #
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
-
+#
 #  Purpose        : calculate module and azimuth
 #  Maintainer     : A Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #  Contributions  : 
@@ -21,17 +21,13 @@
 #  Dependency of  : gcpDiff()
 #  Note           : tested only in Ubuntu 13.10 
 #  TODOs          :
-
+#
 #  Timeline
-#     Dec 2014: first version (by A. Samuel-Rosa)
+#     Dec 2013: first version (by A. Samuel-Rosa)
 #  23 Mar 2014: Changed function name from gcpvector() to gcpVector() to comply
 #               with programming style convention. Corrected funtion definition.
 #               (by A. Samuel-Rosa)
-
-gcpVector <-
-  function(dx, dy) {
-    UseMethod("gcpVector")
-  }
+#  16 Jun 2014: Corrected function call. Improved documentation.
 
 gcpVector <-
   # Calculate the module and azimuth

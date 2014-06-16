@@ -1,14 +1,28 @@
+#  file pedometrics/R/readsat.R
+#
+#  This program is free software; you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation; either version 2 or 3 of the License
+#  (at your option).
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  A copy of the GNU General Public License is available at
+#  http://www.r-project.org/Licenses/
+#
 # Purpose        : Optimize importing of satellite imagery to GRASS GIS;
 # Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com); 
 # Contributions  : ;
 # Status         : beta;
 # Depends        : GRASS GIS 6+, GDAL;
 # Note           : tested only under Ubuntu 13.10;
-
-readsat <-
-  function(input, output, sat, in_prefix, in_suffix, out_prefix, ...) {
-    UseMethod("readsat")
-  }
+#
+#  Timeline
+#     Dec 2013: first version (by A. Samuel-Rosa)
+#  16 Jun 2014: Corrected function call. Improved documentation.
 
 readsat <-
   function(import = "single", dir = getwd(), overwrite = FALSE, input,

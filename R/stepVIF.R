@@ -12,7 +12,7 @@
 #
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
-
+#
 #  Purpose        : variable selection using the variance-inflation factor
 #  Maintainer     : Alessandro Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #  Contributions  : 
@@ -22,16 +22,13 @@
 #  Note           : tested only in Ubuntu
 #  TODOs          : include option to use partial correlations as criteria to 
 #                   drop predictor variables.
-
+#
 #  Timeline
 #  22 Mar 2014: first version (by A. Samuel-Rosa)
 #  25 Mar 2014: changed the way models are updated using update()
 #  15 Apr 2014: improved documentation
+#  16 Jun 2014: Corrected function call. Improved documentation.
 
-stepVIF <-
-  function (model, ...) {
-    UseMethod("stepVIF")
-  }
 
 stepVIF <-
   function (model, threshold = 10, verbose = FALSE) {

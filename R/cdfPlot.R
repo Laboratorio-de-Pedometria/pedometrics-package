@@ -1,4 +1,4 @@
-#  file pedometria/R/cdfPlot.R
+#  file pedometrics/R/cdfPlot.R
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@
 #  Note           : Known to work only with quantitative variables.
 #                   Tested only with Ubuntu.
 #  TODOs          : Clean the code. Remove unecessary arguments.
-
+#
 #  Timeline
-#     Dec 2014: first version (by A. Samuel-Rosa)
+#     Dec 2013: first version (by A. Samuel-Rosa)
 #  23 Mar 2014: Changed function name from cdpplot() to cdfPlot() to comply
 #               with programming style convention. Corrected funtion definition.
 #               (by A. Samuel-Rosa)
@@ -33,7 +33,7 @@
 #               parameters of the cdf (mean, median, and percentile).
 #  20 May 2014: Added argument to define if the confidence limits of the CDF
 #               should be included in the plot.
-#  16 Jun 2014: Corrected function call.
+#  16 Jun 2014: Corrected function call. Improved documentation.
 
 cdfPlot <- 
   function (obj, ind, units.cdf = "percent", type.plot = "s", 
