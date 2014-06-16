@@ -2,6 +2,13 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.1-7 (2014-06-16)}{
+  \itemize{
+    \item First public release.
+    \item Several corrections in the documentation, preparing for the first public release.
+  }
+}
+
 \section{Changes in version 0.1-6 (2014-05-25)}{
   \itemize{
     \item Seventh internal release.
