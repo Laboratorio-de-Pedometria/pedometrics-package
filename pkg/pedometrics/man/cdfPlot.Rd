@@ -1,0 +1,152 @@
+\name{cdfPlot}
+\alias{cdfPlot}
+\title{
+Plot estimated cumulative distribution function (CDF) with confidence limits
+}
+\description{
+This function is a modified version of \code{cdf.plot()} of 
+\pkg{spsurvey}-package including new argument options.
+}
+\usage{
+cdfPlot(obj, ind, units.cdf = "percent", type.plot = "s",
+        type.cdf = "continuous", logx = "", xlbl = NULL,
+        ylbl = "Percent", ylbl.r = NULL, figlab = NULL,
+        legloc = "BR", confcut = 5, show.conflev = TRUE, conflev = 95,
+        show.param = TRUE, round = 0, col.param = "black", ...)
+}
+\arguments{
+  \emph{From spsurvey:}
+    \item{units.cdf}{
+      Indicator for the type of units in which the CDF is plotted, where
+      \dQuote{percent} means the plot is in terms of percent of the population, 
+      and \dQuote{units} means the plot is in terms of units of the population.
+      Defaults to \code{units.cdf = "percent"}.
+    }
+    \item{type.cdf}{
+      Character string consisting of the value \dQuote{continuous} or
+      \dQuote{ordinal} that controls the type of CDF plot for each indicator.
+      Defaults to \code{type.cdf = "continuous"}.
+    }
+    \item{logx}{
+      Character string consisting of the value "" or "x" that controls whether
+      the x axis uses the original scale ("") or the base 10 logarithmic scale
+      ("x"). Defaults to \code{logx = ""}.
+    }
+    \item{xlbl}{
+      Character string providing the x-axis label. If this argument equals NULL,
+      then the indicator name is used as the label. Defaults to 
+      \code{xlbl = NULL}.
+    }
+    \item{ylbl}{
+      Character string providing the the y-axis label. Defaults to
+      \code{ylbl = "Percent"}.
+    }
+    \item{ylbl.r}{
+      Character string providing the label for the right side y-axis, where 
+      \code{ylbl.r = NULL} means a label is not created, and 
+      \code{ylbl.r = "Same"} means the label is the same as the left side label 
+      (i.e., argument ylbl). Defaults to \code{ylbl.r = NULL}.
+    }
+    \item{figlab}{
+      Character string providing the plot title. Defaults to
+      \code{figlab = NULL}.
+    }
+    \item{legloc}{
+      Indicator for location of the plot legend, where \code{legloc = "BR"}
+      means bottom right, \code{legloc = "BL"} means bottom left, 
+      \code{legloc = "TR"} means top right, and \code{legloc = "TL"} means top
+      left. Defaults to \code{legloc = "BR"}.
+    }
+    \item{confcut}{
+      Numeric value that controls plotting confidence limits at the CDF
+      extremes. Confidence limits for CDF values (percent scale) less than
+      confcut or greater than 100 minus \code{confcut} are not plotted. A value
+      of zero means confidence limits are plotted for the complete range of the
+      CDF. Defaults to \code{confcut = 5}.
+    }
+    \item{conflev}{
+      Numeric value of the confidence level used for confidence limits. Defaults
+      to \code{conflev = 95}.
+    }
+    \item{...}{
+      Additional arguments passed to the plot function. But note that function
+      \code{cdfPlot()} was defined in the first place because there is a conflict
+      between the arguments of the original function \code{cdf.plot()} and those
+      passed to \code{plot()}.
+    }
+  \emph{New Arguments}
+    \item{obj}{
+      Object with the estimated CDF. The resulting object of
+      \code{cont.analysis()} of \pkg{spsurvey}-package.
+    }
+    \item{ind}{
+      Indicator variable. The name of the variable as displayed in the resulting
+      object of \code{cont.analysis()}.
+    }
+    \item{type.plot}{
+      Type of plot. Desired type of plot to be produced, with options
+      \code{type.plot  = "l"}, for \sQuote{line}, and \code{type.plot = "s"} for
+      \sQuote{stair}. See \sQuote{Details}. Defaults to \code{type.plot = "s"}.}
+    \item{show.param}{Logical for showing the parameters of the CDF. Available
+       parameters are the mean, the median, and a percentile defined by the
+       argument \code{conflev}. The legend displays de actual values of all 
+       three parameters, including the standard deviation of the mean. The 
+       percentile value is calculated using \code{spsurvey::interp.cdf()}.}
+    \item{round}{Numeric to set the rounding level of the parameters of the CDF.}
+    \item{col.param}{Color of the lines showing the parameters of the CDF.
+       Defaults to \code{col.param = "black"}.}
+    \item{show.conflev}{Logical for showing the confidence limits of the
+       CDF. Defaults to \code{show.conflev = TRUE}.}
+}
+\details{
+Parameter \code{type.plot} is used only when \code{type.cdf = "Continuous"}.
+}
+\value{
+A plot of the estimated cumulative distribution function with confidence limits.
+}
+\references{
+Brus, D. J., Kempen, B. and Heuvelink, G. B. M. (2011).
+  Sampling for validation of digital soil maps.
+  \emph{European Journal of Soil Science}, v. 62, p. 394-407.
+
+Diaz-Ramos, S., D.L. Stevens, Jr., and A.R. Olsen. (1996).
+  \emph{EMAP Statistical Methods Manual}. EPA/620/R-96/XXX. Corvallis,
+  OR: U.S. Environmental Protection Agency, Office of Research and
+  Development, National Health Effects and Environmental Research
+  Laboratory, Western Ecology Division.
+
+Kincaid, T. M. and Olsen, A. R. (2013)
+  \emph{spsurvey: Spatial Survey Design and Analysis}.
+  R package version 2.6. URL: \url{http://www.epa.gov/nheerl/arm/}.
+}
+\author{
+Tony Olsen \email{Olsen.Tony@epa.gov}\cr
+Tom Kincaid \email{Kincaid.Tom@epa.gov}\cr
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
+\note{
+This function was originaly named \code{plot.cdf()}.
+
+Care should be taken with possible extra conflict between the arguments of the
+original function \code{cdf.plot()} and those passed to \code{plot()}.
+
+This function was not tested using categorical variables.
+}
+\seealso{
+\code{\link[spsurvey]{cdf.plot}}.
+}
+\examples{
+\dontrun{
+## Estimate the CDF
+my.cdf <- cont.analysis(spsurvey.obj = my.spsurvey)
+
+## See indicator levels in the resulting object
+levels(my.cdf$Pct$Indicator)
+
+## Plot CDF
+cdfPlot(obj = my.cdf, ind = "dz", figlab = "",
+   xlbl = "Difference (m)", xlim = c(-30, 10), type.plot = "s")
+}
+}
+\keyword{dplot}
+\keyword{hplot}
