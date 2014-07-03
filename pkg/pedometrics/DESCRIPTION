@@ -1,18 +1,18 @@
 Package: pedometrics
 Title: Pedometric Tools and Techniques
-Version: 0.1-7
-Date: 2014-06-16
+Version: 0.1-8
+Date: 2014-07-03
 Authors@R: c(person("Alessandro Samuel-Rosa", role = c("aut", "cre"), email = "alessandrosamuelrosa@gmail.com"),
 	person("Lucia H. C. Anjos", role = "ths", email = "lanjos@ufrrj.br"),
 	person("Gustavo M. Vasques", role = "ths", email = "gustavo.vasques@embrapa.br"),
 	person("Gerard B. M. Heuvelink", role = "ths", email = "gerard.heuvelink@wur.nl"))
 Author: Alessandro Samuel-Rosa [aut, cre],
-  Lucia Anjos [ths],
-  Gustavo Vasques [ths],
-  Gerard Heuvelink [ths]
+  Lucia H. C. Anjos [ths],
+  Gustavo M. Vasques [ths],
+  Gerard B. M. Heuvelink [ths]
 Maintainer: Alessandro Samuel-Rosa <alessandrosamuelrosa@gmail.com>
 Depends: R (>= 1.8.0), sp
-Imports: spsurvey, xtable, XML, stringr, car
+Imports: spsurvey, xtable, XML, stringr, car, MASS, pbapply
 Suggests: methods
 Description: This package contains many tools and techniques used in the field of pedometrics. These tools and techniques were developed as part of the PhD research project entitled Contribution to the Construction of Models for Predicting Soil Properties, developed by Alessandro Samuel-Rosa under the supervision of Dr. Lucia H. C. Anjos (Federal Rural University of Rio de Janeiro, Brazil), Dr. Gustavo M. Vasques (Embrapa Soils, Brazil), and Dr. Gerard B. M. Heuvelink (ISRIC - World Soil Information, the Netherlands). Several functions are simple wrapper functions that extend the functionalities of other standard functions.
 License: GPL (>= 2)
