@@ -4,7 +4,13 @@ import(
   XML,
   stringr,
   sp,
-  car
+  car,
+  pbapply,
+  MASS,
+  plyr,
+  lattice,
+  latticeExtra,
+  grid
   )
 
 export(
@@ -16,5 +22,8 @@ export(
   gcpVector,
   readsat,
   toar,
-  stepVIF
+  stepVIF,
+  buildMS,
+  statsMS,
+  plotMS
   )
