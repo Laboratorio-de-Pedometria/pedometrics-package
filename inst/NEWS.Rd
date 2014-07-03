@@ -2,9 +2,21 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.1-8 (2014-07-03)}{
+  \itemize{
+    \item Second public release (R-Forge).
+    \item Included function \code{buildMS()}, used to build a series of linear 
+          models using automated variable selection. Included function
+          \code{statsMS()}, used to obtain performance statistics of a series
+          of linear models. Included function \code{plotMS}, used to plot the
+          statistics of a models series. Corrected bugs detected during the
+          first built.
+  }
+}
+
 \section{Changes in version 0.1-7 (2014-06-16)}{
   \itemize{
-    \item First public release.
+    \item First public release (R-Forge).
     \item Several corrections in the documentation, preparing for the first public release.
   }
 }
