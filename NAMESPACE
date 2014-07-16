@@ -7,9 +7,6 @@ import(
   car,
   pbapply,
   MASS,
-  plyr,
-  lattice,
-  latticeExtra,
   grid
   )
 
