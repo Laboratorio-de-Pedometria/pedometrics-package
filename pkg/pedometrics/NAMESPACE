@@ -10,7 +10,9 @@ import(
   plyr,
   lattice,
   latticeExtra,
-  grid
+  grid,
+  VecStatGraphs2D,
+  mvtsplot
   )
 
 export(
@@ -25,5 +27,6 @@ export(
   stepVIF,
   buildMS,
   statsMS,
+  adjR2,
   plotMS
   )
