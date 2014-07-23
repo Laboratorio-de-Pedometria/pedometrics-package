@@ -4,7 +4,7 @@
 \docType{package}
 \title{Pedometric Tools and Techniques}
 \description{
-This package contains many tools and techniques used in the field of pedometrics. These tools and techniques were developed as part of the PhD research project entitled Contribution to the Construction of Models for Predicting Soil Properties, developed by Alessandro Samuel-Rosa under the supervision of Dr. Lúcia Helena Cunha dos Anjos (Federal Rural University of Rio de Janeiro, Brazil), Dr. Gustavo de Mattos Vasques (Embrapa Soils, Brazil), and Dr. Gerard B M Heuvelink (ISRIC - World Soil Information, the Netherlands). Most functions are simple wrapper functions that extend the functionalities of other standard functions.
+This package contains many tools and techniques used in the field of pedometrics. These tools and techniques were developed as part of the PhD research project entitled Contribution to the Construction of Models for Predicting Soil Properties, developed by Alessandro Samuel-Rosa under the supervision of Dr. Lucia Helena Cunha dos Anjos (Federal Rural University of Rio de Janeiro, Brazil), Dr. Gustavo de Mattos Vasques (Embrapa Soils, Brazil), and Dr. Gerard B M Heuvelink (ISRIC - World Soil Information, the Netherlands). Most functions are simple wrapper functions that extend the functionalities of other standard functions.
 }
 \details{
 \tabular{ll}{
