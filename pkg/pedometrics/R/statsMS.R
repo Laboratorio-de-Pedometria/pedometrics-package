@@ -19,26 +19,13 @@
 #  Version        : beta
 #  Depends on     : plyr::arrange, plyr:desc, pedometrics::adjR2()
 #  Dependency of  :
-#  Note           : Tested only in Ubuntu. Designed to return the statistics of
-#                   linear models built with buildMS().
-#  TODO           : 
-#
-#  Timeline
-#  26 Mar 2014: First version (by A. Samuel-Rosa)
-#  04 Apr 2014: Added option to check is the adjusted R2 was penalized.
-#  09 Apr 2014: Penalization is now calculated here.
-#  15 Apr 2014: Improved documentation.
-#  22 Apr 2014: Changed name to statsModelSeries(). A column with model ID is
-#               automatically create. Information about the modeling desing can
-#               be added to the table. The table now can also be arranged
-#               (ordered) using one of the available statistics.
-#  16 Jun 2014: Added option to call the function using statsMS().
-#  16 Jun 2014: Documentation was moved to a Rd file. Included argument checking.
-#               Added option to round the results.
-#
+adjR2 <- 
+  function (r2, n, p) {
+    r2 <- 1 - (1 - r2) * ((n - 1) / (n - p - 1))
+    return(r2)
+  }
 statsMS <-
   function (model, design.info, arrange.by, digits) {
-    # check arguments ##########################################################
     if (missing(model)) {
       stop("<model> is a mandatory argument")
     }
@@ -55,11 +42,9 @@ statsMS <-
         stop("<arrange.by> should be of class character")
       }  
     }
-    # prepare data #############################################################
     if (class(model) == "lm") {
       model <- list(model)
     }
-    # get performance statistics ###############################################
     n      <- as.numeric(sapply(model, attr, "n"))
     p      <- as.numeric(sapply(model, attr, "p"))
     df     <- sapply(model, extractAIC)[1, ]
@@ -75,7 +60,6 @@ statsMS <-
     r2     <- as.numeric(unlist(sapply(model, summary)[8, ]))
     adj_r2 <- adjR2(r2, n, p = c(p - 1))
     id <- seq(1, length(n), 1)
-    # prepare output ###########################################################
     if (!missing(digits)) {
       if (length(digits) == 4) {
         aic    <- round(aic, digits[1])
@@ -97,10 +81,8 @@ statsMS <-
       tab <- data.frame(id = id, candidates = p, df = df, aic = aic, rmse = rmse,
                         nrmse = nrmse, adj_r2 = adj_r2, stringsAsFactors = FALSE)  
     }
-    # arrange data
     if (!missing(arrange.by)) {
       tab <- arrange(tab, desc(tab[, arrange.by]))
     }
     return(tab)
   }
-# End!
