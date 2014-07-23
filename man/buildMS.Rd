@@ -6,8 +6,8 @@ Build a series of linear models using automated variable selection
 }
 \description{
 This function allows building a series of linear models (\code{lm}) using one or
-more automated variable selection implemented in function \code{\link{stepVIF()}}
-and \code{\link{stepAIC()}}.
+more automated variable selection implemented in function 
+\code{\link[pedometrics]{stepVIF}} and \code{\link[MASS]{stepAIC}}.
 }
 \usage{
 buildMS(formula, data, vif = FALSE, vif.threshold = 10, 
