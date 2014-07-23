@@ -132,7 +132,7 @@ to the development of my PhD research project. When citing this function, the
 original authors of the R-package \pkg{spsurvey} should also be cited.
 
 Care should be taken with possible conflicts between the arguments of the
-original function \code{\link[spsurvey]{cdf.plot} and those passed to 
+original function \code{\link[spsurvey]{cdf.plot}} and those passed to 
 \code{plot()}. The existence of conflicts between these two functions was also a 
 reason for creating a new implementation.
 
