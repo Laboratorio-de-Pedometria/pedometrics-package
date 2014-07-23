@@ -215,7 +215,7 @@ Roger D. Peng <\email{rpeng@jhsph.edu}>.
          \code{\link[lattice]{levelplot}} for higher customization.
 }
 \seealso{
-\code{\link[lattice]{levelplot}}, \code{\link[lattice]{yxplot}}, 
+\code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}, 
 \code{\link[mvtsplot]{mvtsplot}}.
 }
 \examples{
