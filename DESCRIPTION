@@ -11,8 +11,8 @@ Author: Alessandro Samuel-Rosa [aut, cre],
   Gustavo M. Vasques [ths],
   Gerard B. M. Heuvelink [ths]
 Maintainer: Alessandro Samuel-Rosa <alessandrosamuelrosa@gmail.com>
-Depends: R (>= 1.8.0), sp
-Imports: spsurvey, xtable, XML, stringr, car, MASS, pbapply
+Depends: R (>= 1.8.0)
+Imports: spsurvey, xtable, XML, stringr, sp, car, pbapply, MASS, plyr, lattice, latticeExtra, grid, VecStatGraphs2D, mvtsplot
 Suggests: methods
 Description: This package contains many tools and techniques used in the field of pedometrics. These tools and techniques were developed as part of the PhD research project entitled Contribution to the Construction of Models for Predicting Soil Properties, developed by Alessandro Samuel-Rosa under the supervision of Dr. Lucia H. C. Anjos (Federal Rural University of Rio de Janeiro, Brazil), Dr. Gustavo M. Vasques (Embrapa Soils, Brazil), and Dr. Gerard B. M. Heuvelink (ISRIC - World Soil Information, the Netherlands). Several functions are simple wrapper functions that extend the functionalities of other standard functions.
 License: GPL (>= 2)
