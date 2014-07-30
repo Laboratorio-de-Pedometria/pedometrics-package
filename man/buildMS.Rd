@@ -1,4 +1,3 @@
-%  file pedometrics/man/buildMS.Rd
 \name{buildMS}
 \alias{buildMS}
 \title{
@@ -7,7 +6,7 @@ Build a series of linear models using automated variable selection
 \description{
 This function allows building a series of linear models (\code{lm}) using one or
 more automated variable selection implemented in function 
-\code{\link[pedometrics]{stepVIF}} and \code{\link[MASS]{stepAIC}}.
+\code{stepVIF} and \code{stepAIC}.
 }
 \usage{
 buildMS(formula, data, vif = FALSE, vif.threshold = 10, 
@@ -30,12 +29,13 @@ buildMS(formula, data, vif = FALSE, vif.threshold = 10,
         Logical for printing iteration results of backward variable 
         selection using the VIF. Defaults to \code{vif.verbose = FALSE}.}
   \item{aic}{
-        Logical for performing variable selection using Akaike´s 
+        Logical for performing variable selection using Akaike 
         Information Criterion (AIC). Defaults to \code{aic = FALSE}.}
   \item{aic.direction}{
         Character string setting the direction of variable 
-        selection when using AIC. Available options are "both", "forward", and
-        "backward". Defaults to \code{aic.direction = "both"}.}
+        selection when using AIC. Available options are \code{"both"}, 
+        \code{"forward"}, and \code{"backward"}. Defaults to
+        \code{aic.direction = "both"}.}
   \item{aic.trace}{
         Logical for printing iteration results of variable selection
         using the AIC. Defaults to \code{aic.trace = FALSE}.}
@@ -44,20 +44,20 @@ buildMS(formula, data, vif = FALSE, vif.threshold = 10,
         considered for variable selection using the AIC. Defaults to 
         \code{aic.steps = 5000}.}
   \item{...}{
-        Further arguments passed to the function \code{\link{stepAIC()}}.
+        Further arguments passed to the function \code{stepAIC}.
   }
 }
 \details{
 This function was devised to deal with a list of linear model formulas. The main 
 objective is to bring together several functions commonly used when building
 linear models, such as automated variable selection. In the current 
-implementation, variable selection can be done using \code{\link{stepVIF()}} or
-\code{\link{stepAIC()}} or both. \code{\link{stepVIF()}} is a backward variable
-selection procedure, while \code{\link{stepAIC()}} supports backward, forward, 
-and bidirectional variable selection. For more information about these 
-functions, please visit their respective help pages.
+implementation, variable selection can be done using 
+\code{stepVIF} or \code{stepAIC} or both. \code{stepVIF} is a backward variable 
+selection procedure, while \code{stepAIC} supports backward, forward, and
+bidirectional variable selection. For more information about these functions, 
+please visit their respective help pages.
 
-An important feature of \code{buildMS()} is that it records the initial number
+An important feature of \code{buildMS} is that it records the initial number
 of candidate predictor variables and observations offered to the model, and adds
 this information as an attribute to the final selected model. Such feature was
 included because variable selection procedures result biased linear models (too
@@ -65,17 +65,17 @@ optimistic), and the effective number of degrees of freedom is close to the
 number of candidate predictor variables initially offered to the model
 (Harrell, 2001). With the initial number of candidate predictor variables and
 observations offered to the model, one can calculate penalized or adjusted 
-measures of model performance. For models built using \code{builtMS()}, this can
-be done using \code{statsMS()}.
+measures of model performance. For models built using \code{builtMS}, this can
+be done using \code{statsMS}.
 
-Some important details should be clear when using \code{buildMS()}:
+Some important details should be clear when using \code{buildMS}:
 
 1) this function was originaly devised to deal with a list of formulas, but can 
 also be used with a single formula;
 
-2) in the current implementation, \code{stepVIF()} runs before \code{stepAIC()};
+2) in the current implementation, \code{stepVIF} runs before \code{stepAIC};
 
-3) function arguments imported from \code{stepAIC()} and \code{stepVIF()} were
+3) function arguments imported from \code{stepAIC} and \code{stepVIF} were
 named as in the original functions, and received a prefix (\code{aic} or
 \code{vif}) to help the user identifying which function is affected by a given
 argument without having to go check the documentation.
@@ -96,18 +96,16 @@ Venables, W. N. and Ripley, B. D. (2002)
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
-\note{
-This function was tested only in Ubuntu.
-}
 \section{TODO}{
-Add option to set the order in which \code{stepAIC()} and \code{stepVIF()} 
-are run.
+Add option to set the order in which \code{stepAIC} and \code{stepVIF} are run.
 }
 \seealso{
-\code{\link{stepAIC}}, \code{\link{stepVIF}}, \code{\link{statsMS}}.
+\code{\link[MASS]{stepAIC}}, \code{\link[pedometrics]{stepVIF}},
+\code{\link[pedometrics]{statsMS}}.
 }
 \examples{
-# based on the second example of function stepAIC()
+\dontrun{
+# based on the second example of function stepAIC
 library(MASS)
 library(pbapply)
 cpus1 <- cpus
@@ -122,7 +120,6 @@ cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin + chma
 cpus.ms   <- buildMS(cpus.form, data = cpus1[cpus.samp,2:8],
                      vif = TRUE, aic = TRUE)
 }
-%RShowDoc("KEYWORDS")
+}
 \keyword{iteration}
 \keyword{models}
-% End!
