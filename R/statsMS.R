@@ -17,7 +17,7 @@
 #  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #  Contributions  : 
 #  Version        : beta
-#  Depends on     : plyr::arrange, plyr:desc, pedometrics::adjR2()
+#  Depends on     : plyr::arrange, plyr:desc
 #  Dependency of  :
 adjR2 <- 
   function (r2, n, p) {
@@ -57,29 +57,34 @@ statsMS <-
       rmse[i] <- sqrt(sum(res[, i] * res[, i]) / (n[i] - p[i]))
       nrmse[i] <- rmse[i] / sd_y
     }
-    r2     <- as.numeric(unlist(sapply(model, summary)[8, ]))
-    adj_r2 <- adjR2(r2, n, p = c(p - 1))
+    r2     <- as.numeric(unlist(sapply(model, summary)["r.squared", ]))
+    adj_r2 <- as.numeric(unlist(sapply(model, summary)["adj.r.squared", ]))
+    ADJ_r2 <- adjR2(r2, n, p = c(p - 1))
     id <- seq(1, length(n), 1)
     if (!missing(digits)) {
-      if (length(digits) == 4) {
+      if (length(digits) == 6) {
         aic    <- round(aic, digits[1])
         rmse   <- round(rmse, digits[2])
         nrmse  <- round(nrmse, digits[3])
-        adj_r2 <- round(adj_r2, digits[4])
+        r2     <- round(r2, digits[4])
+        adj_r2 <- round(adj_r2, digits[5])
+        ADJ_r2 <- round(ADJ_r2, digits[6])
       } else {
         aic    <- round(aic, digits)
         rmse   <- round(rmse, digits)
         nrmse  <- round(nrmse, digits)
-        adj_r2 <- round(adj_r2, digits) 
+        r2     <- round(r2, digits)
+        adj_r2 <- round(adj_r2, digits)
+        ADJ_r2 <- round(ADJ_r2, digits)
       }
     }
     if (!missing(design.info)) {
       candidates <- p
       tab <- data.frame(cbind(id, design.info, candidates, df, aic, rmse, nrmse,
-                              adj_r2), stringsAsFactors = FALSE)
+                              r2, adj_r2, ADJ_r2), stringsAsFactors = FALSE)
     } else {
-      tab <- data.frame(id = id, candidates = p, df = df, aic = aic, rmse = rmse,
-                        nrmse = nrmse, adj_r2 = adj_r2, stringsAsFactors = FALSE)  
+      tab <- data.frame(id, candidates = p, df, aic, rmse, nrmse, r2, adj_r2, 
+                        ADJ_r2, stringsAsFactors = FALSE)  
     }
     if (!missing(arrange.by)) {
       tab <- arrange(tab, desc(tab[, arrange.by]))

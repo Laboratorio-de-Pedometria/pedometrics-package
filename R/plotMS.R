@@ -21,17 +21,7 @@
 #                   grid::grid.points()
 #  Dependency of  :
 #  Note           : tested only in Ubuntu
-#  TODO           : - Add option to rank the models based on the performance
-#                     statistics selected (argument <line>)
-#                   - Correct x-axis breaks
-#
-#  Timeline
-#  22 Apr 2014: First version (by A. Samuel-Rosa)
-#  16 Jun 2014: Added option to call the function using plotMS().
-#  17 Jun 2014: Moved documentation to an Rd file. Added argument checkings.
-#               Improved automation.
-#  20 Jun 2014: Improved documentation. Corrected bug in line argument.
-#
+#  TODO           : 
 plotMS <-
   function (obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2),
             size = 0.5, arrange = "desc", color = NULL, 
@@ -62,7 +52,8 @@ plotMS <-
       stop("<ind> should be an integer value")
     }
     if (any(class(line) == c("integer", "numeric"))) {
-      nam0 <- c("candidates", "df", "aic", "rmse", "nrmse", "adj_r2")
+      nam0 <- c("candidates", "df", "aic", "rmse", "nrmse", "r2", "adj_r2", 
+                "ADJ_r2")
       nam1 <- colnames(obj)[line]
       if (!any(colnames(obj)[line] == nam0)) {
         stop(paste("<ylab> should be provided for performance statistics <",
@@ -89,7 +80,7 @@ plotMS <-
     if (class(line) == "numeric") {
       line <- colnames(obj)[line]
     }
-    if (line == "adj_r2") {
+    if (any(line == c("r2", "adj_r2", "ADJ_r2"))) {
       obj <- arrange(obj, obj[, line])
     } else {
       obj <- arrange(obj, desc(obj[, line]))  
@@ -125,7 +116,10 @@ plotMS <-
       if (line == "nrmse") {
         yl <- "NRMSE"
       }
-      if (line == "adj_r2") {
+      if (line == "r2") {
+        yl <- expression(paste(R^2, sep = ''))
+      }
+      if (any(line == c("adj_r2", "ADJ_r2"))) {
         yl <- expression(paste('Adjusted ',R^2, sep = ''))
       }
       ylab <- list(c(yl, "Design"))
