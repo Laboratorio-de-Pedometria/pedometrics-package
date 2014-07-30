@@ -16,69 +16,83 @@ plotMS(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5,
        ...)
 }
 \arguments{
-  \item{obj}{Object of class \code{data.frame}, generally returned by
+  \item{obj}{
+  Object of class \code{data.frame}, generally returned by
   \code{\link[pedometrics]{statsMS}}, containing a 1) series of performance 
   statistics of several models, and 2) the design information of each model. See
   \sQuote{Details} for more information.
   }
-  \item{grid}{Vector of integer values or character strings indicating the
+  \item{grid}{
+  Vector of integer values or character strings indicating the
   columns of the \code{data.frame} containing the design data which will be
   gridded using the function \code{\link[lattice]{levelplot}}. See
   \sQuote{Details} for more information.
   }
-  \item{line}{Character string or integer value indicating which of the 
+  \item{line}{
+  Character string or integer value indicating which of the 
   performance statistics (usually calculated by the function \code{statsMS})
   should be plotted using the function \code{\link[lattice]{xyplot}}. See
   \sQuote{Details} for more information.
   }
-  \item{ind}{Integer value indicating for which group of models the mean rank 
+  \item{ind}{
+  Integer value indicating for which group of models the mean rank 
   is to be calculated. See \sQuote{Details} for more information.
   }
-  \item{type}{Vector of character strings indicating some of the effects to be
+  \item{type}{
+  Vector of character strings indicating some of the effects to be
   used when plotting the performance statistics using the function
   \code{xyplot}. Defaults to \code{type = c("b", "g")}. See 
   \code{\link[lattice]{panel.xyplot}} for more information on how to set this
   argument.
   }
-  \item{pch}{Vector with two integer values specifying the symbols to be used
+  \item{pch}{
+  Vector with two integer values specifying the symbols to be used
   to plot points. The first sets the symbol used to plot the performance
   statistic, while the second sets the symbol used to plot the mean rank of the
   indicator set using argument \code{ind}. Defaults to \code{pch = c(20, 2)}.
   See \code{\link[graphics]{points}} for possible values and their
   interpretation.
   }
-  \item{size}{Numeric value specifying the size of the symbols used for 
+  \item{size}{
+  Numeric value specifying the size of the symbols used for 
   plotting the mean rank of the indicator set using argument \code{ind}.
   Defaults to \code{size = 0.5}. See \code{\link[grid]{grid.points}} for more
   information.
   }
-  \item{arrange}{Character string indicating how the model series should be 
+  \item{arrange}{
+  Character string indicating how the model series should be 
   arranged, which can be in ascending (\code{asc}) or descending (\code{desc}) 
   order. Defaults to \code{arrange = "desc"}. See \code{\link[plyr]{arrange}}
   for more information.
   }
-  \item{color}{Vector defining the colors to be used in the grid produced by 
+  \item{color}{
+  Vector defining the colors to be used in the grid produced by 
   function \code{levelplot}. If \code{NULL}, defaults to
   \code{color = cm.colors(n)}, where \code{n} is the number of unique values
   in the columns defined by argument \code{grid}. See
   \code{\link[grDevices]{cm.colors}} to see how to use other color palettes.
   }
-  \item{xlim}{Numeric vector of length 2, giving the x coordinates range. If 
+  \item{xlim}{
+  Numeric vector of length 2, giving the x coordinates range. If 
   \code{NULL} (which is the recommended value), defaults to 
   \code{xlim = c(0.5, dim(obj)[1] + 0.5)}. This is, so far, the optimum range 
   for adequate plotting.
   }
-  \item{ylab}{Character vector of length 2, giving the y-axis labels. When 
+  \item{ylab}{
+  Character vector of length 2, giving the y-axis labels. When 
   \code{obj} is a \code{data.frame} returned by function \code{statsMS}, and the
   performance statistic passed to argument \code{line} is one of those 
   calculated by function \code{statsMS} (\code{"candidates"}, \code{"df"}, 
-  \code{"aic"}, \code{"rmse"}, \code{"nrmse"}, or \code{"adj_r2"}), the 
-  function tries to automatically identify the correct \code{ylab}.
+  \code{"aic"}, \code{"rmse"}, \code{"nrmse"}, \code{"r2"}, \code{"adj_r2"} or
+  \code{"ADJ_r2"}), the function tries to automatically identify the correct 
+  \code{ylab}.
   }
-  \item{xlab}{Character vector of length 1, giving the x-axis labels. Defaults
+  \item{xlab}{
+  Character vector of length 1, giving the x-axis labels. Defaults
   to \code{xlab = "Model ranking"}.  
   }
-  \item{...}{Other arguments for plotting, although most of these have no been
+  \item{...}{
+  Other arguments for plotting, although most of these have no been
   tested. Argument \code{asp}, for example, is not effective since the function
   automatically identifies the best aspect for plotting based on the dimensions
   of the design data.
