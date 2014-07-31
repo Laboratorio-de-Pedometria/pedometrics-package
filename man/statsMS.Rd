@@ -1,4 +1,3 @@
-%  file pedometrics/man/statsMS.Rd
 \name{statsMS}
 \alias{statsMS}
 \title{
@@ -109,10 +108,8 @@ Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 \code{\link[pedometrics]{buildMS}}, \code{\link[pedometrics]{plotMS}}.
 }
 \examples{
+\dontrun{
 # based on the second example of function stepAIC
-library(MASS)
-library(pbapply)
-require(plyr)
 cpus1 <- cpus
 for(v in names(cpus)[2:7])
   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])),
@@ -128,7 +125,6 @@ cpus.des  <- data.frame(a = c(0, 1, 0), b = c(1, 0, 1), c = c(1, 1, 0))
 statsMS(cpus.ms, design.info = cpus.des, arrange.by = "aic", 
         digits = c(2, 2, 2, 2))
 }
-%RShowDoc("KEYWORDS")
+}
 \keyword{models}
 \keyword{manip}
-% End!
