@@ -106,8 +106,6 @@ Add option to set the order in which \code{stepAIC} and \code{stepVIF} are run.
 \examples{
 \dontrun{
 # based on the second example of function stepAIC
-library(MASS)
-library(pbapply)
 cpus1 <- cpus
 for(v in names(cpus)[2:7])
   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])),
