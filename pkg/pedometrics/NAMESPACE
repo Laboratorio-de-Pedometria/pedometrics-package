@@ -22,8 +22,6 @@ export(
   coordenadas,
   gcpDiff,
   gcpVector,
-  readsat,
-  toar,
   stepVIF,
   buildMS,
   statsMS,
