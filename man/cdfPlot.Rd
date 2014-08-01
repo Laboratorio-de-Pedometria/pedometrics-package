@@ -27,7 +27,7 @@ cdfPlot(obj, ind, units.cdf = "percent", type.plot = "s",
     Defaults to \code{type.cdf = "continuous"}.
     }
     \item{logx}{
-    Character string consisting of the value \code{""} or \code{"x""} that
+    Character string consisting of the value \code{""} or \code{"x"} that
     controls whether the x axis uses the original scale (\code{""}) or the 
     base 10 logarithmic scale (\code{"x"}). Defaults to \code{logx = ""}.
     }
