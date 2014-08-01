@@ -6,42 +6,40 @@ continuos variable
 }
 \description{
 This function returns summary statistics of the cumulative distribution function
-of a continuous variable estimated with package \bold{spsurvey}.
+of a continuous variable estimated with \pkg{spsurvey}-package.
 }
 \usage{
 cdfStats(obj, ind, all = TRUE)
 }
 \arguments{
   \item{obj}{
-    Object containing the estimated cumulative distribution function of the
-    continuous variable. The resulting object of \code{cont.analysis()} of
-    \pkg{spsurvey}-package.
+  Object containing the estimated cumulative distribution function of the
+  continuous variable. The resulting object of \code{cont.analysis()} of
+  \pkg{spsurvey}-package.
   }
   \item{ind}{
-    Indicator variable. The name of the continuous variable as displayed in the
-    resulting object of \code{cont.analysis()}.
+  Indicator variable. The name of the continuous variable as displayed in the
+  resulting object of \code{cont.analysis()}.
   }
   \item{all}{
-    Summary statistics to be returned. The default option (\code{all = TRUE})
-    returns all summary statistics available. If \code{all = FALSE}, then only
-    estimated population mean and standard deviation are returned. See
-    \sQuote{Details}.
+  Summary statistics to be returned. The default option (\code{all = TRUE})
+  returns all summary statistics available. If \code{all = FALSE}, then only
+  estimated population mean and standard deviation are returned. See
+  \sQuote{Details}.
   }
 }
 \details{
-  The function \code{cont.analysis} of package \bold{spsurvey}
-  estimates the population total, mean, variance, and standard
-  deviation of a continuous variable. It also estimates the standard
-  error and confidence bounds of these population estimates. In some
-  cases it may be interesting to see all estimates, for which one uses
-  \code{all = TRUE}. However, in other circumstances there might be
-  interest only in taking a look at the estimated population mean and
-  standard deviation. Then the argument \code{all} has to be set to
-  \code{FALSE}.
+The function \code{cont.analysis()} of \pkg{spsurvey}-package estimates the
+population total, mean, variance, and standard deviation of a continuous 
+variable. It also estimates the standard error and confidence bounds of these 
+population estimates. In some cases it may be interesting to see all estimates, 
+for which one uses \code{all = TRUE}. However, in other circumstances there
+might be interest only in taking a look at the estimated population mean and
+standard deviation. Then the argument \code{all} has to be set to \code{FALSE}.
 }
 \value{
-  A \code{data.frame} containing summary statistics of the cumulative
-  distribution function of a continuous variable.
+A \code{data.frame} containing summary statistics of the cumulative
+distribution function of a continuous variable.
 }
 \references{
 Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey

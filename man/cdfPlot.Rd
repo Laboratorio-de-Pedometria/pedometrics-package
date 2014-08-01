@@ -1,7 +1,7 @@
 \name{cdfPlot}
 \alias{cdfPlot}
 \title{
-Plot estimated cumulative distribution function (CDF) with confidence limits
+Plot estimated cumulative distribution function with confidence limits
 }
 \description{
 This function is a modified version of \code{cdf.plot()} of 
@@ -16,89 +16,99 @@ cdfPlot(obj, ind, units.cdf = "percent", type.plot = "s",
 }
 \arguments{
     \item{units.cdf}{
-      Indicator for the type of units in which the CDF is plotted, where
-      \dQuote{percent} means the plot is in terms of percent of the population, 
-      and \dQuote{units} means the plot is in terms of units of the population.
-      Defaults to \code{units.cdf = "percent"}.
+    Indicator for the type of units in which the CDF is plotted, where
+    \dQuote{percent} means the plot is in terms of percent of the population, 
+    and \dQuote{units} means the plot is in terms of units of the population.
+    Defaults to \code{units.cdf = "percent"}.
     }
     \item{type.cdf}{
-      Character string consisting of the value \dQuote{continuous} or
-      \dQuote{ordinal} that controls the type of CDF plot for each indicator.
-      Defaults to \code{type.cdf = "continuous"}.
+    Character string consisting of the value \dQuote{continuous} or
+    \dQuote{ordinal} that controls the type of CDF plot for each indicator.
+    Defaults to \code{type.cdf = "continuous"}.
     }
     \item{logx}{
-      Character string consisting of the value "" or "x" that controls whether
-      the x axis uses the original scale ("") or the base 10 logarithmic scale
-      ("x"). Defaults to \code{logx = ""}.
+    Character string consisting of the value \code{""} or \code{"x""} that
+    controls whether the x axis uses the original scale (\code{""}) or the 
+    base 10 logarithmic scale (\code{"x"}). Defaults to \code{logx = ""}.
     }
     \item{xlbl}{
-      Character string providing the x-axis label. If this argument equals NULL,
-      then the indicator name is used as the label. Defaults to 
-      \code{xlbl = NULL}.
+    Character string providing the x-axis label. If this argument equals 
+    \code{NULL}, then the indicator name is used as the label. Defaults to 
+    \code{xlbl = NULL}.
     }
     \item{ylbl}{
-      Character string providing the the y-axis label. Defaults to
-      \code{ylbl = "Percent"}.
+    Character string providing the the y-axis label. Defaults to
+    \code{ylbl = "Percent"}.
     }
     \item{ylbl.r}{
-      Character string providing the label for the right side y-axis, where 
-      \code{ylbl.r = NULL} means a label is not created, and 
-      \code{ylbl.r = "Same"} means the label is the same as the left side label 
-      (i.e., argument ylbl). Defaults to \code{ylbl.r = NULL}.
+    Character string providing the label for the right side y-axis, where 
+    \code{ylbl.r = NULL} means a label is not created, and 
+    \code{ylbl.r = "Same"} means the label is the same as the left side label 
+    (i.e., argument \code{ylbl}). Defaults to \code{ylbl.r = NULL}.
     }
     \item{figlab}{
-      Character string providing the plot title. Defaults to
-      \code{figlab = NULL}.
+    Character string providing the plot title. Defaults to \code{figlab = NULL}.
     }
     \item{legloc}{
-      Indicator for location of the plot legend, where \code{legloc = "BR"}
-      means bottom right, \code{legloc = "BL"} means bottom left, 
-      \code{legloc = "TR"} means top right, and \code{legloc = "TL"} means top
-      left. Defaults to \code{legloc = "BR"}.
+    Indicator for location of the plot legend, where \code{legloc = "BR"}
+    means bottom right, \code{legloc = "BL"} means bottom left, 
+    \code{legloc = "TR"} means top right, and \code{legloc = "TL"} means top
+    left. Defaults to \code{legloc = "BR"}.
     }
     \item{confcut}{
-      Numeric value that controls plotting confidence limits at the CDF
-      extremes. Confidence limits for CDF values (percent scale) less than
-      confcut or greater than 100 minus \code{confcut} are not plotted. A value
-      of zero means confidence limits are plotted for the complete range of the
-      CDF. Defaults to \code{confcut = 5}.
+    Numeric value that controls plotting confidence limits at the CDF
+    extremes. Confidence limits for CDF values (percent scale) less than
+    \code{confcut} or greater than 100 minus \code{confcut} are not plotted. 
+    A value of zero means confidence limits are plotted for the complete 
+    range of the CDF. Defaults to \code{confcut = 5}.
     }
     \item{conflev}{
-      Numeric value of the confidence level used for confidence limits. Defaults
-      to \code{conflev = 95}.
+    Numeric value of the confidence level used for confidence limits. Defaults
+    to \code{conflev = 95}.
     }
     \item{...}{
-      Additional arguments passed to the plot function. But note that function
-      \code{cdfPlot()} was defined in the first place because there is a conflict
-      between the arguments of the original function \code{cdf.plot()} and those
-      passed to \code{plot()}.
+    Additional arguments passed to \code{plot()}. See \sQuote{Details}.
     }
   \emph{New Arguments}
     \item{obj}{
-      Object with the estimated CDF. The resulting object of
-      \code{cont.analysis()} of \pkg{spsurvey}-package.
+    Object with the estimated CDF. The resulting object of
+    \code{cont.analysis()} of \pkg{spsurvey}-package.
     }
     \item{ind}{
-      Indicator variable. The name of the variable as displayed in the resulting
-      object of \code{cont.analysis()}.
+    Indicator variable. The name of the variable as displayed in the resulting
+    object of \code{cont.analysis()}.
     }
     \item{type.plot}{
-      Type of plot. Desired type of plot to be produced, with options
-      \code{type.plot  = "l"}, for \sQuote{line}, and \code{type.plot = "s"} for
-      \sQuote{stair}. See \sQuote{Details}. Defaults to \code{type.plot = "s"}.}
-    \item{show.param}{Logical for showing the parameters of the CDF. Available
-       parameters are the mean, the median, and a percentile defined by the
-       argument \code{conflev}. The legend displays de actual values of all 
-       three parameters, including the standard deviation of the mean. The 
-       percentile value is calculated using \code{spsurvey::interp.cdf()}.}
-    \item{round}{Numeric to set the rounding level of the parameters of the CDF.}
-    \item{col.param}{Color of the lines showing the parameters of the CDF.
-       Defaults to \code{col.param = "black"}.}
-    \item{show.conflev}{Logical for showing the confidence limits of the
-       CDF. Defaults to \code{show.conflev = TRUE}.}
+    Type of plot. Desired type of plot to be produced, with options
+    \code{type.plot  = "l"}, for \sQuote{line}, and \code{type.plot = "s"} for
+    \sQuote{stair}. See \sQuote{Details}. Defaults to \code{type.plot = "s"}.
+    }
+    \item{show.param}{
+    Logical for showing the parameters of the CDF. Available parameters are the
+    mean, the median, and a percentile defined by the argument \code{conflev}.
+    The legend displays de actual values of all 
+    three parameters, including the standard deviation of the mean. The 
+    percentile value is calculated using \code{spsurvey::interp.cdf()}.
+    }
+    \item{round}{
+    Numeric to set the rounding level of the parameters of the CDF.
+    }
+    \item{col.param}{
+    Color of the lines showing the parameters of the CDF. Defaults to
+    \code{col.param = "black"}.
+    }
+    \item{show.conflev}{
+    Logical for showing the confidence limits of the CDF. Defaults to 
+    \code{show.conflev = TRUE}.
+    }
 }
 \details{
 Parameter \code{type.plot} is used only when \code{type.cdf = "Continuous"}.
+
+Care should be taken with possible conflicts between the arguments of the
+original function \code{\link[spsurvey]{cdf.plot}} and those passed to 
+\code{plot()} using \code{...}. The existence of conflicts between these two 
+functions was one of the reasons for creating this new implementation.
 }
 \value{
 A plot of the estimated cumulative distribution function with confidence limits.
@@ -125,21 +135,11 @@ Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \note{
 Most of the source code that constitutes this function was originaly published 
-in the R-package \pkg{spsurvey}, version 2.6 (2013-09-20). The authors were asked to
-include a few new functionalities, but did not seem to be interested in doing
-so. This implementation is a way of including the new functionalities required
-to the development of my PhD research project. When citing this function, the
-original authors of the R-package \pkg{spsurvey} should also be cited.
-
-Care should be taken with possible conflicts between the arguments of the
-original function \code{\link[spsurvey]{cdf.plot}} and those passed to 
-\code{plot()}. The existence of conflicts between these two functions was also a 
-reason for creating a new implementation.
-
-If appropriate, this function can be merged with the original function in the
-near future.
-
-This function was not ment to be used with categorical variables.
+in the \pkg{spsurvey}-package, version 2.6 (2013-09-20). The authors were asked 
+to include a few new functionalities, but did not seem to be interested in doing
+so, since no reply was obtained. This implementation is a way of including such
+functionalities. When using this function, credit should be given to the authors
+of the original implementation in the \pkg{spsurvey}-package.
 }
 \seealso{
 \code{\link[spsurvey]{cdf.plot}}.
