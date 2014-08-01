@@ -1,39 +1,37 @@
 \name{gcpDiff}
 \alias{gcpDiff}
 \title{
-  Diffence on xyz coordinates between ground control points (GCP)
+Diffence on xyz coordinates between ground control points
 }
 \description{
-  This function estimates the difference, absolute difference, and squared 
-  difference on x, y and z coordinates of two sets of ground control points
-  (GCPs). It also estimates the module (difference vector), its square and
-  azimuth. The result is an object of class \code{data.frame} ready to be used 
-  to define a object of class \code{spsurvey.object}.
+This function estimates the difference, absolute difference, and squared 
+difference on x, y and z coordinates of two sets of ground control points
+(GCP). It also estimates the module (difference vector), its square and 
+azimuth. The result is a data frame ready to be used to define a object of
+class \code{spsurvey.object}.
 }
 \usage{
 gcpDiff(measured, predicted, type = "xy", aggregate = FALSE, rounding = 0)
 }
 \arguments{
   \item{measured}{
-  Reference ground control points. An object of class 
-  \code{\linkS4class{SpatialPointsDataFrame}}. A column named \sQuote{siteID}
-  giving case names is mandatory. See \sQuote{Details}, item
-  \sQuote{Type of data}.
+  Object of class \code{\linkS4class{SpatialPointsDataFrame}} with the reference
+  GCP. A column named \sQuote{siteID} giving case names is mandatory. See
+  \sQuote{Details}, item \sQuote{Type of data}.
   }
   \item{predicted}{
-  Point data being validated. An object of class
-  \code{\linkS4class{SpatialPointsDataFrame}}. A column named \sQuote{siteID}
-  giving case names is mandatory. See \sQuote{Details}, item
-  \sQuote{Type of data}.
+  An object of class \code{\linkS4class{SpatialPointsDataFrame}} with the point
+  data being validated. A column named \sQuote{siteID} giving case names is
+  mandatory. See \sQuote{Details}, item \sQuote{Type of data}.
   }
   \item{type}{
   Type of data under analysis. Defaults to \code{type = "xy"}. \sQuote{Details},
   item \sQuote{Type of data}.
   }
-  \item{aggregate}{boolean for aggregating the data when it comes from
-  Cluster sampling. Used only when \code{type = "z"}. Defaults to 
-  \code{aggregate = FALSE}. See \sQuote{Details}, item 
-  \sQuote{Data aggregation}.
+  \item{aggregate}{
+  Logical for aggregating the data when it comes from cluster sampling. Used 
+  only when \code{type = "z"}. Defaults to \code{aggregate = FALSE}. See
+  \sQuote{Details}, item \sQuote{Data aggregation}.
   }
   \item{rounding}{
   Rounding level of the data in the output data frame.
@@ -93,7 +91,7 @@ have no meaning at all.
 }
 \value{
 An object of class \code{data.frame} ready to be used to feed the argument 
-'data.cont' when creating a \code{spsurvey.analysis} object.
+\code{data.cont} when creating a \code{spsurvey.analysis} object.
 }
 \references{
 Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
@@ -104,8 +102,8 @@ Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
 Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
 }
 \note{
-Data of \code{type = "xy"} cannot be submitted to cluster aggregation at the 
-present version (1.0) of \pkg{pedometrics}-package.
+Data of \code{type = "xy"} cannot be submitted to cluster aggregation in the 
+present version.
 }
 \seealso{
 \code{\link[pedometrics]{coordenadas}},

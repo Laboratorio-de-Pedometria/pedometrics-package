@@ -5,18 +5,18 @@ Calculate module and azimuth
 }
 \description{
 This function calculates the module and azimuth of the difference on x
-and y coordinates between two sets of ground control points.
+and y coordinates between two sets of ground control points (GCP).
 }
 \usage{
 gcpVector(dx, dy)
 }
 \arguments{
-  \item{dx}{difference on the \sQuote{x} coordinate. An object of
-    class \code{vector} containing the difference on the \sQuote{x}
-    coordinate between two sets of ground control points.}
-  \item{dy}{difference on the \sQuote{y} coordinate. An object of
-    class \code{vector} containing the difference on the \sQuote{y}
-    coordinate between two sets of ground control points.}
+  \item{dx}{
+  Numeric vector containing the difference on the \sQuote{x} coordinate between 
+  two sets of GCP.}
+  \item{dy}{
+  Numeric vector containing the difference on the \sQuote{y} coordinate between
+  two sets of GCP.}
 }
 \details{
 This function is suited to perform calculations for topographical
@@ -41,13 +41,10 @@ Pablo Garcia Rodriguez \email{pablogr@unex.es}\cr
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \note{
-This function was addapted from the function
-\code{\link[VecStatGraphs2D]{LoadData}} of
-\pkg{VecStatGraphs2D}-package. It is internally called when running
-\code{deltagcp()}. Its first version was named \code{gcpstat()}.
+This function was addapted from \code{\link[VecStatGraphs2D]{LoadData}}.
 }
 \seealso{
-\pkg{VecStatGraphs2D}-package,
+\code{\link[VecStatGraphs2D]{LoadData}},
 \code{\link[pedometrics]{gcpDiff}}
 }
 \examples{
