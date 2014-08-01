@@ -2,6 +2,13 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.1-9 (2014-08-01)}{
+  \itemize{
+    \item Removed \code{toar()} and \code{readsat()} because they are better
+          implemented using GRASS GIS commands directly.
+  }
+}
+
 \section{Changes in version 0.1-8 (2014-07-03)}{
   \itemize{
     \item Second public release (R-Forge).
