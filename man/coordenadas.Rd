@@ -1,7 +1,7 @@
 \name{coordenadas}
 \alias{coordenadas}
 \title{
-Prepare object for argument \cpde{design} of \code{spsurvey.analysis()}
+Prepare object for argument \code{design} of \code{spsurvey.analysis()}
 }
 \description{
 This function returns an object to feed the argument \code{design} when
