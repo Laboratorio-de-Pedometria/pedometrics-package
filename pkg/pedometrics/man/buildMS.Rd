@@ -106,6 +106,7 @@ Add option to set the order in which \code{stepAIC} and \code{stepVIF} are run.
 \examples{
 \dontrun{
 # based on the second example of function stepAIC
+require(MASS)
 cpus1 <- cpus
 for(v in names(cpus)[2:7])
   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])),
@@ -115,8 +116,8 @@ cpus.samp <- sample(1:209, 100)
 cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin + chmax + perf),
                   formula(log10(perf) ~ syct + mmin + cach + chmin + chmax),
                   formula(log10(perf) ~ mmax + cach + chmin + chmax + perf))
-cpus.ms   <- buildMS(cpus.form, data = cpus1[cpus.samp,2:8],
-                     vif = TRUE, aic = TRUE)
+data      <- cpus1[cpus.samp,2:8]
+cpus.ms   <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 }
 }
 \keyword{iteration}
