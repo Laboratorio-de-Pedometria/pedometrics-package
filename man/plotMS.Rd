@@ -13,7 +13,7 @@ easily adapted to work with any model structure and performance measure.
 \usage{
 plotMS(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5,
        arrange = "desc", color = NULL, xlim = NULL, ylab = NULL, xlab = NULL,
-       ...)
+       at = NULL, ...)
 }
 \arguments{
   \item{obj}{
@@ -89,6 +89,10 @@ plotMS(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5,
   \item{xlab}{
   Character vector of length 1, giving the x-axis labels. Defaults
   to \code{xlab = "Model ranking"}.  
+  }
+  \item{at}{
+  Numeric vector indicating the location of tick marks along the x axis
+  (in native coordinates).
   }
   \item{...}{
   Other arguments for plotting, although most of these have no been
