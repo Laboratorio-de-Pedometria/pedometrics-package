@@ -25,7 +25,7 @@
 plotMS <-
   function (obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2),
             size = 0.5, arrange = "desc", color = NULL, 
-            xlim = NULL, ylab = NULL, xlab = NULL, ...) {
+            xlim = NULL, ylab = NULL, xlab = NULL, at = NULL, ...) {
     # check arguments ##########################################################
     if (missing(obj)) {
       stop("<obj> is a mandatory argument")
@@ -81,13 +81,22 @@ plotMS <-
       line <- colnames(obj)[line]
     }
     if (any(line == c("r2", "adj_r2", "ADJ_r2"))) {
-      obj <- arrange(obj, obj[, line])
+      obj <- arrange(obj, desc(obj[, line]))
     } else {
-      obj <- arrange(obj, desc(obj[, line]))  
+      obj <- arrange(obj, obj[, line])
     }
     grid <- as.matrix(obj[, grid])
     x <- seq(1, dim(obj)[1], 1)
     y <- as.numeric(obj[, line])
+    if (missing(at)) {
+      if (max(x) < 100) {
+        m <- round(max(x) / 10) * 10
+        at <- c(1, seq(5, m, 5))
+      } else {
+        m <- round(max(x) / 10) * 10
+        at <- c(1, seq(10, m, by = 10))
+      }
+    }
     if (missing(color)) {
       color <- cm.colors(length(unique(as.numeric(grid))))
     }
@@ -129,15 +138,16 @@ plotMS <-
       rank_center[i] <- 
         mean(cbind(x, grid)[, 1][which(cbind(x, grid)[, i + 1] == ind)])
     }
-    grid <- grid[, order(rank_center)]
-    # prepare plot #############################################################
-    p1 <- xyplot(y ~ x, xlim = xlim, type = type, pch = pch[1],
-                 scales = list(y = list(rot = 0)))
-    p2 <- levelplot(grid, colorkey = FALSE,  xlim = xlim, col.regions = color,
+    grid <- grid[, order(rank_center, decreasing = TRUE)]
+    p1 <- xyplot(y ~ x, xlim = rev(extendrange(xlim, f = 0)), type = type, 
+                 pch = pch[1], scales = list(y = list(rot = 0),
+                                             x = list(at = at)))
+    p2 <- levelplot(grid, colorkey = FALSE, xlim = rev(extendrange(xlim, f = 0)),
+                    col.regions = color,
                     scales = list(y = list(rot = 90)),
                     panel = function (...) {
                       panel.levelplot(...)
-                      grid.points(x = sort(rank_center), 
+                      grid.points(x = sort(rank_center, decreasing = TRUE), 
                                   seq(1, dim(grid)[2], 1),
                                   pch = pch[2], size = unit(size, "char"))
                     })
