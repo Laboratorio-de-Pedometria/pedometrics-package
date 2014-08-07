@@ -94,9 +94,9 @@ predictor variables.
 \code{\link[MASS]{stepAIC}}.
 }
 \examples{
-#require(car)
-#fit <- lm(prestige ~ income + education + type, data = Duncan)
-#stepVIF(fit, threshold = 10, verbose = TRUE)
+require(car)
+fit <- lm(prestige ~ income + education + type, data = Duncan)
+fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
 }
 \keyword{methods}
 \keyword{regression}
