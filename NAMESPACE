@@ -1,6 +1,7 @@
 import(
   car,
   grid,
+  gstat,
   lattice,
   latticeExtra,
   MASS,
@@ -25,6 +26,7 @@ export(
   coordenadas,
   gcpDiff,
   gcpVector,
+  plotESDA,
   plotHD,
   plotMS,
   statsMS,
