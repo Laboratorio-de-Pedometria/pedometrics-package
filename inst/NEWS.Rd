@@ -2,6 +2,19 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.2-1 (2014-09-30)}{
+  \itemize{
+    \item Included functions spJitter() and bbox2sp().
+  }
+}
+
+\section{Changes in version 0.2-0 (2014-09-25)}{
+  \itemize{
+    \item Started the second season of the initial development of the package.
+    Included functions plotHD() and plotESDA().
+  }
+}
+
 \section{Changes in version 0.1-9 (2014-08-01)}{
   \itemize{
     \item Removed \code{toar()} and \code{readsat()} because they are better

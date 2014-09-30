@@ -8,7 +8,7 @@ This function takes the bounding box of a Spatial* object and creates a
 SpatialPoints* or SpatialPolygons* object from it.
 }
 \usage{
-bbox2sp(obj, sp = "SpatialPolygons")
+bbox2sp(obj, sp = "SpatialPolygons", keep.crs = TRUE)
 }
 \arguments{
   \item{obj}{
@@ -19,6 +19,10 @@ bbox2sp(obj, sp = "SpatialPolygons")
   \code{"SpatialPointsDataFrame"}, \code{"SpatialPolygons"} and
   \code{"SpatialPolygonsDataFrame"}.
 }
+  \item{keep.crs}{
+  Logical for assigning the same coordinate reference system to the resulting
+  Spatial* object.
+  }
 }
 \value{
 An object of class SpatialPoints* or SpatialPolygons*.
@@ -42,6 +46,7 @@ Edzer Pebesma <\email{edzer.pebesma@uni-muenster.de}> and Jon Skoien
 R-package \pkg{pedometrics}.
 }
 \examples{
+require(sp)
 data(meuse)
 coordinates(meuse) <- ~ x + y
 proj4string(meuse) <- CRS("+init=epsg:28992")

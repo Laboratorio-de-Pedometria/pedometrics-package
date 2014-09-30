@@ -9,6 +9,7 @@ import(
   mvtsplot,
   pbapply,
   plyr,
+  rgeos,
   sp,
   spsurvey,
   stringr,
@@ -19,6 +20,7 @@ import(
 
 export(
   adjR2,
+  bbox2sp,
   buildMS,
   cdfPlot,
   cdfStats,
@@ -29,6 +31,7 @@ export(
   plotESDA,
   plotHD,
   plotMS,
+  spJitter,
   statsMS,
   stepVIF
   )

@@ -96,7 +96,7 @@ spJitter <-
        y.coord$max <- y.coord$max - n_iter / iterations * (y.coord$max - y.coord$min)
        y1 <- jitter(x = y0, amount = y.coord$max)
        dy <- abs(y0 - y1)
-       dy <- which(dy < y$min)
+       dy <- which(dy < y.coord$min)
        y1[dy] <- y0[dy] + sign(y0[dy] - y1[dy]) * y.coord$min
        res_out <- data.frame(x = x1, y = y1)
        coordinates(res_out) <- ~ x + y
