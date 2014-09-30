@@ -24,25 +24,6 @@
 #                   - add option to set the order in which stepAIC and stepVIF
 #                     are run
 #
-#  Timeline
-#  26 Mar 2014: First version (by A. Samuel-Rosa)
-#  28 Mar 2014: Improved documentation. Included arguments 'vif.verbose',
-#               'vif.threshold', 'aic.direction', 'aic.trace', 'aic.steps'.
-#  01 Apr 2014: Removed option to remove aliased predictors. Now the model
-#               is checked for aliased predictors authomatically.
-#  04 Apr 2014: Added option to penalize the final model using the original
-#               number of covariates to calculate the adjusted R squared.
-#  09 Apr 2014: Removed the option for penalization. The number of candidate
-#               predictor variables now is added as an attribute to the final
-#               model and used for penalization by modelStats(). Removed the
-#               check of aliased predictors.
-#  22 Apr 2014: Changed name to buildModelSeries().
-#  16 Jun 2014: Added option to call the function using buildMS().
-#  17 Jun 2014: Moved the documentation to a Rd file. Replaced argument <object>
-#               by <formula>. Improved checking of arguments. Improved
-#               documentation. Added option to pass further arguments to 
-#               stepAIC().
-#
 buildMS <- 
   function (formula, data,
             vif = FALSE, vif.threshold = 10, vif.verbose = FALSE,
