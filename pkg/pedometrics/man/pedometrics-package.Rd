@@ -10,8 +10,8 @@ This package contains functions to employ many tools and techniques used in the 
 \tabular{ll}{
 Package: \tab pedometrics\cr
 Type: \tab Package\cr
-Version: \tab 0.1-10\cr
-Date: \tab 2014-09-25\cr
+Version: \tab 0.1-11\cr
+Date: \tab 2014-09-30\cr
 License: \tab GPL (>= 2)\cr
 }
 }
@@ -20,5 +20,5 @@ Author and Maintainer: Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.
 
 Thesis advisors: Lucia Helena Cunha dos Anjos, Gustavo de Mattos Vasques, Gerard B. M. Heuvelink
 
-Contributors: Tony Olsen, Tom Kincaid, Juan Carlos Ruiz Cuetos, Maria Eugenia Polo Garcia, Pablo Garcia Rodriguez
+Contributors: Tony Olsen, Tom Kincaid, Juan Carlos Ruiz Cuetos, Maria Eugenia Polo Garcia, Pablo Garcia Rodriguez, Edzer Pebesma, Jon Skoien
 }

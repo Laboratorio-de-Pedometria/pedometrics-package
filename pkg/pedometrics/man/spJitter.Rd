@@ -134,6 +134,7 @@ R-package \pkg{pedometrics}.
 \code{\link[rgeos]{gContains}}
 }
 \examples{
+require(sp)
 data(meuse)
 obj <- meuse[, c("x", "y")]
 coordinates(obj) <- ~ x + y

@@ -1,7 +1,7 @@
 Package: pedometrics
 Title: Pedometric Tools and Techniques
-Version: 0.1-10
-Date: 2014-09-25
+Version: 0.2-1
+Date: 2014-09-30
 Authors@R: c(person("Alessandro Samuel-Rosa", role = c("aut", "cre"), email = "alessandrosamuelrosa@gmail.com"),
 	     person("Lucia Helena Cunha dos Anjos", role = "ths", email = "lanjos@ufrrj.br"),
 	     person("Gustavo de Mattos Vasques", role = "ths", email = "gustavo.vasques@embrapa.br"),
@@ -10,11 +10,13 @@ Authors@R: c(person("Alessandro Samuel-Rosa", role = c("aut", "cre"), email = "a
              person("Tom Kincaid", role = "ctb", email = "Kincaid.Tom@epa.gov"),
              person("Juan Carlos Ruiz Cuetos", role = "ctb", email = "bilba_t@hotmail.com"),
              person("Maria Eugenia Polo Garcia", role = "ctb", email = "mepolo@unex.es"),
-             person("Pablo Garcia Rodriguez", role = "ctb", email = "pablogr@unex.es"))
-Author: Alessandro Samuel-Rosa [aut, cre], Lucia Helena Cunha dos Anjos [ths], Gustavo de Mattos Vasques [ths], Gerard B. M. Heuvelink [ths], Tony Olsen [ctb], Tom Kincaid [ctb], Juan Carlos Ruiz Cuetos [ctb], Maria Eugenia Polo Garcia [ctb], Pablo Garcia Rodriguez [ctb]
+             person("Pablo Garcia Rodriguez", role = "ctb", email = "pablogr@unex.es"),
+             person("Edzer Pebesma", role = "ctb", email = "edzer.pebesma@uni-muenster.de"),
+             person("Jon Skoien", role = "ctb", email = "jon.skoien@gmail.com"))
+Author: Alessandro Samuel-Rosa [aut, cre], Lucia Helena Cunha dos Anjos [ths], Gustavo de Mattos Vasques [ths], Gerard B. M. Heuvelink [ths], Tony Olsen [ctb], Tom Kincaid [ctb], Juan Carlos Ruiz Cuetos [ctb], Maria Eugenia Polo Garcia [ctb], Pablo Garcia Rodriguez [ctb], Edzer Pebesma [ctb], Jon Skoien [ctb]
 Maintainer: Alessandro Samuel-Rosa <alessandrosamuelrosa@gmail.com>
 Depends: R (>= 1.8.0)
-Imports: car, xtable, XML, stringr, grid, gstat, sp, spsurvey, pbapply, MASS, moments, plyr, lattice, latticeExtra, VecStatGraphs2D, mvtsplot
+Imports: car, xtable, XML, stringr, grid, gstat, pbapply, rgeos, sp, spsurvey, MASS, moments, plyr, lattice, latticeExtra, VecStatGraphs2D, mvtsplot
 Suggests: methods
 Description: This package contains functions to employ many tools and techniques used in the field of pedometrics (see http://en.wikipedia.org/wiki/Pedometrics for definition of pedometrics). These functions were developed to s/fulfill/fulfil the demands created by the PhD research project (2012-2016) entitled Contribution to the Construction of Models for Predicting Soil Properties, developed by Alessandro Samuel-Rosa under the supervision of Dr Lucia HC Anjos (Federal Rural University of Rio de Janeiro, Brazil), Dr Gustavo M Vasques (Embrapa Soils, Brazil), and Dr Gerard BM Heuvelink (ISRIC - World Soil Information, the Netherlands). The project is supported by the CAPES Foundation, Ministry of Education of Brazil, Brasilia - DF 70040-020, Brazil, process ID BEX 11677/13-9. Several functions are simple wrapper functions that extend the functionalities of other functions commonly used for the analysis of pedometric data. It should be noted that changes are likely to occur quite often and using this package as a dependency for other packages is strongly discouraged.
 License: GPL (>= 2)
