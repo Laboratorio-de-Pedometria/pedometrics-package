@@ -105,6 +105,7 @@ spJitter <-
        y1[dy] <- y0[dy] + sign(y0[dy] - y1[dy]) * y.coord$min
        res_out <- data.frame(x = x1, y = y1)
        coordinates(res_out) <- ~ x + y
+       proj4string(res_out) <- proj4string(res)
        res <- rbind(res, res_out)
        while(length(zerodist(res, zero = zero))[1] > 0){
          dup <- unique(c(zerodist(res, zero = zero)))
@@ -116,6 +117,7 @@ spJitter <-
          y1 <- jitter(x = y0, amount = y.coord$min)
          res_dup <- data.frame(x = x1, y = y1)
          coordinates(res_dup) <- ~ x + y
+         proj4string(res_dup) <- proj4string(res)
          res <- rbind(res, res_dup)
        }
        out <- which(gContains(boundary, res, byid = TRUE) == FALSE)
