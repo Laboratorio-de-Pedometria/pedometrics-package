@@ -24,6 +24,10 @@ spJitter <-
     if (!inherits(obj, what = "SpatialPoints")) {
       stop ("obj should be of class SpatialPoints")
     }
+    if (inherits(obj, what = "SpatialPointsDataFrame")) {
+      obj_df <- obj@data
+      obj <- as(obj, "SpatialPoints")
+    }
     if (!is.list(x.coord)) {
       stop ("x.coord should be a list")
     }
@@ -76,6 +80,7 @@ spJitter <-
     y1[dy] <- y0[dy] + sign(y0[dy] - y1[dy]) * y.coord$min
     res <- data.frame(x = x1, y = y1)
     coordinates(res) <- ~ x + y
+    proj4string(res) <- proj4string(obj)
     if (is.numeric(which)) {
       res <- rbind(obj[-which, ], res)
     }
@@ -138,6 +143,9 @@ spJitter <-
                         sep = ""))
         }
       }
+    }
+    if (inherits(obj, what = "SpatialPointsDataFrame")) {
+      res <- SpatialPointsDataFrame(res, obj_df)
     }
     return (res)
   }
