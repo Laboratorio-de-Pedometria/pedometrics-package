@@ -10,7 +10,7 @@ This is also known as \sQuote{jittering}.
 \usage{
 spJitter(obj, x.coord = list(min = 1, max = NULL, factor = 0.5),
          y.coord = list(min = 1, max = NULL, factor = 0.5), zero = 1, 
-         which = "all", where = "inf", iterations = 100, verbose = TRUE)
+         which = "all", where = NULL, iterations = 100, verbose = TRUE)
 }
 \arguments{
   \item{obj}{
@@ -41,11 +41,9 @@ spJitter(obj, x.coord = list(min = 1, max = NULL, factor = 0.5),
   perturbed.
 }
   \item{where}{
-  Character value or a SpatialPolygon defining the spatial domain to which the
-  perturbed points should be constrained. Available options are \code{"inf"}, 
-  for an infinite spatial domain (no constraint), \code{"bbox"}, for using the 
-  bounding box as the spatial domain, and an object of class SpatialPolygon.
-  Defaults to \code{where = "inf"}. See \sQuote{Details} for more information.
+  An object of class SpatialPolygons* defining the spatial domain to which the
+  perturbed points should be constrained. Defaults to \code{where = NULL}.
+  See \sQuote{Details} for more information.
 }
   \item{iterations}{
   Integer value defining the maximum number of iterations that should be used 
