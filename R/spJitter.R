@@ -91,13 +91,13 @@ spJitter <-
        res <- res[-out, ]
        x0 <- coordinates(res_out)[, "x"]
        y0 <- coordinates(res_out)[, "y"]
-       x.coord$max <- x.coord$max - n_iter / iterations * (x.coord$max - x.coord$min)
-       x1 <- jitter(x = x0, amount = x.coord$max)
+       x.max <- x.coord$max - n_iter / iterations * (x.coord$max - x.coord$min)
+       x1 <- jitter(x = x0, amount = x.max)
        dx <- abs(x0 - x1)
        dx <- which(dx < x.coord$min)
        x1[dx] <- x0[dx] + sign(x0[dx] - x1[dx]) * x.coord$min
-       y.coord$max <- y.coord$max - n_iter / iterations * (y.coord$max - y.coord$min)
-       y1 <- jitter(x = y0, amount = y.coord$max)
+       y.max <- y.coord$max - n_iter / iterations * (y.coord$max - y.coord$min)
+       y1 <- jitter(x = y0, amount = y.max)
        dy <- abs(y0 - y1)
        dy <- which(dy < y.coord$min)
        y1[dy] <- y0[dy] + sign(y0[dy] - y1[dy]) * y.coord$min
