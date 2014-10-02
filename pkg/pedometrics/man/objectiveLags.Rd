@@ -19,18 +19,19 @@ objPairs(obj, lags = length(obj), distribution, cutoff = Inf, factor, weights = 
 }
 \arguments{
   \item{obj}{
-  Object of class \sQuote{SpatialPoints*} with projected coordinates.
+  Object of class \sQuote{SpatialPoints} or \sQuote{SpatialPointsDataFrame}
+  with projected coordinates.
 }
   \item{lags}{
   Integer value defining the number of equidistant lag distance classes.
   Alternatively, a vector of numeric values defining the lower and upper limits
-  of each lag distance class. Defaults to \code{lags = length(obj)}, i.e.\~the 
+  of each lag distance class. Defaults to \code{lags = length(obj)}, that is, the 
   number of lag distance classes is equal to the number of points in \code{obj}.
 }
   \item{cutoff}{
   Numeric value defining the maximum distance value up to which lag distance
   classes are created. It is used when an integer value is passed to the argument
-  \code{lags}. Defaults to \code{cutoff = Inf}, i.e.\~the maximum distance value 
+  \code{lags}. Defaults to \code{cutoff = Inf}, that is, the maximum distance value 
   up to which lag distance classes are created is equal to the diagonal of the 
   bounding box of \code{obj}.
 }
@@ -50,7 +51,7 @@ objPairs(obj, lags = length(obj), distribution, cutoff = Inf, factor, weights = 
   Vector of numeric values defining the importance of each lag distance class
   when computing the deviation of the observed counts from the pre-specified 
   distribution. The length must match the number of lag classes, and the sum
-  must be equal to one. Defaults to \code{weights = 1}, i.e.~all lag distance
+  must be equal to one. Defaults to \code{weights = 1}, that is, all lag distance
   classes have the same weight.
 }
 }
@@ -84,7 +85,7 @@ squared differences between the pre-specified and observed distribution of
 counts of points or point pairs per lag distance class.
 }
 \references{
-Bresler, E. \& Green, R. E.
+Bresler, E. and Green, R. E.
    \emph{Soil parameters and sampling scheme for characterizing soil hydraulic 
    properties of a watershed}.
    Honolulu: University of Hawaii at Manoa, p. 42, 1982.
@@ -93,9 +94,9 @@ Russo, D.
    Design of an optimal sampling network for estimating the variogram.
    \emph{Soil Science Society of America Journal}. v. 48, p. 708-716, 1984.
 
-Warrick, A. W. \& Myers, D. E. 
+Warrick, A. W. and Myers, D. E. 
    Optimization of sampling locations for variogram calculations.
-   \emph{Water Resources Research}, v. 23, p. 496–500, 1987.
+   \emph{Water Resources Research}, v. 23, p. 496-500, 1987.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
@@ -111,6 +112,7 @@ pairs \eqn{n \times (n - 1) / 2}.
 \code{\link[base]{which}}.
 }
 \examples{
+require(sp)
 data(meuse)
 coordinates(meuse) <- ~ x + y
 proj4string(meuse) <- CRS("+init=epsg:28992")
