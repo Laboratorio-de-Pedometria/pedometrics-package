@@ -2,6 +2,14 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.2-2 (2014-10-02)}{
+  \itemize{
+    \item Included functions objPairs(), objPoints(), pairs_per_lag() and 
+    points_per_lag(). These functions were designed to be used with spatial
+    simulated annealing.
+  }
+}
+
 \section{Changes in version 0.2-1 (2014-09-30)}{
   \itemize{
     \item Included functions spJitter() and bbox2sp().

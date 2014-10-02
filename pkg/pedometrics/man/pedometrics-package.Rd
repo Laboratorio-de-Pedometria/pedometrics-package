@@ -10,8 +10,8 @@ This package contains functions to employ many tools and techniques used in the 
 \tabular{ll}{
 Package: \tab pedometrics\cr
 Type: \tab Package\cr
-Version: \tab 0.1-11\cr
-Date: \tab 2014-09-30\cr
+Version: \tab 0.2-2\cr
+Date: \tab 2014-10-02\cr
 License: \tab GPL (>= 2)\cr
 }
 }
