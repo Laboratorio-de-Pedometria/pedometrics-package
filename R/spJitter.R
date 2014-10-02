@@ -20,7 +20,7 @@
 spJitter <- 
   function (obj, x.coord = list(min = 1, max = NULL, factor = 0.5),
             y.coord = list(min = 1, max = NULL, factor = 0.5), zero = 1, 
-            which = "all", where = "inf", iterations = 100, verbose = TRUE) {
+            which = "all", where  = NULL, iterations = 100, verbose = TRUE) {
     if (!inherits(obj, what = "SpatialPoints")) {
       stop ("obj should be of class SpatialPoints")
     }
@@ -43,12 +43,10 @@ spJitter <-
     if (!is.logical(verbose)) {
       stop ("verbose should be a logical value")
     }
-    if (inherits(where, what = "SpatialPolygons")){
-      boundary <- where
-      where <- "boundary"
-    }
-    if (where == "bbox") {
-      boundary <- bbox2sp(obj, sp = "SpatialPolygons")
+    if (!is.null(where)) {
+      if (!inherits(where, what = "SpatialPolygons")) {
+        stop ("where should be of class SpatialPolygons*")
+      }
     }
     if (unique(which == "all")) {
       x0 <- coordinates(obj)[, "x"]
@@ -84,8 +82,8 @@ spJitter <-
     if (is.numeric(which)) {
       res <- rbind(obj[-which, ], res)
     }
-    if (any(where == c("bbox", "boundary"))) {
-     out <- which(gContains(boundary, res, byid = TRUE) == FALSE)
+    if (!is.null(where)) {
+     out <- which(gContains(where, res, byid = TRUE) == FALSE)
      n_out <- length(out)
      n_iter <- 1
      while (n_out >= 1) {
@@ -120,7 +118,7 @@ spJitter <-
          proj4string(res_dup) <- proj4string(res)
          res <- rbind(res, res_dup)
        }
-       out <- which(gContains(boundary, res, byid = TRUE) == FALSE)
+       out <- which(gContains(where, res, byid = TRUE) == FALSE)
        n_out <- length(out)
        n_iter <- n_iter + 1
        if (n_iter == iterations) {
@@ -129,7 +127,7 @@ spJitter <-
      }
     }
     if (verbose) {
-      if (any(where == c("bbox", "boundary"))) {
+      if (!is.null(where)) {
         if (n_out >= 1) {
           message(paste("spJitter DID NOT converge after ", n_iter, 
                         " iterations", sep = ""))
