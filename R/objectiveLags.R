@@ -22,12 +22,11 @@ points_per_lag <-
   function (obj, lags = length(obj), cutoff = Inf, factor) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
-    }
-    if (!inherits(obj, "SpatialPoints")) {
-      stop ("'obj' should be of class SpatialPoints*")
-    }
-    if (!is.projected(obj)) {
-      stop ("'obj' should have projected coordinates")
+    } else {
+      if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
+            !is.projected(obj)) {
+        stop ("'obj' should be of class SpatialPoints* with a projected CRS")
+      }  
     }
     if (!is.numeric(lags)) {
       stop ("'lags' should be of class numeric")
@@ -70,13 +69,12 @@ points_per_lag <-
 pairs_per_lag <- 
   function (obj, lags = length(obj), cutoff = Inf, factor = 1) {
     if (missing(obj)) {
-      stop ("obj is a mandatory argument")
-    }
-    if (!inherits(obj, "SpatialPoints")) {
-      stop ("obj should be of class SpatialPoints*")
-    }
-    if (!is.projected(obj)) {
-      stop ("obj should have projected coordinates")
+      stop ("'obj' is a mandatory argument")
+    } else {
+      if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
+            !is.projected(obj)) {
+        stop ("'obj' should be of class SpatialPoints* with a projected CRS")
+      }  
     }
     if (!is.numeric(lags)) {
       stop ("lags should be of class numeric")
@@ -120,13 +118,12 @@ objPairs <-
   function (obj, lags = length(obj), distribution, cutoff = Inf, factor, 
             weights = 1) {
     if (missing(obj)) {
-      stop ("obj is a mandatory argument")
-    }
-    if (!inherits(obj, "SpatialPoints")) {
-      stop ("obj should be of class SpatialPoints*")
-    }
-    if (!is.projected(obj)) {
-      stop ("obj should have projected coordinates")
+      stop ("'obj' is a mandatory argument")
+    } else {
+      if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
+            !is.projected(obj)) {
+        stop ("'obj' should be of class SpatialPoints* with a projected CRS")
+      }  
     }
     if (!is.numeric(lags)) {
       stop ("lags should be of class numeric")
@@ -185,13 +182,12 @@ objPoints <-
   function (obj, lags = length(obj), distribution, cutoff = Inf, factor, 
             weights = 1) {
     if (missing(obj)) {
-      stop ("obj is a mandatory argument")
-    }
-    if (!inherits(obj, "SpatialPoints")) {
-      stop ("obj should be of class SpatialPoints*")
-    }
-    if (!is.projected(obj)) {
-      stop ("obj should have projected coordinates")
+      stop ("'obj' is a mandatory argument")
+    } else {
+      if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
+            !is.projected(obj)) {
+        stop ("'obj' should be of class SpatialPoints* with a projected CRS")
+      }  
     }
     if (!is.numeric(lags)) {
       stop ("lags should be of class numeric")
