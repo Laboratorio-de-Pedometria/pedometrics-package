@@ -12,10 +12,10 @@ class. Functions to compute the deviation of the observed distribution of
 counts from a pre-specified distribution.
 }
 \usage{
-points_per_lag(obj, lags = length(obj), cutoff = Inf, factor)
-pairs_per_lag(obj, lags = length(obj), cutoff = Inf, factor)
-objPoints(obj, lags = length(obj), distribution, cutoff = Inf, factor, weights = 1)
-objPairs(obj, lags = length(obj), distribution, cutoff = Inf, factor, weights = 1)
+points_per_lag(obj, lags = length(obj), cutoff)
+pairs_per_lag(obj, lags = length(obj), cutoff)
+objPoints(obj, lags = length(obj), distribution, cutoff, weights = 1)
+objPairs(obj, lags = length(obj), distribution, cutoff, weights = 1)
 }
 \arguments{
   \item{obj}{
@@ -31,15 +31,9 @@ objPairs(obj, lags = length(obj), distribution, cutoff = Inf, factor, weights = 
   \item{cutoff}{
   Numeric value defining the maximum distance value up to which lag distance
   classes are created. It is used when an integer value is passed to the argument
-  \code{lags}. Defaults to \code{cutoff = Inf}, that is, the maximum distance value 
-  up to which lag distance classes are created is equal to the diagonal of the 
+  \code{lags}. If \code{cutoff = Inf} the maximum distance value up to which
+  lag distance classes are created is equal to the diagonal of the 
   bounding box of \code{obj}.
-}
-  \item{factor}{
-  Numeric value used as a multiplier of the argument \code{cutoff} when 
-  \code{cutoff = Inf}. If \code{factor = 0.5}, then the maximum distance value
-  up to which lag distance classes are created is equal to half the diagonal of
-  the bounding box of \code{obj}. Defaults to \code{factor = 1}.
 }
   \item{distribution}{
   A vector of numeric values defining a distribution of points or point pairs 

@@ -19,7 +19,7 @@
 #  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #
 points_per_lag <-
-  function (obj, lags = length(obj), cutoff = Inf, factor) {
+  function (obj, lags = length(obj), cutoff) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
@@ -31,26 +31,19 @@ points_per_lag <-
     if (!is.numeric(lags)) {
       stop ("'lags' should be of class numeric")
     }
-    if (!is.numeric(cutoff)) {
-      stop ("'cutoff' should be of class numeric")
-    }
-    if (length(lags) > 1 && cutoff != Inf) {
-      stop ("'cutoff' cannot be used when the lag intervals are specified")
-    }
-    if (!missing(factor)) {
-      if (cutoff != Inf) {
-        stop ("'factor' cannot be used along with 'cutoff'")
+    if (missing(cutoff)) {
+      stop ("'cutoff' is a mandatory argument")
+    } else {
+      if (!is.numeric(cutoff)) {
+        stop ("'cutoff' should be of class numeric")
       }
-      if (!is.numeric(factor) || length(factor) > 1) {
-        stop ("'factor' should be a single numeric value")
+      if (length(lags) > 1 && cutoff != Inf) {
+        stop ("'cutoff' cannot be used when the lag intervals are specified")
       }
     }
     d <- as.matrix(dist(coordinates(obj), method = "euclidean"))
     if (cutoff == Inf) {
-      if (missing(factor)) {
-        factor <- 1
-      }
-      cutoff <- c(dist(t(bbox(obj)))) * factor
+      cutoff <- c(dist(t(bbox(obj))))
     }
     if (length(lags) == 1) {
       lags <- seq(0, cutoff, length.out = lags + 1)
@@ -67,7 +60,7 @@ points_per_lag <-
   }
 #
 pairs_per_lag <- 
-  function (obj, lags = length(obj), cutoff = Inf, factor = 1) {
+  function (obj, lags = length(obj), cutoff) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
@@ -85,20 +78,9 @@ pairs_per_lag <-
     if (length(lags) > 1 && cutoff != Inf) {
       stop ("'cutoff' cannot be used when the lag intervals are specified")
     }
-    if (!missing(factor)) {
-      if (cutoff != Inf) {
-        stop ("'factor' cannot be used along with 'cutoff'")
-      }
-      if (!is.numeric(factor) || length(factor) > 1) {
-        stop ("'factor' should be a single numeric value")
-      }
-    }
     d <- dist(coordinates(obj), method = "euclidean")
     if (cutoff == Inf) {
-      if (missing(factor)) {
-        factor <- 1
-      }
-      cutoff <- c(dist(t(bbox(obj)))) * factor
+      cutoff <- c(dist(t(bbox(obj))))
     }
     if (length(lags) == 1) {
       lags <- seq(0, cutoff, length.out = lags + 1)
@@ -115,8 +97,7 @@ pairs_per_lag <-
   }
 #
 objPairs <- 
-  function (obj, lags = length(obj), distribution, cutoff = Inf, factor, 
-            weights = 1) {
+  function (obj, lags = length(obj), distribution, cutoff = Inf, weights = 1) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
@@ -133,14 +114,6 @@ objPairs <-
     }
     if (length(lags) > 1 && cutoff != Inf) {
       stop ("'cutoff' cannot be used when the lag intervals are specified")
-    }
-    if (!missing(factor)) {
-      if (cutoff != Inf) {
-        stop ("'factor' cannot be used along with 'cutoff'")
-      }
-      if (!is.numeric(factor) || length(factor) > 1) {
-        stop ("'factor' should be a single numeric value")
-      }
     }
     n_pts <- length(obj)
     if (length(lags) > 1) {
@@ -172,15 +145,14 @@ objPairs <-
         stop ("the sum of weights should be equal to 1")
       }
     }
-    pairs <- pairs_per_lag(obj, lags = lags, cutoff = cutoff, factor = factor)
+    pairs <- pairs_per_lag(obj, lags = lags, cutoff = cutoff)
     ss <- c(distribution - pairs$pairs) ^ 2
     ss <- sum(ss * weights)
     return (ss)
   }
 #
 objPoints <- 
-  function (obj, lags = length(obj), distribution, cutoff = Inf, factor, 
-            weights = 1) {
+  function (obj, lags = length(obj), distribution, cutoff = Inf, weights = 1) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
@@ -197,14 +169,6 @@ objPoints <-
     }
     if (length(lags) > 1 && cutoff != Inf) {
       stop ("'cutoff' cannot be used when the lag intervals are specified")
-    }
-    if (!missing(factor)) {
-      if (cutoff != Inf) {
-        stop ("'factor' cannot be used along with 'cutoff'")
-      }
-      if (!is.numeric(factor) || length(factor) > 1) {
-        stop ("'factor' should be a single numeric value")
-      }
     }
     n_pts <- length(obj)
     if (length(lags) > 1) {
@@ -236,7 +200,7 @@ objPoints <-
         stop ("the sum of weights should be equal to 1")
       }
     }
-    points <- points_per_lag(obj, lags = lags, cutoff = cutoff, factor = factor)
+    points <- points_per_lag(obj, lags = lags, cutoff = cutoff)
     ss <- c(distribution - points$points) ^ 2
     ss <- sum(ss * weights)
     return (ss)
