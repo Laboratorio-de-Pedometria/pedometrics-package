@@ -20,7 +20,7 @@
 spJitter <- 
   function (obj, x.coord = list(min = 1, max = NULL, factor = 0.5),
             y.coord = list(min = 1, max = NULL, factor = 0.5), zero = 1, 
-            which = "all", where  = NULL, iterations = 1000, verbose = TRUE) {
+            which = "all", where  = NULL, iterations = 10000, verbose = TRUE) {
     if (!inherits(obj, what = "SpatialPoints")) {
       stop ("obj should be of class SpatialPoints")
     }
@@ -58,15 +58,11 @@ spJitter <-
     }
     if (is.null(x.coord$max)) {
       dx <- bbox(obj)["x", "max"] - bbox(obj)["x", "min"]
-      x.coord$max <- dx / (2 / x.coord$factor)
-    } else {
-      x.coord$max <- x.coord$max / 2
+      x.coord$max <- dx * x.coord$factor
     }
     if (is.null(y.coord$max)) {
       dy <- bbox(obj)["y", "max"] - bbox(obj)["y", "min"]
-      y.coord$max <- dy / (2 / y.coord$factor)
-    } else {
-      y.coord$max <- y.coord$max / 2
+      y.coord$max <- dy * y.coord$factor
     }
     x1 <- jitter(x = x0, amount = x.coord$max)
     dx <- abs(x0 - x1)
