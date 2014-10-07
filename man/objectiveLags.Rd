@@ -76,13 +76,14 @@ objPairs(obj, lags = length(obj), lag.type = "equal", lag.factor = 2,
 }
 \details{
 
-\subsection{Distances}
+\subsection{Distances}{
 
 Euclidean distances between points are calculated using the function 
 \code{\link[stats]{dist}}. This computation requires the coordinates to be 
 projected.
+}
 
-\subsection{Distribution}
+\subsection{Distribution}{
 
 Using the default uniform distribution of point pairs within \code{objPairs} 
 means that the number of point pairs per lag distance class is equal to
@@ -97,8 +98,9 @@ to every lag distance class.
 Distributions other that the default uniform or logarithmic can be easily 
 implemented changing the arguments \code{lags}, \code{lag.type}, 
 \code{lag.factor}, \code{distribution} and \code{weights}.
+}
 
-\subsection{Objectives}
+\subsection{Objectives}{
 
 The functions \code{objPairs} and \code{objPoints} were designed to be used
 in spatial simulated annealing exercises to optimize spatial sample patterns.
@@ -174,6 +176,7 @@ simulated annealing with one point perturbed at a time. When
 above the starting objective function value. When 
 \code{objective = "maximize"}, the starting objective function value usually is 
 equal to the nadir point.
+}
 }
 \value{
 \code{pairs_per_lag} and \code{points_per_lag} return a data.frame with three 
