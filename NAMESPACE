@@ -26,6 +26,7 @@ export(
   cdfStats,
   cdfTable,
   coordenadas,
+  energyState,
   gcpDiff,
   gcpVector,
   objPairs,
@@ -36,6 +37,7 @@ export(
   plotHD,
   plotMS,
   spJitter,
+  spJitter.control,
   spSANN,
   statsMS,
   stepVIF
