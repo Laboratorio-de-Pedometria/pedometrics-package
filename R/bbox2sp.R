@@ -15,6 +15,8 @@
 #
 #  Purpose        : create Spatial object from a bounding box
 #  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
+#  Contributions  : E. Pebesma (edzer.pebesma@uni-muenster.de)
+#                   J. Skoien (jon.skoien@gmail.com)
 #
 bbox2sp <- 
   function (obj, sp = "SpatialPolygons", keep.crs = TRUE) {
