@@ -36,6 +36,7 @@ export(
   plotHD,
   plotMS,
   spJitter,
+  spSANN,
   statsMS,
   stepVIF
   )
