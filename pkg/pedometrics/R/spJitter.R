@@ -16,9 +16,11 @@
 #  Purpose        : random perturbation of coordinates
 #  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #  Contributions  : G. Heuvelink (gerard.heuvelink@wur.nl)
+#                   E. Pebesma (edzer.pebesma@uni-muenster.de)
+#                   J. Skoien (jon.skoien@gmail.com)
 #
 spJitter <- 
-  function (obj, candidates, 
+  function (obj, candidates = NULL, 
             x.coord = list(min = 1, max = NULL, factor = 0.5),
             y.coord = list(min = 1, max = NULL, factor = 0.5), 
             zero = 1, which = "all", where  = NULL, iterations = 10000, 
@@ -31,7 +33,7 @@ spJitter <-
         stop ("'obj' should be of class SpatialPoints with a projected CRS")
       }
     }
-    if (!missing(candidates)) {
+    if (!is.null(candidates)) {
       if (!inherits(candidates, what = "SpatialPoints")) {
         stop ("'candidates' should be of class SpatialPoints")
       } else {
@@ -70,7 +72,7 @@ spJitter <-
         where <- as(where, "SpatialPolygons")
       }
     }
-    if (!missing(candidates)) {
+    if (!is.null(candidates)) {
       if (unique(which == "all")) {
         res <- candidates[sample(c(1:length(candidates)), length(obj)), ]
         message("distances were not taken into account")

@@ -8,7 +8,7 @@ This function perturbs the coordinates of spatial points adding random noise.
 This is also known as \sQuote{jittering}.
 }
 \usage{
-spJitter(obj, candidates,
+spJitter(obj, candidates = NULL,
          x.coord = list(min = 1, max = NULL, factor = 0.5),
          y.coord = list(min = 1, max = NULL, factor = 0.5), 
          zero = 1, which = "all", where = NULL, iterations = 10000,
@@ -22,7 +22,8 @@ spJitter(obj, candidates,
   Object of class SpatialPoints with the candidate locations for the perturbed
   point(s). This is an optional argument which serves to significantly speed up
   the process when repetitive jittering is needed such as in optimization 
-  exercises (simulated annealing). See \sQuote{Details} for more information.
+  exercises (simulated annealing). Defaults to \code{candidates = NULL}. See
+  \sQuote{Details} for more information.
 }
   \item{x.coord}{
   List with three subarguments defining how the x coordinate should be perturbed. 
