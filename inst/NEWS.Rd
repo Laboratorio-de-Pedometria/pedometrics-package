@@ -2,6 +2,12 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.2-4 (2014-10-07)}{
+  \itemize{
+    \item Spatial simulated annealing is now available: spSANN().
+  }
+}
+
 \section{Changes in version 0.2-3 (2014-10-07)}{
   \itemize{
     \item Corrected bugs in functions objPairs(), objPoints(), pairs_per_lag(),
