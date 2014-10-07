@@ -8,59 +8,102 @@ This function perturbs the coordinates of spatial points adding random noise.
 This is also known as \sQuote{jittering}.
 }
 \usage{
-spJitter(obj, x.coord = list(min = 1, max = NULL, factor = 0.5),
-         y.coord = list(min = 1, max = NULL, factor = 0.5), zero = 1, 
-         which = "all", where = NULL, iterations = 100, verbose = TRUE)
+spJitter(obj, candidates,
+         x.coord = list(min = 1, max = NULL, factor = 0.5),
+         y.coord = list(min = 1, max = NULL, factor = 0.5), 
+         zero = 1, which = "all", where = NULL, iterations = 10000,
+         verbose = TRUE)
 }
 \arguments{
   \item{obj}{
   Object of class SpatialPoints with the point(s) to be perturbed.
 }
+  \item{candidates}{
+  Object of class SpatialPoints with the candidate locations for the perturbed
+  point(s). This is an optional argument which serves to significantly speed up
+  the process when repetitive jittering is needed such as in optimization 
+  exercises (simulated annealing). See \sQuote{Details} for more information.
+}
   \item{x.coord}{
   List with three subarguments defining how the x coordinate should be perturbed. 
   \code{min} and \code{max} define the minimum and maximum quantity of random
-  noise to be added to the x coordinate. \code{factor} is used when
-  \code{max} is not set. It is a multiplier used to define the fraction of the 
-  total length of the x axis that should be used as \code{max}. The default is 
-  \code{fraction = 0.5}, i.e.~half the length of the x axis. See
-  \sQuote{Details} for more information.
+  noise to be added to the x coordinate. If \code{candidates} is set, then 
+  \code{min} should be equal to, at least, the minimum distance between two 
+  neighbouring candidate locations. \code{factor} is used when \code{max} is not
+  set. It is a multiplier used to define the fraction of the total length of the
+  x axis that should be used as \code{max}. The default is \code{fraction = 0.5},
+  that is, half of the length of the x axis. See \sQuote{Details} for more
+  information.
 }
   \item{y.coord}{
   The same as for \code{x.coord}.
 }
   \item{zero}{
   Numeric value defining the distance less than or equal to which two points are 
-  considered to have zero distance. Units are those of the coordinates for
-  projected data or unknown projection, or km if coordinates are defined to be
-  longitute/latitude. See more information at \code{\link[sp]{zerodist}}.
-  Defaults to \code{zero = 1}.
+  considered to have zero distance. See more information at 
+  \code{\link[sp]{zerodist}}. This argument is used only when \code{candidates}
+  is not set. Defaults to \code{zero = 1}.
 }
   \item{which}{
-  Vector of integer values or a character value defining which points should 
+  Vector of integer values or a character value defining which point(s) should 
   be perturbed. Defaults to \code{which = "all"}, that is, all points are
-  perturbed.
+  perturbed. See \sQuote{Details} for more information.
 }
   \item{where}{
-  An object of class SpatialPolygons* defining the spatial domain to which the
-  perturbed points should be constrained. Defaults to \code{where = NULL}.
-  See \sQuote{Details} for more information.
+  An object of class SpatialPolygons defining the spatial domain to which the
+  perturbed points should be constrained. Defaults to \code{where = NULL}, 
+  that is, no constraint is enforced. This argument is used only when 
+  \code{candidates} is not set. See \sQuote{Details} for more information.
 }
   \item{iterations}{
   Integer value defining the maximum number of iterations that should be used 
   when constraining the perturbed points to the spatial domain defined by the
-  argument \code{where}. The perturbation is not constrained if
-  \code{where = "inf"}. Defaults to \code{iterations = 100}. See 
-  \sQuote{Details} for more information.
+  argument \code{where}. Defaults to \code{iterations = 10000}. This argument is 
+  used only when \code{candidates} is not set. See \sQuote{Details} for more
+  information.
 }
   \item{verbose}{
-  Logical for printing details about the (lack of) success of the algorithm when
+  Logical for printing details about the success of the algorithm when
   constraining the perturbed points to the spatial domain defined by the
   argument \code{where}.
 }
 }
 \details{
 This function perturbs the coordinates of spatial points adding random noise, a 
-process also known as \sQuote{jittering}.
+process also known as \sQuote{jittering}. There are two ways of jittering the 
+coordinates. They differ on how the the set of candidate locations is defined.
+
+\subsection{Finite set of candidate locations}{
+
+The first method uses a finite set of candidate locations for the perturbed
+points. This method is the fastest because it does not require to check if the 
+perturbed point falls inside the spatial domain. Since the candidate locations 
+is a finite set, any perturbed point will inexorably fall inside the spatial 
+domain. This is a very important feature when \code{spJitter} is used in 
+optimization exercises such as simulated annealing when repetitive perturbation 
+is required.
+
+The subarguments \code{min} and \code{max} in both arguments \code{x.coord} and
+\code{y.coord} are used to define a rectangular window containing the set of 
+candidate locations. The new location is randomly sampled from the set of
+candidate locations. The current implementation does not enable to define the
+direction of the perturbation, but this could possibly be done by defining 
+quadrants.
+}
+
+\subsection{Infinite set of candidate locations}{
+
+The second method can be much slower than the first depending on the number of
+points, on the shape of the area and on how the other arguments are set. This 
+method does not use a finite set of candidate locations. Intead, the number of
+candidate locations is infinite. Its domain can be defined using the argument
+\code{where}. The reason for the larger amount of time demanded is that the
+method has two internal steps to 1) check if the perturbed point falls inside the
+spatial domain, and b) check if two of more points have coincident coordinates
+(set using argument \code{zero}). Using an infinite set of condidate locations
+will usually allow obtaining better results in optimization exercises such as 
+spatial simulated annealing. However, the amount of time may be prohibitive 
+depending on the complexity of the problem.
 
 The subargument \code{max} in both arguments \code{x.coord} and \code{y.coord} 
 defines the lower and upper limits of a uniform distribution 
@@ -101,6 +144,7 @@ was not enough to guarantee all points inside the spatial domain, \code{spJitter
 returns the jittered SpatialPoints with a warning message informing how many
 points do not meet the constraint.
 }
+}
 \value{
 An object of class SpatialPoints with jittered coordinates.
 }
@@ -118,6 +162,8 @@ van Groenigen, J.-W.
 }
 \author{
 Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+
+Gerard Heuvelink \email{gerard.heuvelink@wur.nl}
 }
 \note{
 Some of the solutions used to build this function were found in the source code 
@@ -136,6 +182,7 @@ require(sp)
 data(meuse)
 obj <- meuse[, c("x", "y")]
 coordinates(obj) <- ~ x + y
+proj4string(obj) <- CRS("+init=epsg:28992")
 obj1 <- spJitter(obj)
 xlim <- c(min(bbox(obj)["x", "min"], bbox(obj1)["x", "min"]),
          max(bbox(obj)["x", "max"], bbox(obj1)["x", "max"]))
