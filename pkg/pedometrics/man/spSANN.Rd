@@ -152,7 +152,7 @@ spJitter.ctrl <-
   spJitter.control(where = bound, candidates = candidates,
                    x.coord = list(min = 40, max = NULL, factor = 0.5),
                    y.coord = list(min = 40, max = NULL, factor = 0.5))
-cutoff <- (c(dist(t(bbox(obj0)))) / 2)
+cutoff <- (c(dist(t(bbox(meuse)))) / 2)
 lags <- 7
 iterations <- 100
 set.seed(123)
