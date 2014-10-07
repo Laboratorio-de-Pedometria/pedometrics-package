@@ -155,7 +155,7 @@ This allows to define both problems as minimization problems.
 The different criteria have different \emph{nadir} (\eqn{f^{max}_{i}}) and
 \emph{utopia} (\eqn{f^{\circ}_{i}}) points.
 
-When \code{objective = "maximize"}, the nadir point is \eqn{f^{max}_{i} = 1}, 
+When \code{objective = "maximize"}, the nadir point is \eqn{f^{max}_{i} = 100}, 
 while the utopia point is close to zero (\eqn{f^{\circ}_{i} \rightarrow 0}).
 
 When \code{objective = "distri"}, the utopia point is exactly zero 
@@ -169,7 +169,11 @@ is equal to the sum of squared differences between the two distributions:
 \code{sum((c(10, 10, 10, 10, 10) - c(0, 50, 0, 0, 0)) ^ 2) = 2000}
 
 The nadir point is hardly attained in any optimization exercise using
-simulated annealing.
+simulated annealing with one point perturbed at a time. When 
+\code{objective = "distri"} the objective function values hardly attain values
+above the starting objective function value. When 
+\code{objective = "maximize"}, the starting objective function value usually is 
+equal to the nadir point.
 }
 \value{
 \code{pairs_per_lag} and \code{points_per_lag} return a data.frame with three 

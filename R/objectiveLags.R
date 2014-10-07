@@ -15,8 +15,9 @@
 #
 #  Purpose        : count the number of points or point pairs per lag distance 
 #                   class; compute the deviation of the observed distribution of 
-#                   counts from a prespecified distribution
+#                   counts from a prespecified distribution;
 #  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
+#  Contributions  : G. Heuvelink (gerard.heuvelink@wur.nl)
 #
 # POINTS PER LAG DISTANCE CLASS
 points_per_lag <-
@@ -125,9 +126,9 @@ objPoints <-
     if (objective == "maximize") {
       points <- points_per_lag(obj, lags = lags, cutoff = cutoff, 
                                lag.type = lag.type, lag.factor = lag.factor)
-      res <- 1 / min(points$points)
+      res <- 100 / min(points$points)
       if (res == Inf) {
-        res <- 1
+        res <- 100
       }
       return (res)
     }    
@@ -239,9 +240,9 @@ objPairs <-
     if (objective == "maximize") {
       pairs <- pairs_per_lag(obj, lags = lags, cutoff = cutoff, 
                                lag.type = lag.type, lag.factor = lag.factor)
-      res <- 1 / min(pairs$pairs)
+      res <- 100 / min(pairs$pairs)
       if (res == Inf) {
-        res <- 1
+        res <- 100
       }
       return (res)
     }    
