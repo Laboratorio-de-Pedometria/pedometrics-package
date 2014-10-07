@@ -1,18 +1,23 @@
 \name{spJitter}
 \alias{spJitter}
+\alias{spJitter.control}
 \title{
-Random perturbation of spatial points
+Perturbation of spatial points
 }
 \description{
-This function perturbs the coordinates of spatial points adding random noise. 
-This is also known as \sQuote{jittering}.
+This function perturbs the coordinates of spatial points (also known as
+\sQuote{jittering}).
 }
 \usage{
 spJitter(obj, candidates = NULL,
          x.coord = list(min = 1, max = NULL, factor = 0.5),
          y.coord = list(min = 1, max = NULL, factor = 0.5), 
-         zero = 1, which = "all", where = NULL, iterations = 10000,
-         verbose = TRUE)
+         zero = 1, which = "all", where = NULL, 
+         iterations = 10000, verbose = TRUE)
+spJitter.control(x.coord = list(min = 1, max = NULL, factor = 0.5),
+                 y.coord = list(min = 1, max = NULL, factor = 0.5),
+                 candidates = NULL, zero = 1, where = NULL, 
+                 iterations = 10000, verbose = FALSE)
 }
 \arguments{
   \item{obj}{
@@ -181,15 +186,15 @@ R-package \pkg{pedometrics}.
 \examples{
 require(sp)
 data(meuse)
-obj <- meuse[, c("x", "y")]
-coordinates(obj) <- ~ x + y
-proj4string(obj) <- CRS("+init=epsg:28992")
-obj1 <- spJitter(obj)
-xlim <- c(min(bbox(obj)["x", "min"], bbox(obj1)["x", "min"]),
-         max(bbox(obj)["x", "max"], bbox(obj1)["x", "max"]))
-ylim <- c(min(bbox(obj)["y", "min"], bbox(obj1)["y", "min"]),
-         max(bbox(obj)["y", "max"], bbox(obj1)["y", "max"]))
-plot(obj, pch = 20, col = "blue", cex = 0.3, xlim = xlim, ylim = ylim)
+meuse <- meuse[, c("x", "y")]
+coordinates(meuse) <- ~ x + y
+proj4string(meuse) <- CRS("+init=epsg:28992")
+obj1 <- spJitter(meuse)
+xlim <- c(min(bbox(meuse)["x", "min"], bbox(obj1)["x", "min"]),
+         max(bbox(meuse)["x", "max"], bbox(obj1)["x", "max"]))
+ylim <- c(min(bbox(meuse)["y", "min"], bbox(obj1)["y", "min"]),
+         max(bbox(meuse)["y", "max"], bbox(obj1)["y", "max"]))
+plot(meuse, pch = 20, col = "blue", cex = 0.3, xlim = xlim, ylim = ylim)
 points(obj1, pch = 20, col = "red", cex = 0.3)
 }
 \keyword{iteration}
