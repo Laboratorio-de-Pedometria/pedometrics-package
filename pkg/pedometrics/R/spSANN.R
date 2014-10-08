@@ -31,7 +31,7 @@ energyState <-
 spJitter.control <-
   function (x.coord = list(min = 1, max = NULL, factor = 0.5),
             y.coord = list(min = 1, max = NULL, factor = 0.5),
-            candidates = NULL,
+            candidates = NULL, localGrid = TRUE,
             zero = 1, where = NULL, iterations = 10000, verbose = FALSE) {
     if (!is.list(x.coord) && length(x.coord) != 3) {
       stop ("'x.coord' should be a list with 3 subarguments")
@@ -55,9 +55,19 @@ spJitter.control <-
           where <- as(where, "SpatialPolygons")
         }
     }
+    if (!is.null(candidates)) {
+      if (!inherits(candidates, "SpatialPoints") || 
+          is.na(proj4string(candidates)) || !is.projected(candidates)) {
+        stop ("'candidates' should be of class SpatialPoints with a projected CRS")
+      } else {
+          candidates <- as(candidates, "SpatialPoints")
+          colnames(candidates@coords) <- c("x", "y")
+          rownames(candidates@bbox) <- c("x", "y")
+        }
+    }
     res <- list(x.coord = x.coord, y.coord = y.coord, candidates = candidates,
                 zero = zero, where = where, iterations = iterations, 
-                verbose = verbose)
+                verbose = verbose, localGrid = localGrid)
     return (res)
   }
 # spatial simulated annealing
@@ -65,7 +75,7 @@ spSANN <-
   function (obj, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
             max.count = 200, initial.prob = 0.2, size = 1, size.factor = 10,
             cooling.factor = iterations / 10,
-            progress = TRUE, plotit = FALSE, verbose = FALSE, ...) {
+            progress = TRUE, plotit = TRUE, verbose = TRUE, ...) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
