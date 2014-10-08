@@ -20,7 +20,7 @@
 #                   J. Skoien (jon.skoien@gmail.com)
 #
 spJitter <- 
-  function (obj, candidates = NULL, 
+  function (obj, candidates = NULL,
             x.coord = list(min = 1, max = NULL, factor = 0.5),
             y.coord = list(min = 1, max = NULL, factor = 0.5), 
             zero = 1, which = "all", where  = NULL, iterations = 10000, 
@@ -31,6 +31,10 @@ spJitter <-
       if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
             !is.projected(obj)) {
         stop ("'obj' should be of class SpatialPoints with a projected CRS")
+      } else {
+        obj <- as(obj, "SpatialPoints")
+        colnames(obj@coords) <- c("x", "y")
+        rownames(obj@bbox) <- c("x", "y")
       }
     }
     if (!is.null(candidates)) {
@@ -38,6 +42,8 @@ spJitter <-
         stop ("'candidates' should be of class SpatialPoints")
       } else {
         candidates <- as(candidates, "SpatialPoints")
+        colnames(candidates@coords) <- c("x", "y")
+        rownames(candidates@bbox) <- c("x", "y")
       }
     }
     if (!is.list(x.coord) || length(x.coord) != 3) {
@@ -193,11 +199,11 @@ spJitter <-
         } else {
           if (verbose) {
             message(paste("spJitter converged after ", n_iter, " iterations",
-                        sep = ""))
+                          sep = ""))
           }
         }
       }
       return (res)
-    }
+    } 
   }
 # End!
