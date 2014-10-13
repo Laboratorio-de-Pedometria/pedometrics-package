@@ -15,43 +15,54 @@
 #
 #  Purpose        : count the number of points or point pairs per lag distance 
 #                   class; compute the deviation of the observed distribution of 
-#                   counts from a prespecified distribution;
+#                   counts from a prespecified distribution; compute the minimum
+#                   count of points or point pairs across all lag distance 
+#                   classes
 #  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
 #  Contributions  : G. Heuvelink (gerard.heuvelink@wur.nl)
 #
 # POINTS PER LAG DISTANCE CLASS
 points_per_lag <-
-  function (obj, lags = length(obj), lag.type = "equal", lag.factor = 2, 
-            cutoff = Inf) {
+  function (obj, lags, lags.type = "equidistant", lags.base = 2, cutoff = Inf) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
-      if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
-            !is.projected(obj)) {
-        stop ("'obj' should be of class SpatialPoints* with a projected CRS")
+      if (!inherits(obj, "SpatialPoints")) {
+        stop ("'obj' should be of class SpatialPoints")
+      } else {
+        if (is.na(proj4string(obj)) || !is.projected(obj)) {
+          stop ("'obj' should have a projected CRS") 
+        }
       }
     }
-    if (!is.numeric(lags)) {
-      stop ("'lags' should be a numeric value or vector")
+    if (missing(lags)) {
+      stop ("'lags' is a mandatory argument")
+    } else {
+      if (!is.numeric(lags)) {
+        stop ("'lags' should be a numeric value or vector")
+      } 
     }
-    if (!is.numeric(cutoff)) {
-      stop ("'cutoff' should be a numeric value")
-    }
-    if (length(lags) > 1 && cutoff != Inf) {
-      stop ("'cutoff' cannot be used when the lag intervals are specified")
-    }
-    if (cutoff == Inf) {
+    if (cutoff != Inf) {
+      if (!is.numeric(cutoff)) {
+        stop ("'cutoff' should be a numeric value")
+      }
+      if (length(lags) > 1) {
+        stop ("'cutoff' cannot be used when the lag intervals are specified")
+      } 
+    } else {
       cutoff <- c(dist(t(bbox(obj))))
     }
-    d <- as.matrix(dist(coordinates(obj), method = "euclidean"))
+    d <- coordinates(obj)
+    d <- dist(d, method = "euclidean")
+    d <- as.matrix(d)
     if (length(lags) == 1) {
-      if (lag.type == "equal") {
+      if (lags.type == "equidistant") {
         lags <- seq(0, cutoff, length.out = lags + 1)
       }
-      if (lag.type == "log") {
+      if (lags.type == "exponential") {
         idx <- vector()
         for (i in 1:lags - 1) {
-          idx[i] <- lag.factor ^ i
+          idx[i] <- lags.base ^ i
         }
         lags <- c(0, rev(cutoff / idx), cutoff)
       }
@@ -67,24 +78,33 @@ points_per_lag <-
   }
 # OBJECIVE FUNCTION - POINT PAIRS PER LAG DISTANCE CLASS
 objPoints <- 
-  function (obj, lags = length(obj), lag.type = "equal", lag.factor = 2,
-            cutoff = Inf, objective = "maximize", distribution, weights = 1) {
+  function (obj, lags, lags.type = "equidistant", lags.base = 2, cutoff = Inf, 
+            criterion = "minimum", pre.distribution, weights = 1) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
-      if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
-            !is.projected(obj)) {
-        stop ("'obj' should be of class SpatialPoints* with a projected CRS")
-      }  
+      if (!inherits(obj, "SpatialPoints")) {
+        stop ("'obj' should be of class SpatialPoints")
+      } else {
+        if (is.na(proj4string(obj)) || !is.projected(obj)) {
+          stop ("'obj' should have a projected CRS") 
+        }
+      }
     }
-    if (!is.numeric(lags)) {
-      stop ("lags should be a numeric value or vector")
+    if (missing(lags)) {
+      stop ("'lags' is a mandatory argument")
+    } else {
+      if (!is.numeric(lags)) {
+        stop ("'lags' should be a numeric value or vector")
+      } 
     }
-    if (!is.numeric(cutoff)) {
-      stop ("cutoff should be a numeric value")
-    }
-    if (length(lags) > 1 && cutoff != Inf) {
-      stop ("'cutoff' cannot be used when the lag intervals are specified")
+    if (cutoff != Inf) {
+      if (!is.numeric(cutoff)) {
+        stop ("'cutoff' should be a numeric value")
+      }
+      if (length(lags) > 1) {
+        stop ("'cutoff' cannot be used when the lag intervals are specified")
+      } 
     }
     n_pts <- length(obj)
     if (length(lags) > 1) {
@@ -92,20 +112,20 @@ objPoints <-
     } else {
       n_lags <- lags
     }
-    if (objective == "distri") {
-      if (!missing(distribution)) {
-        if (!is.numeric(distribution)) {
-          stop ("distribution should be of class numeric")
+    if (criterion == "distribution") {
+      if (!missing(pre.distribution)) {
+        if (!is.numeric(pre.distribution)) {
+          stop ("pre.distribution should be of class numeric")
         }
-        if (length(distribution) != n_lags) {
-          stop ("the length of 'distribution' should match the number of lags")
+        if (length(pre.distribution) != n_lags) {
+          stop ("the length of 'pre.distribution' should match the number of lags")
         }
       } else {
-        distribution <- rep(n_pts, n_lags)
+        pre.distribution <- rep(n_pts, n_lags)
       }
       if (length(weights) == 1) {
         if (weights == 1) {
-          weights <- 1 / length(distribution)
+          weights <- 1 / length(pre.distribution)
         } else {
           stop ("the sum of weights should be equal to 1")
         }
@@ -118,54 +138,61 @@ objPoints <-
         }
       }
       points <- points_per_lag(obj, lags = lags, cutoff = cutoff, 
-                               lag.type = lag.type, lag.factor = lag.factor)
-      ss <- c(distribution - points$points) ^ 2
+                               lags.type = lags.type, lags.base = lags.base)
+      ss <- c(pre.distribution - points$points) ^ 2
       ss <- sum(ss * weights)
       return (ss) 
     }
-    if (objective == "maximize") {
+    if (criterion == "minimum") {
       points <- points_per_lag(obj, lags = lags, cutoff = cutoff, 
-                               lag.type = lag.type, lag.factor = lag.factor)
-      res <- 100 / min(points$points)
-      if (res == Inf) {
-        res <- 100
-      }
+                               lags.type = lags.type, lags.base = lags.base)
+      a <- log10Ceiling(length(obj))
+      b <- min(points$points) + 1
+      res <- a / b
       return (res)
     }    
   }
 # POINT PAIRS PER LAG DISTANCE CLASS
 pairs_per_lag <- 
-  function (obj, lags = length(obj), lag.type = "equal", lag.factor = 2, 
-            cutoff = Inf) {
+  function (obj, lags, lags.type = "equidistant", lags.base = 2, cutoff = Inf) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
-      if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
-            !is.projected(obj)) {
-        stop ("'obj' should be of class SpatialPoints* with a projected CRS")
+      if (!inherits(obj, "SpatialPoints")) {
+        stop ("'obj' should be of class SpatialPoints")
+      } else {
+        if (is.na(proj4string(obj)) || !is.projected(obj)) {
+          stop ("'obj' should have a projected CRS") 
+        }
       }
     }
-    if (!is.numeric(lags)) {
-      stop ("'lags' should be of class numeric")
+    if (missing(lags)) {
+      stop ("'lags' is a mandatory argument")
+    } else {
+      if (!is.numeric(lags)) {
+        stop ("'lags' should be a numeric value or vector")
+      } 
     }
-    if (!is.numeric(cutoff)) {
-      stop ("'cutoff' should be of class numeric")
-    }
-    if (length(lags) > 1 && cutoff != Inf) {
-      stop ("'cutoff' cannot be used when the lag intervals are specified")
-    }
-    if (cutoff == Inf) {
+    if (cutoff != Inf) {
+      if (!is.numeric(cutoff)) {
+        stop ("'cutoff' should be a numeric value")
+      }
+      if (length(lags) > 1) {
+        stop ("'cutoff' cannot be used when the lag intervals are specified")
+      } 
+    } else {
       cutoff <- c(dist(t(bbox(obj))))
     }
-    d <- dist(coordinates(obj), method = "euclidean")
+    d <- coordinates(obj)
+    d <- dist(d, method = "euclidean")
     if (length(lags) == 1) {
-      if (lag.type == "equal") {
+      if (lags.type == "equidistant") {
         lags <- seq(0, cutoff, length.out = lags + 1)
       }
-      if (lag.type == "log") {
+      if (lags.type == "exponential") {
         idx <- vector()
         for (i in 1:lags - 1) {
-          idx[i] <- lag.factor ^ i
+          idx[i] <- lags.base ^ i
         }
         lags <- c(0, rev(cutoff / idx), cutoff)
       }
@@ -181,24 +208,33 @@ pairs_per_lag <-
   }
 # OBJECIVE FUNCTION - POINT PAIRS PER LAG DISTANCE CLASS
 objPairs <- 
-  function (obj, lags = length(obj), lag.type = "equal", lag.factor = 2,
-            cutoff = Inf, objective = "maximize", distribution, weights = 1) {
+  function (obj, lags, lags.type = "equidistant", lags.base = 2, cutoff = Inf,
+            criterion = "minimum", pre.distribution, weights = 1) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
-      if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
-            !is.projected(obj)) {
-        stop ("'obj' should be of class SpatialPoints* with a projected CRS")
-      }  
+      if (!inherits(obj, "SpatialPoints")) {
+        stop ("'obj' should be of class SpatialPoints")
+      } else {
+        if (is.na(proj4string(obj)) || !is.projected(obj)) {
+          stop ("'obj' should have a projected CRS") 
+        }
+      }
     }
-    if (!is.numeric(lags)) {
-      stop ("lags should be of class numeric")
+    if (missing(lags)) {
+      stop ("'lags' is a mandatory argument")
+    } else {
+      if (!is.numeric(lags)) {
+        stop ("'lags' should be a numeric value or vector")
+      } 
     }
-    if (!is.numeric(cutoff)) {
-      stop ("cutoff should be of class numeric")
-    }
-    if (length(lags) > 1 && cutoff != Inf) {
-      stop ("'cutoff' cannot be used when the lag intervals are specified")
+    if (cutoff != Inf) {
+      if (!is.numeric(cutoff)) {
+        stop ("'cutoff' should be a numeric value")
+      }
+      if (length(lags) > 1) {
+        stop ("'cutoff' cannot be used when the lag intervals are specified")
+      } 
     }
     n_pts <- length(obj)
     if (length(lags) > 1) {
@@ -206,20 +242,20 @@ objPairs <-
     } else {
       n_lags <- lags
     }
-    if (objective == "distri") {
-      if (!missing(distribution)) {
-        if (!is.numeric(distribution)) {
-          stop ("distribution should be of class numeric")
+    if (criterion == "distribution") {
+      if (!missing(pre.distribution)) {
+        if (!is.numeric(pre.distribution)) {
+          stop ("pre.distribution should be of class numeric")
         }
-        if (length(distribution) != n_lags) {
-          stop ("the length of 'distribution' should match the number of lags")
+        if (length(pre.distribution) != n_lags) {
+          stop ("the length of 'pre.distribution' should match the number of lags")
         }
       } else {
-        distribution <- rep(n_pts * (n_pts - 1) / (2 * n_lags), n_lags)
+        pre.distribution <- rep(n_pts * (n_pts - 1) / (2 * n_lags), n_lags)
       }
       if (length(weights) == 1) {
         if (weights == 1) {
-          weights <- 1 / length(distribution)
+          weights <- 1 / length(pre.distribution)
         } else {
           stop ("the sum of weights should be equal to 1")
         }
@@ -231,19 +267,18 @@ objPairs <-
           stop ("the sum of weights should be equal to 1")
         }
       }
-      pairs <- pairs_per_lag(obj, lags = lags, lag.type = lag.type,
-                             lag.factor = lag.factor, cutoff = cutoff)
-      ss <- c(distribution - pairs$pairs) ^ 2
+      pairs <- pairs_per_lag(obj, lags = lags, lags.type = lags.type,
+                             lags.base = lags.base, cutoff = cutoff)
+      ss <- c(pre.distribution - pairs$pairs) ^ 2
       ss <- sum(ss * weights)
       return (ss)  
     }
-    if (objective == "maximize") {
+    if (criterion == "minimum") {
       pairs <- pairs_per_lag(obj, lags = lags, cutoff = cutoff, 
-                               lag.type = lag.type, lag.factor = lag.factor)
-      res <- 100 / min(pairs$pairs)
-      if (res == Inf) {
-        res <- 100
-      }
+                             lags.type = lags.type, lags.base = lags.base)
+      a <- log10Ceiling(n_pts * (n_pts - 1) / (2 * n_lags))
+      b <- min(pairs$pairs) + 1
+      res <- a / b
       return (res)
     }    
   }
