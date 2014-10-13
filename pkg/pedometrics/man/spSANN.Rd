@@ -77,7 +77,41 @@ spSANN(obj, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
 }
 }
 \details{
-Details will be added soon.
+
+\subsection{Temperature}{
+The \emph{temperature} affects a) the size of the search graph, i.e. the maximum distance that a point can be moved around, and b) the probability of accepting a new system configuration that is worse than the current system configuration.
+
+A \strong{linear} cooling schedule depending upon the number of iterations is used in the current version of \code{spSANN} to control the size of the search graph. The equations are as follows:
+
+\verb{
+x.max.b <- x.max.a - k / iterations * (x.max.a - x.min)
+y.max.b <- y.max.a - k / iterations * (y.max.a - y.min)
+}
+
+where \code{x.max.a} and \code{y.max.a} are the maximum allowed shift in the x and y coordinates in the previous iteration, \code{x.min} and \code{y.min} are the minimum required shift in the x and y coordinates, and \code{x.max.a} and \code{y.max.a} are the maximum allowed shift in the x and y coordinates in the current iteration. \code{iterations} is the total number of iterations and \code{k} is the current iteration.
+
+An \strong{exponential} cooling schedule depending upon the number of iterations is used in the current version of \code{spSANN} to control the acceptance probability. The acceptance probability at each iteration is calculates as follows:
+
+\verb{actual.prob <- initial.prob * exp(-k / cooling.factor)}
+}
+
+The number of iterations has a large influence on the performance of the spatial simulated annealing algorithm. The larger the number of possible system configurations, the larger should be the number of iterations. The number of possible system configurations increases with:
+
+\itemize{
+\item a high initial acceptance probability
+\item the use of an infinite set of candidate locations
+\item the use of a very dense finite set of candidate locations
+}
+
+INITIAL ACCEPTANCE PROBABILITY. Using a low initial acceptance probability value makes the simulated annealing alike a \emph{greedy} algorithm. This means that simulated annealing can converge in a shorter time, but the solution found is likely to be a local optimum instead of the global optimum.
+
+STARTING SYSTEM CONFIGURATION. Unidimensional objective functions such as \code{\link[pedometrics]{objPairs}} and \code{\link[pedometrics]{objPoints}} are dependent on the starting system configuration by definition. This means that many points will likely to stay close to their starting positions. Thus, it is recomended that the starting system configuration be close to the global optimal. Increasing the initial acceptance probability does not guarantee the independence from the starting system configuration. An alternative is to start jittering (randomly perturbing) several points at a time and use a cooling schedule to \strong{exponentially} decrease the number of points jittered at each iteration. The cooling schedule implemented in \code{spSANN} is as follows:
+
+\verb{
+new.size <- round(c(old.size - 1) * exp(-k / size.factor) + 1)
+}
+
+where \code{old.size} and \code{new.size} are the number of points jittered in the previous and next iterations, \code{size.factor} is the cooling parameter, and \code{k} is the number of the current iteration. The larger the difference between the starting system configuration and the global optimum, the larger the number of points that need to be jittered in the first iterations. This will usually increase the time spent on the first iterations.
 }
 \value{
 A list with two components: a) the optimized spatial point pattern and b) the

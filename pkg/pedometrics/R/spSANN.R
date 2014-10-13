@@ -27,55 +27,18 @@ energyState <-
     }
     return (do.call(fun, list(obj, ...)))
   }
-# controls for spJitter
-spJitter.control <-
-  function (x.coord = list(min = 1, max = NULL, factor = 0.5),
-            y.coord = list(min = 1, max = NULL, factor = 0.5),
-            candidates = NULL, localGrid = TRUE,
-            zero = 1, where = NULL, iterations = 10000, verbose = FALSE) {
-    if (!is.list(x.coord) && length(x.coord) != 3) {
-      stop ("'x.coord' should be a list with 3 subarguments")
-    }
-    if (!is.list(y.coord) && length(y.coord) != 3) {
-      stop ("'y.coord' should be a list with 3 subarguments")
-    }
-    if (!is.numeric(zero)) {
-      stop ("'zero' should be a numeric value")
-    }
-    if (!is.numeric(iterations)) {
-      stop ("'iterations' should be a numeric value")
-    }
-    if (!is.logical(verbose)) {
-      stop ("'verbose' should be a logical value")
-    }
-    if (!is.null(where)) {
-      if (!inherits(where, what = "SpatialPolygons")) {
-        stop ("'where' should be of class SpatialPolygons")
-      } else {
-          where <- as(where, "SpatialPolygons")
-        }
-    }
-    if (!is.null(candidates)) {
-      if (!inherits(candidates, "SpatialPoints") || 
-          is.na(proj4string(candidates)) || !is.projected(candidates)) {
-        stop ("'candidates' should be of class SpatialPoints with a projected CRS")
-      } else {
-          candidates <- as(candidates, "SpatialPoints")
-          colnames(candidates@coords) <- c("x", "y")
-          rownames(candidates@bbox) <- c("x", "y")
-        }
-    }
-    res <- list(x.coord = x.coord, y.coord = y.coord, candidates = candidates,
-                zero = zero, where = where, iterations = iterations, 
-                verbose = verbose, localGrid = localGrid)
-    return (res)
-  }
 # spatial simulated annealing
 spSANN <-
   function (obj, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
-            max.count = 200, initial.prob = 0.2, size = 1, size.factor = 10,
-            cooling.factor = iterations / 10,
-            progress = TRUE, plotit = TRUE, verbose = TRUE, ...) {
+            size = 1, 
+            size.factor = iterations / 10,
+            acceptance = list(fun = "Default", initial = 0.99, 
+                              cooling.factor = iterations / 10),
+            temperature = NULL, 
+            stopping = list(max.count = 200),
+            progress = TRUE, verbose = TRUE,
+            plotit = list(prob = TRUE, starting = TRUE,
+                          x.max = FALSE, y.max = FALSE), ...) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     } else {
@@ -95,51 +58,68 @@ spSANN <-
       stop ("'iterations' should be a numeric value")
     }
     if (is.null(spJitter.ctrl$x.coord$max)) {
-      dx <- bbox(obj)["x", "max"] - bbox(obj)["x", "min"]
-      spJitter.ctrl$x.coord$max <- dx * spJitter.ctrl$x.coord$factor
+      if (!is.null(spJitter.ctrl$candidates)) {
+        dx <- bbox(spJitter.ctrl$candidates)["x", "max"] - 
+          bbox(spJitter.ctrl$candidates)["x", "min"]
+        spJitter.ctrl$x.coord$max <- dx * spJitter.ctrl$x.coord$factor
+      } else {
+        if (!is.null(spJitter.ctrl$where)) {
+          dx <- bbox(spJitter.ctrl$where)["x", "max"] - 
+            bbox(spJitter.ctrl$where)["x", "min"]
+          spJitter.ctrl$x.coord$max <- dx * spJitter.ctrl$x.coord$factor
+        } else {
+          dx <- bbox(obj)["x", "max"] - bbox(obj)["x", "min"]
+          spJitter.ctrl$x.coord$max <- dx * spJitter.ctrl$x.coord$factor
+        }
+      }
     } else {
       spJitter.ctrl$x.coord$max <- spJitter.ctrl$x.coord$max
     }
     if (is.null(spJitter.ctrl$y.coord$max)) {
-      dy <- bbox(obj)["y", "max"] - bbox(obj)["y", "min"]
-      spJitter.ctrl$y.coord$max <- dy * spJitter.ctrl$y.coord$factor
+      if (!is.null(spJitter.ctrl$candidates)) {
+        dx <- bbox(spJitter.ctrl$candidates)["y", "max"] - 
+          bbox(spJitter.ctrl$candidates)["y", "min"]
+        spJitter.ctrl$y.coord$max <- dx * spJitter.ctrl$y.coord$factor
+      } else {
+        if (!is.null(spJitter.ctrl$where)) {
+          dx <- bbox(spJitter.ctrl$where)["y", "max"] - 
+            bbox(spJitter.ctrl$where)["y", "min"]
+          spJitter.ctrl$y.coord$max <- dx * spJitter.ctrl$y.coord$factor
+        } else {
+          dx <- bbox(obj)["y", "max"] - bbox(obj)["y", "min"]
+          spJitter.ctrl$y.coord$max <- dx * spJitter.ctrl$y.coord$factor
+        }
+      }
     } else {
       spJitter.ctrl$y.coord$max <- spJitter.ctrl$y.coord$max
     }
-    if (!is.numeric(max.count) || length(max.count) > 1) {
+    if (!is.numeric(stopping$max.count) || length(stopping$max.count) > 1) {
       stop ("'max.count' should be a numeric value")
-    }
-    if (!is.numeric(initial.prob) || length(initial.prob) > 1 || initial.prob <= 0) {
-      stop ("'initial.prob' should be a positive numeric value")
-    }
-    if (!is.numeric(cooling.factor) || length(cooling.factor) > 1 || cooling.factor < 1) {
-      stop ("'cooling.factor' should be a positive numeric value")
     }
     if (!is.numeric(size) || length(size) > 1 || size < 1) {
       stop ("'size' should be a positive numeric value")
     }
-    if (!is.numeric(size.factor) || length(size.factor) > 1 || size.factor < 1) {
-      stop ("'cooling.factor' should be a positive numeric value")
-    }
     if (!is.logical(progress)) {
       stop ("'progress' should be a logical value")
-    }
-    if (!is.logical(plotit)) {
-      stop ("'plotit' should be a logical value")
     }
     if (!is.logical(verbose)) {
       stop ("'verbose' should be a logical value")
     }
-    time0 <- proc.time()
-    n_pts <- length(obj)
-    sys_config0 <- obj
-    old_sys_config <- sys_config0
-    energy_state0 <- energyState(fun = fun, obj = old_sys_config, ...)
-    old_energy_state <- energy_state0
-    count <- 0
-    nr_designs <- 1
+    time0             <- proc.time()
+    n_pts             <- length(obj)
+    sys_config0       <- obj
+    old_sys_config    <- sys_config0
+    energy_state0     <- energyState(fun = fun, obj = old_sys_config, ...)
+    old_energy_state  <- energy_state0
+    count             <- 0
+    nr_designs        <- 1
     best_energy_state <- Inf
-    energy_states <- vector()
+    energy_states     <- vector()
+    accept_probs      <- vector()
+    x_max             <- vector()
+    x_max0            <- spJitter.ctrl$x.coord$max
+    y_max             <- vector()
+    y_max0            <- spJitter.ctrl$y.coord$max
     if (progress) {
       pb <- txtProgressBar(min = 1, max = iterations, style = 3)
     }
@@ -159,15 +139,35 @@ spSANN <-
                                  where = spJitter.ctrl$where,
                                  iterations = spJitter.ctrl$iterations,
                                  verbose = spJitter.ctrl$verbose)
-      a <- spJitter.ctrl$x.coord$max
       b <- spJitter.ctrl$x.coord$min
-      spJitter.ctrl$x.coord$max <- a - k / iterations * (a - b)
-      a <- spJitter.ctrl$y.coord$max
+      spJitter.ctrl$x.coord$max <- x_max0 - (k / iterations) * (x_max0 - b)
+      x_max[k] <- spJitter.ctrl$x.coord$max
       b <- spJitter.ctrl$y.coord$min
-      spJitter.ctrl$y.coord$max <- a - k / iterations * (a - b)
+      spJitter.ctrl$y.coord$max <- y_max0 - (k / iterations) * (y_max0 - b)
+      y_max[k] <- spJitter.ctrl$y.coord$max
       new_energy_state <- energyState(fun = fun, obj = new_sys_config, ...)
       random_prob <- runif(1)
-      actual_prob <- initial.prob * exp(-k / cooling.factor)
+      # TEMPERATURE
+      # if (!is.null(temperature)) {
+      #   if (temperature$fun == "exp") {
+      #     temp <- temperature$initial * alpha ^ k
+      #   }
+      #   if (temperature$fun == "fast") {
+      #     temp <- temperature$initial / k
+      #   }
+      #   if (temperature.fun == "boltz") {
+      #     temp <- temperature$initial / ln(k)
+      #   } 
+      # }
+      if (acceptance$fun == "Default") {
+        actual_prob <- acceptance$initial * exp(-k / acceptance$cooling.factor)
+      } else {
+        if (acceptance$fun == "Metropolis") {
+          delta <- new_energy_state - old_energy_state
+          actual_prob <- exp(-delta / temp)
+        }
+      }
+      accept_probs[k] <- actual_prob
       if (new_energy_state <= old_energy_state) {
         old_sys_config <- new_sys_config
         old_energy_state <- new_energy_state
@@ -180,11 +180,12 @@ spSANN <-
             nr_designs <- nr_designs + 1
             count <- count + 1
             if (verbose) {
-              rp <- random_prob
               if (count == 1) {
-                cat("\n", count, "iteration with no improvement... p = ", rp, "\n")
+                cat("\n", count, "iteration with no improvement... p = ", 
+                    random_prob, "\n")
               } else {
-                cat("\n", count, "iterations with no improvement... p = ", rp, "\n")
+                cat("\n", count, "iterations with no improvement... p = ", 
+                    random_prob, "\n")
                 }
             }
             } else {
@@ -193,11 +194,12 @@ spSANN <-
               nr_designs <- nr_designs
               count <- count + 1
               if (verbose) {
-                mc <- max.count
                 if (count == 1) {
-                  cat("\n", count, "iteration with no improvement... stops at", mc, "\n")
+                  cat("\n", count, "iteration with no improvement... stops at",
+                      stopping$max.count, "\n")
                 } else {
-                  cat("\n", count, "iterations with no improvement... stops at", mc, "\n")
+                  cat("\n", count, "iterations with no improvement... stops at",
+                      stopping$max.count, "\n")
                 }
               }
             }
@@ -210,22 +212,55 @@ spSANN <-
         best_old_energy_state <- old_energy_state
         old_sys_config <- old_sys_config
       }
-      if (plotit){
+      if (!is.null(plotit)){
         par0 <- par()
         par(mfrow = c(1, 2))
         if (any(round(seq(1, iterations, 10)) == k)) {
           a <- c(energy_state0, energy_states[1:k])
-          plot(a ~ c(0:k), type = "l", xlab = "iteration", ylab = "energy state")
+          plot(a ~ c(0:k), type = "l", xlab = "iteration", 
+               ylab = "energy state")
           abline(h = energy_state0, col = "red")
+          a <- c(acceptance$initial, accept_probs[1:k])
+          par(new = TRUE)
+          plot(a ~ c(0:k), type = "l", axes = FALSE, bty = "n", 
+               xlab = "", ylab = "", col = "blue", 
+               ylim = c(0, acceptance$initial))
+          axis(side = 4, at = pretty(range(a)))
+          mtext("acceptance probability", side = 4, line = 3) 
           if (is.null(spJitter.ctrl$where)) {
-            plot(new_sys_config, pch = 19, cex = 0.5)
-          } else {
-            plot(spJitter.ctrl$where)
-            points(new_sys_config, pch = 19, cex = 0.5)
-          }
+            plot(new_sys_config, pch = 20, cex = 0.5)
+            if (plotit[["starting"]]) {
+              points(sys_config0, pch = 1, cex = 0.5, col = "lightgray") 
+            }
+            } else {
+              plot(spJitter.ctrl$where)
+              points(new_sys_config, pch = 20, cex = 0.5)
+              if (plotit[["starting"]]) {
+                points(sys_config0, pch = 1, cex = 0.5, col = "lightgray")
+              }
+              bb <- bbox(spJitter.ctrl$where)
+              lines(x = c(bb[1, 1], bb[1, 2]),
+                    y = rep(bb[2, 1], 2) - 0.02 * y_max0,
+                    col = "gray", lwd = 12)
+              lines(x = c(bb[1, 1], bb[1, 1] + x_max[k]), 
+                    y = rep(bb[2, 1], 2) - 0.02 * y_max0, 
+                    col = "orange", lwd = 12)
+              text(x = bb[1, 1] + (bb[1, 2] - bb[1, 1]) / 2,
+                   y = bb[2, 1] - 0.02 * y_max0,
+                   labels = "maximum shift in the X axis")
+              lines(y = c(bb[2, 1], bb[2, 2]),
+                    x = rep(bb[1, 1], 2) - 0.02 * x_max0,
+                    col = "gray", lwd = 12)
+              lines(y = c(bb[2, 1], bb[2, 1] + y_max[k]),
+                    x = rep(bb[1, 1], 2) - 0.02 * x_max0,
+                    col = "orange", lwd = 12)
+              text(y = bb[2, 1] + (bb[2, 2] - bb[2, 1]) / 2, 
+                   x = bb[1, 1] - 0.02 * x_max0, 
+                   srt = 90, labels = "maximum shift in the Y axis")
+            }
         }
       }
-      if (count == max.count) {
+      if (count == stopping$max.count) {
         if (new_energy_state > best_energy_state * 1.000001) {
           old_sys_config <- old_sys_config
           new_sys_config <- best_sys_config
@@ -235,11 +270,12 @@ spSANN <-
           count <- 0
           cat("\n", "reached 'max.count' with suboptimal system configuration\n")
           cat("\n", "restarting with previously best system configuration\n")
-          mc <- max.count
           if (count == 1) {
-            cat("\n", count, "iteration with no improvement... stops at", mc, "\n")
+            cat("\n", count, "iteration with no improvement... stops at",
+                stopping$max.count, "\n")
           } else {
-            cat("\n", count, "iterations with no improvement... stops at", mc, "\n")
+            cat("\n", count, "iterations with no improvement... stops at",
+                stopping$max.count, "\n")
           }
         } else {
           break
@@ -252,10 +288,11 @@ spSANN <-
     if (progress) {
       close(pb)
     }
-    if (plotit) {
+    if (!is.null(plotit)) {
       par <- par0
     }
-    res <- list(object = new_sys_config, criterion = c(energy_state0, energy_states))
+    res <- list(object = new_sys_config, 
+                criterion = c(energy_state0, energy_states))
     running_time <- (proc.time() - time0) / 60
     cat("running time = ", round(running_time[3], 2), " minutes", sep = "")
     return (res)
