@@ -9,69 +9,45 @@ This function perturbs the coordinates of spatial points (also known as
 \sQuote{jittering}).
 }
 \usage{
-spJitter(obj, candidates = NULL,
-         x.coord = list(min = 1, max = NULL, factor = 0.5),
-         y.coord = list(min = 1, max = NULL, factor = 0.5), 
-         zero = 1, which = "all", where = NULL, 
-         iterations = 10000, verbose = TRUE)
+spJitter(points, candidates, where, which, finite,
+         x.coord = list(min = NULL, max = NULL), 
+         y.coord = list(min = NULL, max = NULL), 
+         zero = 1, iterations = 10000, verbose = TRUE)
 spJitter.control(x.coord = list(min = 1, max = NULL, factor = 0.5),
                  y.coord = list(min = 1, max = NULL, factor = 0.5),
                  candidates = NULL, zero = 1, where = NULL, 
                  iterations = 10000, verbose = FALSE)
 }
 \arguments{
-  \item{obj}{
-  Object of class SpatialPoints with the point(s) to be perturbed.
+\item{points}{
+Object containing the points to be perturbed. An object of class SpatialPoints, if \code{finite = FALSE}, or a vector of indexes, if \code{finite = TRUE}. The indexes must correspond to a subset of the rownames of the \code{data.frame} passed to the argument \code{candidates}. This argument is mandatory. See \sQuote{Details} for more information.
 }
-  \item{candidates}{
-  Object of class SpatialPoints with the candidate locations for the perturbed
-  point(s). This is an optional argument which serves to significantly speed up
-  the process when repetitive jittering is needed such as in optimization 
-  exercises (simulated annealing). Defaults to \code{candidates = NULL}. See
-  \sQuote{Details} for more information.
+\item{candidates}{
+Data frame with the candidate locations for the perturbed points. Columns must be named \code{x} and \code{y}. Used only when \code{finite = TRUE}. See \sQuote{Details} for more information.
 }
-  \item{x.coord}{
-  List with three subarguments defining how the x coordinate should be perturbed. 
-  \code{min} and \code{max} define the minimum and maximum quantity of random
-  noise to be added to the x coordinate. If \code{candidates} is set, then 
-  \code{min} should be equal to, at least, the minimum distance between two 
-  neighbouring candidate locations. \code{factor} is used when \code{max} is not
-  set. It is a multiplier used to define the fraction of the total length of the
-  x axis that should be used as \code{max}. The default is \code{fraction = 0.5},
-  that is, half of the length of the x axis. See \sQuote{Details} for more
-  information.
+\item{where}{
+An object of class SpatialPolygons defining the spatial domain to which the perturbed points should be constrained. Used only when \code{finite = FALSE}. See \sQuote{Details} for more information.
 }
-  \item{y.coord}{
-  The same as for \code{x.coord}.
+\item{which}{
+Vector of integer values or a character value \code{which = "all"} defining which points should be perturbed. See \sQuote{Details} for more information.
 }
-  \item{zero}{
-  Numeric value defining the distance less than or equal to which two points are 
-  considered to have zero distance. See more information at 
-  \code{\link[sp]{zerodist}}. This argument is used only when \code{candidates}
-  is not set. Defaults to \code{zero = 1}.
+\item{finite}{
+Logical value defining if the spatial domain is finite or infinite. This is a mandatory argument. See \sQuote{Details} for more information.
 }
-  \item{which}{
-  Vector of integer values or a character value defining which point(s) should 
-  be perturbed. Defaults to \code{which = "all"}, that is, all points are
-  perturbed. See \sQuote{Details} for more information.
+\item{x.coord}{
+List with two subarguments defining how the x coordinate should be perturbed. \code{min} and \code{max} define the minimum and maximum quantity of random noise to be added to the x coordinate. If \code{finite = TRUE}, then \code{min} should be equal to, at least, the minimum distance between two neighbouring candidate locations. If \code{finite = FALSE}, then \code{min} should be equal to, at least, the value passed to the argument \code{zero}. This is a mandatory argument. See \sQuote{Details} for more information.
 }
-  \item{where}{
-  An object of class SpatialPolygons defining the spatial domain to which the
-  perturbed points should be constrained. Defaults to \code{where = NULL}, 
-  that is, no constraint is enforced. This argument is used only when 
-  \code{candidates} is not set. See \sQuote{Details} for more information.
+\item{y.coord}{
+The same as for \code{x.coord}.
 }
-  \item{iterations}{
-  Integer value defining the maximum number of iterations that should be used 
-  when constraining the perturbed points to the spatial domain defined by the
-  argument \code{where}. Defaults to \code{iterations = 10000}. This argument is 
-  used only when \code{candidates} is not set. See \sQuote{Details} for more
-  information.
+\item{zero}{
+Numeric value defining the distance less than or equal to which two points are considered to have zero distance. See more information at \code{\link[sp]{zerodist}}. Used only when \code{finite = FALSE}. Defaults to \code{zero = 1}.
 }
-  \item{verbose}{
-  Logical for printing details about the success of the algorithm when
-  constraining the perturbed points to the spatial domain defined by the
-  argument \code{where}.
+\item{iterations}{
+Integer value defining the maximum number of iterations that should be used when constraining the perturbed points to the spatial domain defined by the argument \code{where}. Defaults to \code{iterations = 10000}. Used only when \code{finite = FALSE}. See \sQuote{Details} for more information.
+}
+\item{verbose}{
+Logical for printing details about the success of the algorithm when constraining the perturbed points to the spatial domain defined by the argument \code{where}. Used only when \code{finite = FALSE}.
 }
 }
 \details{
@@ -155,16 +131,9 @@ points do not meet the constraint.
 An object of class SpatialPoints with jittered coordinates.
 }
 \references{
-Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, 
-  D.T. Hristopulos, S.J. Melles and G. Spiliopoulos (2013).
-  \emph{intamapInteractive: procedures for automated interpolation - methods 
-  only to be used interactively, not included in intamap package.}
-  R package version 1.1-10.
-  \url{http://CRAN.R-project.org/package=intamapInteractive}
+Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos, S.J. Melles and G. Spiliopoulos (2013). \emph{intamapInteractive: procedures for automated interpolation - methods only to be used interactively, not included in intamap package.} R package version 1.1-10. \url{http://CRAN.R-project.org/package=intamapInteractive}
 
-van Groenigen, J.-W.
-  \emph{Constrained optimisation of spatial sampling: a geostatistical approach.}
-  Wageningen: Wageningen University, p. 148, 1999.
+Van Groenigen, J.-W. \emph{Constrained optimisation of spatial sampling: a geostatistical approach.} Wageningen: Wageningen University, p. 148, 1999.
 }
 \author{
 Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
@@ -172,11 +141,9 @@ Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
 Gerard Heuvelink \email{gerard.heuvelink@wur.nl}
 }
 \note{
-Some of the solutions used to build this function were found in the source code 
-of the R-package \pkg{intamapInteractive}. As such, the authors of that package, 
-Edzer Pebesma <\email{edzer.pebesma@uni-muenster.de}> and Jon Skoien 
-<\email{jon.skoien@gmail.com}>, are entitled \sQuote{contributors} to the 
-R-package \pkg{pedometrics}.
+This function is under construction!
+
+Some of the solutions used to build this function were found in the source code of the R-package \pkg{intamapInteractive}. As such, the authors of that package, Edzer Pebesma <\email{edzer.pebesma@uni-muenster.de}> and Jon Skoien <\email{jon.skoien@gmail.com}>, are entitled \sQuote{contributors} to the R-package \pkg{pedometrics}.
 }
 \seealso{
 \code{\link[intamapInteractive]{ssaOptim}}, \code{\link[sp]{zerodist}},
