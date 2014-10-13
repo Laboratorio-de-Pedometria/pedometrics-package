@@ -7,11 +7,11 @@ Mean (squared) shortest distance
 This function calculates the mean (squared) shortest distance between a set of points and all grid cells.
 }
 \usage{
-objMSSD(obj, pred.grid, mask, dist.mat, points, finite)
+objMSSD(obj, pred.grid, mask, dist.mat, finite)
 }
 \arguments{
 \item{obj}{
-Object of class SpatialPoints*. Use with \code{finite = FALSE}.
+An object of class SpatialPoints*. Used only when \code{finite = FALSE}. A vector of integer values indicating the columns of the distance matrix \code{dist.mat} that correspond to the points to which distances should be computed. Use only when \code{finite = TRUE}.
 }
 \item{pred.grid}{
 Object of class Raster. Use with \code{finite = FALSE}.
@@ -21,9 +21,6 @@ Object of class SpatialPolygons*. Use with \code{finite = FALSE}.
 }
 \item{dist.mat}{
 Distance matrix of the population of all grid locations in the spatial domain. Use with \code{finite = TRUE}.
-}
-\item{points}{
-Vector of integer values indicating the columns of the distance matrix \code{dist.mat} that correspond to the points to which distances should be computed. Use with \code{finite = TRUE}.
 }
 \item{finite}{
 Mandatory character value defining if the spatial domain is finite (\code{TRUE}) or infinite (\code{FALSE}).

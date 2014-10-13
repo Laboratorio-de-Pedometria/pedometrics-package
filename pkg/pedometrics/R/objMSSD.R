@@ -56,7 +56,7 @@
     return (min_dist_id)
   }
 objMSSD <-
-  function (obj, pred.grid, mask, dist.mat, points, finite) {
+  function (obj, pred.grid, mask, dist.mat, finite) {
     if (missing(finite)) {
       stop("you must provide a 'finite' argument (TRUE/FALSE)")
     }
@@ -72,11 +72,11 @@ objMSSD <-
       if (dim(dist.mat)[1] != dim(dist.mat)[2] || !is.matrix(dist.mat)) {
         stop ("'dist.mat' should be a n x n matrix")
       }
-      if (!is.vector(points) || length(points) >= dim(dist.mat)[2]) {
+      if (!is.vector(obj) || length(obj) >= dim(dist.mat)[2]) {
         stop (paste("'points' should be a vector of length smaller than ", 
                     dim(dist.mat)[2], sep = ""))
       }
-      res <- .distanceToNearestPoint(obj = dist.mat, points = points)
+      res <- .distanceToNearestPoint(obj = dist.mat, points = obj)
       res <- mean(res, na.rm = TRUE)
       return (res)
     }
