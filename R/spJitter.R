@@ -56,7 +56,8 @@ spJitter <-
       if (!inherits(candidates, what = "data.frame")) {
         stop ("'candidates' should be a data.frame")
       } else {
-        if (dim(candidates)[2] != 2 || any(colnames(candidates) != c("x", "y"))) {
+        if (dim(candidates)[2] != 2 || 
+              any(colnames(candidates) != c("x", "y"))) {
           stop ("'candidates' should have 2 columns named 'x' and 'y'")
         }
       }
@@ -90,8 +91,10 @@ spJitter <-
             pt0 <- pts[rownames(pts) == which, ]
             d_x <- unlist(c(pt0["x"] - d_x, pt0["x"] + d_x))
             d_y <- unlist(c(pt0["y"] - d_y, pt0["y"] + d_y))
-            pt1 <- which(candidates[, "x"] >= d_x[1] & candidates[, "x"] <= d_x[2] &
-                           candidates[, "y"] >= d_y[1] & candidates[, "y"] <= d_y[2])
+            pt1 <- which(candidates[, "x"] >= d_x[1] &
+                           candidates[, "x"] <= d_x[2] &
+                           candidates[, "y"] >= d_y[1] & 
+                           candidates[, "y"] <= d_y[2])
             pt2 <- sample(pt1, 1)
             while (any(pt2 == points)) {
               pt2 <- sample(pt1, 1)
@@ -120,7 +123,7 @@ spJitter <-
         }
         if (!inherits(points, "SpatialPoints") || is.na(proj4string(points)) || 
               !is.projected(points)) {
-          stop ("'points' should be of class SpatialPoints with a projected CRS")
+          stop ("'points' should be of class SpatialPoints with projected CRS")
         } else {
           points <- as(points, "SpatialPoints")
           colnames(points@coords) <- c("x", "y")
@@ -203,8 +206,8 @@ spJitter <-
             }          
           } else {
             if (verbose) {
-              message(paste("spJitter converged after ", n_iter, " iterations",
-                            sep = ""))
+              message(paste("spJitter converged after ", n_iter,
+                            " iterations", sep = ""))
             }
           }
         }
@@ -246,13 +249,13 @@ spJitter.control <-
       if (!inherits(candidates, what = "data.frame")) {
         stop ("'candidates' should be a data.frame")
       } else {
-        if (dim(candidates)[2] != 2 || any(colnames(candidates) != c("x", "y"))) {
+        if (dim(candidates)[2] != 2 || 
+              any(colnames(candidates) != c("x", "y"))) {
           stop ("'candidates' should have 2 columns named 'x' and 'y'")
         }
       }
       if (unique(which == "all")) {
         stop ("this option is not functional yet")
-        #res <- candidates[sample(c(1:length(candidates)), length(points)), ]
       } else {
         if (length(which) > 1) {
           stop ("this option is not functional yet")
@@ -276,7 +279,7 @@ spJitter.control <-
       }
       if (!inherits(points, "SpatialPoints") || is.na(proj4string(points)) || 
             !is.projected(points)) {
-        stop ("'points' should be of class SpatialPoints with a projected CRS")
+        stop ("'points' should be of class SpatialPoints with projected CRS")
       }
     }
     res <- list(finite = finite, candidates = candidates, where = where,
