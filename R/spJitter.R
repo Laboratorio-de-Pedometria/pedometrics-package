@@ -216,9 +216,10 @@ spJitter <-
   }
 # controls for spJitter inside spSANN
 spJitter.control <-
-  function (points, candidates, where, finite,
+  function (candidates, where, finite,
             x.coord = list(min = NULL, max = NULL),
             y.coord = list(min = NULL, max = NULL),
+            size = 1, size.factor = 1000,
             zero = 1, iterations = 10000, verbose = FALSE) {
     if (missing(finite)) {
       stop("you must provide a 'finite' argument (TRUE/FALSE)")
@@ -240,9 +241,6 @@ spJitter.control <-
       }
     }
     if (finite) {
-      if (inherits(points, "SpatialPoints")) {
-        stop ("'points' should be a vector of indexes")
-      }
       if (missing(candidates)) {
         stop ("'candidates' is a mandatory argument")
       }
@@ -277,14 +275,10 @@ spJitter.control <-
       if (!is.numeric(iterations)) {
         stop ("'iterations' should be a numeric value")
       }
-      if (!inherits(points, "SpatialPoints") || is.na(proj4string(points)) || 
-            !is.projected(points)) {
-        stop ("'points' should be of class SpatialPoints with projected CRS")
-      }
     }
     res <- list(finite = finite, candidates = candidates, where = where,
-                x.coord = x.coord, y.coord = y.coord, 
-                zero = zero,  iterations = iterations, verbose = verbose)
+                x.coord = x.coord, y.coord = y.coord, zero = zero,  
+                iterations = iterations, verbose = verbose)
     return (res)
   }
 # End!

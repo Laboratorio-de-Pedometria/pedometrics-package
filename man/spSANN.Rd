@@ -10,8 +10,7 @@ Funtions to optimize spatial point patterns using spatial simulated annealing.
 \usage{
 energyState(fun, obj, ...)
 spSANN(obj, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
-       max.count = 200, initial.prob = 0.2, size = 1, size.factor = 10,
-       cooling.factor = iterations / 10,
+       max.count = 200, initial.prob = 0.2, cooling.factor = iterations / 10,
        progress = TRUE, plotit = FALSE, verbose = FALSE, ...)
 }
 \arguments{
@@ -43,16 +42,6 @@ spSANN(obj, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
   Numeric value between 0 and 1 defining the initial acceptance probability.
   Defaults to \code{initial.prob = 0.2}. See \sQuote{Details} for more 
   information.
-}
-  \item{size}{
-  Integer value defining the number of points that should be perturbed at each
-  iteration. Defaults to \code{size = 1}. See \sQuote{Details} for more 
-  information.
-}
-  \item{size.factor}{
-  Numeric value defining the factor by which the number of points that should be
-  perturbed at each iteration is decreased. Useful only when \code{size} is 
-  larger than 1. See \sQuote{Details} for more information.
 }
   \item{cooling.factor}{
   Numeric value defining the factor by with the acceptance probability decreases
