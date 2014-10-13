@@ -13,10 +13,11 @@ spJitter(points, candidates, where, which, finite,
          x.coord = list(min = NULL, max = NULL), 
          y.coord = list(min = NULL, max = NULL), 
          zero = 1, iterations = 10000, verbose = TRUE)
-spJitter.control(x.coord = list(min = 1, max = NULL, factor = 0.5),
-                 y.coord = list(min = 1, max = NULL, factor = 0.5),
-                 candidates = NULL, zero = 1, where = NULL, 
-                 iterations = 10000, verbose = FALSE)
+spJitter.control(candidates, where, finite,
+                 x.coord = list(min = NULL, max = NULL),
+                 y.coord = list(min = NULL, max = NULL),
+                 size = 1, size.factor = 1000,
+                 zero = 1, iterations = 10000, verbose = FALSE)
 }
 \arguments{
 \item{points}{
@@ -48,6 +49,12 @@ Integer value defining the maximum number of iterations that should be used when
 }
 \item{verbose}{
 Logical for printing details about the success of the algorithm when constraining the perturbed points to the spatial domain defined by the argument \code{where}. Used only when \code{finite = FALSE}.
+}
+\item{size}{
+Integer value defining the number of points that should be perturbed at each   iteration of the simulated annealing exercise (\code{spSANN}). Defaults to \code{size = 1}. See \code{spSANN} for more information.
+}
+\item{size.factor}{
+Numeric value defining the factor by which the number of points that should be perturbed at each iteration of the simulated annealing exercise (\code{spSANN}) is decreased. Used only when \code{size} is larger than 1. See \code{spSANN} for more information.
 }
 }
 \details{
