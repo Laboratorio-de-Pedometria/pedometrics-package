@@ -20,9 +20,6 @@
 #
 .distMat <- 
   function (obj, exponent = 1, diagonal = 0) {
-    if (inherits(obj, what = "Spatial")) {
-      obj <- coordinates(obj)
-    }
     dist_mat <- dist(obj)
     dist_mat <- as.matrix(dist_mat)
     dist_mat <- dist_mat ^ exponent
@@ -73,7 +70,7 @@ objMSSD <-
         stop ("'dist.mat' should be a n x n matrix")
       }
       if (!is.vector(obj) || length(obj) >= dim(dist.mat)[2]) {
-        stop (paste("'points' should be a vector of length smaller than ", 
+        stop (paste("'obj' should be a vector of length smaller than ", 
                     dim(dist.mat)[2], sep = ""))
       }
       res <- .distanceToNearestPoint(obj = dist.mat, points = obj)
