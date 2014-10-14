@@ -1,6 +1,5 @@
 \name{spSANN}
 \alias{spSANN}
-\alias{energyState}
 \title{
 Spatial simulated annealing
 }
@@ -8,7 +7,6 @@ Spatial simulated annealing
 Funtions to optimize spatial point patterns using spatial simulated annealing.
 }
 \usage{
-energyState(fun, obj, ...)
 spSANN(obj, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
        max.count = 200, initial.prob = 0.2, cooling.factor = iterations / 10,
        progress = TRUE, plotit = FALSE, verbose = FALSE, ...)

@@ -19,7 +19,7 @@
 #                   E. Pebesma (edzer.pebesma@uni-muenster.de)
 #                   J. Skoien (jon.skoien@gmail.com)
 #
-energyState <- 
+.energyState <- 
   function (fun, obj, ...) {
     if (missing(fun) || missing(obj)) {
       stop ("'fun' and 'obj' are mandatory arguments")
@@ -27,13 +27,11 @@ energyState <-
     return (do.call(fun, list(obj, ...)))
   }
 spSANN <-
-  function (obj, fun, iterations = 10000, 
-            spJitter.ctrl = spJitter.control(),
+  function (obj, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
             acceptance = list(initial = 0.99, cooling = iterations / 10),
-            stopping = list(max.count = 200),
-            progress = TRUE, verbose = TRUE,
-            plotit = list(prob = TRUE, starting = TRUE,
-                          x.max = FALSE, y.max = FALSE), ...) {
+            stopping = list(max.count = 200), progress = TRUE, verbose = TRUE,
+            plotit = list(prob = TRUE, starting = TRUE, x.max = FALSE, y.max = FALSE),
+            ...) {
     if (missing(obj)) {
       stop ("'obj' is a mandatory argument")
     }
@@ -45,9 +43,6 @@ spSANN <-
     }
     if (!is.numeric(stopping$max.count) || length(stopping$max.count) > 1) {
       stop ("'max.count' should be a numeric value")
-    }
-    if (!is.numeric(size) || length(size) > 1 || size < 1) {
-      stop ("'size' should be a positive numeric value")
     }
     if (!is.list(acceptance) || length(acceptance) != 2) {
       stop ("'acceptance' should be a list with 2 subarguments")
@@ -61,7 +56,7 @@ spSANN <-
     n_pts             <- length(obj)
     sys_config0       <- obj
     old_sys_config    <- sys_config0
-    energy_state0     <- energyState(fun = fun, obj = old_sys_config, ...)
+    energy_state0     <- .energyState(fun = fun, obj = old_sys_config, ...)
     old_energy_state  <- energy_state0
     count             <- 0
     best_energy_state <- Inf
@@ -73,6 +68,7 @@ spSANN <-
     y_max0            <- spJitter.ctrl$y.coord$max
     size              <- spJitter.ctrl$size
     size.factor       <- spJitter.ctrl$size.factor
+    finite            <- spJitter.ctrl$finite
     if (progress) {
       pb <- txtProgressBar(min = 1, max = iterations, style = 3)
     }
@@ -83,8 +79,13 @@ spSANN <-
       } else {
         new_size <- size
       }
-      id <- sample(c(1:n_pts), size = new_size)
+      if (finite) {
+        id <- sample(old_sys_config, new_size)
+      } else {
+        id <- sample(c(1:n_pts), size = new_size) 
+      }
       new_sys_config <- spJitter(old_sys_config, which = id,
+                                 finite = spJitter.ctrl$finite,
                                  candidates = spJitter.ctrl$candidates,
                                  x.coord = spJitter.ctrl$x.coord,
                                  y.coord = spJitter.ctrl$y.coord,
@@ -98,7 +99,7 @@ spSANN <-
       b <- spJitter.ctrl$y.coord$min
       spJitter.ctrl$y.coord$max <- y_max0 - (k / iterations) * (y_max0 - b)
       y_max[k] <- spJitter.ctrl$y.coord$max
-      new_energy_state <- energyState(fun = fun, obj = new_sys_config, ...)
+      new_energy_state <- .energyState(fun = fun, obj = new_sys_config, ...)
       random_prob <- runif(1)
       actual_prob <- acceptance$initial * exp(-k / acceptance$cooling)
       accept_probs[k] <- actual_prob
