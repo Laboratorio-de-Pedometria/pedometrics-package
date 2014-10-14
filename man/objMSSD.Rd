@@ -7,20 +7,20 @@ Mean (squared) shortest distance
 This function calculates the mean (squared) shortest distance between a set of points and all grid cells.
 }
 \usage{
-objMSSD(obj, pred.grid, mask, dist.mat, finite)
+objMSSD(obj, dist.mat, pred.grid, mask, finite)
 }
 \arguments{
 \item{obj}{
-An object of class SpatialPoints*. Used only when \code{finite = FALSE}. A vector of integer values indicating the columns of the distance matrix \code{dist.mat} that correspond to the points to which distances should be computed. Use only when \code{finite = TRUE}.
+A vector of integer values indicating the columns of the distance matrix \code{dist.mat} that correspond to the points to which distances should be computed. Alternativelly, if \code{finite = FALSE}, an object of class SpatialPoints*.
+}
+\item{dist.mat}{
+Distance matrix of the population of all grid locations in the spatial domain. Use with \code{finite = TRUE}.
 }
 \item{pred.grid}{
 Object of class Raster. Use with \code{finite = FALSE}.
 }
 \item{mask}{
 Object of class SpatialPolygons*. Use with \code{finite = FALSE}.
-}
-\item{dist.mat}{
-Distance matrix of the population of all grid locations in the spatial domain. Use with \code{finite = TRUE}.
 }
 \item{finite}{
 Mandatory character value defining if the spatial domain is finite (\code{TRUE}) or infinite (\code{FALSE}).
@@ -55,23 +55,14 @@ Some of the solutions used to build this function were found in the source code 
 \code{\link[raster]{distanceFromPoints}}, \code{\link[raster]{mask}}
 }
 \examples{
-# require(raster)
-# require(sp)
-# data(meuse.grid)
-# meuse.grid <- meuse.grid[, 1:2]
-# n <- 100
-# set.seed(123)
-# pts_id <- sample(c(1:dim(meuse.grid)[1]), n)
-# dist_mat <- .distMat(meuse.grid, exponent = 2, diagonal = 0)
-# min_dist <- .distanceToNearestPoint(dist_mat, points = pts_id)
-# near_pts <- .nearestPoint(dist_mat, points = pts_id)
-# mean(min_dist, na.rm = TRUE)
-# meuse.grid$min.dist <- min_dist
-# coordinates(meuse.grid) <- ~ x + y
-# gridded(meuse.grid) <- TRUE
-# x <- raster(meuse.grid)
-# image(x, asp = 1)
-# points(meuse.grid[pts_id, ], pch = 20, cex = 0.8)
+require(sp)
+data(meuse.grid)
+meuse.grid <- meuse.grid[, 1:2]
+d <- .distMat(meuse.grid, exponent = 2)
+obj <- sample(rownames(meuse.grid), 155)
+a <- objMSSD(obj = obj, dist.mat = d, finite = TRUE)
+plot(meuse.grid, asp = 1, pch = 15)
+points(meuse.grid[obj, ], pch = 15, col = 20)
 }
 \keyword{spatial}
 % End!
