@@ -5,23 +5,22 @@
 Perturbation of spatial points
 }
 \description{
-This function perturbs the coordinates of spatial points (also known as
-\sQuote{jittering}).
+This function perturbs the coordinates of spatial points (also known as \sQuote{jittering}).
 }
 \usage{
-spJitter(points, candidates, where, which, finite,
+spJitter(obj, candidates = NULL, where = NULL, which, finite = NULL,
          x.coord = list(min = NULL, max = NULL), 
          y.coord = list(min = NULL, max = NULL), 
          zero = 1, iterations = 10000, verbose = TRUE)
-spJitter.control(candidates, where, finite,
+spJitter.control(candidates = NULL, where = NULL, finite = NULL,
                  x.coord = list(min = NULL, max = NULL),
                  y.coord = list(min = NULL, max = NULL),
                  size = 1, size.factor = 1000,
                  zero = 1, iterations = 10000, verbose = FALSE)
 }
 \arguments{
-\item{points}{
-Object containing the points to be perturbed. An object of class SpatialPoints, if \code{finite = FALSE}, or a vector of indexes, if \code{finite = TRUE}. The indexes must correspond to a subset of the rownames of the \code{data.frame} passed to the argument \code{candidates}. This argument is mandatory. See \sQuote{Details} for more information.
+\item{obj}{
+Object defining the points to be perturbed. A vector of indexes corresponding to a subset of the rownames of the \code{data.frame} passed to the argument \code{candidates}. Alternatively, if \code{finite = FALSE}, an object of class SpatialPoints. This argument is mandatory. See \sQuote{Details} for more information.
 }
 \item{candidates}{
 Data frame with the candidate locations for the perturbed points. Columns must be named \code{x} and \code{y}. Used only when \code{finite = TRUE}. See \sQuote{Details} for more information.
@@ -36,7 +35,7 @@ Vector of integer values or a character value \code{which = "all"} defining whic
 Logical value defining if the spatial domain is finite or infinite. This is a mandatory argument. See \sQuote{Details} for more information.
 }
 \item{x.coord}{
-List with two subarguments defining how the x coordinate should be perturbed. \code{min} and \code{max} define the minimum and maximum quantity of random noise to be added to the x coordinate. If \code{finite = TRUE}, then \code{min} should be equal to, at least, the minimum distance between two neighbouring candidate locations. If \code{finite = FALSE}, then \code{min} should be equal to, at least, the value passed to the argument \code{zero}. This is a mandatory argument. See \sQuote{Details} for more information.
+List with two sub-arguments defining how the x coordinate should be perturbed. \code{min} and \code{max} define the minimum and maximum quantity of random noise to be added to the x coordinate. If \code{finite = TRUE}, then \code{min} should be equal to, at least, the minimum distance between two neighboring candidate locations. If \code{finite = FALSE}, then \code{min} should be equal to, at least, the value passed to the argument \code{zero}. This is a mandatory argument. See \sQuote{Details} for more information.
 }
 \item{y.coord}{
 The same as for \code{x.coord}.
@@ -51,96 +50,41 @@ Integer value defining the maximum number of iterations that should be used when
 Logical for printing details about the success of the algorithm when constraining the perturbed points to the spatial domain defined by the argument \code{where}. Used only when \code{finite = FALSE}.
 }
 \item{size}{
-Integer value defining the number of points that should be perturbed at each   iteration of the simulated annealing exercise (\code{spSANN}). Defaults to \code{size = 1}. See \code{spSANN} for more information.
+Integer value defining the number of points that should be perturbed at each iteration of the simulated annealing exercise (\code{spSANN}). Defaults to \code{size = 1}. See \code{spSANN} for more information.
 }
 \item{size.factor}{
 Numeric value defining the factor by which the number of points that should be perturbed at each iteration of the simulated annealing exercise (\code{spSANN}) is decreased. Used only when \code{size} is larger than 1. See \code{spSANN} for more information.
 }
 }
 \details{
-This function perturbs the coordinates of spatial points adding random noise, a 
-process also known as \sQuote{jittering}. There are two ways of jittering the 
-coordinates. They differ on how the the set of candidate locations is defined.
+This function perturbs the coordinates of spatial points adding random noise, a process also known as \sQuote{jittering}. There are two ways of jittering the coordinates. They differ on how the the set of candidate locations is defined.
 
 \subsection{Finite set of candidate locations}{
 
-The first method uses a finite set of candidate locations for the perturbed
-points. This method is the fastest because it does not require to check if the 
-perturbed point falls inside the spatial domain. Since the candidate locations 
-is a finite set, any perturbed point will inexorably fall inside the spatial 
-domain. This is a very important feature when \code{spJitter} is used in 
-optimization exercises such as simulated annealing when repetitive perturbation 
-is required.
+The first method uses a finite set of candidate locations for the perturbed points. This method is the fastest because it does not require to check if the perturbed point falls inside the spatial domain. Since the candidate locations is a finite set, any perturbed point will inexorably fall inside the spatial domain. This is a very important feature when \code{spJitter} is used in optimization exercises such as simulated annealing when repetitive perturbation is required.
 
-The subarguments \code{min} and \code{max} in both arguments \code{x.coord} and
-\code{y.coord} are used to define a rectangular window containing the set of 
-candidate locations. The new location is randomly sampled from the set of
-candidate locations. The current implementation does not enable to define the
-direction of the perturbation, but this could possibly be done by defining 
-quadrants.
+The sub-arguments \code{min} and \code{max} in both arguments \code{x.coord} and \code{y.coord} are used to define a rectangular window containing the set of candidate locations. The new location is randomly sampled from the set of candidate locations. The current implementation does not enable to define the direction of the perturbation.
 }
-
 \subsection{Infinite set of candidate locations}{
 
-The second method can be much slower than the first depending on the number of
-points, on the shape of the area and on how the other arguments are set. This 
-method does not use a finite set of candidate locations. Intead, the number of
-candidate locations is infinite. Its domain can be defined using the argument
-\code{where}. The reason for the larger amount of time demanded is that the
-method has two internal steps to 1) check if the perturbed point falls inside the
-spatial domain, and b) check if two of more points have coincident coordinates
-(set using argument \code{zero}). Using an infinite set of condidate locations
-will usually allow obtaining better results in optimization exercises such as 
-spatial simulated annealing. However, the amount of time may be prohibitive 
-depending on the complexity of the problem.
+The second method can be much slower than the first depending on the number of points, on the shape of the area and on how the other arguments are set. This method does not use a finite set of candidate locations. Instead, the number of candidate locations is infinite. Its domain can be defined using the argument \code{where}. The reason for the larger amount of time demanded is that the method has two internal steps to 1) check if the perturbed point falls inside the spatial domain, and b) check if two of more points have coincident coordinates (set using argument \code{zero}). Using an infinite set of candidate locations will usually allow obtaining better results in optimization exercises such as spatial simulated annealing. However, the amount of time may be prohibitive depending on the complexity of the problem.
 
-The subargument \code{max} in both arguments \code{x.coord} and \code{y.coord} 
-defines the lower and upper limits of a uniform distribution 
-(\code{runif(n, min = -max, max = max)}). The quantity of noise added to the
-coordinates of the point being perturbed is sampled from this uniform 
-distribution. By default, the maximum quantity of random noise added to the x 
-and y coordinates is, respectively, equal to half the width and height of the 
-bounding box of the set of points. This is equivalent to a vector \strong{h} of 
-length equal to half the diagonal of the bounding box. Therefore, a larger 
-jittering is allowed in the longer coordinate axis (x or y).
+The sub-argument \code{max} in both arguments \code{x.coord} and \code{y.coord} defines the lower and upper limits of a uniform distribution (\code{runif(n, min = -max, max = max)}). The quantity of noise added to the coordinates of the point being perturbed is sampled from this uniform distribution. By default, the maximum quantity of random noise added to the x and y coordinates is, respectively, equal to half the width and height of the bounding box of the set of points. This is equivalent to a vector \strong{h} of length equal to half the diagonal of the bounding box. Therefore, a larger jittering is allowed in the longer coordinate axis (x or y).
 
-The direction of the perturbation is defined by the sign of the values sampled
-from the uniform distribution. This means that the perturbation can assume any 
-direction from 0 to 360 degrees. By contrast, the function 
-\code{\link[geoR]{jitter2d}} in the R-package \pkg{geoR} samples from a
-uniform distribution a value for the length of the vector \strong{h} and a value
-for the direction of the perturbation.
+The direction of the perturbation is defined by the sign of the values sampled from the uniform distribution. This means that the perturbation can assume any direction from 0 to 360 degrees. By contrast, the function \code{\link[geoR]{jitter2d}} in the R-package \pkg{geoR} samples from a uniform distribution a value for the length of the vector \strong{h} and a value for the direction of the perturbation.
 
-\code{spJitter} allows to set the minimum quantity of random noise added to a
-coordinate with the subargument \code{min}. The absolute difference between the
-original coordinate value and the jittered coordinate value is used to evaluate
-this constraint. If the constraint is not met, \code{min} receives the sign of
-the value sample from the uniform distribution and is added to the original 
-coordinate value. This does not guarantee that the perturbation will be in the
-same direction, but in the same quadrant.
+\code{spJitter} allows to set the minimum quantity of random noise added to a coordinate with the sub-argument \code{min}. The absolute difference between the original coordinate value and the jittered coordinate value is used to evaluate this constraint. If the constraint is not met, \code{min} receives the sign of the value sample from the uniform distribution and is added to the original coordinate value. This does not guarantee that the perturbation will be in the same direction, but in the same quadrant.
 
-When a spatial domain is defined, \code{spJitter} evaluates if the perturbed 
-points fall inside it using the function \code{\link[rgeos]{gContains}} from the
-R-package \pkg{rgeos}. All points falling outside the spatial domain are 
-identified and have their original coodinates jittered one again. Every new 
-coordinate falling inside the spatial domain is accepted. Every point falling
-outside the spatial domain has its coordinates jittered till it falls inside the
-spatial domain. The number of iterations necessary to meet this constraint 
-depends on the complexity of the shape of the spatial domain. \code{spJitter} 
-tries to speed up the process by linearly decreasing the maximum quantity of
-noise added to the coordinates at each iteration. If the number of iterations 
-was not enough to guarantee all points inside the spatial domain, \code{spJitter} 
-returns the jittered SpatialPoints with a warning message informing how many
-points do not meet the constraint.
+When a spatial domain is defined, \code{spJitter} evaluates if the perturbed points fall inside it using the function \code{\link[rgeos]{gContains}} from the R-package \pkg{rgeos}. All points falling outside the spatial domain are identified and have their original coordinates jittered one again. Every new coordinate falling inside the spatial domain is accepted. Every point falling outside the spatial domain has its coordinates jittered till it falls inside the spatial domain. The number of iterations necessary to meet this constraint depends on the complexity of the shape of the spatial domain. \code{spJitter} tries to speed up the process by linearly decreasing the maximum quantity of noise added to the coordinates at each iteration. If the number of iterations was not enough to guarantee all points inside the spatial domain, \code{spJitter} returns the jittered SpatialPoints with a warning message informing how many points do not meet the constraint.
 }
 }
 \value{
-An object of class SpatialPoints with jittered coordinates.
+An object of class data.frame or SpatialPoints with jittered coordinates.
 }
 \references{
 Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos, S.J. Melles and G. Spiliopoulos (2013). \emph{intamapInteractive: procedures for automated interpolation - methods only to be used interactively, not included in intamap package.} R package version 1.1-10. \url{http://CRAN.R-project.org/package=intamapInteractive}
 
-Van Groenigen, J.-W. \emph{Constrained optimisation of spatial sampling: a geostatistical approach.} Wageningen: Wageningen University, p. 148, 1999.
+Van Groenigen, J.-W. \emph{Constrained optimization of spatial sampling: a geostatistical approach.} Wageningen: Wageningen University, p. 148, 1999.
 }
 \author{
 Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
@@ -159,17 +103,15 @@ Some of the solutions used to build this function were found in the source code 
 }
 \examples{
 require(sp)
-data(meuse)
-meuse <- meuse[, c("x", "y")]
-coordinates(meuse) <- ~ x + y
-proj4string(meuse) <- CRS("+init=epsg:28992")
-obj1 <- spJitter(meuse)
-xlim <- c(min(bbox(meuse)["x", "min"], bbox(obj1)["x", "min"]),
-         max(bbox(meuse)["x", "max"], bbox(obj1)["x", "max"]))
-ylim <- c(min(bbox(meuse)["y", "min"], bbox(obj1)["y", "min"]),
-         max(bbox(meuse)["y", "max"], bbox(obj1)["y", "max"]))
-plot(meuse, pch = 20, col = "blue", cex = 0.3, xlim = xlim, ylim = ylim)
-points(obj1, pch = 20, col = "red", cex = 0.3)
+data(meuse.grid)
+meuse.grid <- meuse.grid[, 1:2]
+obj <- sample(rownames(meuse.grid), 155)
+a <- spJitter(obj = obj, candidates = meuse.grid, which = sample(obj, 1), 
+              finite = TRUE, x.coord = list(min = 40, max = 100), 
+              y.coord = list(min = 40, max = 100))
+plot(meuse.grid, asp = 1, pch = 15, col = "gray")
+points(meuse.grid[obj, ], pch = 15, col = "red")
+points(a, asp = 1, col = "blue")
 }
 \keyword{iteration}
 \keyword{spatial}
