@@ -19,18 +19,37 @@
 #                   E. Pebesma (edzer.pebesma@uni-muenster.de)
 #                   J. Skoien (jon.skoien@gmail.com)
 #
+.spJitterFiniteOne <-
+  function (obj, candidates, x.max, x.min, y.max, y.min, which) {
+    pts <- candidates[obj, ]
+    d_x <- x.max + x.min
+    d_y <- y.max + y.min
+    pt0 <- pts[rownames(pts) == which, ]
+    d_x <- unlist(c(pt0["x"] - d_x, pt0["x"] + d_x))
+    d_y <- unlist(c(pt0["y"] - d_y, pt0["y"] + d_y))
+    pt1 <- which(candidates[, "x"] >= d_x[1] &
+                   candidates[, "x"] <= d_x[2] &
+                   candidates[, "y"] >= d_y[1] & 
+                   candidates[, "y"] <= d_y[2])
+    pt2 <- sample(pt1, 1)
+    while (any(pt2 == obj)) {
+      pt2 <- sample(pt1, 1)
+    }
+    a <- pts[rownames(pts) != which, ]
+    b <- candidates[rownames(candidates) == pt2, ]
+    res <- rbind(a, b)
+    return (res)
+  }
 spJitter <- 
-  function (points, candidates, where, which, finite,
+  function (obj, candidates = NULL, where = NULL, which = NULL, finite = NULL,
             x.coord = list(min = NULL, max = NULL), 
             y.coord = list(min = NULL, max = NULL), 
             zero = 1, iterations = 10000, verbose = TRUE) {
-    if (missing(finite)) {
-      stop("you must provide a 'finite' argument (TRUE/FALSE)")
+    if (is.null(finite)) {
+      stop("'finite' is a mandatory argument")
     }
-    stopifnot(is.logical(finite))
-    stopifnot(is.logical(verbose))
-    if (missing(points)) {
-      stop ("'points' is a mandatory argument")
+    if (missing(obj)) {
+      stop ("'obj' is a mandatory argument")
     }
     if (!is.list(x.coord) || length(x.coord) != 2) {
       stop ("'x.coord' should be a list with 2 subarguments")
@@ -47,10 +66,10 @@ spJitter <-
       }
     }
     if (finite) {
-      if (inherits(points, "SpatialPoints")) {
-        stop ("'points' should be a vector of indexes")
+      if (inherits(obj, "SpatialPoints")) {
+        stop ("'obj' should be a vector of indexes")
       }
-      if (missing(candidates)) {
+      if (is.null(candidates)) {
         stop ("'candidates' is a mandatory argument")
       }
       if (!inherits(candidates, what = "data.frame")) {
@@ -63,11 +82,11 @@ spJitter <-
       }
       if (unique(which == "all")) {
         stop ("this option is not functional yet")
-        #res <- candidates[sample(c(1:length(candidates)), length(points)), ]
+        #res <- candidates[sample(c(1:length(candidates)), length(obj)), ]
         } else {
           if (length(which) > 1) {
             stop ("this option is not functional yet")
-            #pt0 <- coordinates(points[which, ])
+            #pt0 <- coordinates(obj[which, ])
             #res <- list()
             #for (i in 1:length(which)) {
             #  cand <- coordinates(candidates)
@@ -82,31 +101,18 @@ spJitter <-
             #res <- data.frame(t(sapply(res, coordinates)))
             #colnames(res) <- c("x", "y")
             #coordinates(res) <- ~ x + y
-            #proj4string(res) <- proj4string(points)
-            #res <- rbind(points[-which, ], res)
+            #proj4string(res) <- proj4string(obj)
+            #res <- rbind(obj[-which, ], res)
           } else {
-            pts <- candidates[points, ]
-            d_x <- x.coord$max + x.coord$min
-            d_y <- y.coord$max + y.coord$min
-            pt0 <- pts[rownames(pts) == which, ]
-            d_x <- unlist(c(pt0["x"] - d_x, pt0["x"] + d_x))
-            d_y <- unlist(c(pt0["y"] - d_y, pt0["y"] + d_y))
-            pt1 <- which(candidates[, "x"] >= d_x[1] &
-                           candidates[, "x"] <= d_x[2] &
-                           candidates[, "y"] >= d_y[1] & 
-                           candidates[, "y"] <= d_y[2])
-            pt2 <- sample(pt1, 1)
-            while (any(pt2 == points)) {
-              pt2 <- sample(pt1, 1)
-            }
-            a <- pts[rownames(pts) != which, ]
-            b <- candidates[rownames(candidates) == pt2, ]
-            res <- rbind(a, b)
+            res <- .spJitterFiniteOne(obj = obj, candidates = candidates,
+                                      x.max = x.coord$max, x.min = x.coord$min,
+                                      y.max = y.coord$max, y.min = y.coord$min,
+                                      which = which)
           }
         }
       return (res)
       } else {
-        if (missing(where)) {
+        if (is.null(where)) {
           stop ("'where' is a mandatory argument")
         } else {
           if (!inherits(where, what = "SpatialPolygons")) {
@@ -121,21 +127,21 @@ spJitter <-
         if (!is.numeric(iterations)) {
           stop ("'iterations' should be a numeric value")
         }
-        if (!inherits(points, "SpatialPoints") || is.na(proj4string(points)) || 
-              !is.projected(points)) {
-          stop ("'points' should be of class SpatialPoints with projected CRS")
+        if (!inherits(obj, "SpatialPoints") || is.na(proj4string(obj)) || 
+              !is.projected(obj)) {
+          stop ("'obj' should be of class SpatialPoints with projected CRS")
         } else {
-          points <- as(points, "SpatialPoints")
-          colnames(points@coords) <- c("x", "y")
-          rownames(points@bbox) <- c("x", "y")
+          obj <- as(obj, "SpatialPoints")
+          colnames(obj@coords) <- c("x", "y")
+          rownames(obj@bbox) <- c("x", "y")
         }
         if (unique(which == "all")) {
-          x0 <- coordinates(points)[, "x"]
-          y0 <- coordinates(points)[, "y"]
+          x0 <- coordinates(obj)[, "x"]
+          y0 <- coordinates(obj)[, "y"]
         }
         if (is.numeric(which)) {
-          x0 <- coordinates(points)[which, "x"]
-          y0 <- coordinates(points)[which, "y"]
+          x0 <- coordinates(obj)[which, "x"]
+          y0 <- coordinates(obj)[which, "y"]
         }
         x1 <- jitter(x = x0, amount = x.coord$max)
         dx <- abs(x0 - x1)
@@ -147,16 +153,16 @@ spJitter <-
         y1[dy] <- y0[dy] + sign(y0[dy] - y1[dy]) * y.coord$min
         res <- data.frame(x = x1, y = y1)
         coordinates(res) <- ~ x + y
-        proj4string(res) <- proj4string(points)
+        proj4string(res) <- proj4string(obj)
         if (is.numeric(which)) {
-          res <- rbind(points[-which, ], res)
+          res <- rbind(obj[-which, ], res)
         }
         if (!is.null(where)) {
           out <- which(gContains(where, res, byid = TRUE) == FALSE)
           n_out <- length(out)
           n_iter <- 1
           while (n_out >= 1) {
-            res_out <- points[out, ]
+            res_out <- obj[out, ]
             res <- res[-out, ]
             x0 <- coordinates(res_out)[, "x"]
             y0 <- coordinates(res_out)[, "y"]
@@ -216,16 +222,14 @@ spJitter <-
   }
 # controls for spJitter inside spSANN
 spJitter.control <-
-  function (candidates, where, finite,
+  function (candidates = NULL, where = NULL, finite = NULL,
             x.coord = list(min = NULL, max = NULL),
             y.coord = list(min = NULL, max = NULL),
             size = 1, size.factor = 1000,
             zero = 1, iterations = 10000, verbose = FALSE) {
-    if (missing(finite)) {
-      stop("you must provide a 'finite' argument (TRUE/FALSE)")
+    if (is.null(finite)) {
+      stop("'finite' is a mandatory argument")
     }
-    stopifnot(is.logical(finite))
-    stopifnot(is.logical(verbose))
     if (!is.list(x.coord) || length(x.coord) != 2) {
       stop ("'x.coord' should be a list with 2 subarguments")
     } else {
@@ -241,7 +245,7 @@ spJitter.control <-
       }
     }
     if (finite) {
-      if (missing(candidates)) {
+      if (is.null(candidates)) {
         stop ("'candidates' is a mandatory argument")
       }
       if (!inherits(candidates, what = "data.frame")) {
@@ -252,15 +256,8 @@ spJitter.control <-
           stop ("'candidates' should have 2 columns named 'x' and 'y'")
         }
       }
-      if (unique(which == "all")) {
-        stop ("this option is not functional yet")
-      } else {
-        if (length(which) > 1) {
-          stop ("this option is not functional yet")
-        }
-      }
     } else {
-      if (missing(where)) {
+      if (is.null(where)) {
         stop ("'where' is a mandatory argument")
       } else {
         if (!inherits(where, what = "SpatialPolygons")) {
@@ -277,8 +274,9 @@ spJitter.control <-
       }
     }
     res <- list(finite = finite, candidates = candidates, where = where,
-                x.coord = x.coord, y.coord = y.coord, zero = zero,  
-                iterations = iterations, verbose = verbose)
+                x.coord = x.coord, y.coord = y.coord, zero = zero, size = size,
+                size.factor = size.factor, iterations = iterations, 
+                verbose = verbose)
     return (res)
   }
 # End!
