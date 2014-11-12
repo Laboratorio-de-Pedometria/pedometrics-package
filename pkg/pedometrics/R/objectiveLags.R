@@ -22,13 +22,13 @@
 #  Contributions  : G. Heuvelink (gerard.heuvelink@wur.nl)
 #
 # function to round a number to the immediately higher order of magnitude
-.log10Ceiling <- 
-  function (x) {
-    x <- log10(x)
-    x <- ceiling(x)
-    x <- 10 ^ x
-    return (x)
-  }
+# .log10Ceiling <- 
+#   function (x) {
+#     x <- log10(x)
+#     x <- ceiling(x)
+#     x <- 10 ^ x
+#     return (x)
+#   }
 # POINTS PER LAG DISTANCE CLASS
 points_per_lag <-
   function (points, lags, lags.type = "equidistant", lags.base = 2, 
@@ -70,8 +70,8 @@ points_per_lag <-
   }
 # OBJECIVE FUNCTION - POINT PAIRS PER LAG DISTANCE CLASS
 objPoints <- 
-  function (points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL, 
-            criterion = "minimum", pre.distribution) {
+  function (points, lags, lags.type = "equidistant", lags.base = 2,
+            cutoff = NULL, criterion = "minimum", pre.distri) {
     if (missing(points)) {
       stop ("'points' is a mandatory argument")
     }
@@ -91,27 +91,28 @@ objPoints <-
       n_lags <- lags
     }
     if (criterion == "distribution") {
-      if (!missing(pre.distribution)) {
-        if (!is.numeric(pre.distribution)) {
-          stop ("pre.distribution should be of class numeric")
+      if (!missing(pre.distri)) {
+        if (!is.numeric(pre.distri)) {
+          stop ("pre.distri should be of class numeric")
         }
-        if (length(pre.distribution) != n_lags) {
-          stop ("the length of 'pre.distribution' should match the number of lags")
+        if (length(pre.distri) != n_lags) {
+          stop ("the length of 'pre.distri' should match the number of lags")
         }
       } else {
-        pre.distribution <- rep(n_pts, n_lags)
+        pre.distri <- rep(n_pts, n_lags)
       }
       points <- points_per_lag(points, lags = lags, cutoff = cutoff, 
                                lags.type = lags.type, lags.base = lags.base)
-      res <- sum(pre.distribution - points$points)
+      res <- sum(pre.distri - points$points)
       return (res) 
     }
     if (criterion == "minimum") {
       points <- points_per_lag(points, lags = lags, cutoff = cutoff, 
                                lags.type = lags.type, lags.base = lags.base)
-      a <- .log10Ceiling(dim(points)[1])
-      b <- min(points$points) + 1
-      res <- a / b
+      #a <- .log10Ceiling(dim(points)[1])
+      #b <- min(points$points) + 1
+      #res <- a / b
+      res <- 10000 / (min(points$points) + 1)
       return (res)
     }    
   }
@@ -155,8 +156,8 @@ pairs_per_lag <-
   }
 # OBJECIVE FUNCTION - POINT PAIRS PER LAG DISTANCE CLASS
 objPairs <- 
-  function (points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL,
-            criterion = "minimum", pre.distribution) {
+  function (points, lags, lags.type = "equidistant", lags.base = 2,
+            cutoff = NULL, criterion = "minimum", pre.distri) {
     if (missing(points)) {
       stop ("'points' is a mandatory argument")
     }
@@ -176,27 +177,28 @@ objPairs <-
       n_lags <- lags
     }
     if (criterion == "distribution") {
-      if (!missing(pre.distribution)) {
-        if (!is.numeric(pre.distribution)) {
-          stop ("pre.distribution should be of class numeric")
+      if (!missing(pre.distri)) {
+        if (!is.numeric(pre.distri)) {
+          stop ("pre.distri should be of class numeric")
         }
-        if (length(pre.distribution) != n_lags) {
-          stop ("the length of 'pre.distribution' should match the number of lags")
+        if (length(pre.distri) != n_lags) {
+          stop ("the length of 'pre.distri' should match the number of lags")
         }
       } else {
-        pre.distribution <- rep(n_pts * (n_pts - 1) / (2 * n_lags), n_lags)
+        pre.distri <- rep(n_pts * (n_pts - 1) / (2 * n_lags), n_lags)
       }
       pairs <- pairs_per_lag(points, lags = lags, lags.type = lags.type,
                              lags.base = lags.base, cutoff = cutoff)
-      res <- sum(pre.distribution - pairs$pairs)
+      res <- sum(pre.distri - pairs$pairs)
       return (res)
     }
     if (criterion == "minimum") {
       pairs <- pairs_per_lag(points, lags = lags, cutoff = cutoff, 
                              lags.type = lags.type, lags.base = lags.base)
-      a <- .log10Ceiling(n_pts * (n_pts - 1) / (2 * n_lags))
-      b <- min(pairs$pairs) + 1
-      res <- a / b
+      #a <- .log10Ceiling(n_pts * (n_pts - 1) / (2 * n_lags))
+      #b <- min(pairs$pairs) + 1
+      #res <- a / b
+      res <- 10000 * (min(pairs$pairs) + 1)
       return (res)
     }    
   }
