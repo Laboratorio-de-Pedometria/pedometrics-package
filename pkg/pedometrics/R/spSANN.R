@@ -31,7 +31,6 @@
   function (energy_state0, energy_states, k, acceptance, accept_probs, 
             boundary, new_sys_config, sys_config0, y_max0, y_max, x_max0, 
             x_max) {
-    par0 <- par()
     par(mfrow = c(1, 2))
     a <- c(energy_state0, energy_states[1:k])
     plot(a ~ c(0:k), type = "l", xlab = "iteration", ylab = "energy state")
@@ -60,7 +59,6 @@
     text(y = bb[2, 1] + (bb[2, 2] - bb[2, 1]) / 2, 
          x = bb[1, 1] - 0.02 * x_max0, 
          srt = 90, labels = "maximum shift in the Y axis")
-    par <- par0
   }
 # spatial simulated annealing
 spSANN <-
@@ -143,6 +141,7 @@ spSANN <-
       }
       if (any(round(seq(1, iterations, 10)) == k)) {
         if (plotit){
+          par0 <- par()
           .spSANNplot(energy_state0, energy_states, k, acceptance, accept_probs, 
                       boundary, new_sys_config, sys_config0, y_max0, y_max, 
                       x_max0, x_max)
@@ -175,12 +174,16 @@ spSANN <-
     if (progress) {
       close(pb)
     }
+    if (plotit){
+      par() <- par0
+    }
     res <- new_sys_config
     criterion <- c(energy_state0, energy_states)
     a <- attributes(res)
     a$energy.state <- criterion
-    attributes(res) <- a
     running_time <- (proc.time() - time0) / 60
+    a$running.time <- running_time
+    attributes(res) <- a
     cat("running time = ", round(running_time[3], 2), " minutes", sep = "")
     return (res)
   }
