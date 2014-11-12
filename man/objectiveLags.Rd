@@ -10,16 +10,18 @@ Points and point pairs per lag distance class
 Functions to counts the number of points or point pairs per lag distance class. Functions to compute the deviation of the observed distribution of counts from a pre-specified distribution. Functions to compute the minimum number of points or point pairs observed over all lag distance classes.
 }
 \usage{
-points_per_lag(obj, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL)
-pairs_per_lag(obj, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL)
-objPoints(obj, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL,
-          criterion = "minimum", pre.distribution)
-objPairs(obj, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL,
-         criterion = "minimum", pre.distribution)
+points_per_lag(points, lags, lags.type = "equidistant", lags.base = 2,
+               cutoff = NULL)
+pairs_per_lag(points, lags, lags.type = "equidistant", lags.base = 2, 
+              cutoff = NULL)
+objPoints(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL,
+          criterion = "minimum", pre.distri)
+objPairs(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL,
+         criterion = "minimum", pre.distri)
 }
 \arguments{
-\item{obj}{
-Data frame containing the projected coordinates of a set of points.
+\item{points}{
+Data frame or matrix containing the projected coordinates of a set of points.
 }
 \item{lags}{
 Integer value defining the number of lag distance classes. Alternatively, a vector of numeric values defining the lower and upper limits of each lag distance class.
@@ -36,20 +38,20 @@ Numeric value defining the maximum distance value up to which lag distance class
 \item{criterion}{
 Character value defining the measure that should be returned to describe the energy state of the current system configuration. Available options are \code{"minimum"} and \code{"distribution"}. The first returns the minimum number of points or point pairs observed over all lag distance classes. The second returns the sum of the differences between a pre-specified distribution and the observed distribution of counts of points or point pairs per lag distance class. Defaults to \code{objective = "minimum"}. See \sQuote{Details} for more information.
 }
-\item{pre.distribution}{
+\item{pre.distri}{
 A vector of numeric values used to pre-specify the distribution of points or point pairs with which the observed counts of points or point pairs per lag distance class is compared. Used only when \code{criterion = "distribution"}. Defaults to a uniform distribution. See \sQuote{Details} for more information.
 }
 }
 \details{
 \subsection{Distances}{
-Euclidean distances between points are calculated using the function \code{\link[stats]{dist}}. This computation requires the coordinates to be projected.
+Euclidean distances between points are calculated using the function \code{\link[stats]{dist}}. This computation requires the coordinates to be projected. The user is responsible for making sure that this requirement is attained.
 }
 \subsection{Distribution}{
-Using the default uniform distribution of point pairs within \code{objPairs} means that the number of point pairs per lag distance class is equal to \eqn{n \times (n - 1) / (2 \times lag)}, where \eqn{n} is the total number of points in \code{obj}, and \eqn{lag} is the number of lag distance classes.
+Using the default uniform distribution of point pairs within \code{objPairs} means that the number of point pairs per lag distance class is equal to \eqn{n \times (n - 1) / (2 \times lag)}, where \eqn{n} is the total number of points in \code{points}, and \eqn{lag} is the number of lag distance classes.
 
-Using the default uniform distribution of points within \code{objPoints} means that the number of points per lag distance class is equal to the total number of points in \code{obj}. This is the same as expecting that each point contributes to every lag distance class.
+Using the default uniform distribution of points within \code{objPoints} means that the number of points per lag distance class is equal to the total number of points in \code{points}. This is the same as expecting that each point contributes to every lag distance class.
 
-Distributions other that the default options can be easily implemented changing the arguments \code{lags}, \code{lags.type}, \code{lags.base} and \code{pre.distribution}.
+Distributions other that the default options can be easily implemented changing the arguments \code{lags}, \code{lags.type}, \code{lags.base} and \code{pre.distri}.
 }
 \subsection{Type of lags}{
 Two types of lag distance classes can be created by default. The first (\code{lags.type = "equidistant"}) are evenly spaced lags. They are created by simply dividing the distance interval from zero to \code{cutoff} by the required number of lags.
@@ -67,46 +69,46 @@ The functions \code{objPairs} and \code{objPoints} were designed to be used in s
 
 Consider that we aim at having the following distribution of points per lag distance class:
 
-\code{points_per_lag <- c(10, 10, 10, 10, 10)}, 
+\code{desired <- c(10, 10, 10, 10, 10)}, 
 
 and that the observed distribution of points per lag distance class is the following:
 
-\code{points_per_lag <- c(1, 2, 5, 10, 10)}.
+\code{observed <- c(1, 2, 5, 10, 10)}.
 
 The objective at each iteration of the optimization will be to match the two distributions. This criterion is of the same type as the one proposed by Warrick and Myers (1987).
 
 The second criterion is called using \code{criterion = "minimum"}. It corresponds to maximizing the minimum number of points or point pairs observed over all lag distance classes. Consider we observe the following distribution of points per lag distance classes in the first iteration:
 
-\code{points_per_lag <- c(1, 2, 5, 10, 10)}.
+\code{observed <- c(1, 2, 5, 10, 10)}.
 
-The objective in the next iteration will be to maximize the number of points in the first lag distance class (\eqn{n = 1}). Consider we then have the following resulting distribution: 
+The objective in the next iteration will be to increase the number of points in the first lag distance class (\eqn{n = 1}). Consider we then have the following resulting distribution: 
 
-\code{points_per_lag <- c(5, 2, 5, 10, 10)}.
+\code{resulting <- c(5, 2, 5, 10, 10)}.
 
-Now the objective will be to maximize the number of points in the second lag distance class (\eqn{n = 2}). The optimization continues until it is not possible to maximize the number of points in any of the lag distance classes, that is, when:
+Now the objective will be to increse the number of points in the second lag distance class (\eqn{n = 2}). The optimization continues until it is not possible to increase the number of points in any of the lag distance classes, that is, when:
 
-\code{points_per_lag <- c(10, 10, 10, 10, 10)}.
+\code{distribution <- c(10, 10, 10, 10, 10)}.
 
-This shows that the result of using \code{criterion = "minimum"} is similar to using \code{criterion = "distribution"}. However, the resulting sample pattern can be significantly different. The running time of the optimization algorithm is a bit longer when using \code{criterion = "distribution"}, but since it is a more sensitive criteria, convergence can be attained with a smaller number of iterations.
+This shows that the result of using \code{criterion = "minimum"} is similar to using \code{criterion = "distribution"}. However, the resulting sample pattern can be significantly different. The running time of the optimization algorithm can be a bit longer when using \code{criterion = "distribution"}, but since it is a more sensitive criteria, convergence can be attained with a smaller number of iterations. However, this also depends on the other parameters passed to the optimization algorithm.
 
-It is important to note that using the first criterion (\code{"distribution"}) in simulated annealing corresponds to a \strong{minimization} problem. On the other hand, using the second criterion (\code{"minimum"}) corresponds to a \strong{maximization} problem. We solve this inconsistency adopting the standard procedure of substituting the criterion that has to be maximized by its inverse. This allows to define both problems as minimization problems.
+It is important to note that using the first criterion (\code{"distribution"}) in simulated annealing corresponds to a \strong{minimization} problem. On the other hand, using the second criterion (\code{"minimum"}) would correspond to a \strong{maximization} problem. We solve this inconsistency substituting the criterion that has to be maximized by its inverse. For conveninence we multiply the resulting value by a constant (i.e. \eqn{10000 / x + 1}, where \code{x} is the criterion value). This procedure allows us to define both problems as minimization problems.
+}
+\subsection{Utopia and nadir points}{
+Knowledge of the utopia and nadir points helps in the construction of multi-objective optimization problems.
 
-Both criteria have a similar \strong{utopia} (\eqn{f^{\circ}_{i}}) point. When \code{criterion = "minimum"}, the utopia point is close to zero (\eqn{f^{\circ}_{i} \rightarrow 0}). When \code{criterion = "distribution"}, the utopia point is exactly zero (\eqn{f^{\circ}_{i} = 0}).
+When \code{criterion = "distribution"}, the \strong{utopia} (\eqn{f^{\circ}_{i}}) point is exactly zero (\eqn{f^{\circ}_{i} = 0}). When \code{criterion = "minimum"}, the utopia point tends to zero (\eqn{f^{\circ}_{i} \rightarrow 0}). It can be calculated using the equation \eqn{10000 / n + 1}, where \code{n} is the number of points (\code{objPoints}), or the number point pairs divided by the number of lag distance classes (\code{objPairs}).
 
-The \strong{nadir} (\eqn{f^{max}_{i}}) point depends on a series of elements. For instance, when \code{criterion = "distribution"}, if the desired distribution of point or point pairs per lag distance class is \code{pre.distribution <- c(10, 10, 10, 10, 10)}, the worst case scenario would be to have all points or point pairs in a single lag distance class, that is, \code{obs.distribution <- c(0, 50, 0, 0, 0)}. In this case, the nadir point 
-is equal to the sum of the differences between the two distributions:
+The \strong{nadir} (\eqn{f^{max}_{i}}) point depends on a series of elements. For instance, when \code{criterion = "distribution"}, if the desired distribution of point or point pairs per lag distance class is \code{pre.distribution <- c(10, 10, 10, 10, 10)}, the worst case scenario would be to have all points or point pairs in a single lag distance class, that is, \code{obs.distribution <- c(0, 50, 0, 0, 0)}. In this case, the nadir point is equal to the sum of the differences between the two distributions:
 
 \code{sum((c(10, 10, 10, 10, 10) - c(0, 50, 0, 0, 0)) ^ 2) = 2000}.
 
-When \code{objective = "minimum"}, the nadir point of \code{objPoints} is equal to the immediately higher order of magnitude of the maximum number of points that could possibly contribute to a lag distance class. For example, if \code{obj} is composed by 155 points, the nadir point is \eqn{f^{max}_{i} = 1000}.
-
-The nadir point of \code{objPairs} is equal to the immediately higher order of magnitude of the maximum number of point pairs that should idealy contribute to each lag distance class. For example, if there are 155 points and 10 lag distance classes, each lag distance class should idealy have \eqn{155 \times (155 - 1) / (2 \times 10) = 1193.5} contributing point pairs. The nadir point is \eqn{f^{max}_{i} = 10000}. Scaling the results between zero and the immediately higher order of magnitude of the number of points or number of point pairs that should idealy contribute to each lag distance class helps in the construction of multi-objective optimization problems.
+When \code{objective = "minimum"}, the nadir point is equal to \eqn{f^{max}_{i} = 10000 / 0 + 1 = 10000}.
 }
 }
 \value{
 \code{pairs_per_lag} and \code{points_per_lag} return a data.frame with three columns: a) the lower and b) upper limits of each lag distance class, and c) the number of points or point pairs per lag distance class.
 
-\code{objPairs} and \code{objPoints} return a numeric value depending on the choice of \code{criterion}. If \code{criterion = "distribution"}, the sum of the differences between the pre-specified and observed distribution of counts of points or point pairs per lag distance class. If \code{criterion = "minimum"}, the inverse of the minimum count of points or point pairs over all lag distance classes.
+\code{objPairs} and \code{objPoints} return a numeric value depending on the choice of \code{criterion}. If \code{criterion = "distribution"}, the sum of the differences between the pre-specified and observed distribution of counts of points or point pairs per lag distance class. If \code{criterion = "minimum"}, the inverse of the minimum count of points or point pairs over all lag distance classes multiplied by a constant (i.e. 10000).
 }
 \references{
 Bresler, E.; Green, R. E. \emph{Soil parameters and sampling scheme for characterizing soil hydraulic properties of a watershed}. Honolulu: University of Hawaii at Manoa, p. 42, 1982.
@@ -125,16 +127,11 @@ Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 Gerard Heuvelink \email{gerard.heuvelink@wur.nl}
 }
 \note{
+\code{pairs_per_lag} and \code{points_per_lag} are called internally by \code{objPairs} and \code{objPoints}, respectively. 
 
-\code{pairs_per_lag} and \code{points_per_lag} are called internally by 
-\code{objPairs} and \code{objPoints}, respectively. 
+The more lags/points you have, the longer the computations will take.
 
-The more lags you have, the longer the computations will take.
-
-Use \code{lags = 1} with \code{points_per_lag} and \code{pairs_per_lag} to check
-if the functions are working correctly. They should return, respectively, the
-total number of points in \code{obj} and the total possible number of point
-pairs \eqn{n \times (n - 1) / 2}.
+Use \code{lags = 1} with \code{points_per_lag} and \code{pairs_per_lag} to check if the functions are working correctly. They should return the total number of points in \code{obj} and the total possible number of point pairs \eqn{n \times (n - 1) / 2}, respectively.
 }
 \seealso{
 \code{\link[stats]{dist}}.
