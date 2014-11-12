@@ -1,29 +1,38 @@
 \name{objMSSD}
 \alias{objMSSD}
+\alias{distMat}
+\alias{distToNearestPoint}
+\alias{nearestPoint}
 \title{
 Mean (squared) shortest distance
 }
 \description{
-This function calculates the mean (squared) shortest distance between a set of points and all grid cells.
+Functions to calculate the mean (squared) shortest distance between a set of points and all grid cells.
 }
 \usage{
-objMSSD(obj, dist.mat, pred.grid, mask, finite)
+distMat(candidates, exponent = 1, diagonal = 0)
+objMSSD(points, pred.grid, dist.mat)
+distToNearestPoint(dist.mat, which.pts)
+nearestPoint(dist.mat, which.pts)
 }
 \arguments{
-\item{obj}{
-A vector of integer values indicating the columns of the distance matrix \code{dist.mat} that correspond to the points to which distances should be computed. Alternativelly, if \code{finite = FALSE}, an object of class SpatialPoints*.
+\item{candidates, pred.grid}{
+A matrix or data.frame. The population of all grid locations in the spatial domain. See \code{spJitterFinite} and \sQuote{Details} for more information.
+}
+\item{exponent}{
+Defaults to \code{exponent = 1}.
+}
+\item{diagonal}{
+Defaults to \code{diagonal = 0}.
+}
+\item{points}{
+A data.frame or matrix with the points to be perturbed. \code{points} must be a subset of \code{candidates}. See \sQuote{Details} for more information.
 }
 \item{dist.mat}{
-Distance matrix of the population of all grid locations in the spatial domain. Use with \code{finite = TRUE}.
+Distance matrix of the population of all grid locations in the spatial domain as defined by \code{candidates}. A matrix returned by \code{distMat}.
 }
-\item{pred.grid}{
-Object of class Raster. Use with \code{finite = FALSE}.
-}
-\item{mask}{
-Object of class SpatialPolygons*. Use with \code{finite = FALSE}.
-}
-\item{finite}{
-Mandatory character value defining if the spatial domain is finite (\code{TRUE}) or infinite (\code{FALSE}).
+\item{which.pts}{
+A vector of the indexes defining the subset of \code{candidates} that corresponds to the set of \code{points}. It indicates the columns of the distance matrix \code{dist.mat} that correspond to the points to which distances should be computed.
 }
 }
 \details{
