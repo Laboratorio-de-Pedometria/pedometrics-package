@@ -2,6 +2,14 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.3-0 (2014-11-12)}{
+  \itemize{
+    \item Started the third season of the initial development of the package.
+    Significant changes were made in functions spSANN(), spJitter(), and those
+    used as objective functions in spatial simulated annealing.
+  }
+}
+
 \section{Changes in version 0.2-4 (2014-10-07)}{
   \itemize{
     \item Spatial simulated annealing is now available: spSANN().
