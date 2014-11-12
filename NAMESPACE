@@ -34,8 +34,7 @@ export(
   plotESDA,
   plotHD,
   plotMS,
-  spJitter,
-  spJitter.control,
+  spJitterFinite,
   spSANN,
   statsMS,
   stepVIF
