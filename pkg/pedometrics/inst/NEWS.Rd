@@ -2,7 +2,7 @@
 
 \title{News for Package \pkg{pedometrics}}
 
-\section{Changes in version 0.3-0 (2014-11-12)}{
+\section{Changes in version 0.3-0 (2014-11-15)}{
   \itemize{
     \item Started the third season of the initial development of the package.
     Significant changes were made in functions spSANN(), spJitter(), and those
