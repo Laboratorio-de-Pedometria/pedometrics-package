@@ -62,11 +62,14 @@
   }
 # spatial simulated annealing
 spSANN <-
-  function (points, candidates, x.max, x.min, y.max, y.min, 
-            fun, iterations = 10000, boundary,
+  function (points, candidates, x.max, x.min, y.max, y.min, fun, ...,
+            iterations = 10000, plotit = TRUE, boundary,
             acceptance = list(initial = 0.99, cooling = iterations / 10),
-            stopping = list(max.count = 200), progress = TRUE, verbose = TRUE,
-            plotit = TRUE, ...) {
+            stopping = list(max.count = 200), progress = TRUE, 
+            verbose = TRUE) {
+    if (plotit){
+      par0 <- par()
+    }
     n_pts             <- dim(points)[1]
     sys_config0       <- points
     old_sys_config    <- sys_config0
@@ -141,7 +144,6 @@ spSANN <-
       }
       if (any(round(seq(1, iterations, 10)) == k)) {
         if (plotit){
-          par0 <- par()
           .spSANNplot(energy_state0, energy_states, k, acceptance, accept_probs, 
                       boundary, new_sys_config, sys_config0, y_max0, y_max, 
                       x_max0, x_max)
@@ -175,7 +177,7 @@ spSANN <-
       close(pb)
     }
     if (plotit){
-      par() <- par0
+      par(par0)
     }
     res <- new_sys_config
     criterion <- c(energy_state0, energy_states)

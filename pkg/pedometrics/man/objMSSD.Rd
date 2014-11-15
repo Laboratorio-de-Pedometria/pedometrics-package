@@ -83,7 +83,6 @@ The previous version included the possibility of using an infinite spatial domai
 }
 \examples{
 require(sp)
-require(raster)
 data(meuse.grid)
 meuse.grid <- meuse.grid[, 1:2]
 #
