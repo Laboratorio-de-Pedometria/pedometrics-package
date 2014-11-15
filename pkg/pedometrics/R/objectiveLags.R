@@ -30,7 +30,7 @@
 #     return (x)
 #   }
 # POINTS PER LAG DISTANCE CLASS
-points_per_lag <-
+pointsPerLag <-
   function (points, lags, lags.type = "equidistant", lags.base = 2, 
             cutoff = NULL) {
     if (missing(points)) {
@@ -101,13 +101,13 @@ objPoints <-
       } else {
         pre.distri <- rep(n_pts, n_lags)
       }
-      points <- points_per_lag(points, lags = lags, cutoff = cutoff, 
+      points <- pointsPerLag(points, lags = lags, cutoff = cutoff, 
                                lags.type = lags.type, lags.base = lags.base)
       res <- sum(pre.distri - points$points)
       return (res) 
     }
     if (criterion == "minimum") {
-      points <- points_per_lag(points, lags = lags, cutoff = cutoff, 
+      points <- pointsPerLag(points, lags = lags, cutoff = cutoff, 
                                lags.type = lags.type, lags.base = lags.base)
       #a <- .log10Ceiling(dim(points)[1])
       #b <- min(points$points) + 1
@@ -117,7 +117,7 @@ objPoints <-
     }    
   }
 # POINT PAIRS PER LAG DISTANCE CLASS
-pairs_per_lag <- 
+pairsPerLag <- 
   function (points, lags, lags.type = "equidistant", lags.base = 2,
             cutoff = NULL) {
     if (missing(points)) {
@@ -187,13 +187,13 @@ objPairs <-
       } else {
         pre.distri <- rep(n_pts * (n_pts - 1) / (2 * n_lags), n_lags)
       }
-      pairs <- pairs_per_lag(points, lags = lags, lags.type = lags.type,
+      pairs <- pairsPerLag(points, lags = lags, lags.type = lags.type,
                              lags.base = lags.base, cutoff = cutoff)
       res <- sum(pre.distri - pairs$pairs)
       return (res)
     }
     if (criterion == "minimum") {
-      pairs <- pairs_per_lag(points, lags = lags, cutoff = cutoff, 
+      pairs <- pairsPerLag(points, lags = lags, cutoff = cutoff, 
                              lags.type = lags.type, lags.base = lags.base)
       #a <- .log10Ceiling(n_pts * (n_pts - 1) / (2 * n_lags))
       #b <- min(pairs$pairs) + 1

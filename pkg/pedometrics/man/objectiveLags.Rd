@@ -1,6 +1,6 @@
-\name{points_per_lag}
-\alias{points_per_lag}
-\alias{pairs_per_lag}
+\name{pointsPerLag}
+\alias{pointsPerLag}
+\alias{pairsPerLag}
 \alias{objPairs}
 \alias{objPoints}
 \title{
@@ -10,9 +10,9 @@ Points and point pairs per lag distance class
 Functions to counts the number of points or point pairs per lag distance class. Functions to compute the deviation of the observed distribution of counts from a pre-specified distribution. Functions to compute the minimum number of points or point pairs observed over all lag distance classes.
 }
 \usage{
-points_per_lag(points, lags, lags.type = "equidistant", lags.base = 2,
+pointsPerLag(points, lags, lags.type = "equidistant", lags.base = 2,
                cutoff = NULL)
-pairs_per_lag(points, lags, lags.type = "equidistant", lags.base = 2, 
+pairsPerLag(points, lags, lags.type = "equidistant", lags.base = 2, 
               cutoff = NULL)
 objPoints(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL,
           criterion = "minimum", pre.distri)
@@ -94,7 +94,7 @@ This shows that the result of using \code{criterion = "minimum"} is similar to u
 It is important to note that using the first criterion (\code{"distribution"}) in simulated annealing corresponds to a \strong{minimization} problem. On the other hand, using the second criterion (\code{"minimum"}) would correspond to a \strong{maximization} problem. We solve this inconsistency substituting the criterion that has to be maximized by its inverse. For conveninence we multiply the resulting value by a constant (i.e. \eqn{10000 / x + 1}, where \code{x} is the criterion value). This procedure allows us to define both problems as minimization problems.
 }
 \subsection{Utopia and nadir points}{
-Knowledge of the utopia and nadir points helps in the construction of multi-objective optimization problems.
+Knowledge of the utopia and nadir points can help in the construction of multi-objective optimization problems.
 
 When \code{criterion = "distribution"}, the \strong{utopia} (\eqn{f^{\circ}_{i}}) point is exactly zero (\eqn{f^{\circ}_{i} = 0}). When \code{criterion = "minimum"}, the utopia point tends to zero (\eqn{f^{\circ}_{i} \rightarrow 0}). It can be calculated using the equation \eqn{10000 / n + 1}, where \code{n} is the number of points (\code{objPoints}), or the number point pairs divided by the number of lag distance classes (\code{objPairs}).
 
@@ -106,7 +106,7 @@ When \code{objective = "minimum"}, the nadir point is equal to \eqn{f^{max}_{i} 
 }
 }
 \value{
-\code{pairs_per_lag} and \code{points_per_lag} return a data.frame with three columns: a) the lower and b) upper limits of each lag distance class, and c) the number of points or point pairs per lag distance class.
+\code{pairsPerLag} and \code{pointsPerLag} return a data.frame with three columns: a) the lower and b) upper limits of each lag distance class, and c) the number of points or point pairs per lag distance class.
 
 \code{objPairs} and \code{objPoints} return a numeric value depending on the choice of \code{criterion}. If \code{criterion = "distribution"}, the sum of the differences between the pre-specified and observed distribution of counts of points or point pairs per lag distance class. If \code{criterion = "minimum"}, the inverse of the minimum count of points or point pairs over all lag distance classes multiplied by a constant (i.e. 10000).
 }
@@ -127,11 +127,11 @@ Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 Gerard Heuvelink \email{gerard.heuvelink@wur.nl}
 }
 \note{
-\code{pairs_per_lag} and \code{points_per_lag} are called internally by \code{objPairs} and \code{objPoints}, respectively. 
+\code{pairsPerLag} and \code{pointsPerLag} are called internally by \code{objPairs} and \code{objPoints}, respectively. 
 
 The more lags/points you have, the longer the computations will take.
 
-Use \code{lags = 1} with \code{points_per_lag} and \code{pairs_per_lag} to check if the functions are working correctly. They should return the total number of points in \code{obj} and the total possible number of point pairs \eqn{n \times (n - 1) / 2}, respectively.
+Use \code{lags = 1} with \code{pointsPerLag} and \code{pairsPerLag} to check if the functions are working correctly. They should return the total number of points in \code{obj} and the total possible number of point pairs \eqn{n \times (n - 1) / 2}, respectively.
 }
 \seealso{
 \code{\link[stats]{dist}}.
@@ -140,6 +140,6 @@ Use \code{lags = 1} with \code{points_per_lag} and \code{pairs_per_lag} to check
 require(sp)
 data(meuse)
 meuse <- meuse[, 1:2]
-tmp <- pairs_per_lag(meuse, lags = 6, lags.type = "exponential", cutoff = 1000)
+tmp <- pairsPerLag(meuse, lags = 6, lags.type = "exponential", cutoff = 1000)
 }
 % End!
