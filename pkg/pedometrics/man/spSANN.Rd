@@ -123,7 +123,7 @@ Edzer Pebesma \email{edzer.pebesma@uni-muenster.de} and Jon Skoien
 R-package \pkg{pedometrics}.
 }
 \seealso{
-\code{\link[intamapInteractive]{ssaOptim}}, \code{\link[pedometrics]{spJitterFinite}}, \code{\link[pedometrics]{objPoints}}, \code{\link[pedometrics]{objPairs}}, \code{\link[base]{do.call}}.
+\code{ssaOptim}, \code{\link[pedometrics]{spJitterFinite}}, \code{\link[pedometrics]{objPoints}}, \code{\link[pedometrics]{objPairs}}, \code{\link[base]{do.call}}.
 }
 \examples{
 \dontrun{
