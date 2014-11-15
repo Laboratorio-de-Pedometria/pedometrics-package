@@ -11,7 +11,7 @@ This package contains functions to employ many tools and techniques used in the 
 Package: \tab pedometrics\cr
 Type: \tab Package\cr
 Version: \tab 0.3-1\cr
-Date: \tab 2014-11-12\cr
+Date: \tab 2014-11-15\cr
 License: \tab GPL (>= 2)\cr
 }
 }
