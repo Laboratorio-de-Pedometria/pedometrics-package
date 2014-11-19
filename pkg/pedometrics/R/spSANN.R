@@ -20,21 +20,18 @@
 #                   J. Skoien (jon.skoien@gmail.com)
 #
 .energyState <- 
-  function (fun, points, ...) {
-    if (missing(fun) || missing(points)) {
-      stop ("'fun' and 'points' are mandatory arguments")
-    }
-    return (do.call(fun, list(points, ...)))
+  function (fun, points, candidates, ...) {
+    return (do.call(fun, list(points, candidates, ...)))
   }
 # plotting
 .spSANNplot <-
-  function (energy_state0, energy_states, k, acceptance, accept_probs, 
-            boundary, new_sys_config, sys_config0, y_max0, y_max, x_max0, 
+  function (energy0, energy_states, k, acceptance, accept_probs, 
+            boundary, new_points, points0, y_max0, y_max, x_max0, 
             x_max) {
     par(mfrow = c(1, 2))
-    a <- c(energy_state0, energy_states[1:k])
+    a <- c(energy0, energy_states[1:k])
     plot(a ~ c(0:k), type = "l", xlab = "iteration", ylab = "energy state")
-    abline(h = energy_state0, col = "red")
+    abline(h = energy0, col = "red")
     a <- c(acceptance[[1]], accept_probs[1:k])
     par(new = TRUE)
     plot(a ~ c(0:k), type = "l", axes = FALSE, bty = "n", xlab = "", 
@@ -43,18 +40,20 @@
     mtext("acceptance probability", side = 4, line = 3)
     bb <- bbox(boundary)
     plot(boundary)
-    points(sys_config0[, 1], sys_config0[, 2], pch = 1, cex = 0.5, 
+    points(points0[, 1], points0[, 2], pch = 1, cex = 0.5, 
            col = "lightgray")
     lines(x = c(bb[1, 1], bb[1, 2]), y = rep(bb[2, 1], 2) - 0.02 * y_max0, 
           col = "gray", lwd = 12)
     lines(y = c(bb[2, 1], bb[2, 2]), x = rep(bb[1, 1], 2) - 0.02 * x_max0,
           col = "gray", lwd = 12)
-    points(new_sys_config[, 1], new_sys_config[, 2], pch = 20, cex = 0.5)
-    lines(x = c(bb[1, 1], bb[1, 1] + x_max[k]), 
+    points(new_points[, 1], new_points[, 2], pch = 20, cex = 0.5)
+    #lines(x = c(bb[1, 1], bb[1, 1] + x_max[k]),
+    lines(x = c(bb[1, 1], bb[1, 1] + x.max),     
           y = rep(bb[2, 1], 2) - 0.02 * y_max0, col = "orange", lwd = 12)
     text(x = bb[1, 1] + (bb[1, 2] - bb[1, 1]) / 2, y = bb[2, 1] - 0.02 * y_max0,
          labels = "maximum shift in the X axis")
-    lines(y = c(bb[2, 1], bb[2, 1] + y_max[k]), 
+    #lines(y = c(bb[2, 1], bb[2, 1] + y_max[k]), 
+    lines(y = c(bb[2, 1], bb[2, 1] + y.max),     
           x = rep(bb[1, 1], 2) - 0.02 * x_max0, col = "orange", lwd = 12)
     text(y = bb[2, 1] + (bb[2, 2] - bb[2, 1]) / 2, 
          x = bb[1, 1] - 0.02 * x_max0, 
@@ -70,108 +69,90 @@ spSANN <-
     if (plotit){
       par0 <- par()
     }
-    n_pts             <- dim(points)[1]
-    sys_config0       <- points
-    old_sys_config    <- sys_config0
-    energy_state0     <- .energyState(fun = fun, points = old_sys_config, ...)
-    old_energy_state  <- energy_state0
-    count             <- 0
-    best_energy_state <- Inf
-    energy_states     <- vector()
-    accept_probs      <- vector()
-    x_max             <- vector()
-    y_max             <- vector()
-    x_max0            <- x.max
-    y_max0            <- y.max
+    n_pts         <- length(points)
+    points0       <- points
+    old_points    <- points0
+    energy0       <- .energyState(fun = fun, points = old_points, 
+                                  candidates = candidates, ...)
+    old_energy    <- energy0
+    count         <- 0
+    best_energy   <- Inf
+    energy_states <- vector()
+    accept_probs  <- vector()
+    x_max0        <- x.max
+    y_max0        <- y.max
     if (progress) {
       pb <- txtProgressBar(min = 1, max = iterations, style = 3)
     }
-    time0             <- proc.time()
+    time0 <- proc.time()
     for (k in 1:iterations) {
-      id <- sample(c(1:n_pts), 1)
-      new_sys_config <- spJitterFinite(old_sys_config, candidates = candidates,
-                                       x.max = x.max, x.min = x.min, 
-                                       y.max = y.max, y.min = y.min,
-                                       which.pts = id)
+      which_point <- sample(old_points, 1)
+      new_points <- spJitterFinite(old_points, candidates = candidates,
+                                   x.max = x.max, x.min = x.min, y.max = y.max,
+                                   y.min = y.min, which.point = which_point)
       x.max <- x_max0 - (k / iterations) * (x_max0 - x.min)
-      x_max[k] <- x.max
       y.max <- y_max0 - (k / iterations) * (y_max0 - y.min)
-      y_max[k] <- y.max
-      new_energy_state <- .energyState(fun = fun, points = new_sys_config, ...)
+      new_energy <- .energyState(fun = fun, points = new_points, 
+                                 candidates = candidates, ...)
       random_prob <- runif(1)
       actual_prob <- acceptance[[1]] * exp(-k / acceptance[[2]])
       accept_probs[k] <- actual_prob
-      if (new_energy_state <= old_energy_state) {
-        old_sys_config <- new_sys_config
-        old_energy_state <- new_energy_state
+      if (new_energy <= old_energy) {
+        old_points <- new_points
+        old_energy <- new_energy
         count <- 0
       } else {
-        if (new_energy_state > old_energy_state & random_prob <= actual_prob) {
-          old_sys_config <- new_sys_config
-          old_energy_state <- new_energy_state
+        if (new_energy > old_energy & random_prob <= actual_prob) {
+          old_points <- new_points
+          old_energy <- new_energy
           count <- count + 1
           if (verbose) {
-            if (count == 1) {
-              cat("\n", count, "iteration with no improvement... p = ", 
-                  random_prob, "\n")
-            } else {
-              cat("\n", count, "iterations with no improvement... p = ", 
-                  random_prob, "\n")
-            }
+            cat("\n", count, "iteration(s) with no improvement... p = ", 
+                random_prob, "\n")
           }
         } else {
-          new_energy_state <- old_energy_state
-          new_sys_config <- old_sys_config
+          new_energy <- old_energy
+          new_points <- old_points
           count <- count + 1
           if (verbose) {
-            if (count == 1) {
-              cat("\n", count, "iteration with no improvement... stops at",
-                  stopping$max.count, "\n")
-            } else {
-              cat("\n", count, "iterations with no improvement... stops at",
-                  stopping$max.count, "\n")
-            }
+            cat("\n", count, "iteration(s) with no improvement... stops at",
+                stopping[[1]], "\n")
           }
         }
       }
-      energy_states[k] <- new_energy_state
-      if (new_energy_state < best_energy_state / 1.0000001) {
+      energy_states[k] <- new_energy
+      if (new_energy < best_energy / 1.0000001) {
         best_k <- k
-        best_sys_config <- new_sys_config
-        best_energy_state <- new_energy_state
-        best_old_energy_state <- old_energy_state
-        old_sys_config <- old_sys_config
+        best_points <- new_points
+        best_energy <- new_energy
+        best_old_energy <- old_energy
+        old_points <- old_points
       }
       if (any(round(seq(1, iterations, 10)) == k)) {
         if (plotit){
-          .spSANNplot(energy_state0, energy_states, k, acceptance, accept_probs, 
-                      boundary, new_sys_config, sys_config0, y_max0, y_max, 
+          .spSANNplot(energy0, energy_states, k, acceptance, accept_probs, 
+                      boundary, new_points, points0, y_max0, y_max, 
                       x_max0, x_max)
         } 
       }
       if (count == stopping[[1]]) {
-        if (new_energy_state > best_energy_state * 1.000001) {
-          old_sys_config <- old_sys_config
-          new_sys_config <- best_sys_config
-          old_energy_state <- best_old_energy_state
-          new_energy_state <- best_energy_state
+        if (new_energy > best_energy * 1.000001) {
+          old_points <- old_points
+          new_points <- best_points
+          old_energy <- best_old_energy
+          new_energy <- best_energy
           count <- 0
-          cat("\n", "reached maximum count with suboptimal system configuration\n")
-          cat("\n", "restarting with previously best system configuration\n")
-          if (count == 1) {
-            cat("\n", count, "iteration with no improvement... stops at",
-                stopping[[1]], "\n")
+          cat("\n", "reached maximum count with suboptimal points\n")
+          cat("\n", "restarting with previously best points\n")
+          cat("\n", count, "iteration(s) with no improvement... stops at",
+              stopping[[1]], "\n") 
           } else {
-            cat("\n", count, "iterations with no improvement... stops at",
-                stopping[[1]], "\n")
+            break
           }
-        } else {
-          break
-        }
       }
       if (progress) {
         setTxtProgressBar(pb, k)
-      }      
+      }
     }
     if (progress) {
       close(pb)
@@ -179,8 +160,8 @@ spSANN <-
     if (plotit){
       par(par0)
     }
-    res <- new_sys_config
-    criterion <- c(energy_state0, energy_states)
+    res <- new_points
+    criterion <- c(energy0, energy_states)
     a <- attributes(res)
     a$energy.state <- criterion
     running_time <- (proc.time() - time0) / 60
@@ -189,7 +170,6 @@ spSANN <-
     cat("running time = ", round(running_time[3], 2), " minutes", sep = "")
     return (res)
   }
-
 # spSANN <-
 #   function (points, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
 #             acceptance = list(initial = 0.99, cooling = iterations / 10),
@@ -219,12 +199,12 @@ spSANN <-
 #       stop ("'verbose' should be a logical value")
 #     }
 #     n_pts             <- length(points)
-#     sys_config0       <- points
-#     old_sys_config    <- sys_config0
-#     energy_state0     <- .energyState(fun = fun, points = old_sys_config, ...)
-#     old_energy_state  <- energy_state0
+#     points0       <- points
+#     old_points    <- points0
+#     energy0     <- .energyState(fun = fun, points = old_points, ...)
+#     old_energy  <- energy0
 #     count             <- 0
-#     best_energy_state <- Inf
+#     best_energy <- Inf
 #     energy_states     <- vector()
 #     accept_probs      <- vector()
 #     x_max             <- vector()
@@ -245,11 +225,11 @@ spSANN <-
 #         new_size <- size
 #       }
 #       if (finite) {
-#         id <- sample(old_sys_config, new_size)
+#         id <- sample(old_points, new_size)
 #       } else {
 #         id <- sample(c(1:n_pts), size = new_size) 
 #       }
-#       new_sys_config <- spJitter(old_sys_config, which = id,
+#       new_points <- spJitter(old_points, which = id,
 #                                  finite = spJitter.ctrl$finite,
 #                                  candidates = spJitter.ctrl$candidates,
 #                                  x.coord = spJitter.ctrl$x.coord,
@@ -264,18 +244,18 @@ spSANN <-
 #       b <- spJitter.ctrl$y.coord$min
 #       spJitter.ctrl$y.coord$max <- y_max0 - (k / iterations) * (y_max0 - b)
 #       y_max[k] <- spJitter.ctrl$y.coord$max
-#       new_energy_state <- .energyState(fun = fun, points = new_sys_config, ...)
+#       new_energy <- .energyState(fun = fun, points = new_points, ...)
 #       random_prob <- runif(1)
 #       actual_prob <- acceptance$initial * exp(-k / acceptance$cooling)
 #       accept_probs[k] <- actual_prob
-#       if (new_energy_state <= old_energy_state) {
-#         old_sys_config <- new_sys_config
-#         old_energy_state <- new_energy_state
+#       if (new_energy <= old_energy) {
+#         old_points <- new_points
+#         old_energy <- new_energy
 #         count <- 0
 #         } else {
-#           if (new_energy_state > old_energy_state & random_prob <= actual_prob) {
-#             old_sys_config <- new_sys_config
-#             old_energy_state <- new_energy_state
+#           if (new_energy > old_energy & random_prob <= actual_prob) {
+#             old_points <- new_points
+#             old_energy <- new_energy
 #             count <- count + 1
 #             if (verbose) {
 #               if (count == 1) {
@@ -287,8 +267,8 @@ spSANN <-
 #                 }
 #             }
 #             } else {
-#               new_energy_state <- old_energy_state
-#               new_sys_config <- old_sys_config
+#               new_energy <- old_energy
+#               new_points <- old_points
 #               count <- count + 1
 #               if (verbose) {
 #                 if (count == 1) {
@@ -301,22 +281,22 @@ spSANN <-
 #               }
 #             }
 #         }
-#       energy_states[k] <- new_energy_state
-#       if (new_energy_state < best_energy_state / 1.0000001) {
+#       energy_states[k] <- new_energy
+#       if (new_energy < best_energy / 1.0000001) {
 #         best_k <- k
-#         best_sys_config <- new_sys_config
-#         best_energy_state <- new_energy_state
-#         best_old_energy_state <- old_energy_state
-#         old_sys_config <- old_sys_config
+#         best_points <- new_points
+#         best_energy <- new_energy
+#         best_old_energy <- old_energy
+#         old_points <- old_points
 #       }
 #       if (!is.null(plotit)){
 #         par0 <- par()
 #         par(mfrow = c(1, 2))
 #         if (any(round(seq(1, iterations, 10)) == k)) {
-#           a <- c(energy_state0, energy_states[1:k])
+#           a <- c(energy0, energy_states[1:k])
 #           plot(a ~ c(0:k), type = "l", xlab = "iteration", 
 #                ylab = "energy state")
-#           abline(h = energy_state0, col = "red")
+#           abline(h = energy0, col = "red")
 #           a <- c(acceptance$initial, accept_probs[1:k])
 #           par(new = TRUE)
 #           plot(a ~ c(0:k), type = "l", axes = FALSE, bty = "n", 
@@ -325,15 +305,15 @@ spSANN <-
 #           axis(side = 4, at = pretty(range(a)))
 #           mtext("acceptance probability", side = 4, line = 3) 
 #           if (is.null(spJitter.ctrl$where)) {
-#             plot(new_sys_config, pch = 20, cex = 0.5)
+#             plot(new_points, pch = 20, cex = 0.5)
 #             if (plotit[["starting"]]) {
-#               points(sys_config0, pch = 1, cex = 0.5, col = "lightgray") 
+#               points(points0, pch = 1, cex = 0.5, col = "lightgray") 
 #             }
 #             } else {
 #               plot(spJitter.ctrl$where)
-#               points(new_sys_config, pch = 20, cex = 0.5)
+#               points(new_points, pch = 20, cex = 0.5)
 #               if (plotit[["starting"]]) {
-#                 points(sys_config0, pch = 1, cex = 0.5, col = "lightgray")
+#                 points(points0, pch = 1, cex = 0.5, col = "lightgray")
 #               }
 #               bb <- bbox(spJitter.ctrl$where)
 #               lines(x = c(bb[1, 1], bb[1, 2]),
@@ -358,11 +338,11 @@ spSANN <-
 #         }
 #       }
 #       if (count == stopping$max.count) {
-#         if (new_energy_state > best_energy_state * 1.000001) {
-#           old_sys_config <- old_sys_config
-#           new_sys_config <- best_sys_config
-#           old_energy_state <- best_old_energy_state
-#           new_energy_state <- best_energy_state
+#         if (new_energy > best_energy * 1.000001) {
+#           old_points <- old_points
+#           new_points <- best_points
+#           old_energy <- best_old_energy
+#           new_energy <- best_energy
 #           count <- 0
 #           cat("\n", "reached 'max.count' with suboptimal system configuration\n")
 #           cat("\n", "restarting with previously best system configuration\n")
@@ -387,8 +367,8 @@ spSANN <-
 #     if (!is.null(plotit)) {
 #       par <- par0
 #     }
-#     res <- list(object = new_sys_config, 
-#                 criterion = c(energy_state0, energy_states))
+#     res <- list(object = new_points, 
+#                 criterion = c(energy0, energy_states))
 #     running_time <- (proc.time() - time0) / 60
 #     cat("running time = ", round(running_time[3], 2), " minutes", sep = "")
 #     return (res)
