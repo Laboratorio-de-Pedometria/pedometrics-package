@@ -116,11 +116,7 @@ Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 Gerard Heuvelink \email{gerard.heuvelink@wur.nl}
 }
 \note{
-Some of the solutions used to build this function were found in the source code 
-of the R-package \pkg{intamapInteractive}. As such, the authors of that package, 
-Edzer Pebesma \email{edzer.pebesma@uni-muenster.de} and Jon Skoien 
-\email{jon.skoien@gmail.com}, are entitled \sQuote{contributors} to the 
-R-package \pkg{pedometrics}.
+Some of the solutions used to build this function were found in the source code of the R-package \strong{intamapInteractive}. As such, the authors of that package,  Edzer Pebesma \email{edzer.pebesma@uni-muenster.de} and Jon Skoien \email{jon.skoien@gmail.com}, are entitled \sQuote{contributors} to the R-package \pkg{pedometrics}.
 }
 \seealso{
 \code{ssaOptim}, \code{\link[pedometrics]{spJitterFinite}}, \code{\link[pedometrics]{objPoints}}, \code{\link[pedometrics]{objPairs}}, \code{\link[base]{do.call}}.
