@@ -31,41 +31,25 @@
 #   }
 # POINTS PER LAG DISTANCE CLASS
 pointsPerLag <-
-  function (points, lags, lags.type = "equidistant", lags.base = 2, 
-            cutoff = NULL) {
-    if (missing(points)) {
-      stop ("'points' is a mandatory argument")
-    }
-    if (missing(lags) || !is.numeric(lags)) {
-      stop ("'lags' should be a numeric value or vector")
-    }
-    if (length(lags) == 1 && is.null(cutoff)) {
-      stop ("'cutoff' is a mandatory when the lag intervals are not specified") 
-    }
-    if (length(lags) > 1 && !is.null(cutoff)) {
-      stop ("'cutoff' cannot be used when the lag intervals are specified")
-    }
-    d <- dist(points, method = "euclidean")
-    d <- as.matrix(d)
+  function (points, candidates, lags, lags.type = "equidistant", 
+            lags.base = 2, cutoff = NULL) {
+    d <- as.matrix(dist(candidates[points, ], method = "euclidean"))
     if (length(lags) == 1) {
       if (lags.type == "equidistant") {
         lags <- seq(0, cutoff, length.out = lags + 1)
       }
       if (lags.type == "exponential") {
-        idx <- vector()
-        for (i in 1:lags - 1) {
-          idx[i] <- lags.base ^ i
-        }
-        lags <- c(0, rev(cutoff / idx), cutoff)
+        idx <- lags.base ^ c(1:lags - 1)
+        lags <- c(0, rev(cutoff / idx))
       }
     }
     pts <- vector()
-    for (i in 1:length(lags)) {
+    for (i in 1:c(length(lags) - 1)) {
       n <- which(d > lags[i] & d <= lags[i + 1], arr.ind = TRUE)
       pts[i] <- length(unique(c(n)))
     }
     res <- data.frame(lag.lower = lags[-length(lags)], 
-                      points = pts[-length(lags)], lag.upper = lags[-1])
+                      points = pts, lag.upper = lags[-1])
     return (res)
   }
 # OBJECIVE FUNCTION - POINT PAIRS PER LAG DISTANCE CLASS
