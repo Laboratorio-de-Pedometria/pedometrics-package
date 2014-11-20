@@ -23,6 +23,10 @@
   function (fun, points, candidates, ...) {
     return (do.call(fun, list(points, candidates, ...)))
   }
+.updater <-
+  function (fun, points, candidates, ...) {
+    return (do.call(fun, list(points, candidates, ...)))
+  }
 # plotting
 .spSANNplot <-
   function (energy0, energy_states, k, acceptance, accept_probs, 
@@ -86,10 +90,10 @@ spSANN <-
     }
     time0 <- proc.time()
     for (k in 1:iterations) {
-      which_point <- sample(old_points, 1)
       new_points <- spJitterFinite(old_points, candidates = candidates,
                                    x.max = x.max, x.min = x.min, y.max = y.max,
-                                   y.min = y.min, which.point = which_point)
+                                   y.min = y.min, 
+                                   which.point = old_points[1])
       x.max <- x_max0 - (k / iterations) * (x_max0 - x.min)
       y.max <- y_max0 - (k / iterations) * (y_max0 - y.min)
       new_energy <- .energyState(fun = fun, points = new_points, 
