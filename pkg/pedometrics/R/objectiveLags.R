@@ -46,6 +46,9 @@ pointsPerLag <-
     pts <- apply(X = d, 1, function (X) {
       table(cut(X, breaks = lags, include.lowest = FALSE))
       })
+    a <- attributes(pts)
+    a$lags <- lags
+    attributes(pts) <- a
     return (pts)
   }
 # OBJECIVE FUNCTION - POINT PAIRS PER LAG DISTANCE CLASS
