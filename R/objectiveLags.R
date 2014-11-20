@@ -43,31 +43,15 @@ pointsPerLag <-
         lags <- c(0, rev(cutoff / idx))
       }
     }
-    pts <- vector()
-    for (i in 1:c(length(lags) - 1)) {
-      n <- which(d > lags[i] & d <= lags[i + 1], arr.ind = TRUE)
-      pts[i] <- length(unique(c(n)))
-    }
-    res <- data.frame(lag.lower = lags[-length(lags)], 
-                      points = pts, lag.upper = lags[-1])
-    return (res)
+    pts <- apply(X = d, 1, function (X) {
+      table(cut(X, breaks = lags, include.lowest = FALSE))
+      })
+    return (pts)
   }
 # OBJECIVE FUNCTION - POINT PAIRS PER LAG DISTANCE CLASS
 objPoints <- 
-  function (points, lags, lags.type = "equidistant", lags.base = 2,
+  function (points, candidates, lags, lags.type = "equidistant", lags.base = 2,
             cutoff = NULL, criterion = "minimum", pre.distri) {
-    if (missing(points)) {
-      stop ("'points' is a mandatory argument")
-    }
-    if (missing(lags) || !is.numeric(lags)) {
-      stop ("'lags' should be a numeric value or vector")
-    }
-    if (length(lags) == 1 && is.null(cutoff)) {
-      stop ("'cutoff' is a mandatory when the lag intervals are not specified") 
-    }
-    if (length(lags) > 1 && !is.null(cutoff)) {
-      stop ("'cutoff' cannot be used when the lag intervals are specified")
-    }
     n_pts <- dim(points)[1]
     if (length(lags) > 1) {
       n_lags <- length(lags) - 1
