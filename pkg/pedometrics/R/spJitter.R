@@ -28,13 +28,14 @@ spJitterFinite <-
     cand <- candidates[-points, ]
     d_x <- x.max + x.min
     d_y <- y.max + y.min
-    pt0 <- candidates[which.point, ]
+    pt0 <- candidates[points[which.point], ]
     d_x <- c(pt0[1] - d_x, pt0[1] + d_x)
     d_y <- c(pt0[2] - d_y, pt0[2] + d_y)
     pt1 <- which(cand[, 1] >= d_x[1] & cand[, 1] <= d_x[2] &
                    cand[, 2] >= d_y[1] & cand[, 2] <= d_y[2])
     pt2 <- as.integer(sample(pt1, 1))
-    res <- c(points[-which(points == which.point)], pt2)
+    res <- points
+    res[which.point] <- pt2
     # the result is a vector with integers -- row indexes of candidates
     # the last value is the new index -- which.point is the old index
     return (res)

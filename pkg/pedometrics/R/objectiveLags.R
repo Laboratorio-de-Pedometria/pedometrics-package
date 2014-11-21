@@ -22,13 +22,13 @@
 #  Contributions  : G. Heuvelink (gerard.heuvelink@wur.nl)
 #
 # function to round a number to the immediately higher order of magnitude
-# .log10Ceiling <- 
-#   function (x) {
-#     x <- log10(x)
-#     x <- ceiling(x)
-#     x <- 10 ^ x
-#     return (x)
-#   }
+.log10Ceiling <- 
+  function (x) {
+    x <- log10(x)
+    x <- ceiling(x)
+    x <- 10 ^ x
+    return (x)
+  }
 # POINTS PER LAG DISTANCE CLASS
 pointsPerLag <-
   function (points, candidates, lags, lags.type = "equidistant", 
