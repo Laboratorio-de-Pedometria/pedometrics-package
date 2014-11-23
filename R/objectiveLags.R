@@ -22,13 +22,13 @@
 #  Contributions  : G. Heuvelink (gerard.heuvelink@wur.nl)
 #
 # function to round a number to the immediately higher order of magnitude
-.log10Ceiling <- 
-  function (x) {
-    x <- log10(x)
-    x <- ceiling(x)
-    x <- 10 ^ x
-    return (x)
-  }
+# .log10Ceiling <- 
+#   function (x) {
+#     x <- log10(x)
+#     x <- ceiling(x)
+#     x <- 10 ^ x
+#     return (x)
+#   }
 # POINTS PER LAG DISTANCE CLASS
 pointsPerLag <-
   function (points, candidates, lags, lags.type = "equidistant", 
@@ -43,18 +43,31 @@ pointsPerLag <-
         lags <- c(0, rev(cutoff / idx))
       }
     }
-    pts <- apply(X = d, 1, function (X) {
-      table(cut(X, breaks = lags, include.lowest = FALSE))
-      })
-    a <- attributes(pts)
-    a$lags <- lags
-    attributes(pts) <- a
-    return (pts)
+    pts <- vector()
+    for (i in 1:c(length(lags) - 1)) {
+      n <- which(d > lags[i] & d <= lags[i + 1], arr.ind = TRUE)
+      pts[i] <- length(unique(c(n)))
+    }
+    res <- data.frame(lag.lower = lags[-length(lags)], 
+                      points = pts, lag.upper = lags[-1])
+    return (res)
   }
 # OBJECIVE FUNCTION - POINT PAIRS PER LAG DISTANCE CLASS
 objPoints <- 
-  function (points, candidates, lags, lags.type = "equidistant", lags.base = 2,
+  function (points, lags, lags.type = "equidistant", lags.base = 2,
             cutoff = NULL, criterion = "minimum", pre.distri) {
+    if (missing(points)) {
+      stop ("'points' is a mandatory argument")
+    }
+    if (missing(lags) || !is.numeric(lags)) {
+      stop ("'lags' should be a numeric value or vector")
+    }
+    if (length(lags) == 1 && is.null(cutoff)) {
+      stop ("'cutoff' is a mandatory when the lag intervals are not specified") 
+    }
+    if (length(lags) > 1 && !is.null(cutoff)) {
+      stop ("'cutoff' cannot be used when the lag intervals are specified")
+    }
     n_pts <- dim(points)[1]
     if (length(lags) > 1) {
       n_lags <- length(lags) - 1
