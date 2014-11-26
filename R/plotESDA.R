@@ -12,10 +12,66 @@
 #
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
-
-#  Purpose        : plots for exploratory spatial data analysis (ESDA)
-#  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
-#  Depends on     : lattice, sp, gstat
+#
+# DOCUMENTATION ################################################################
+#' 
+#' @title Plots for exploratory spatial data analysis (ESDA)
+#' 
+#' @description
+#' This function creates four plots for exploratory spatial data analysis 
+#' (ESDA): histogram + density plot, bubble plot, variogram plot, and variogram 
+#' map.
+#' 
+#' @param z Vector of numeric values of the variable for with ESDA plots should 
+#' be created.
+#' @param lat Vector of numeric values containing the y coordinate (latitude) 
+#' of the point locations where the \code{z} variable was observed.
+#' @param long Vector of numeric values containing the x coordinate (longitude) 
+#' of the point locations where the \code{z} variable was observed.
+#' @param cutoff Integer value defining the spatial separation distance up to 
+#' which point pairs are included in semivariance estimates. Defaults to the 
+#' length of the diagonal of the box spanning the data divided by three.
+#' @param width Integer value specifying the width of subsequent distance 
+#' intervals into which data point pairs are grouped for semivariance 
+#' estimates. Defaults to \code{width = cutoff / 20}.
+#' 
+#' @details
+#' The user should visit the help pages of \code{\link[gstat]{variogram}},
+#' \code{\link[pedometrics]{plotHD}}, \code{\link[sp]{bubble}} and
+#' \code{\link[sp]{spplot}} to obtain more details about the main functions 
+#' used to built \code{plotESDA}.
+#' 
+#' @return
+#' Four plots: histogram and density plot, bubble plot, empirical variogram, 
+#' and variogram map.
+#' 
+#' @references
+#' Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John 
+#' Wiley \& Sons, p.900, 1993.
+#' 
+#' Pebesma, E.J. (2004) Multivariable geostatistics in S: the gstat package. 
+#' \emph{Computers \& Geosciences}, 30:683-691, 2004.
+#' 
+#' Webster, R. \& Oliver, M.A. \emph{Geostatistics for environmental 
+#' scientists}. Chichester: John Wiley \& Sons, p.315, 2007.
+#' 
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' 
+#' @section TODO:
+#' The next version should include an option to pass data using an object of 
+#' class \code{"SpatialPointsDataFrame"}.
+#' 
+#' @seealso \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
+#' \code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
+#' 
+#' @examples
+#' # require(gstat)
+#' # data(meuse)
+#' # plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
+#' 
+#' @keywords dplot
+#' 
+# FUNCTION #####################################################################
 #
 plotESDA <- 
   function (z, lat, lon, cutoff, width = c(cutoff / 20)) {

@@ -13,9 +13,92 @@
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
 #
-#  Purpose        : Create histogram and density plot
-#  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
-#  Depends on     : lattice, latticeExtra, car, moments
+# DOCUMENTATION ################################################################
+#' 
+#' @title Histogram and density plot
+#' 
+#' @description
+#' This function plots a histogram and a density plot of a single variable 
+#' using the R-package \pkg{lattice}.
+#' 
+#' @param x Vector of numeric values of the variable for which the histogram 
+#' nd density plot should be created.
+#' 
+#' @param HD Character value indicating the type of plot to be created. 
+#' Available options are \code{"over"}, to create a histogram superimposed by 
+#' the theoretical density plot of a normally distributed variable, and 
+#' \code{"stack"}, to create a histogram and an empirical density plot in
+#' separated panels. Defaults to \code{HD = "over"}.
+#' 
+#' @param nint Integer specifying the number of histogram bins. Defaults to
+#' \code{nint = 20}.
+#' 
+#' @param stats Logical to indicate if descriptive statistics of the variable
+#' \code{x} should be added to the plot. Available only when \code{HD = "over"}.
+#' The function tries to automatically find the best location to put the 
+#' descriptive statistics given the shape of the histogram. Defaults to 
+#' \code{stats = TRUE}.
+#' 
+#' @param digits Integer indicating the number of decimal places to be used when 
+#' printing the statistics of the variable \code{x}. Defaults to 
+#' \code{digits = 2}.
+#' 
+#' @param BoxCox Logical to indicate if the variable \code{x} should be 
+#' transformed using the Box-Cox family of power transformations. The estimated
+#' lambda value of the Box-Cox transform is printed in the console. It is set to
+#' zero when negative. Defaults to \code{BoxCox = FALSE}.
+#' 
+#' @param col Vector of two elements, the first indicating the color of the
+#' histogram, the second indicating the color of the density plot. Defaults to 
+#' \code{col = c("lightgray", "black")}.
+#' 
+#' @param lwd Vector of two elements, the first indicating the line width of the
+#' histogram, the second indicating the line width of the density plot. Defaults 
+#' to \code{col = c(1, 1)}.
+#' 
+#' @param lty Character value indicating the line type for the density plot.
+#' Defaults to \code{lty = "dashed"}.
+#' 
+#' @param xlim Vector of two elements defining the limits of the x axis. The
+#' function automatically optimizes \code{xlim} based on the density plot.
+#' 
+#' @param ylim Vector of two elements defining the limits of the y axis. The
+#' function automatically optimizes \code{ylim} based both histogram and density 
+#' plot.
+#' 
+#' @param ... Other arguments that can be passed to \pkg{lattice} functions. 
+#' There is no guarantee that they will work.
+#' 
+#' @details
+#' The user should visit the help pages of \code{\link[lattice]{histogram}},
+#' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}}, 
+#' \code{\link[car]{powerTransform}} and \code{\link[car]{bcPower}} to obtain 
+#' more details about the main functions used to built \code{plotHD}.
+#' 
+#' @return
+#' An object of class \code{"trellis"}. The 
+#' \code{\link[lattice]{update.trellis}} method can be used to update components
+#' of the object and the \code{\link[lattice]{print.trellis}} print method 
+#' (usually called by default) will plot it on an appropriate plotting device.
+#' 
+#' @references
+#' Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with 
+#' R}, Springer. \url{http://lmdvr.r-forge.r-project.org/}
+#' 
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' 
+#' @seealso \code{\link[lattice]{histogram}}, 
+#' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
+#' \code{\link[car]{powerTransform}}, \code{\link[car]{bcPower}}.
+#' 
+#' @examples
+#' x <- rnorm(100, 10, 2)
+#' plotHD(x, HD = "stack")
+#' plotHD(x, HD = "over")
+#' 
+#' @keywords dplot
+#' 
+# FUNCTION #####################################################################
 #
 plotHD <- 
   function (x, HD = "over", nint = 20, digits = 2, stats = TRUE, 
