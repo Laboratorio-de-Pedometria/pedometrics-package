@@ -18,10 +18,11 @@ Purpose        : Candidates for random perturbation of spatial coordinates
 Author         : A. Samuel-Rosa <alessandrosamuelrosa at gmail.com>
 
 Arguments:
-x: coordinates of the points
+x: coordinates of the sample points
 y: coordinates of the candidate locations
 xmax, xmin, ymax, ymin: manimum and minimum shift in the x and y coordinates
 idx: point to be jittered
+
 *******************************************************************************/
 
 #include <Rcpp.h>
