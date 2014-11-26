@@ -1,3 +1,6 @@
+useDynLib(pedometrics)
+exportPattern("^[[:alpha:]]+")
+
 import(
   car,
   grid,
@@ -8,6 +11,7 @@ import(
   moments,
   pbapply,
   plyr,
+  Rcpp,
   rgeos,
   sp,
   spsurvey,
@@ -38,6 +42,7 @@ export(
   plotESDA,
   plotHD,
   plotMS,
+  rowMinCpp,
   spJitterFinite,
   spSANN,
   statsMS,

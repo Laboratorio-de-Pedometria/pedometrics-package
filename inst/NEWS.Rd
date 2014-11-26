@@ -2,6 +2,19 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.4-0 (2014-11-26)}{
+  \itemize{
+    \item Started the fourth season of the initial development of the package.
+    Many functions are being implemented in C++ to speed-up the computation.
+  }
+}
+
+\section{Changes in version 0.3-1 (2014-11-23)}{
+  \itemize{
+    \item Improving the spatial simulated annealing.
+  }
+}
+
 \section{Changes in version 0.3-0 (2014-11-15)}{
   \itemize{
     \item Started the third season of the initial development of the package.
