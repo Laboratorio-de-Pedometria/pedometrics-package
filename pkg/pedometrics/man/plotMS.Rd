@@ -4,11 +4,7 @@
 Model series plot
 }
 \description{
-This function produces a graphical output that allows the examination of the
-effect of using different model specifications (design) on the predictive
-performance of these models (a model series). It generally is used to access 
-the results of functions \code{buildMS()} and \code{statsMS()}, but can be 
-easily adapted to work with any model structure and performance measure.
+This function produces a graphical output that allows the examination of the effect of using different model specifications (design) on the predictive performance of these models (a model series). It generally is used to access the results of functions \code{buildMS()} and \code{statsMS()}, but can be easily adapted to work with any model structure and performance measure.
 }
 \usage{
 plotMS(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5,
@@ -17,16 +13,10 @@ plotMS(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5,
 }
 \arguments{
   \item{obj}{
-  Object of class \code{data.frame}, generally returned by
-  \code{\link[pedometrics]{statsMS}}, containing a 1) series of performance 
-  statistics of several models, and 2) the design information of each model. See
-  \sQuote{Details} for more information.
+Object of class \code{data.frame}, generally returned by \code{\link[pedometrics]{statsMS}}, containing a 1) series of performance statistics of several models, and 2) the design information of each model. See \sQuote{Details} for more information.
   }
   \item{grid}{
-  Vector of integer values or character strings indicating the
-  columns of the \code{data.frame} containing the design data which will be
-  gridded using the function \code{\link[lattice]{levelplot}}. See
-  \sQuote{Details} for more information.
+Vector of integer values or character strings indicating the  columns of the \code{data.frame} containing the design data which will be gridded using the function \code{\link[lattice]{levelplot}}. See \sQuote{Details} for more information.
   }
   \item{line}{
   Character string or integer value indicating which of the 
@@ -102,27 +92,19 @@ plotMS(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5,
   }
 }
 \details{
-This section gives more details about arguments \code{obj}, \code{grid},
-\code{line}, \code{arrange}, and \code{ind}.
+This section gives more details about arguments \code{obj}, \code{grid}, \code{line}, \code{arrange}, and \code{ind}.
+
 \subsection{obj}{
-The argument \code{obj} usually constitutes a \code{data.frame} returned by
-\code{statsMS()}. However, the user can use any \code{data.frame} object as far
-as it contains the two basic units of information needed:
+The argument \code{obj} usually constitutes a \code{data.frame} returned by \code{statsMS()}. However, the user can use any \code{data.frame} object as far as it contains the two basic units of information needed:
+
 \enumerate{
 \item design data passed with argument \code{grid};
 \item performance statistic passed with argument \code{line}.
 }
 }
 \subsection{grid}{
-The argument \code{grid} indicates the \emph{design} data which is used to
-produce the grid output in the top of the model series plot. By \emph{design}
-we mean the data that specify the structure of each model and how they differ 
-from each other. Suppose that eight linear models were fit using three types of
-predictor variables (\code{a}, \code{b}, and \code{c}). Each of these predictor
-variables is available in two versions that differ by their accuracy, where
-\code{0} means a less accurate predictor variable, while \code{1} means a more
-accurate predictor variable. This yields 2^3 = 8 total possible combinations.
-The \emph{design} data would be of the following form:
+The argument \code{grid} indicates the \emph{design} data which is used to produce the grid output in the top of the model series plot. By \emph{design} we mean the data that specify the structure of each model and how they differ from each other. Suppose that eight linear models were fit using three types of predictor variables (\code{a}, \code{b}, and \code{c}). Each of these predictor variables is available in two versions that differ by their accuracy, where \code{0} means a less accurate predictor variable, while \code{1} means a more accurate predictor variable. This yields 2^3 = 8 total possible combinations. The \emph{design} data would be of the following form:
+
 \verb{
 > design
   a b c
@@ -206,21 +188,14 @@ predictor variable \code{c} appears in the bottom row.
 An object of class \code{"trellis"} consisting of a model series plot.
 }
 \references{
-Deepayan Sarkar (2008).
-  \emph{Lattice: Multivariate Data Visualization with R.}
-  Springer, New York. ISBN 978-0-387-75968-5.
+Deepayan Sarkar (2008). \emph{Lattice: Multivariate Data Visualization with R.} Springer, New York. ISBN 978-0-387-75968-5.
 
-Roger D. Peng (2008).
-  \emph{A method for visualizing multivariate time series data.}
-  Journal of Statistical Software. v. 25 (Code Snippet), p. 1-17.
+Roger D. Peng (2008). \emph{A method for visualizing multivariate time series data.} Journal of Statistical Software. v. 25 (Code Snippet), p. 1-17.
 
-Roger D. Peng (2012).
-  \emph{mvtsplot: Multivariate Time Series Plot.}
-  R package version 1.0-1.
-  http://CRAN.R-project.org/package=mvtsplot
+Roger D. Peng (2012). \emph{mvtsplot: Multivariate Time Series Plot.} R package version 1.0-1. http://CRAN.R-project.org/package=mvtsplot
 }
 \author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>.
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}.
 }
 \note{
 The inspiration for creating \code{plotMS()} came from the 
@@ -238,7 +213,7 @@ Use the original functions \code{\link[lattice]{xyplot}} and
 \examples{
 # This example follows the discussion in section "Details"
 # Note that the data.frame is created manually
-id     <- c(1:8)
+id <- c(1:8)
 design <- data.frame(a = c(0, 0, 1,	0, 1,	0, 1,	1),
                      b = c(0, 0, 0, 1, 0, 1, 1, 1),
                      c = c(0,	1, 0,	0, 1,	1, 0,	1))
