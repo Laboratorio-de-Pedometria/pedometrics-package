@@ -18,8 +18,6 @@ Purpose        : get the minimum value in each row of a matrix
 Author         : A. Samuel-Rosa <alessandrosamuelrosa at gmail.com>
 Contributions  : 
 
-Arguments:
-x: matrix of distances between candidate locations and sample points
 *******************************************************************************/
 #include <Rcpp.h>
 using namespace Rcpp;

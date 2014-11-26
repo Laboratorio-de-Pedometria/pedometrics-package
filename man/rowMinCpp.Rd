@@ -1,56 +1,35 @@
 \name{rowMinCpp}
 \alias{rowMinCpp}
 \title{
-Matrix row-wise minimum value
+Return the minimum value in each row of a numeric matrix
 }
 \description{
-This function returns the minimum value in each row of a numeric matrix. It is implemented in C++ to speed-up the computation time for large matrices.
+This function returns the minimum value in each row of a numeric matrix.
 }
 \usage{
 rowMinCpp(x)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{x}{
-%%     ~~Describe \code{x} here~~
+Numeric matrix with two or more rows and/or columns.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function is implemented in C++ to speed-up the computation time for large matrices.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
+A numeric vector with the minimum value of each row if the matrix.
 }
 \author{
-%%  ~~who you are~~
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link[matrixStats]{rowMins}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-  }
+x <- matrix(rnorm(20), nrow = 5)
+rowMinCpp(x)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{univar}
+% End!
