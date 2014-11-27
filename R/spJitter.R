@@ -19,29 +19,30 @@
 #                   E. Pebesma (edzer.pebesma@uni-muenster.de)
 #                   J. Skoien (jon.skoien@gmail.com)
 #
-spJitterFinite <-
-  function (points, candidates, x.max, x.min, y.max, y.min, which.pts) {
-    d_x <- x.max + x.min
-    d_y <- y.max + y.min
-    pt0 <- points[which.pts, ]
-    d_x <- unlist(c(pt0[1] - d_x, pt0[1] + d_x))
-    d_y <- unlist(c(pt0[2] - d_y, pt0[2] + d_y))
-    pt1 <- which(candidates[, 1] >= d_x[1] & candidates[, 1] <= d_x[2] &
-                   candidates[, 2] >= d_y[1] & candidates[, 2] <= d_y[2])
-    pt2 <- candidates[sample(pt1, 1), ]
-    dup <- duplicated(rbind(pt2, points))
-    if (any(dup)) {
-      while (any(dup)) {
-        pt2 <- candidates[sample(pt1, 1), ]
-        dup <- duplicated(rbind(pt2, points))
-      }
-    }
-    res <- points
-    res[which.pts, ] <- pt2
-    return (res)
-  }
 
-# OLD FUNCTION #################################################################
+# OLD spJitterFinite FUNCTION ##################################################
+# spJitterFinite <-
+#   function (points, candidates, x.max, x.min, y.max, y.min, which.pts) {
+#     d_x <- x.max + x.min
+#     d_y <- y.max + y.min
+#     pt0 <- points[which.pts, ]
+#     d_x <- unlist(c(pt0[1] - d_x, pt0[1] + d_x))
+#     d_y <- unlist(c(pt0[2] - d_y, pt0[2] + d_y))
+#     pt1 <- which(candidates[, 1] >= d_x[1] & candidates[, 1] <= d_x[2] &
+#                    candidates[, 2] >= d_y[1] & candidates[, 2] <= d_y[2])
+#     pt2 <- candidates[sample(pt1, 1), ]
+#     dup <- duplicated(rbind(pt2, points))
+#     if (any(dup)) {
+#       while (any(dup)) {
+#         pt2 <- candidates[sample(pt1, 1), ]
+#         dup <- duplicated(rbind(pt2, points))
+#       }
+#     }
+#     res <- points
+#     res[which.pts, ] <- pt2
+#     return (res)
+#   }
+# OLD spJitter FUNCTION ########################################################
 # spJitter <- 
 #   function (obj, candidates = NULL, where = NULL, which = NULL, finite = NULL,
 #             x.coord = list(min = NULL, max = NULL), 
