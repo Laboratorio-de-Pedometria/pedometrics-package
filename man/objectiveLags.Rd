@@ -43,7 +43,7 @@ A vector of numeric values used to pre-specify the distribution of points or poi
 }
 }
 \details{
-\subsection{Distances}{
+\section{Distances}{
 Euclidean distances between points are calculated using the function \code{\link[stats]{dist}}. This computation requires the coordinates to be projected. The user is responsible for making sure that this requirement is attained.
 }
 \subsection{Distribution}{
