@@ -116,7 +116,6 @@
 #' @keywords iteration models
 #' 
 # FUNCTION #####################################################################
-#
 buildMS <- 
   function (formula, data,
             vif = FALSE, vif.threshold = 10, vif.verbose = FALSE,
