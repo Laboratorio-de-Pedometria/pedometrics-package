@@ -19,47 +19,67 @@
 #                   E. Pebesma (edzer.pebesma@uni-muenster.de)
 #                   J. Skoien (jon.skoien@gmail.com)
 #
-.energyState <- 
-  function (fun, points, ...) {
-    if (missing(fun) || missing(points)) {
-      stop ("'fun' and 'points' are mandatory arguments")
-    }
-    return (do.call(fun, list(points, ...)))
-  }
-# plotting
+# .energyState <- 
+#   function (fun, points, ...) {
+#     if (missing(fun) || missing(points)) {
+#       stop ("'fun' and 'points' are mandatory arguments")
+#     }
+#     return (do.call(fun, list(points, ...)))
+#   }
+# FUNCTION - PLOTTING ##########################################################
 .spSANNplot <-
   function (energy_state0, energy_states, k, acceptance, accept_probs, 
-            boundary, new_sys_config, sys_config0, y_max0, y_max, x_max0, 
-            x_max) {
+            boundary, new_sys_config, sys_config0, y_max0, y.max, x_max0, 
+            x.max) {
     par(mfrow = c(1, 2))
+    
+    # plot energy states
     a <- c(energy_state0, energy_states[1:k])
     plot(a ~ c(0:k), type = "l", xlab = "iteration", ylab = "energy state")
     abline(h = energy_state0, col = "red")
+    
+    # plot acceptance probability
     a <- c(acceptance[[1]], accept_probs[1:k])
     par(new = TRUE)
     plot(a ~ c(0:k), type = "l", axes = FALSE, bty = "n", xlab = "", 
          ylab = "", col = "blue", ylim = c(0, acceptance[[1]]))
     axis(side = 4, at = pretty(range(a)))
     mtext("acceptance probability", side = 4, line = 3)
+    
+    # plot sample points
     bb <- bbox(boundary)
     plot(boundary)
     points(sys_config0[, 1], sys_config0[, 2], pch = 1, cex = 0.5, 
            col = "lightgray")
-    lines(x = c(bb[1, 1], bb[1, 2]), y = rep(bb[2, 1], 2) - 0.02 * y_max0, 
-          col = "gray", lwd = 12)
-    lines(y = c(bb[2, 1], bb[2, 2]), x = rep(bb[1, 1], 2) - 0.02 * x_max0,
-          col = "gray", lwd = 12)
     points(new_sys_config[, 1], new_sys_config[, 2], pch = 20, cex = 0.5)
-    lines(x = c(bb[1, 1], bb[1, 1] + x_max[k]), 
-          y = rep(bb[2, 1], 2) - 0.02 * y_max0, col = "orange", lwd = 12)
-    text(x = bb[1, 1] + (bb[1, 2] - bb[1, 1]) / 2, y = bb[2, 1] - 0.02 * y_max0,
-         labels = "maximum shift in the X axis")
-    lines(y = c(bb[2, 1], bb[2, 1] + y_max[k]), 
-          x = rep(bb[1, 1], 2) - 0.02 * x_max0, col = "orange", lwd = 12)
-    text(y = bb[2, 1] + (bb[2, 2] - bb[2, 1]) / 2, 
-         x = bb[1, 1] - 0.02 * x_max0, 
-         srt = 90, labels = "maximum shift in the Y axis")
+    
+    # plot maximum shift in the x and y coordinates
+    x <- c(bb[1, 1], bb[1, 2])
+    y <- rep(bb[2, 1], 2) - 0.02 * y_max0
+    lines(x = x, y = y, col = "gray", lwd = 12)
+    
+    y <- c(bb[2, 1], bb[2, 2])
+    x <- rep(bb[1, 1], 2) - 0.02 * x_max0
+    lines(y = y, x = x, col = "gray", lwd = 12)
+    
+    x <- c(bb[1, 1], bb[1, 1] + x.max)
+    y <- rep(bb[2, 1], 2) - 0.02 * y_max0
+    lines(x = x, y = y, col = "orange", lwd = 12)
+    
+    x <- rep(bb[1, 1], 2) - 0.02 * x_max0
+    y <- c(bb[2, 1], bb[2, 1] + y.max)
+    lines(y = y, x = x, col = "orange", lwd = 12)
+    
+    # plot labels for maximum shift in the x and y coordinates
+    x <- bb[1, 1] + (bb[1, 2] - bb[1, 1]) / 2
+    y <- bb[2, 1] - 0.02 * y_max0
+    text(x = x, y = y, labels = "maximum shift in the X axis")
+    
+    x <- bb[1, 1] - 0.02 * x_max0
+    y <- bb[2, 1] + (bb[2, 2] - bb[2, 1]) / 2
+    text(y = y, x = x, srt = 90, labels = "maximum shift in the Y axis")
   }
+################################################################################
 # spatial simulated annealing
 spSANN <-
   function (points, candidates, x.max, x.min, y.max, y.min, fun, ...,
@@ -189,7 +209,6 @@ spSANN <-
     cat("running time = ", round(running_time[3], 2), " minutes", sep = "")
     return (res)
   }
-
 # spSANN <-
 #   function (points, fun, iterations = 10000, spJitter.ctrl = spJitter.control(),
 #             acceptance = list(initial = 0.99, cooling = iterations / 10),
