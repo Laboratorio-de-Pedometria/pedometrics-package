@@ -79,6 +79,23 @@
     y <- bb[2, 1] + (bb[2, 2] - bb[2, 1]) / 2
     text(y = y, x = x, srt = 90, labels = "maximum shift in the Y axis")
   }
+# FUNCTION - RESULTS ###########################################################
+.spSANNout <-
+  function (new_sys_config, energy_state0, energy_states, time0) {
+    res <- new_sys_config
+    criterion <- c(energy_state0, energy_states)
+    
+    # Prepare attributes: energy states and running time
+    a <- attributes(res)
+    a$energy.state <- criterion
+    running_time <- (proc.time() - time0) / 60
+    a$running.time <- running_time
+    attributes(res) <- a
+    
+    # Print running time
+    cat("running time = ", round(running_time[3], 2), " minutes", sep = "")
+    return (res)
+  }
 ################################################################################
 # spatial simulated annealing
 spSANN <-
