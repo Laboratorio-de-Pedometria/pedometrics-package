@@ -116,18 +116,19 @@
 #' 
 #' @seealso
 #' \code{\link[raster]{distanceFromPoints}}, \code{\link[spcosa]{stratify}}.
-#' @keywords spatial
+#' @keywords spatial optimize
 #' @aliases spsannMSSD objMSSD
+#' @concept simulated annealing
 #' @import fields
 #' @export
 #' @examples
 #' require(sp)
 #' data(meuse.grid)
-#' meuse.grid <- meuse.grid[, 1:2]
+#' meuse.grid <- as.matrix(meuse.grid[, 1:2])
 #' meuse.grid <- matrix(cbind(c(1:dim(meuse.grid)[1]), meuse.grid), ncol = 3)
 #' points <- sample(c(1:dim(meuse.grid)[1]), 155)
 #' points <- meuse.grid[points, ]
-#' a <- objMSSD(meuse.grid, points)
+#' objMSSD(meuse.grid, points)
 #' 
 # FUNCTION - MAIN ##############################################################
 spsannMSSD <-
@@ -263,7 +264,7 @@ objMSSD <-
     res <- .calcMSSDCpp(dist_mat)
     return (res)
   }
-# FUNCTION - NEAREST POINT #####################################################
+# INTERNAL FUNCTION - NEAREST POINT ############################################
 # Function to identify the nearest point.
 .nearestPoint <-
   function (dist.mat, which.pts) {
