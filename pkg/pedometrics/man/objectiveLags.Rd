@@ -10,14 +10,10 @@ Points and point pairs per lag distance class
 Functions to counts the number of points or point pairs per lag distance class. Functions to compute the deviation of the observed distribution of counts from a pre-specified distribution. Functions to compute the minimum number of points or point pairs observed over all lag distance classes.
 }
 \usage{
-pointsPerLag(points, lags, lags.type = "equidistant", lags.base = 2,
-               cutoff = NULL)
-pairsPerLag(points, lags, lags.type = "equidistant", lags.base = 2, 
-              cutoff = NULL)
-objPoints(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL,
-          criterion = "minimum", pre.distri)
-objPairs(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL,
-         criterion = "minimum", pre.distri)
+pointsPerLag(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL)
+pairsPerLag(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL)
+objPoints(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL, criterion = "minimum", pre.distri)
+objPairs(points, lags, lags.type = "equidistant", lags.base = 2, cutoff = NULL, criterion = "minimum", pre.distri)
 }
 \arguments{
 \item{points}{
