@@ -40,65 +40,8 @@ spJitterFinite <-
     res[which.pts, ] <- pt2
     return (res)
   }
-# # controls for spJitter inside spSANN
-# spJitter.control <-
-#   function (candidates = NULL, where = NULL, finite = NULL,
-#             x.coord = list(min = NULL, max = NULL),
-#             y.coord = list(min = NULL, max = NULL),
-#             size = 1, size.factor = 1000,
-#             zero = 1, iterations = 10000, verbose = FALSE) {
-#     if (is.null(finite)) {
-#       stop("'finite' is a mandatory argument")
-#     }
-#     if (!is.list(x.coord) || length(x.coord) != 2) {
-#       stop ("'x.coord' should be a list with 2 subarguments")
-#     } else {
-#       if (is.null(x.coord$min) || is.null(x.coord$max)) {
-#         stop ("'min' and 'max' are mandatory subarguments for 'x.coord")
-#       }
-#     }
-#     if (!is.list(y.coord) || length(y.coord) != 2) {
-#       stop ("'y.coord' should be a list with 2 subarguments")
-#     } else {
-#       if (is.null(y.coord$min) || is.null(y.coord$max)) {
-#         stop ("'min' and 'max' are mandatory subarguments for 'y.coord")
-#       }
-#     }
-#     if (finite) {
-#       if (is.null(candidates)) {
-#         stop ("'candidates' is a mandatory argument")
-#       }
-#       if (!inherits(candidates, what = "data.frame")) {
-#         stop ("'candidates' should be a data.frame")
-#       } else {
-#         if (dim(candidates)[2] != 2 || 
-#               any(colnames(candidates) != c("x", "y"))) {
-#           stop ("'candidates' should have 2 columns named 'x' and 'y'")
-#         }
-#       }
-#     } else {
-#       if (is.null(where)) {
-#         stop ("'where' is a mandatory argument")
-#       } else {
-#         if (!inherits(where, what = "SpatialPolygons")) {
-#           stop ("'where' should be of class SpatialPolygons")
-#         } else {
-#           where <- as(where, "SpatialPolygons")
-#         }
-#       }
-#       if (!is.numeric(zero)) {
-#         stop ("'zero' should be a numeric value")
-#       }
-#       if (!is.numeric(iterations)) {
-#         stop ("'iterations' should be a numeric value")
-#       }
-#     }
-#     res <- list(finite = finite, candidates = candidates, where = where,
-#                 x.coord = x.coord, y.coord = y.coord, zero = zero, size = size,
-#                 size.factor = size.factor, iterations = iterations, 
-#                 verbose = verbose)
-#     return (res)
-#   }
+
+# OLD FUNCTION #################################################################
 # spJitter <- 
 #   function (obj, candidates = NULL, where = NULL, which = NULL, finite = NULL,
 #             x.coord = list(min = NULL, max = NULL), 
