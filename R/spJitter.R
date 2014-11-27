@@ -27,6 +27,17 @@
 #' @param which.point Integer values defining which point should be perturbed. 
 #' The current version accepts only one point to be perturbed at a time. See 
 #' \sQuote{Details} for more information.
+#'
+# parameters of the old implementation
+# %\item{where}{An object of class SpatialPolygons defining the spatial domain to which the perturbed points should be constrained. Used only when \code{finite = FALSE}. See \sQuote{Details} for more information.}
+# %\item{finite}{Logical value defining if the spatial domain is finite or infinite. This is a mandatory argument. See \sQuote{Details} for more information.}
+# %\item{x.coord}{List with two sub-arguments defining how the x coordinate should be perturbed. \code{min} and \code{max} define the minimum and maximum quantity of random noise to be added to the x coordinate. If \code{finite = TRUE}, then \code{min} should be equal to, at least, the minimum distance between two neighboring candidate locations. If \code{finite = FALSE}, then \code{min} should be equal to, at least, the value passed to the argument \code{zero}. This is a mandatory argument. See \sQuote{Details} for more information.}
+# %\item{y.coord}{The same as for \code{x.coord}.}
+# %\item{zero}{Numeric value defining the distance less than or equal to which two points are considered to have zero distance. See more information at \code{\link[sp]{zerodist}}. Used only when \code{finite = FALSE}. Defaults to \code{zero = 1}.}
+# %\item{iterations}{Integer value defining the maximum number of iterations that should be used when constraining the perturbed points to the spatial domain defined by the argument \code{where}. Defaults to \code{iterations = 10000}. Used only when \code{finite = FALSE}. See \sQuote{Details} for more information.}
+# %\item{verbose}{Logical for printing details about the success of the algorithm when constraining the perturbed points to the spatial domain defined by the argument \code{where}. Used only when \code{finite = FALSE}.}
+# %\item{size}{Integer value defining the number of points that should be perturbed at each iteration of the simulated annealing exercise (\code{spSANN}). Defaults to \code{size = 1}. See \code{spSANN} for more information.}
+# %\item{size.factor}{Numeric value defining the factor by which the number of points that should be perturbed at each iteration of the simulated annealing exercise (\code{spSANN}) is decreased. Used only when \code{size} is larger than 1. See \code{spSANN} for more information.}
 #' 
 #' @details
 #' This function perturbs the coordinates of spatial points adding random noise,
