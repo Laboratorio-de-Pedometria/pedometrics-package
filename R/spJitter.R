@@ -20,6 +20,25 @@
 #                   J. Skoien (jon.skoien@gmail.com)
 #
 
+# FUNCTION #####################################################################
+spJitterFinite <-
+  function (points, candidates, x.max, x.min, y.max, y.min, which.point) {
+    pt1 <- spJitterCpp(points[, 2:3], candidates[, 2:3], x.max, x.min, y.max, 
+                       y.min, which.point)
+    pt1 <- pt1[pt1 != 0]
+    # TODO: pass all this to C++
+    pt2 <- candidates[sample(pt1, 1), ]
+    dup <- duplicated(rbind(pt2, points))
+    if (any(dup)) {
+      while (any(dup)) {
+        pt2 <- candidates[sample(pt1, 1), ]
+        dup <- duplicated(rbind(pt2, points))
+      }
+    }
+    res <- points
+    res[which.point, ] <- pt2
+    return (res)
+  }
 # OLD spJitterFinite FUNCTION ##################################################
 # spJitterFinite <-
 #   function (points, candidates, x.max, x.min, y.max, y.min, which.pts) {
