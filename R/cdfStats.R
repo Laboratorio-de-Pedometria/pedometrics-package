@@ -13,23 +13,53 @@
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
 #
-#  Purpose        : descriptive statistics of a CDF
-#  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
-#  Contributions  : 
-#  Version        : 0.1-0
-#  Depends on     : 
-#  Dependency of  : cdfTable()
-#  Notes          : Known to work only with quantitative variables.
-#                   Tested only in Ubuntu
-#  TODOs          : 
-#
-#  Timeline
-#     Dec 2013: first version (by A. Samuel-Rosa)
-#  22 Mar 2014: Changed function name from cdfstats() to cdfStats() to comply
-#               with programming style convention. Corrected funtion definition.
-#               (by A. Samuel-Rosa)
-#  16 Jun 2014: Corrected function call. Improved documentation.
-
+# DOCUMENTATION ################################################################
+#' Descriptive statistics of the cumulative distribution function of a
+#' continuos variable
+#' 
+#' This function returns summary statistics of the cumulative distribution
+#' function of a continuous variable estimated with \pkg{spsurvey}-package.
+#' 
+#' The function \code{cont.analysis()} of \pkg{spsurvey}-package estimates the
+#' population total, mean, variance, and standard deviation of a continuous
+#' variable. It also estimates the standard error and confidence bounds of
+#' these population estimates. In some cases it may be interesting to see all
+#' estimates, for which one uses \code{all = TRUE}. However, in other
+#' circumstances there might be interest only in taking a look at the estimated
+#' population mean and standard deviation. Then the argument \code{all} has to
+#' be set to \code{FALSE}.
+#' 
+#' @param obj Object containing the estimated cumulative distribution function
+#' of the continuous variable. The resulting object of \code{cont.analysis()}
+#' of \pkg{spsurvey}-package.
+#' @param ind Indicator variable. The name of the continuous variable as
+#' displayed in the resulting object of \code{cont.analysis()}.
+#' @param all Summary statistics to be returned. The default option (\code{all
+#' = TRUE}) returns all summary statistics available. If \code{all = FALSE},
+#' then only estimated population mean and standard deviation are returned. See
+#' \sQuote{Details}.
+#' @return A \code{data.frame} containing summary statistics of the cumulative
+#' distribution function of a continuous variable.
+#' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
+#' @seealso \code{\link[spsurvey]{cont.analysis}}.
+#' @references Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
+#' Design and Analysis. R package version 2.6. URL:
+#' <http://www.epa.gov/nheerl/arm/>.
+#' @keywords methods print
+#' @examples
+#' 
+#' \dontrun{
+#' ## Estimate the CDF
+#' my.cdf <- cont.analysis(spsurvey.obj = my.spsurvey)
+#' 
+#' ## See indicator levels in the resulting object
+#' levels(my.cdf$Pct$Indicator)
+#' 
+#' ## Return all summary statistics of indicator variable 'dx'
+#' cdfStats(my.cdf, "dx", all = TRUE)
+#' }
+#' 
+# FUNCTION #####################################################################
 cdfStats <- 
   function(obj, ind, all = TRUE) {
     # Summary statistics of a cumulative distribution function.
