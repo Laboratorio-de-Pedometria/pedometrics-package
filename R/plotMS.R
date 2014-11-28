@@ -217,7 +217,7 @@
 #' 
 #' @seealso \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}, 
 #' \code{\link[mvtsplot]{mvtsplot}}.
-#' 
+#' @export
 #' @examples
 #' # This example follows the discussion in section "Details"
 #' # Note that the data.frame is created manually
@@ -235,7 +235,6 @@
 #' @keywords hplot
 #' 
 # FUNCTION #####################################################################
-#
 plotMS <-
   function (obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2),
             size = 0.5, arrange = "desc", color = NULL, 

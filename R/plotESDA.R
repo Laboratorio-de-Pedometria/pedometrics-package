@@ -15,9 +15,8 @@
 #
 # DOCUMENTATION ################################################################
 #' 
-#' @title Plots for exploratory spatial data analysis (ESDA)
+#' Plots for exploratory spatial data analysis (ESDA)
 #' 
-#' @description
 #' This function creates four plots for exploratory spatial data analysis 
 #' (ESDA): histogram + density plot, bubble plot, variogram plot, and variogram 
 #' map.
@@ -63,7 +62,8 @@
 #' 
 #' @seealso \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
 #' \code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
-#' 
+#' @export
+#' @import gstat sp
 #' @examples
 #' # require(gstat)
 #' # data(meuse)

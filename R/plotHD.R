@@ -15,9 +15,8 @@
 #
 # DOCUMENTATION ################################################################
 #' 
-#' @title Histogram and density plot
+#' Histogram and density plot
 #' 
-#' @description
 #' This function plots a histogram and a density plot of a single variable 
 #' using the R-package \pkg{lattice}.
 #' 
@@ -90,7 +89,8 @@
 #' @seealso \code{\link[lattice]{histogram}}, 
 #' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
 #' \code{\link[car]{powerTransform}}, \code{\link[car]{bcPower}}.
-#' 
+#' @export
+#' @import lattice car
 #' @examples
 #' x <- rnorm(100, 10, 2)
 #' plotHD(x, HD = "stack")

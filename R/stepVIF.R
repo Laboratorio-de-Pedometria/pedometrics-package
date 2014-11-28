@@ -90,16 +90,14 @@
 #' predictor variables.
 #' 
 #' @seealso \code{\link[car]{vif}}, \code{\link[MASS]{stepAIC}}.
-#' 
+#' @export
+#' @keywords methods regression
 #' @examples
 #' require(car)
 #' fit <- lm(prestige ~ income + education + type, data = Duncan)
 #' fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
 #' 
-#' @keywords methods regression
-#' 
 # FUNCTION #####################################################################
-#
 stepVIF <-
   function (model, threshold = 10, verbose = FALSE) {
     # Choose a model by VIF in a Stepwise Algorithm

@@ -15,9 +15,8 @@
 #
 # DOCUMENTATION ################################################################
 #' 
-#' @title Build a series of linear models using automated variable selection
+#' Build a series of linear models using automated variable selection
 #' 
-#' @description
 #' This function allows building a series of linear models (\code{lm}) using 
 #' one or more automated variable selection implemented in function 
 #' \code{stepVIF} and \code{stepAIC}.
@@ -95,7 +94,8 @@
 #' 
 #' @seealso \code{\link[MASS]{stepAIC}}, \code{\link[pedometrics]{stepVIF}},
 #' \code{\link[pedometrics]{statsMS}}.
-#' 
+#' @export
+#' @import MASS
 #' @examples
 #' \dontrun{
 #' # based on the second example of function stepAIC

@@ -95,7 +95,7 @@
 #' 
 #' @seealso \code{\link[pedometrics]{buildMS}}, 
 #' \code{\link[pedometrics]{plotMS}}.
-#' 
+#' @export
 #' @examples
 #' \dontrun{
 #' # based on the second example of function stepAIC
