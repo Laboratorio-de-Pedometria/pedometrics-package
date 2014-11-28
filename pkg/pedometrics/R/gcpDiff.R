@@ -48,7 +48,7 @@
 #' They also must have a column named \sQuote{siteID} giving the identification
 #' of evary case. Again, matching of case IDs is mandatory. However, both
 #' objects must have a column named \sQuote{z} which contains the values of the
-#' \sQuote{z} coordinate. Other columns are discarded. }
+#' \sQuote{z} coordinate. Other columns are discarded.}
 #' \subsection{Data_aggregation
 #' 
 #' Validation is sometimes performed using cluster or transect sampling. Before
@@ -59,7 +59,7 @@
 #' \code{measured} and \code{predicted} provides the identification of
 #' clusters.  Setting \code{aggregate = TRUE} will return aggregated estimates
 #' of error statistics. If the data has been aggregated beforehand, the
-#' parameter \code{aggregate} can be set to \code{FALSE}. }
+#' parameter \code{aggregate} can be set to \code{FALSE}.}
 #' \subsection{Case_matching
 #' 
 #' There are circumstances in which the number of cases in the object
@@ -68,7 +68,7 @@
 #' automatically drops those cases of object \code{measured} that do not match
 #' the cases of object \code{predicted}. However, case matching can only be
 #' done if case IDs are exactly the same for both objects. Otherwise, estimated
-#' error statistics will have no meaning at all. }
+#' error statistics will have no meaning at all.}
 #' 
 #' @param measured Object of class \code{\linkS4class{SpatialPointsDataFrame}}
 #' with the reference GCP. A column named \sQuote{siteID} giving case names is
