@@ -30,4 +30,5 @@
 #' 
 #' Contributors: Tony Olsen, Tom Kincaid, Juan Carlos Ruiz Cuetos, Maria
 #' Eugenia Polo Garcia, Pablo Garcia Rodriguez, Edzer Pebesma, Jon Skoien
+#' @useDynLib pedometrics
 NULL
