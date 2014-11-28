@@ -20,21 +20,6 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
-// rowMinCpp
-NumericVector rowMinCpp(NumericMatrix x);
-RcppExport SEXP pedometrics_rowMinCpp(SEXP xSEXP) {
-BEGIN_RCPP
-    SEXP __sexp_result;
-    {
-        Rcpp::RNGScope __rngScope;
-        Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP );
-        NumericVector __result = rowMinCpp(x);
-        PROTECT(__sexp_result = Rcpp::wrap(__result));
-    }
-    UNPROTECT(1);
-    return __sexp_result;
-END_RCPP
-}
 // spJitterCpp
 IntegerVector spJitterCpp(NumericMatrix x, NumericMatrix y, double xmax, double xmin, double ymax, double ymin, int idx);
 RcppExport SEXP pedometrics_spJitterCpp(SEXP xSEXP, SEXP ySEXP, SEXP xmaxSEXP, SEXP xminSEXP, SEXP ymaxSEXP, SEXP yminSEXP, SEXP idxSEXP) {

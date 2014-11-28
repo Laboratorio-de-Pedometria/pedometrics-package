@@ -28,7 +28,7 @@ http://www.r-project.org/Licenses/
 //' @seealso \code{\link[matrixStats]{rowMins}}
 //' @keywords univar
 //' @import Rcpp
-//' @useDynLib pedometrics
+//' @export
 //' @examples
 //' 
 //' x <- matrix(rnorm(20), nrow = 5)
@@ -38,7 +38,7 @@ http://www.r-project.org/Licenses/
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// [[Rcpp::export]]
+// [[Rcpp::export)]]
 
 NumericVector rowMinCpp(NumericMatrix x) {
   int nrow = x.nrow(), ncol = x.ncol();

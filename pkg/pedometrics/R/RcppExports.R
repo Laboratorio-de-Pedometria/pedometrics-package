@@ -18,17 +18,13 @@
 #' @seealso \code{\link[matrixStats]{rowMins}}
 #' @keywords univar
 #' @import Rcpp
-#' @useDynLib pedometrics
+#' @export
 #' @examples
 #' 
 #' x <- matrix(rnorm(20), nrow = 5)
 #' rowMinCpp(x)
 #' 
 NULL
-
-rowMinCpp <- function(x) {
-    .Call('pedometrics_rowMinCpp', PACKAGE = 'pedometrics', x)
-}
 
 .spJitterCpp <- function(x, y, xmax, xmin, ymax, ymin, idx) {
     .Call('pedometrics_spJitterCpp', PACKAGE = 'pedometrics', x, y, xmax, xmin, ymax, ymin, idx)
