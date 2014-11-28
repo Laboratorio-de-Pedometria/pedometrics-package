@@ -99,17 +99,7 @@
 #' 
 # FUNCTION #####################################################################
 stepVIF <-
-  function (model, threshold = 10, verbose = FALSE) {
-    # Choose a model by VIF in a Stepwise Algorithm
-    #
-    # Args:
-    #   model:     Object of class lm.
-    #   threshold: Maximum acceptable vif value.
-    #   verbose:   Logical for printing iteration results. Default is FALSE.
-    #
-    # Returns:
-    #   A linear model with low collinearity.
-    
+  function (model, threshold = 10, verbose = FALSE) {    
     if (!inherits(model, "lm")) {
       stop ("'model' must be of class 'lm'")
     }

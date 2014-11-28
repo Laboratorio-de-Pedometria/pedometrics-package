@@ -95,6 +95,7 @@
 #' Design and Analysis. R package version 2.6. URL:
 #' \url{http://www.epa.gov/nheerl/arm/}.
 #' @keywords methods
+#' @export
 #' @examples
 #' 
 #' \dontrun{
@@ -109,18 +110,6 @@
 #' 
 gcpDiff <- 
   function(measured, predicted, type = "xy", aggregate = FALSE, rounding = 0) {
-    # Calculate differences between xy or z coordinates of ground control points
-    #
-    # Args:
-    #   measured:  Reference ground control points.
-    #   predicted: Point data being validated.
-    #   type:      Type of data under analysis.
-    #   aggregate: Boolean for aggregating the data from cluster sampling.
-    #   rounding:  Rounding level of the data in the output data frame
-    #
-    # Returns:
-    #   A data frame with differences in xy or z coordinates.
-    #
     if(type == "xy") {  # difference in the geographic space
       measured <- coordenadas(measured)
       predicted <- coordenadas(predicted)

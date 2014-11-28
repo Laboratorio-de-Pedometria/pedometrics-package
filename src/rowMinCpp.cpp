@@ -27,6 +27,8 @@ http://www.r-project.org/Licenses/
 //' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 //' @seealso \code{\link[matrixStats]{rowMins}}
 //' @keywords univar
+//' @import Rcpp
+//' @useDynLib pedometrics
 //' @examples
 //' 
 //' x <- matrix(rnorm(20), nrow = 5)

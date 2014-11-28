@@ -42,22 +42,14 @@
 #' methods in 2D}. R package version 1.6.
 #' \url{http://CRAN.R-project.org/package=VecStatGraphs2D}
 #' @keywords methods
+#' @export
 #' @examples
 #' 
 #' \dontrun{
 #' gcpVector(dx = rnorm(3, 5, 10), dy = rnorm(3, 5, 10))
 #' }
 #' 
-gcpVector <-
-  # Calculate the module and azimuth
-  #
-  # Args:
-  #   dx: difference on the x coordinate
-  #   dy: difference on the y coordinate
-  #
-  # Returns:
-  #   Module, its square and azimuth.
-  
+gcpVector <-  
   function (dx, dy) {
     vec <- sqrt((dx * dx) + (dy * dy))
     vec2 <- vec * vec

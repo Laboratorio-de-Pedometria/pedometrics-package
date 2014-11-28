@@ -244,7 +244,6 @@
 #' @aliases spsannPPL pointsPerLag objPoints pairsPerLag objPairs
 #' @keywords spatial optimize
 #' @concept simulated annealing
-#' @import Rcpp
 #' @export
 #' @examples
 #' require(sp)
@@ -537,9 +536,6 @@ pointsPerLag <-
     if (criterion == "minimum") {
       pairs <- pairsPerLag(points, lags = lags, cutoff = cutoff, 
                            lags.type = lags.type, lags.base = lags.base)
-      #a <- .log10Ceiling(n_pts * (n_pts - 1) / (2 * n_lags))
-      #b <- min(pairs$pairs) + 1
-      #res <- a / b
       res <- 10000 * (min(pairs$pairs) + 1)
       return (res)
     }    

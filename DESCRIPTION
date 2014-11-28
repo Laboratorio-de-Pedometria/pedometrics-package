@@ -17,7 +17,7 @@ Authors@R: c(person("Alessandro Samuel-Rosa", role = c("aut", "cre"), email = "a
 Author: Alessandro Samuel-Rosa [aut, cre], Lucia Helena Cunha dos Anjos [ths], Gustavo de Mattos Vasques [ths], Gerard B. M. Heuvelink [ths], Tony Olsen [ctb], Tom Kincaid [ctb], Juan Carlos Ruiz Cuetos [ctb], Maria Eugenia Polo Garcia [ctb], Pablo Garcia Rodriguez [ctb], Edzer Pebesma [ctb], Jon Skoien [ctb], Joshua French [ctb]
 Maintainer: Alessandro Samuel-Rosa <alessandrosamuelrosa@gmail.com>
 Depends: R (>= 1.8.0)
-Imports: car, grid, gstat, lattice, latticeExtra, MASS, moments, plyr, pbapply, Rcpp (>= 0.11.0), rgeos, sp, spsurvey, stringr, VecStatGraphs2D, xtable, XML
+Imports: car, fields, grid, gstat, lattice, latticeExtra, MASS, moments, plyr, pbapply, Rcpp (>= 0.11.0), rgeos, sp, spsurvey, stringr, VecStatGraphs2D, xtable, XML
 LinkingTo: Rcpp
 Suggests: methods
 Encoding: UTF-8

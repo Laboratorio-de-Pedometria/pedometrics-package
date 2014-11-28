@@ -95,7 +95,7 @@
 #' @seealso \code{\link[MASS]{stepAIC}}, \code{\link[pedometrics]{stepVIF}},
 #' \code{\link[pedometrics]{statsMS}}.
 #' @export
-#' @import MASS
+#' @import MASS pbapply
 #' @examples
 #' \dontrun{
 #' # based on the second example of function stepAIC
