@@ -65,10 +65,10 @@
 #' Van Groenigen, J.-W. \emph{Constrained optimization of spatial sampling: 
 #' a geostatistical approach.} Wageningen: Wageningen University, p. 148, 1999.
 #' 
-#' @author
-#' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' @author 
+#' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' Gerard Heuvelink \email{gerard.heuvelink@wur.nl}
+#' Gerard Heuvelink \email{gerard.heuvelink@@wur.nl}
 #' 
 #' @note
 #' This function is under construction! The current version does not accept 
@@ -77,8 +77,8 @@
 #' 
 #' Some of the solutions used to build this function were found in the source 
 #' code of the R-package \strong{intamapInteractive}. As such, the authors of 
-#' that package, Edzer Pebesma <\email{edzer.pebesma@uni-muenster.de}> and Jon
-#' Skoien <\email{jon.skoien@gmail.com}>, are entitled \sQuote{contributors} to
+#' that package, Edzer Pebesma <\email{edzer.pebesma@@uni-muenster.de}> and Jon
+#' Skoien <\email{jon.skoien@@gmail.com}>, are entitled \sQuote{contributors} to
 #' the R-package \pkg{pedometrics}.
 #' 
 #' @seealso \code{ssaOptim}, \code{\link[sp]{zerodist}}, 

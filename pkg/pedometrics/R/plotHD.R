@@ -84,7 +84,7 @@
 #' Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with 
 #' R}, Springer. \url{http://lmdvr.r-forge.r-project.org/}
 #' 
-#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @seealso \code{\link[lattice]{histogram}}, 
 #' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},

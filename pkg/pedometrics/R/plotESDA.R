@@ -54,7 +54,7 @@
 #' Webster, R. \& Oliver, M.A. \emph{Geostatistics for environmental 
 #' scientists}. Chichester: John Wiley \& Sons, p.315, 2007.
 #' 
-#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @section TODO:
 #' The next version should include an option to pass data using an object of 

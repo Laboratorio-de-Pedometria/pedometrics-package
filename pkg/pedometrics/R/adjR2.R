@@ -32,7 +32,7 @@
 #' 
 #' @return A numeric vector with the adjusted coefficient of determination.
 #' 
-#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @references Coefficient of determination. Wikipedia, The Free Encyclopedia.
 #' Available at \url{http://en.wikipedia.org/wiki/Coefficient_of_determination}.

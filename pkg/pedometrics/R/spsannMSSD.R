@@ -101,17 +101,17 @@
 #' k-means. \emph{Computers and Geosciences}. v. 36, p. 1261-1267, 2010.
 #' 
 #' @author
-#' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' Gerard Heuvelink \email{gerard.heuvelink@wur.nl}
+#' Gerard Heuvelink \email{gerard.heuvelink@@wur.nl}
 #' 
 #' @note
 #' Some of the solutions used to build this function were found in the source 
 #' code of the R-packages \strong{intamapInteractive} and \pkg{SpatialTools}.
 #' As such, the authors of those packages (Edzer Pebesma 
-#' <\email{edzer.pebesma@uni-muenster.de}>, Jon Skoien 
-#' <\email{jon.skoien@gmail.com}>, Joshua French 
-#' <\email{joshua.french@ucdenver.edu}>) are entitled \sQuote{contributors} to
+#' <\email{edzer.pebesma@@uni-muenster.de}>, Jon Skoien 
+#' <\email{jon.skoien@@gmail.com}>, Joshua French 
+#' <\email{joshua.french@@ucdenver.edu}>) are entitled \sQuote{contributors} to
 #' the R-package \pkg{pedometrics}.
 #' 
 #' @seealso

@@ -80,7 +80,7 @@
 #' Venables, W. N. and Ripley, B. D. (2002) \emph{Modern Applied Statistics 
 #' with S.} Fourth edition. Springer.
 #' 
-#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @note The function name \code{stepVIF} is a variant of the widely used 
 #' function \code{\link[MASS]{stepAIC}}.
