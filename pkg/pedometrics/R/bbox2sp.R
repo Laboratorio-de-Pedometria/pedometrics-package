@@ -29,8 +29,8 @@
 #' @return An object of class SpatialPoints* or SpatialPolygons*.
 #' @note Some of the solutions used to build this function were found in the
 #' source code of the R-package \pkg{intamapInteractive}. As such, the authors
-#' of that package, Edzer Pebesma <\email{edzer.pebesma@uni-muenster.de}> and
-#' Jon Skoien <\email{jon.skoien@gmail.com}>, are entitled
+#' of that package, Edzer Pebesma <\email{edzer.pebesma@@uni-muenster.de}> and
+#' Jon Skoien <\email{jon.skoien@@gmail.com}>, are entitled
 #' \sQuote{contributors} to the R-package \pkg{pedometrics}.
 #' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
 #' @references Edzer Pebesma, Jon Skoien with contributions from Olivier Baume,
