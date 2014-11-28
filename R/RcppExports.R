@@ -5,6 +5,27 @@
     .Call('pedometrics_calcMSSDCpp', PACKAGE = 'pedometrics', x)
 }
 
+#' Return the minimum value in each row of a numeric matrix
+#' 
+#' This function returns the minimum value in each row of a numeric matrix.
+#' 
+#' This function is implemented in C++ to speed-up the computation time for
+#' large matrices.
+#' 
+#' @param x Numeric matrix with two or more rows and/or columns.
+#' @return A numeric vector with the minimum value of each row if the matrix.
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
+#' @seealso \code{\link[matrixStats]{rowMins}}
+#' @keywords univar
+#' @import Rcpp
+#' @useDynLib pedometrics
+#' @examples
+#' 
+#' x <- matrix(rnorm(20), nrow = 5)
+#' rowMinCpp(x)
+#' 
+NULL
+
 rowMinCpp <- function(x) {
     .Call('pedometrics_rowMinCpp', PACKAGE = 'pedometrics', x)
 }

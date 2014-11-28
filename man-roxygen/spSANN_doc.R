@@ -35,7 +35,7 @@
 #' @param verbose Logical value for printing messages about the progress of the
 #' optimization.
 #' 
-#' @details
+#' @section Spatial simulated annealing:
 #' \subsection{Search graph}{
 #' The search graph corresponds to the set of effective candidate locations for
 #' a point being jittered in a given iteration. The size of the search graph, 
