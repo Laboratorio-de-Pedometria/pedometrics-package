@@ -14,11 +14,25 @@ GNU General Public License for more details.
 A copy of the GNU General Public License is available at
 http://www.r-project.org/Licenses/
 
-Purpose        : get the minimum value in each row of a matrix
-Author         : A. Samuel-Rosa <alessandrosamuelrosa at gmail.com>
-Contributions  : 
-
 *******************************************************************************/
+//' Return the minimum value in each row of a numeric matrix
+//' 
+//' This function returns the minimum value in each row of a numeric matrix.
+//' 
+//' This function is implemented in C++ to speed-up the computation time for
+//' large matrices.
+//' 
+//' @param x Numeric matrix with two or more rows and/or columns.
+//' @return A numeric vector with the minimum value of each row if the matrix.
+//' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
+//' @seealso \code{\link[matrixStats]{rowMins}}
+//' @keywords univar
+//' @examples
+//' 
+//' x <- matrix(rnorm(20), nrow = 5)
+//' rowMinCpp(x)
+//' 
+
 #include <Rcpp.h>
 using namespace Rcpp;
 

@@ -12,36 +12,116 @@
 #
 #  A copy of the GNU General Public License is available at
 #  http://www.r-project.org/Licenses/
-
-#  Purpose        : plot CDF
-#  Maintainer     : A. Samuel-Rosa (alessandrosamuelrosa@gmail.com)
-#  Contributions  : 
-#  Version        : 0.1-0
-#  Depends on     : spsurvey
-#  Dependency of  : 
-#  Notes          : - Known to work only with quantitative variables.
-#                   - Tested only with Ubuntu.
-#                   - Most of the code used here was originaly published in the
-#                   R-package spsurvey, version 2.6 (2013-09-20). The authors 
-#                   were asked to include new functionalities, but did not 
-#                   seem to be interested in doing so. This implementation is a
-#                   way of including the new functionalities required in my PhD
-#                   research project.
-#  TODOs          : Clean the code. Remove unecessary arguments coming from the
-#                   original function in the R-package spsurvey.
 #
-#  Timeline
-#     Dec 2013: first version (by A. Samuel-Rosa)
-#  23 Mar 2014: Changed function name from cdpplot() to cdfPlot() to comply
-#               with programming style convention. Corrected funtion definition.
-#               (by A. Samuel-Rosa)
-#  19 May 2014: Changed legend from 'Confidence Limits' to 'CL' to guarantee
-#               better plotting of the legend. Added option to show the
-#               parameters of the cdf (mean, median, and percentile).
-#  20 May 2014: Added argument to define if the confidence limits of the CDF
-#               should be included in the plot.
-#  16 Jun 2014: Corrected function call. Improved documentation.
-
+# DOCUMENTATION ################################################################
+#' Plot estimated cumulative distribution function with confidence limits
+#' 
+#' This function is a modified version of \code{cdf.plot()} of
+#' \pkg{spsurvey}-package including new argument options.
+#' 
+#' Parameter \code{type.plot} is used only when \code{type.cdf = "Continuous"}.
+#' 
+#' Care should be taken with possible conflicts between the arguments of the
+#' original function \code{\link[spsurvey]{cdf.plot}} and those passed to
+#' \code{plot()} using \code{...}. The existence of conflicts between these two
+#' functions was one of the reasons for creating this new implementation.
+#' 
+#' @param units.cdf Indicator for the type of units in which the CDF is
+#' plotted, where \dQuote{percent} means the plot is in terms of percent of the
+#' population, and \dQuote{units} means the plot is in terms of units of the
+#' population.  Defaults to \code{units.cdf = "percent"}.
+#' @param type.cdf Character string consisting of the value \dQuote{continuous}
+#' or \dQuote{ordinal} that controls the type of CDF plot for each indicator.
+#' Defaults to \code{type.cdf = "continuous"}.
+#' @param logx Character string consisting of the value \code{""} or \code{"x"}
+#' that controls whether the x axis uses the original scale (\code{""}) or the
+#' base 10 logarithmic scale (\code{"x"}). Defaults to \code{logx = ""}.
+#' @param xlbl Character string providing the x-axis label. If this argument
+#' equals \code{NULL}, then the indicator name is used as the label. Defaults
+#' to \code{xlbl = NULL}.
+#' @param ylbl Character string providing the the y-axis label. Defaults to
+#' \code{ylbl = "Percent"}.
+#' @param ylbl.r Character string providing the label for the right side
+#' y-axis, where \code{ylbl.r = NULL} means a label is not created, and
+#' \code{ylbl.r = "Same"} means the label is the same as the left side label
+#' (i.e., argument \code{ylbl}). Defaults to \code{ylbl.r = NULL}.
+#' @param figlab Character string providing the plot title. Defaults to
+#' \code{figlab = NULL}.
+#' @param legloc Indicator for location of the plot legend, where \code{legloc
+#' = "BR"} means bottom right, \code{legloc = "BL"} means bottom left,
+#' \code{legloc = "TR"} means top right, and \code{legloc = "TL"} means top
+#' left. Defaults to \code{legloc = "BR"}.
+#' @param confcut Numeric value that controls plotting confidence limits at the
+#' CDF extremes. Confidence limits for CDF values (percent scale) less than
+#' \code{confcut} or greater than 100 minus \code{confcut} are not plotted.  A
+#' value of zero means confidence limits are plotted for the complete range of
+#' the CDF. Defaults to \code{confcut = 5}.
+#' @param conflev Numeric value of the confidence level used for confidence
+#' limits. Defaults to \code{conflev = 95}.
+#' @param ...  Additional arguments passed to \code{plot()}. See
+#' \sQuote{Details}.
+#' @param obj Object with the estimated CDF. The resulting object of
+#' \code{cont.analysis()} of \pkg{spsurvey}-package.
+#' @param ind Indicator variable. The name of the variable as displayed in the
+#' resulting object of \code{cont.analysis()}.
+#' @param type.plot Type of plot. Desired type of plot to be produced, with
+#' options \code{type.plot = "l"}, for \sQuote{line}, and \code{type.plot =
+#' "s"} for \sQuote{stair}. See \sQuote{Details}. Defaults to \code{type.plot =
+#' "s"}.
+#' @param show.param Logical for showing the parameters of the CDF. Available
+#' parameters are the mean, the median, and a percentile defined by the
+#' argument \code{conflev}.  The legend displays de actual values of all three
+#' parameters, including the standard deviation of the mean. The percentile
+#' value is calculated using \code{spsurvey::interp.cdf()}.
+#' @param round Numeric to set the rounding level of the parameters of the CDF.
+#' @param col.param Color of the lines showing the parameters of the CDF.
+#' Defaults to \code{col.param = "black"}.
+#' @param show.conflev Logical for showing the confidence limits of the CDF.
+#' Defaults to \code{show.conflev = TRUE}.
+#' @return A plot of the estimated cumulative distribution function with
+#' confidence limits.
+#' @note Most of the source code that constitutes this function was originaly
+#' published in the \pkg{spsurvey}-package, version 2.6 (2013-09-20). The
+#' authors were asked to include a few new functionalities, but did not seem to
+#' be interested in doing so, since no reply was obtained. This implementation
+#' is a way of including such functionalities. When using this function, credit
+#' should be given to the authors of the original implementation in the
+#' \pkg{spsurvey}-package.
+#' @author Tony Olsen \email{Olsen.Tony@@epa.gov}\cr Tom Kincaid
+#' \email{Kincaid.Tom@@epa.gov}\cr Alessandro Samuel-Rosa
+#' \email{alessandrosamuelrosa@@gmail.com}
+#' @seealso \code{\link[spsurvey]{cdf.plot}}.
+#' @references Brus, D. J., Kempen, B. and Heuvelink, G. B. M. (2011).
+#' Sampling for validation of digital soil maps.  \emph{European Journal of
+#' Soil Science}, v. 62, p. 394-407.
+#' 
+#' Diaz-Ramos, S., D.L. Stevens, Jr., and A.R. Olsen. (1996).  \emph{EMAP
+#' Statistical Methods Manual}. EPA/620/R-96/XXX. Corvallis, OR: U.S.
+#' Environmental Protection Agency, Office of Research and Development,
+#' National Health Effects and Environmental Research Laboratory, Western
+#' Ecology Division.
+#' 
+#' Kincaid, T. M. and Olsen, A. R. (2013) \emph{spsurvey: Spatial Survey Design
+#' and Analysis}.  R package version 2.6. URL:
+#' \url{http://www.epa.gov/nheerl/arm/}.
+#' @keywords dplot hplot
+#' @import spsurvey
+#' @export
+#' @examples
+#' 
+#' \dontrun{
+#' ## Estimate the CDF
+#' my.cdf <- cont.analysis(spsurvey.obj = my.spsurvey)
+#' 
+#' ## See indicator levels in the resulting object
+#' levels(my.cdf$Pct$Indicator)
+#' 
+#' ## Plot CDF
+#' cdfPlot(obj = my.cdf, ind = "dz", figlab = "",
+#'    xlbl = "Difference (m)", xlim = c(-30, 10), type.plot = "s")
+#' }
+#' 
+# FUNCTION #####################################################################
 cdfPlot <- 
   function (obj, ind, units.cdf = "percent", type.plot = "s", 
             type.cdf = "continuous", logx = "", xlbl = NULL, ylbl = "Percent",
