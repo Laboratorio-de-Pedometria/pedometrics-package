@@ -84,7 +84,7 @@
 #' Venables, W. N. and Ripley, B. D. (2002) \emph{Modern applied statistics 
 #' with S.} Fourth edition. New York: Springer.
 #' 
-#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @section TODO:
 #' \enumerate{
