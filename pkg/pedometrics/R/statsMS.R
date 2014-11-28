@@ -95,6 +95,7 @@
 #' 
 #' @seealso \code{\link[pedometrics]{buildMS}}, 
 #' \code{\link[pedometrics]{plotMS}}.
+#' @import plyr
 #' @export
 #' @examples
 #' \dontrun{

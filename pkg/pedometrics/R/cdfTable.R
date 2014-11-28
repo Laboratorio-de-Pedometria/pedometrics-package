@@ -71,6 +71,8 @@
 #' Survey Design and Analysis.  R package version 2.6. URL:
 #' <\url{http://www.epa.gov/nheerl/arm/}>.
 #' @keywords methods print
+#' @export
+#' @import xtable
 #' @examples
 #' 
 #' \dontrun{
@@ -84,18 +86,6 @@
 # FUNCTION #####################################################################
 cdfTable <- 
   function(x, type = "xy", rounding = 0, tex = FALSE, data.frame = FALSE) {
-    # Table with descriptive statistics of a CDF
-    #
-    # Args:
-    #   x:        Object with the estimated CDF.
-    #   type:     Type of data under analysis.
-    #   rounding: Rounding level of the data in the output table.
-    #   tex:      Logical for creating TeX code.
-    #   table:    Logical for returning a data.frame object.
-    #
-    # Returns:
-    #   Table with descriptive statistics.
-    #
     if(type == "xy") {
       tb <- data.frame(c("Mean", "Absolute mean", "Squared mean"),
                        round(c(cdfStats(x, "dx")[1, 3],

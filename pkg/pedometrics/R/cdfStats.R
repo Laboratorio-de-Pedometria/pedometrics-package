@@ -46,6 +46,7 @@
 #' Design and Analysis. R package version 2.6. URL:
 #' <http://www.epa.gov/nheerl/arm/>.
 #' @keywords methods print
+#' @export
 #' @examples
 #' 
 #' \dontrun{
@@ -62,16 +63,6 @@
 # FUNCTION #####################################################################
 cdfStats <- 
   function(obj, ind, all = TRUE) {
-    # Summary statistics of a cumulative distribution function.
-    #
-    # Args:
-    #   obj: Object with the estimated cumulative distribution function.
-    #   ind: Indicator variable.
-    #   all: Summary statistics to be returned.
-    #
-    # Returns:
-    #   Summary statistics of a cumulative distribution function.
-    #
     stats <- data.frame(obj$Pct[obj$Pct$Indicator == ind, 4:9][8:10, ],
                         row.names = NULL)
     if(all) {

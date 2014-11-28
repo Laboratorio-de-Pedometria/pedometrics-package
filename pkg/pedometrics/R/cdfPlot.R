@@ -129,16 +129,6 @@ cdfPlot <-
             show.conflev = TRUE,
             conflev = 95, show.param = TRUE, round = 0, 
             col.param = "black", ...) {
-    # Plot estimated cumulative distribution function
-    #
-    # Args:
-    #   obj:       Object with the estimated CDF.
-    #   ind:       Indicator variable.
-    #   type.plot: Desired type of plot to be produced.
-    #
-    # Returns:
-    #   A plot of estimated CDF with confidence limits.
-    #
     op <- par(mgp = c(1.7, 0.6, 0), mar = c(3, 3, 2, 4) + 0.1)
     obj <- obj
     ind <- ind

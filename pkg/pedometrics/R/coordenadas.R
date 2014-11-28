@@ -36,6 +36,7 @@
 #' Design and Analysis. R package version 2.6. URL:
 #' <\url{http://www.epa.gov/nheerl/arm/}>.
 #' @keywords methods
+#' @export
 #' @examples
 #' 
 #' \dontrun{

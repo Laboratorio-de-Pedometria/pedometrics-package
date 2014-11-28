@@ -87,7 +87,6 @@
 #' @keywords iteration spatial
 #' @concept jitter perturb
 #' @export
-#' @import Rcpp
 #' @examples
 #' require(sp)
 #' data(meuse.grid)

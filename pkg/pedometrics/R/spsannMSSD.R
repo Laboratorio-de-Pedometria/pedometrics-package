@@ -119,7 +119,6 @@
 #' @keywords spatial optimize
 #' @aliases spsannMSSD objMSSD
 #' @concept simulated annealing
-#' @import fields
 #' @export
 #' @examples
 #' require(sp)
@@ -145,7 +144,7 @@ spsannMSSD <-
     # using the fields::rdist(). The function .calcMSSDCpp() does the squaring 
     # internaly.
     # ASR: I should probably write my own distance function.
-    dist_mat <- rdist(candidates[, 2:3], sys_config0[, 2:3])
+    dist_mat <- fields::rdist(candidates[, 2:3], sys_config0[, 2:3])
     energy_state0 <- .calcMSSDCpp(dist_mat)
     
     # other settings for the simulated annealing algorithm
@@ -260,7 +259,7 @@ spsannMSSD <-
 #' @export
 objMSSD <-
   function (candidates, points) {
-    dist_mat <- rdist(candidates[, 2:3], points[, 2:3])
+    dist_mat <- fields::rdist(candidates[, 2:3], points[, 2:3])
     res <- .calcMSSDCpp(dist_mat)
     return (res)
   }
