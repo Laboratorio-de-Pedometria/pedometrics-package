@@ -38,10 +38,10 @@
 #' Available at \url{http://en.wikipedia.org/wiki/Coefficient_of_determination}.
 #' [Online; accessed 31-July-2014].
 #' 
+#' @keywords misc
+#' @export
 #' @examples
 #' adjR2(r2 = 0.95, n = 100, p = 80)
-#' 
-#' @keywords misc
 #' 
 # FUNCTION #####################################################################
 #
