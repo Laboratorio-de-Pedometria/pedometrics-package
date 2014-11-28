@@ -84,15 +84,13 @@
 #' @details
 #' This section gives more details about arguments \code{obj}, \code{grid},
 #' \code{line}, \code{arrange}, and \code{ind}.
-#' 
 #' \subsection{obj}{
 #' The argument \code{obj} usually constitutes a \code{data.frame} returned by
 #' \code{statsMS}. However, the user can use any \code{data.frame} object as far 
 #' as it contains the two basic units of information needed:
-#' 
 #' \enumerate{
-#' \item design data passed with argument \code{grid};
-#' \item performance statistic passed with argument \code{line}.
+#' \item design data passed with argument \code{grid}
+#' \item performance statistic passed with argument \code{line}
 #' }
 #' }
 #' \subsection{grid}{
@@ -105,7 +103,6 @@
 #' accuracy, where \code{0} means a less accurate predictor variable, while 
 #' \code{1} means a more accurate predictor variable. This yields 2^3 = 8 total 
 #' possible combinations. The \emph{design} data would be of the following form:
-#' 
 #' \verb{
 #' > design
 #'   a b c
@@ -188,7 +185,6 @@
 #' the updated version of the predictor variable \code{b}. In the model series
 #' plot, the predictor variable \code{b} appears in the top row, while the 
 #' predictor variable \code{c} appears in the bottom row.
-#' }
 #' }
 #' @return An object of class \code{"trellis"} consisting of a model series 
 #' plot.

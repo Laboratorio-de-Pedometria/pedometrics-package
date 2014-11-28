@@ -1,7 +1,5 @@
 #  Template documentation for spatial jittering
-#
 ################################################################################
-#' 
 #' @param points data.frame or matrix with three columns: 1) the identification
 #' of each point, 2) the x coordinates of the set of points, and 3) the y
 #' coordinates of the set of points. The coordinates must be projected. This is
@@ -16,5 +14,3 @@
 #' equal to, at least, the minimum distance between two neighboring candidate 
 #' locations. The units are the same as of the coordinates. See \sQuote{Details}
 #' for more information.
-#' 
-# End!

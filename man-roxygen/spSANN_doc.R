@@ -1,5 +1,4 @@
 #  Template documentation for spatial simulated annealing
-#
 ################################################################################
 #' @param iterations Integer value defining the maximum number of iterations 
 #' that should be used for the optimization. See \sQuote{Details} for more 
@@ -132,4 +131,3 @@
 #' }
 #' }
 #' @keywords spatial optimize
-# End!
