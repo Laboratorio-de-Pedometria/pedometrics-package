@@ -213,7 +213,7 @@
 #' 
 #' @seealso \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}, 
 #' \code{\link[mvtsplot]{mvtsplot}}.
-#' @import lattice plyr laticeExtra grid
+#' @import lattice plyr latticeExtra grid
 #' @export
 #' @examples
 #' # This example follows the discussion in section "Details"

@@ -12,6 +12,9 @@ be created.}
 \item{lat}{Vector of numeric values containing the y coordinate (latitude)
 of the point locations where the \code{z} variable was observed.}
 
+\item{lon}{Vector of numeric values containing the x coordinate (longitude)
+of the point locations where the \code{z} variable was observed.}
+
 \item{cutoff}{Integer value defining the spatial separation distance up to
 which point pairs are included in semivariance estimates. Defaults to the
 length of the diagonal of the box spanning the data divided by three.}
@@ -19,9 +22,6 @@ length of the diagonal of the box spanning the data divided by three.}
 \item{width}{Integer value specifying the width of subsequent distance
 intervals into which data point pairs are grouped for semivariance
 estimates. Defaults to \code{width = cutoff / 20}.}
-
-\item{long}{Vector of numeric values containing the x coordinate (longitude)
-of the point locations where the \code{z} variable was observed.}
 }
 \value{
 Four plots: histogram and density plot, bubble plot, empirical variogram,

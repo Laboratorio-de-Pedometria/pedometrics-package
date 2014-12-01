@@ -21,9 +21,8 @@
 #' azimuth. The result is a data frame ready to be used to define a object of
 #' class \code{spsurvey.object}.
 #' 
-#' 
-#' \subsection{Type_of_data
-#' 
+#' @details
+#' \subsection{Type of data}{
 #' Two types of validation data that can be submitted to function
 #' \code{gcpDiff()}: those coming from horizontal (positional) validation
 #' exercises (\code{type = "xy"}), and those coming from vertical validation
@@ -48,9 +47,9 @@
 #' They also must have a column named \sQuote{siteID} giving the identification
 #' of evary case. Again, matching of case IDs is mandatory. However, both
 #' objects must have a column named \sQuote{z} which contains the values of the
-#' \sQuote{z} coordinate. Other columns are discarded.}
-#' \subsection{Data_aggregation
-#' 
+#' \sQuote{z} coordinate. Other columns are discarded.
+#' }
+#' \subsection{Data aggregation}{
 #' Validation is sometimes performed using cluster or transect sampling. Before
 #' estimation of error statistics, the data needs to be aggregated by cluster
 #' or transect. The function \code{gcpDiff()} aggregates validation data of
@@ -59,30 +58,36 @@
 #' \code{measured} and \code{predicted} provides the identification of
 #' clusters.  Setting \code{aggregate = TRUE} will return aggregated estimates
 #' of error statistics. If the data has been aggregated beforehand, the
-#' parameter \code{aggregate} can be set to \code{FALSE}.}
-#' \subsection{Case_matching
-#' 
+#' parameter \code{aggregate} can be set to \code{FALSE}.
+#' }
+#' \subsection{Case matching}{
 #' There are circumstances in which the number of cases in the object
 #' \code{measured} is larger than that in the object \code{predicted}. The
 #' function \code{gcpDiff()} compares the number of cases in both objects and
 #' automatically drops those cases of object \code{measured} that do not match
 #' the cases of object \code{predicted}. However, case matching can only be
 #' done if case IDs are exactly the same for both objects. Otherwise, estimated
-#' error statistics will have no meaning at all.}
+#' error statistics will have no meaning at all.
+#' }
 #' 
 #' @param measured Object of class \code{\linkS4class{SpatialPointsDataFrame}}
 #' with the reference GCP. A column named \sQuote{siteID} giving case names is
 #' mandatory. See \sQuote{Details}, item \sQuote{Type of data}.
+#' 
 #' @param predicted An object of class
 #' \code{\linkS4class{SpatialPointsDataFrame}} with the point data being
 #' validated. A column named \sQuote{siteID} giving case names is mandatory.
 #' See \sQuote{Details}, item \sQuote{Type of data}.
+#' 
 #' @param type Type of data under analysis. Defaults to \code{type = "xy"}.
 #' \sQuote{Details}, item \sQuote{Type of data}.
+#' 
 #' @param aggregate Logical for aggregating the data when it comes from cluster
 #' sampling. Used only when \code{type = "z"}. Defaults to \code{aggregate =
 #' FALSE}. See \sQuote{Details}, item \sQuote{Data aggregation}.
+#' 
 #' @param rounding Rounding level of the data in the output data frame.
+#' 
 #' @return An object of class \code{data.frame} ready to be used to feed the
 #' argument \code{data.cont} when creating a \code{spsurvey.analysis} object.
 #' @note Data of \code{type = "xy"} cannot be submitted to cluster aggregation

@@ -1,20 +1,3 @@
-#  file pedometrics/R/plotESDA.R
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 or 3 of the License
-#  (at your option).
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  A copy of the GNU General Public License is available at
-#  http://www.r-project.org/Licenses/
-#
-# DOCUMENTATION ################################################################
-#' 
 #' Plots for exploratory spatial data analysis (ESDA)
 #' 
 #' This function creates four plots for exploratory spatial data analysis 
@@ -25,7 +8,7 @@
 #' be created.
 #' @param lat Vector of numeric values containing the y coordinate (latitude) 
 #' of the point locations where the \code{z} variable was observed.
-#' @param long Vector of numeric values containing the x coordinate (longitude) 
+#' @param lon Vector of numeric values containing the x coordinate (longitude) 
 #' of the point locations where the \code{z} variable was observed.
 #' @param cutoff Integer value defining the spatial separation distance up to 
 #' which point pairs are included in semivariance estimates. Defaults to the 

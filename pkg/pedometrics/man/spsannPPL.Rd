@@ -127,8 +127,6 @@ Functions to compute the minimum number of points or point pairs observed
 over all lag distance classes.
 }
 \details{
-
-
 \subsection{Distances}{
 Euclidean distances between points are calculated. This computation requires
 the coordinates to be projected. The user is responsible for making sure that
