@@ -90,7 +90,7 @@
 #' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
 #' \code{\link[car]{powerTransform}}, \code{\link[car]{bcPower}}.
 #' @export
-#' @import lattice car latticeExtra grid
+#' @import lattice car latticeExtra grid moments
 #' @examples
 #' x <- rnorm(100, 10, 2)
 #' plotHD(x, HD = "stack")

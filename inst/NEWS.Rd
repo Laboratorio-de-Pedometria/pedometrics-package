@@ -2,6 +2,12 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.4-1 (2014-12-01)}{
+  \itemize{
+    \item Documentation is now generated using roxygen2.
+  }
+}
+
 \section{Changes in version 0.4-0 (2014-11-26)}{
   \itemize{
     \item Started the fourth season of the initial development of the package.

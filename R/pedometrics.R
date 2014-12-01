@@ -17,7 +17,7 @@
 #' discouraged.
 #' 
 #' \tabular{ll}{ Package: \tab pedometrics\cr Type: \tab Package\cr Version:
-#' \tab 0.4-0\cr Date: \tab 2014-11-26\cr License: \tab GPL (>= 2)\cr }
+#' \tab 0.4-1\cr Date: \tab 2014-12-01\cr License: \tab GPL (>= 2)\cr }
 #' 
 #' @name pedometrics-package
 #' @aliases pedometrics-package pedometrics
