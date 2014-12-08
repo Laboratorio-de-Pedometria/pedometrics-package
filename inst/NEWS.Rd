@@ -2,6 +2,13 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.4-2 (2014-12-08)}{
+  \itemize{
+    \item Function to compute the Cramer's V, a measure of association between
+    categorical variables.
+  }
+}
+
 \section{Changes in version 0.4-1 (2014-12-01)}{
   \itemize{
     \item Documentation is now generated using roxygen2.

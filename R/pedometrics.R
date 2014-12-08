@@ -17,7 +17,7 @@
 #' discouraged.
 #' 
 #' \tabular{ll}{ Package: \tab pedometrics\cr Type: \tab Package\cr Version:
-#' \tab 0.4-1\cr Date: \tab 2014-12-01\cr License: \tab GPL (>= 2)\cr }
+#' \tab 0.4-2\cr Date: \tab 2014-12-08\cr License: \tab GPL (>= 2)\cr }
 #' 
 #' @name pedometrics-package
 #' @aliases pedometrics-package pedometrics
@@ -29,6 +29,7 @@
 #' Gerard B. M. Heuvelink
 #' 
 #' Contributors: Tony Olsen, Tom Kincaid, Juan Carlos Ruiz Cuetos, Maria
-#' Eugenia Polo Garcia, Pablo Garcia Rodriguez, Edzer Pebesma, Jon Skoien
+#' Eugenia Polo Garcia, Pablo Garcia Rodriguez, Edzer Pebesma, Jon Skoien, 
+#' Joshua French, Ken Kleinman, Dick Brus
 #' @useDynLib pedometrics
 NULL
