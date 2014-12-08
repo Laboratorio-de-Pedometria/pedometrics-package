@@ -9,7 +9,7 @@
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @note The original code was available at \url{http://sas-and-r.blogspot.nl/},
 #' Example 8.39: calculating Cramer's V, posted by Ken Kleinman on Friday, June
-#' 3, 2011. As such, Ken Kleinman <\email{Ken_Kleinman@hms.harvard.edu}> is 
+#' 3, 2011. As such, Ken Kleinman <\email{Ken_Kleinman@@hms.harvard.edu}> is 
 #' entitled a \sQuote{contributor} to the R-package \pkg{pedometrics}.
 #' @references
 #' Cramér, H. Mathematical methods of statistics. Princeton: Princeton 
