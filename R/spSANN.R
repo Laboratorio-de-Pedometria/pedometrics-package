@@ -23,12 +23,12 @@
 .spSANNplot <-
   function (energy_state0, energy_states, k, acceptance, accept_probs, 
             boundary, new_sys_config, sys_config0, y_max0, y.max, x_max0, 
-            x.max) {
+            x.max, ...) {
     par(mfrow = c(1, 2))
     
     # plot energy states
     a <- c(energy_state0, energy_states[1:k])
-    plot(a ~ c(0:k), type = "l", xlab = "iteration", ylab = "energy state")
+    plot(a ~ c(0:k), type = "l", xlab = "iteration", ylab = "energy state", ...)
     abline(h = energy_state0, col = "red")
     
     # plot acceptance probability
@@ -134,7 +134,7 @@
 #       x_max[k] <- x.max
 #       y.max <- y_max0 - (k / iterations) * (y_max0 - y.min)
 #       y_max[k] <- y.max
-#       new_energy_state <- .energyState(fun = fun, points = new_sys_config, ...)
+#       new_energy_state <- .energyState(fun=fun, points = new_sys_config, ...)
 #       random_prob <- runif(1)
 #       actual_prob <- acceptance[[1]] * exp(-k / acceptance[[2]])
 #       accept_probs[k] <- actual_prob
@@ -143,7 +143,7 @@
 #         old_energy_state <- new_energy_state
 #         count <- 0
 #       } else {
-#         if (new_energy_state > old_energy_state & random_prob <= actual_prob) {
+#         if (new_energy_state > old_energy_state & random_prob<=actual_prob) {
 #           old_sys_config <- new_sys_config
 #           old_energy_state <- new_energy_state
 #           count <- count + 1
@@ -181,7 +181,7 @@
 #       }
 #       if (any(round(seq(1, iterations, 10)) == k)) {
 #         if (plotit){
-#           .spSANNplot(energy_state0, energy_states, k, acceptance, accept_probs, 
+#           .spSANNplot(energy_state0, energy_states,k,acceptance,accept_probs, 
 #                       boundary, new_sys_config, sys_config0, y_max0, y_max, 
 #                       x_max0, x_max)
 #         } 

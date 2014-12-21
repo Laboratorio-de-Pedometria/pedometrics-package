@@ -18,7 +18,7 @@
 #' @title Optimization of spatial samples for spatial interpolation
 #' 
 #' @description
-#' This funtion optimizes spatial samples for spatial interpolation using 
+#' Optimizes spatial samples for spatial interpolation using 
 #' spatial simulated annealing. The criterion used in the optimization is the 
 #' mean squared shortest distance (MSSD).
 #'  
