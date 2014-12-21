@@ -1,24 +1,114 @@
 #' Optimization of spatial samples for trend estimation
 #' 
-#' Optimizes spatial samples for trend estimaton using spatial simulated
+#' Optimize spatial samples for trend estimaton using spatial simulated
 #' annealing.
 #' 
 #' @template spJitter_doc
 #' @template spSANN_doc
+#' @param covariates Data frame or matrix with the covariates in the columns.
+#' @param continuous Logical informing if the covariates are of type 
+#' \sQuote{continuous} or \sQuote{categorical}. Defaults to 
+#' \code{continuous = TRUE}.
+#' @param pre.distri Numeric value setting the distribution of points throughout
+#' the strata of the continuous covariates. Available options are 
+#' \code{pre.distri = 1}, for a uniform distribution, and 
+#' \code{pre.distri = 0.5} for sample points covering the extremes of the
+#' distribution. Alternativelly, a vector of length equal to the number of
+#' points setting the desired distribution. Defaults to \code{pre.distri = 1}.
+#' @param weights List with two components setting the weights assigned to the
+#' sampling strata/classes and the correlation/association measure. The weights
+#' must sum to unity. Defaults to 
+#' \code{weights = list(strata = 0.5, correl = 0.5)}.
+#' @param use.coords Logical for using the geographic coordinates as covariates.
+#' Defaults to \code{use.coords = FALSE}.
+#' @param strata.type Character setting the type of strata to be used with 
+#' continuous covariates. Available options are \code{"equal.area"} and 
+#' \code{"equal.range"}. Defaults to \code{strata.type = "equal.area"}. See
+#' \sQuote{Details} for more information.
+#' @param sim.nadir Number of random realizations to estimate the nadir point.
+#' Defaults to \code{sim.nadir = NULL}, that is, the maximum absolute value is
+#' used as nadir point. \sQuote{Details} for more information.
 #' 
-# FUNCTION - MAIN ##############################################################
+#' @details
+#' 
+#' @return A matrix (the optimized sample points) with attributes (the evolution
+#' of the energy state and the running time).
+#' 
+#' @references
+#' Minasny, B.; McBratney, A. B. A conditioned Latin hypercube method for
+#' sampling in the presence of ancillary information. \emph{Computers &
+#' Geosciences}, v. 32, p. 1378-1388, 2006.
+#' 
+#' Minasny, B.; McBratney, A. B. Conditioned Latin Hypercube Sampling for
+#' calibrating soil sensor data to soil properties. Chapter 9. Viscarra Rossel,
+#' R. A.; McBratney, A. B.; Minasny, B. (Eds.) \emph{Proximal Soil Sensing}.
+#' Amsterdam: Springer, p. 111-119, 2010.
+#' 
+#' Mulder, V. L.; de Bruin, S.; Schaepman, M. E. Representing major soil
+#' variability at regional scale by constrained Latin hypercube sampling of
+#' remote sensing data. \emph{International Journal of Applied Earth Observation
+#' and Geoinformation}, v. 21, p. 301-310, 2013.
+#' 
+#' Roudier, P.; Beaudette, D.; Hewitt, A. A conditioned Latin hypercube sampling
+#' algorithm incorporating operational constraints. 5th Global Workshop on
+#' Digital Soil Mapping. Sydney: p. 227-231, 2012.
+#' 
+#' @author
+#' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
+#' 
+#' with contributions of Gerard Heuvelink \email{gerard.heuvelink@@wur.nl} and
+#' Dick Brus \email{dick.brus@@wur.nl}
+#' 
+#' @note
+#' Some of the solutions used here were found in the source code of other
+#' R-packages. As such, the authors of those packages (\pkg{intamapInteractive}
+#' - Edzer Pebesma <\email{edzer.pebesma@@uni-muenster.de}> and Jon Skoien
+#' <\email{jon.skoien@@gmail.com}>; \pkg{clhs} - Pierre Roudier
+#' <\email{roudierp@@landcareresearch.co.nz}>) are entitled 
+#' \sQuote{contributors} to the R-package \pkg{pedometrics}.
+#' 
+#' @seealso
+#' \code{\link[clhs]{clhs}}
+#' @keywords spatial optimize
+#' @concept simulated annealing
+#' @examples
+#' require(sp)
+#' require(rgeos)
+#' data(meuse.grid)
+#' candidates <- meuse.grid[, 1:2]
+#' coordinates(candidates) <- ~ x + y
+#' gridded(candidates) <- TRUE
+#' boundary <- as(candidates, "SpatialPolygons")
+#' boundary <- gUnionCascaded(boundary)
+#' candidates <- coordinates(candidates)
+#' candidates <- matrix(cbind(c(1:dim(candidates)[1]), candidates), ncol = 3)
+#' covariates <- meuse.grid[, c(1, 2, 3, 4, 5)]
+#' points <- 100
+#' x.max <- diff(bbox(boundary)[1, ])
+#' y.min <- x.min <- 40
+#' y.max <- diff(bbox(boundary)[2, ])
+#' res <- spsannTrend(points, candidates, covariates, x.max = x.max, 
+#'                    x.min = x.min, y.max = y.max, y.min = y.min, 
+#'                    boundary = boundary, sim.nadir = 1000)
+#' 
+# MAIN FUNCTION ################################################################
 spsannTrend <-
   function (points, candidates, covariates, continuous = TRUE, pre.distri = 1,
             weights = list(strata = 0.5, correl = 0.5), use.coords = FALSE,
             strata.type = "equal.area", sim.nadir = NULL,
-            
             x.max, x.min, y.max, y.min, iterations,
             acceptance = list(initial = 0.99, cooling = iterations / 10),
             stopping = list(max.count = iterations / 10), plotit = TRUE,
             boundary, progress = TRUE, verbose = TRUE) {
+    
+    # Initial checks
     if (ncol(candidates) != 3) stop ("'candidates' must have three columns")
+    if (nrow(candidates) != nrow(covariates))
+      stop ("'candidates' and 'covariates' must have the same number of rows")
     if (sum(unlist(weights)) != 1) stop ("the 'weights' must sum to 1")
     if (plotit) par0 <- par()
+    
+    # Prepare sample points
     if (is.integer(points)) {
       n_pts <- points
       points <- sample(c(1:dim(candidates)[1]), n_pts)
