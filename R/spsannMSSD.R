@@ -84,7 +84,7 @@
 #' @author
 #' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' Gerard Heuvelink \email{gerard.heuvelink@@wur.nl}
+#' with contributions of Gerard Heuvelink \email{gerard.heuvelink@@wur.nl}
 #' 
 #' @note
 #' Some of the solutions used to build this function were found in the source 

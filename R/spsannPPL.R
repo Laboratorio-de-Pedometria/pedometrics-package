@@ -206,7 +206,7 @@
 #' @author
 #' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' Gerard Heuvelink \email{gerard.heuvelink@@wur.nl}
+#' with contributions of Gerard Heuvelink \email{gerard.heuvelink@@wur.nl}
 #' 
 #' @note
 #' Use \code{lags = 1} with \code{pointsPerLag} and \code{pairsPerLag} to check
