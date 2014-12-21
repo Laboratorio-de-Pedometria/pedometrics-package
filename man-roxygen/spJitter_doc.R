@@ -1,10 +1,10 @@
 #  Template documentation for spatial jittering
 ################################################################################
-#' @param points data.frame or matrix with three columns: 1) the identification
-#' of each point, 2) the x coordinates of the set of points, and 3) the y
-#' coordinates of the set of points. The coordinates must be projected. This is
-#' the set of points to be optimized. \code{points} must be a subset of 
-#' \code{candidates}. See \sQuote{Details} for more information.
+#' @param points Integer value setting the number of points. Alternatively, a
+#' data.frame or matrix with three columns: 1) the identification of each point,
+#' 2) the x coordinates, and 3) the y coordinates. The coordinates must be
+#' projected. If a data.frame or matrix is used, \code{points} must be a subset
+#' of \code{candidates}. See \sQuote{Details} for more information.
 #' 
 #' @param candidates data.frame or matrix with the candidate locations for the 
 #' sample points. See \sQuote{Details} for more information.

@@ -1,8 +1,7 @@
-#' @title Optimization of spatial samples for variogram estimation
+#' Optimization of spatial samples for variogram estimation
 #' 
-#' @description
-#' Funtion to optimize spatial samples for variogram estimation using spatial
-#' simulated annealing. The criterion used in the optimization is the number of
+#' Optimize spatial samples for variogram estimation using spatial
+#' simulated annealing. The criterion used is the number of
 #' points per lag distance class. Functions to counts the number of points or 
 #' point pairs per lag distance class. Functions to compute the deviation of 
 #' the observed distribution of counts from a pre-specified distribution. 
@@ -244,14 +243,21 @@ spsannPPL <-
             acceptance = list(initial = 0.99, cooling = iterations / 10),
             stopping = list(max.count = iterations / 10), plotit = TRUE,
             boundary, progress = TRUE, verbose = TRUE) {
+    if (ncol(candidates) != 3) stop ("'candidates' must have three columns")
     if (plotit) par0 <- par()
-    n_pts <- dim(points)[1]
+    if (is.integer(points)) {
+      n_pts <- points
+      points <- sample(c(1:dim(candidates)[1]), n_pts)
+      points <- candidates[points, ]
+    } else {
+      n_pts <- nrow(points)
+    }
     n_lags <- lags
     lags <- .getLagBreaks(lags, lags.type, cutoff, lags.base)
     sys_config0 <- points
     old_sys_config <- sys_config0
     
-    # calculate the initial energy state
+    # Initial energy state
     dist_mat <- as.matrix(dist(sys_config0[, 2:3], method = "euclidean"))
     point_per_lag <- .getPointsPerLag(lags, dist_mat)
     energy_state0 <- .objPointsPerLag(point_per_lag, n_lags, n_pts, 
