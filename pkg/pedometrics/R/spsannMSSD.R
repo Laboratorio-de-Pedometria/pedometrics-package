@@ -1,26 +1,7 @@
-#  file pedometrics/R/objMSSD.R
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 or 3 of the License
-#  (at your option).
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  A copy of the GNU General Public License is available at
-#  http://www.r-project.org/Licenses/
-#
-# DOCUMENTATION ################################################################
+#' Optimization of spatial samples for spatial interpolation
 #' 
-#' @title Optimization of spatial samples for spatial interpolation
-#' 
-#' @description
-#' Optimizes spatial samples for spatial interpolation using 
-#' spatial simulated annealing. The criterion used in the optimization is the 
-#' mean squared shortest distance (MSSD).
+#' Optimize a spatial samples for spatial interpolation using spatial simulated
+#' annealing. The criterion used is the mean squared shortest distance (MSSD).
 #'  
 #' @template spJitter_doc
 #' @template spSANN_doc
@@ -135,8 +116,15 @@ spsannMSSD <-
             acceptance = list(initial = 0.99, cooling = iterations / 10),
             stopping = list(max.count = iterations / 10), plotit = TRUE,
             boundary, progress = TRUE, verbose = TRUE) {
+    if (ncol(candidates) != 3) stop ("'candidates' must have three columns")
     if (plotit) par0 <- par()
-    n_pts <- dim(points)[1]
+    if (is.integer(points)) {
+      n_pts <- points
+      points <- sample(c(1:dim(candidates)[1]), n_pts)
+      points <- candidates[points, ]
+    } else {
+      n_pts <- nrow(points)
+    }
     sys_config0 <- points
     old_sys_config <- sys_config0
     

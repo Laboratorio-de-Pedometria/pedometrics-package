@@ -3,6 +3,8 @@
 #' Optimizes spatial samples for trend estimaton using spatial simulated
 #' annealing.
 #' 
+#' @template spJitter_doc
+#' @template spSANN_doc
 #' 
 # FUNCTION - MAIN ##############################################################
 spsannTrend <-
@@ -14,13 +16,18 @@ spsannTrend <-
             acceptance = list(initial = 0.99, cooling = iterations / 10),
             stopping = list(max.count = iterations / 10), plotit = TRUE,
             boundary, progress = TRUE, verbose = TRUE) {
-    
-    if (sum(unlist(weights)) != 1) {
-      stop ("the 'weights' must sum to 1")
-    }
+    if (ncol(candidates) != 3) stop ("'candidates' must have three columns")
+    if (sum(unlist(weights)) != 1) stop ("the 'weights' must sum to 1")
     if (plotit) par0 <- par()
-    n_pts <- points
-    points <- sample(c(1:dim(candidates)[1]), n_pts)
+    if (is.integer(points)) {
+      n_pts <- points
+      points <- sample(c(1:dim(candidates)[1]), n_pts)
+      points <- candidates[points, ]
+    } else {
+      n_pts <- nrow(points)
+    }
+    sys_config0 <- points
+    old_sys_config <- sys_config0
     
     # Prepare covariates and create the starting 'sample matrix'
     if (use.coords) {
@@ -28,15 +35,10 @@ spsannTrend <-
     }
     if (!is.data.frame(covariates)) covariates <- as.data.frame(covariates)
     n_cov <- ncol(covariates)
-    samp_mat <- covariates[points, ]
+    samp_mat <- covariates[points[, 1], ]
     if (n_cov == 1) {
       samp_mat <- data.frame(samp_mat)
     }
-    
-    # Sample the points internaly
-    points <- candidates[points, ]
-    sys_config0 <- points
-    old_sys_config <- sys_config0
     
     # Base data and initial energy state
     # Continuous or categorical covariates?
