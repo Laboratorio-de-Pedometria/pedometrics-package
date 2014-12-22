@@ -5,7 +5,7 @@
 #' 
 #' @template spJitter_doc
 #' @template spSANN_doc
-#' @param covariates Data frame or matrix with the covariates in the columns.
+#' @param covars Data frame or matrix with the covariates in the columns.
 #' @param continuous Logical informing if the covariates are of type 
 #' \sQuote{continuous} or \sQuote{categorical}. Defaults to 
 #' \code{continuous = TRUE}.
@@ -82,18 +82,18 @@
 #' boundary <- gUnionCascaded(boundary)
 #' candidates <- coordinates(candidates)
 #' candidates <- matrix(cbind(c(1:dim(candidates)[1]), candidates), ncol = 3)
-#' covariates <- meuse.grid[, c(1, 2, 3, 4, 5)]
+#' covars <- meuse.grid[, c(1, 2, 3, 4, 5)]
 #' points <- 100
 #' x.max <- diff(bbox(boundary)[1, ])
 #' y.min <- x.min <- 40
 #' y.max <- diff(bbox(boundary)[2, ])
-#' res <- spsannTrend(points, candidates, covariates, x.max = x.max, 
+#' res <- spsannTrend(points, candidates, covars, x.max = x.max, 
 #'                    x.min = x.min, y.max = y.max, y.min = y.min, 
 #'                    boundary = boundary, sim.nadir = 1000)
 #' 
 # MAIN FUNCTION ################################################################
-spsannTrend <-
-  function (points, candidates, covariates, continuous = TRUE, pre.distri = 1,
+spsannCLHS <-
+  function (points, candidates, covars, continuous = TRUE, pre.distri = 1,
             weights = list(strata = 0.5, correl = 0.5), use.coords = FALSE,
             strata.type = "equal.area", sim.nadir = NULL,
             x.max, x.min, y.max, y.min, iterations,
@@ -103,13 +103,13 @@ spsannTrend <-
     
     # Initial checks
     if (ncol(candidates) != 3) stop ("'candidates' must have three columns")
-    if (nrow(candidates) != nrow(covariates))
-      stop ("'candidates' and 'covariates' must have the same number of rows")
+    if (nrow(candidates) != nrow(covars))
+      stop ("'candidates' and 'covars' must have the same number of rows")
     if (sum(unlist(weights)) != 1) stop ("the 'weights' must sum to 1")
     if (plotit) par0 <- par()
     
     # Prepare sample points
-    if (is.integer(points)) {
+    if (length(points) == 1) {
       n_pts <- points
       points <- sample(c(1:dim(candidates)[1]), n_pts)
       points <- candidates[points, ]
@@ -119,35 +119,46 @@ spsannTrend <-
     sys_config0 <- points
     old_sys_config <- sys_config0
     
-    # Prepare covariates and create the starting 'sample matrix'
+    # Prepare covars and create the starting 'sample matrix'
     if (use.coords) {
-      covariates <- data.frame(covariates, candidates[, 2:3])
+      if (!continuous) {
+        coords <- data.frame(candidates[, 2:3])
+        breaks <- .contStrata(n_pts, coords, strata.type)
+        coords <- .cont2cat(coords, breaks)
+        covars <- data.frame(covars, coords)
+      } else {
+        covars <- data.frame(covars, candidates[, 2:3])
+      }
     }
-    if (!is.data.frame(covariates)) covariates <- as.data.frame(covariates)
-    n_cov <- ncol(covariates)
-    samp_mat <- covariates[points[, 1], ]
+    if (!is.data.frame(covars)) covars <- as.data.frame(covars)
+    n_cov <- ncol(covars)
+    samp_mat <- covars[points[, 1], ]
     if (n_cov == 1) {
       samp_mat <- data.frame(samp_mat)
     }
     
     # Base data and initial energy state
-    # Continuous or categorical covariates?
-    if (continuous) {
+    if (continuous) { # Continuous covariates
       # ASR: we should compute the true population correlation matrix
-      pop_cor_mat <- cor(covariates)
-      strata <- .contStrata(n_pts, covariates, strata.type)
+      pop_cor_mat <- cor(covars, use = "complete.obs")
+      strata <- .contStrata(n_pts, covars, strata.type)
       cont_distri <- .contDistri(pre.distri, n_pts)
       nadir <- .contNadir(pre.distri, n_pts, n_cov, pop_cor_mat, sim.nadir,
-                          candidates, covariates, strata)
-      samp_cor_mat <- cor(samp_mat)
+                          candidates, covars, strata)
+      samp_cor_mat <- cor(samp_mat, use = "complete.obs")
       energy_state0 <- .objCont(samp_mat, strata, n_cov, pre.distri, 
                                 pop_cor_mat, samp_cor_mat, nadir, weights)
-    } else {
-      # Compute core data for categorical covariates
       
-      # Calculate the initial energy state
-      
+    } else { # Categorical covariates
+      pop_cor_mat <- cramer(covars)
+      pop_prop <- sapply(covars, function(x) table(x) / nrow(covars))
+      nadir <- .catNadir(sim.nadir, candidates, n_pts, covars, pop_prop,
+                         pop_cor_mat, n_cov)
+      samp_cor_mat <- cramer(samp_mat)
+      energy_state0 <- .objCat(samp_mat, pop_prop, nadir, weights, pop_cor_mat,
+                               samp_cor_mat, n_pts)
     }
+    
     # Other settings for the simulated annealing algorithm
     old_samp_cor_mat <- samp_cor_mat
     new_samp_cor_mat <- samp_cor_mat
@@ -175,18 +186,21 @@ spsannTrend <-
       x.max <- x_max0 - (k / iterations) * (x_max0 - x.min)
       y.max <- y_max0 - (k / iterations) * (y_max0 - y.min)
       
-      # Continuous or categorical covariates?
-      if (continuous) {
-        # Update sample and correlation matrices; New energy state
-        new_row <- covariates[new_sys_config[which_point, 1], ]
+      # Update sample and correlation matrices, and energy state
+      if (continuous) { # Continuous covariates
+        new_row <- covars[new_sys_config[which_point, 1], ]
         new_samp_mat[which_point, ] <- new_row
-        new_samp_cor_mat <- cor(new_samp_mat)
+        new_samp_cor_mat <- cor(new_samp_mat, use = "complete.obs")
         new_energy_state <- .objCont(new_samp_mat, strata, n_cov, pre.distri, 
                                      pop_cor_mat, new_samp_cor_mat, nadir,
                                      weights)
         
-      } else {
-        # This is to update data for categorical covariates
+      } else { # Categorical covariates
+        new_row <- covars[new_sys_config[which_point, 1], ]
+        new_samp_mat[which_point, ] <- new_row
+        new_samp_cor_mat <- cramer(new_samp_mat)
+        new_energy_state <- .objCat(new_samp_mat, pop_prop, nadir, weights,
+                                    pop_cor_mat, new_samp_cor_mat, n_pts)
       }
       
       # Evaluate the new system configuration
@@ -270,16 +284,17 @@ spsannTrend <-
   }
 # INTERNAL FUNCTION - BREAKS FOR CONTINUOUS COVARIATES #########################
 .contStrata <-
-  function (n.pts, covariates, strata.type) {
+  function (n.pts, covars, strata.type) {
     if (strata.type == "equal.area") {
       probs <- seq(0, 1, length.out = n.pts + 1)
-      strata <- sapply(covariates, quantile, probs = probs, na.rm = TRUE)
+      strata <- sapply(covars, quantile, probs = probs, na.rm = TRUE)
     }
     if (strata.type == "equal.range") {
-      strata <- sapply(1:n_cov, function(i) seq(min(covariates[, i]), 
-                                                max(covariates[, i]),
+      strata <- sapply(1:n_cov, function(i) seq(min(covars[, i]), 
+                                                max(covars[, i]),
                                                 length.out = n.pts + 1))
     }
+    strata <- data.frame(strata)
     return (strata)
   }
 # INTERNAL FUNCTION - DISTRIBUTION FOR CONTINUOUS COVARIATES ###################
@@ -304,7 +319,7 @@ spsannTrend <-
 # For the correlation matrix, the lower bound is always equal to 0
 .contNadir <-
   function (pre.distri, n.pts, n.cov, pop.cor.mat, sim.nadir,
-            candidates, covariates, strata) {
+            candidates, covars, strata) {
     # Absolute nadir point
     if (is.null(sim.nadir)) {
       if (pre.distri == 1) {
@@ -327,17 +342,17 @@ spsannTrend <-
       correl_nadir <- vector()
       for (i in 1:sim.nadir) {
         pts <- sample(c(1:dim(candidates)[1]), n.pts)
-        pts_mat <- covariates[pts, ]
+        samp_mat <- covars[pts, ]
         if (n.cov == 1) {
-          pts_mat <- data.frame(pts_mat)
+          samp_mat <- data.frame(samp_mat)
         }
-        pts_cor_mat <- cor(pts_mat)
-        breaks <- lapply(1:n.cov, function(i) list(pts_mat[, i], strata[, i]))
+        samp_cor_mat <- cor(samp_mat, use = "complete.obs")
+        breaks <- lapply(1:n.cov, function(i) list(samp_mat[, i], strata[, i]))
         counts <- sapply(breaks, function(x) hist(x[[1]], breaks = x[[2]],
                                                   plot = FALSE)$counts)
         r_counts <- rowSums(abs(counts - pre.distri))
         strata_nadir[i] <- sum(r_counts)
-        correl_nadir[i] <- sum(abs(pop.cor.mat - pts_cor_mat))
+        correl_nadir[i] <- sum(abs(pop.cor.mat - samp_cor_mat))
       }
       strata_nadir <- mean(strata_nadir) / 100
       correl_nadir <- mean(correl_nadir) / 100
@@ -360,5 +375,39 @@ spsannTrend <-
     obj_cor <- sum(abs(pop.cor.mat - samp.cor.mat)) / nadir[[2]]
     obj_cor <- obj_cor * weights[[2]]
     res <- obj_cont + obj_cor
+    return (res)
+  }
+# INTERNAL FUNCTION - NADIR FOR CATEGORICAL COVARIATES #########################
+.catNadir <-
+  function (sim.nadir, candi, n.pts, covars, pop.prop, pop.cor.mat, n.cov) {
+    message("simulating nadir values...")
+    strata_nadir <- vector()
+    correl_nadir <- vector()
+    for (i in 1:sim.nadir) {
+      pts <- sample(c(1:dim(candi)[1]), n.pts)
+      samp_mat <- covars[pts, ]
+      if (n.cov == 1) {
+        samp_mat <- data.frame(samp_mat)
+      }
+      samp_cor_mat <- cramer(samp_mat)
+      samp_prop <- sapply(samp_mat, function(x) table(x) / n.pts)
+      strata_nadir[i] <- sum(abs(samp_prop - pop.prop))
+      correl_nadir[i] <- sum(abs(pop.cor.mat - samp_cor_mat))
+    }
+    strata_nadir <- mean(strata_nadir) / 100
+    correl_nadir <- mean(correl_nadir) / 100
+    res <- list(strata = strata_nadir, correl = correl_nadir)
+    return (res) 
+  }
+# INTERNAL FUNCTION - CRITERION FOR CATEGORICAL COVARIATES #####################
+.objCat <-
+  function (samp.mat, pop.prop, nadir, weights, pop.cor.mat, samp.cor.mat, 
+            n.pts) {
+    samp_prop <- sapply(samp.mat, function(x) table(x) / n.pts)
+    obj_cat <- sum(abs(samp_prop - pop.prop)) / nadir[[1]]
+    obj_cat <- obj_cat * weights[[1]]
+    obj_cor <- sum(abs(pop.cor.mat - samp.cor.mat)) / nadir[[2]]
+    obj_cor <- obj_cor * weights[[2]]
+    res <- obj_cat + obj_cor
     return (res)
   }
