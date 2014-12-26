@@ -9,12 +9,6 @@
 #' @param continuous Logical informing if the covariates are of type 
 #' \sQuote{continuous} or \sQuote{categorical}. Defaults to 
 #' \code{continuous = TRUE}.
-#' @param pre.distri Numeric value setting the distribution of points throughout
-#' the strata of the continuous covariates. Available options are 
-#' \code{pre.distri = 1}, for a uniform distribution, and 
-#' \code{pre.distri = 0.5} for sample points covering the extremes of the
-#' distribution. Alternativelly, a vector of length equal to the number of
-#' points setting the desired distribution. Defaults to \code{pre.distri = 1}.
 #' @param weights List with two components setting the weights assigned to the
 #' sampling strata/classes and the correlation/association measure. The weights
 #' must sum to unity. Defaults to 
@@ -26,8 +20,7 @@
 #' \code{"equal.range"}. Defaults to \code{strata.type = "equal.area"}. See
 #' \sQuote{Details} for more information.
 #' @param sim.nadir Number of random realizations to estimate the nadir point.
-#' Defaults to \code{sim.nadir = NULL}, that is, the maximum absolute value is
-#' used as nadir point. \sQuote{Details} for more information.
+#' Defaults to \code{sim.nadir = 1000}. \sQuote{Details} for more information.
 #' 
 #' @details
 #' 
@@ -93,83 +86,78 @@
 #' 
 # MAIN FUNCTION ################################################################
 spsannCLHS <-
-  function (points, candidates, covars, continuous = TRUE, pre.distri = 1,
+  function (points, candidates, covars, continuous = TRUE,
             weights = list(strata = 0.5, correl = 0.5), use.coords = FALSE,
-            strata.type = "equal.area", sim.nadir = NULL,
+            strata.type = "equal.area", sim.nadir = 1000,
             x.max, x.min, y.max, y.min, iterations,
             acceptance = list(initial = 0.99, cooling = iterations / 10),
             stopping = list(max.count = iterations / 10), plotit = TRUE,
             boundary, progress = TRUE, verbose = TRUE) {
     
     # Initial checks
+    if (ncol(covars) < 2) stop ("'covars' must have two or more columns")
     if (ncol(candidates) != 3) stop ("'candidates' must have three columns")
+    if (!is.data.frame(covars)) covars <- as.data.frame(covars)
     if (nrow(candidates) != nrow(covars))
       stop ("'candidates' and 'covars' must have the same number of rows")
     if (sum(unlist(weights)) != 1) stop ("the 'weights' must sum to 1")
-    if (plotit) par0 <- par()
+    if (plotit) {
+      par0 <- par()
+      on.exit(suppressWarnings(par(par0)))
+    }
     
     # Prepare sample points
-    if (length(points) == 1) {
+    if (length(points) == 1 && is.numint(points)) {
       n_pts <- points
-      points <- sample(c(1:dim(candidates)[1]), n_pts)
+      points <- sample(1:nrow(candidates), n_pts)
       points <- candidates[points, ]
     } else {
       n_pts <- nrow(points)
     }
-    sys_config0 <- points
-    old_sys_config <- sys_config0
+    conf0 <- points
+    old_conf <- conf0
     
-    # Prepare covars and create the starting 'sample matrix'
+    # Prepare covariates (covars) and create the starting sample matrix (sm)
     if (use.coords) {
       if (!continuous) {
         coords <- data.frame(candidates[, 2:3])
-        breaks <- .contStrata(n_pts, coords, strata.type)
+        breaks <- .contStrata(n_pts, coords, strata.type)[[1]]
         coords <- .cont2cat(coords, breaks)
         covars <- data.frame(covars, coords)
       } else {
         covars <- data.frame(covars, candidates[, 2:3])
       }
     }
-    if (!is.data.frame(covars)) covars <- as.data.frame(covars)
     n_cov <- ncol(covars)
-    samp_mat <- covars[points[, 1], ]
-    if (n_cov == 1) {
-      samp_mat <- data.frame(samp_mat)
-    }
+    sm <- covars[points[, 1], ]
+    if (n_cov == 1) sm <- data.frame(sm)
     
-    # Base data and initial energy state
+    # Base data and initial energy state (energy)
     if (continuous) { # Continuous covariates
-      # ASR: we should compute the true population correlation matrix
-      pop_cor_mat <- cor(covars, use = "complete.obs")
+      # ASR: we should compute the true population correlation matrix (pcm)
+      #      and the compare it with the sample correlation matrix (scm)
+      pcm <- cor(covars, use = "complete.obs")
       strata <- .contStrata(n_pts, covars, strata.type)
-      cont_distri <- .contDistri(pre.distri, n_pts)
-      nadir <- .contNadir(pre.distri, n_pts, n_cov, pop_cor_mat, sim.nadir,
-                          candidates, covars, strata)
-      samp_cor_mat <- cor(samp_mat, use = "complete.obs")
-      energy_state0 <- .objCont(samp_mat, strata, n_cov, pre.distri, 
-                                pop_cor_mat, samp_cor_mat, nadir, weights)
+      nadir <- .contNadir(n_pts, pcm, sim.nadir, candidates, covars, strata)
+      scm <- cor(sm, use = "complete.obs")
+      energy0 <- .objCont(sm, strata, pcm, scm, nadir, weights)
       
     } else { # Categorical covariates
-      pop_cor_mat <- cramer(covars)
-      pop_prop <- sapply(covars, function(x) table(x) / nrow(covars))
-      nadir <- .catNadir(sim.nadir, candidates, n_pts, covars, pop_prop,
-                         pop_cor_mat, n_cov)
-      samp_cor_mat <- cramer(samp_mat)
-      energy_state0 <- .objCat(samp_mat, pop_prop, nadir, weights, pop_cor_mat,
-                               samp_cor_mat, n_pts)
+      pcm <- cramer(covars)
+      pop_prop <- lapply(covars, function(x) table(x) / nrow(covars))
+      
+      nadir <- .catNadir(sim.nadir, candidates, n_pts, covars, pop_prop, pcm)
+      scm <- cramer(sm)
+      energy0 <- .objCat(sm, pop_prop, nadir, weights, pcm, scm, n_pts)
     }
     
     # Other settings for the simulated annealing algorithm
-    old_samp_cor_mat <- samp_cor_mat
-    new_samp_cor_mat <- samp_cor_mat
-    best_samp_cor_mat <- samp_cor_mat
-    old_samp_mat <- samp_mat
-    new_samp_mat <- samp_mat
-    best_samp_mat <- samp_mat
+    old_scm <- new_scm <- best_scm <- scm
+    old_sm <- new_sm <- best_sm <- sm
     count <- 0
-    old_energy_state <- energy_state0
-    best_energy_state <- Inf
-    energy_states <- vector()
+    old_energy <- energy0
+    best_energy <- Inf
+    energies <- vector()
     accept_probs <- vector()
     x_max0 <- x.max
     y_max0 <- y.max
@@ -180,56 +168,55 @@ spsannCLHS <-
     for (k in 1:iterations) {
       
       # Jitter one of the points and update x.max and y.max
-      which_point <- sample(c(1:n_pts), 1)
-      new_sys_config <- spJitterFinite(old_sys_config, candidates, x.max, 
-                                       x.min, y.max, y.min, which_point)
+      # Which point (wp)?
+      wp <- sample(c(1:n_pts), 1)
+      new_conf <- spJitterFinite(old_conf, candidates, x.max, x.min, y.max,
+                                 y.min, wp)
       x.max <- x_max0 - (k / iterations) * (x_max0 - x.min)
       y.max <- y_max0 - (k / iterations) * (y_max0 - y.min)
       
       # Update sample and correlation matrices, and energy state
       if (continuous) { # Continuous covariates
-        new_row <- covars[new_sys_config[which_point, 1], ]
-        new_samp_mat[which_point, ] <- new_row
-        new_samp_cor_mat <- cor(new_samp_mat, use = "complete.obs")
-        new_energy_state <- .objCont(new_samp_mat, strata, n_cov, pre.distri, 
-                                     pop_cor_mat, new_samp_cor_mat, nadir,
-                                     weights)
+        new_row <- covars[new_conf[wp, 1], ]
+        new_sm[wp, ] <- new_row
+        new_scm <- cor(new_sm, use = "complete.obs")
+        new_energy <- .objCont(new_sm, strata, pcm, new_scm, nadir, weights)
         
       } else { # Categorical covariates
-        new_row <- covars[new_sys_config[which_point, 1], ]
-        new_samp_mat[which_point, ] <- new_row
-        new_samp_cor_mat <- cramer(new_samp_mat)
-        new_energy_state <- .objCat(new_samp_mat, pop_prop, nadir, weights,
-                                    pop_cor_mat, new_samp_cor_mat, n_pts)
+        new_row <- covars[new_conf[wp, 1], ]
+        new_sm[wp, ] <- new_row
+        new_scm <- cramer(new_sm)
+        new_energy <- .objCat(new_sm, pop_prop, nadir, weights, pcm, new_scm,
+                              n_pts)
       }
       
       # Evaluate the new system configuration
       random_prob <- runif(1)
       actual_prob <- acceptance[[1]] * exp(-k / acceptance[[2]])
       accept_probs[k] <- actual_prob
-      if (new_energy_state <= old_energy_state) {
-        old_sys_config   <- new_sys_config
-        old_energy_state <- new_energy_state
-        old_samp_mat   <- new_samp_mat
-        old_samp_cor_mat <- new_samp_cor_mat
+      if (new_energy <= old_energy) {
+        old_conf <- new_conf
+        old_energy <- new_energy
+        old_sm <- new_sm
+        old_scm <- new_scm
         count <- 0
       } else {
-        if (new_energy_state > old_energy_state & random_prob <= actual_prob) {
-          old_sys_config   <- new_sys_config
-          old_energy_state <- new_energy_state
-          old_samp_mat   <- new_samp_mat
-          old_samp_cor_mat <- new_samp_cor_mat
-          count            <- count + 1
+        if (new_energy > old_energy & random_prob <= actual_prob) {
+          old_conf <- new_conf
+          old_energy <- new_energy
+          old_sm <- new_sm
+          old_scm <- new_scm
+          count <- count + 1
           if (verbose) {
             cat("\n", count, "iteration(s) with no improvement... p = ", 
                 random_prob, "\n")
           }
         } else {
-          new_energy_state <- old_energy_state
-          new_sys_config   <- old_sys_config
-          new_samp_mat   <- old_samp_mat
-          new_samp_cor_mat <- old_samp_cor_mat
-          count            <- count + 1
+          new_energy <- old_energy
+          new_conf <- old_conf
+          new_sm <- old_sm
+          new_scm <- old_scm
+          count <- count + 1
           if (verbose) {
             cat("\n", count, "iteration(s) with no improvement... stops at",
                 stopping[[1]], "\n")
@@ -237,36 +224,36 @@ spsannCLHS <-
         }
       }
       # Best energy state
-      energy_states[k] <- new_energy_state
-      if (new_energy_state < best_energy_state / 1.0000001) {
-        best_k                <- k
-        best_sys_config       <- new_sys_config
-        best_energy_state     <- new_energy_state
-        best_old_energy_state <- old_energy_state
-        old_sys_config        <- old_sys_config
-        best_samp_mat       <- new_samp_mat
-        best_old_samp_mat   <- old_samp_mat
-        best_samp_cor_mat     <- new_samp_cor_mat
-        best_old_samp_cor_mat <- old_samp_cor_mat
+      energies[k] <- new_energy
+      if (new_energy < best_energy / 1.0000001) {
+        best_k <- k
+        best_conf <- new_conf
+        best_energy <- new_energy
+        best_old_energy <- old_energy
+        old_conf <- old_conf
+        best_sm <- new_sm
+        best_old_sm <- old_sm
+        best_scm <- new_scm
+        best_old_scm <- old_scm
       }
       # Plotting
       if (plotit && any(round(seq(1, iterations, 10)) == k)) {
-        .spSANNplot(energy_state0, energy_states, k, acceptance, 
-                    accept_probs, boundary, new_sys_config[, 2:3],
-                    sys_config0[, 2:3], y_max0, y.max, x_max0, x.max)
+        .spSANNplot(energy0, energies, k, acceptance, 
+                    accept_probs, boundary, new_conf[, 2:3],
+                    conf0[, 2:3], y_max0, y.max, x_max0, x.max)
       }
       # Freezing parameters
       if (count == stopping[[1]]) {
-        if (new_energy_state > best_energy_state * 1.000001) {
-          old_sys_config   <- old_sys_config
-          new_sys_config   <- best_sys_config
-          new_samp_mat   <- best_samp_mat
-          new_samp_cor_mat <- best_samp_cor_mat
-          old_energy_state <- best_old_energy_state
-          new_energy_state <- best_energy_state
-          old_samp_mat   <- best_old_samp_mat
-          old_samp_cor_mat <- best_old_samp_cor_mat
-          count            <- 0
+        if (new_energy > best_energy * 1.000001) {
+          old_conf <- old_conf
+          new_conf <- best_conf
+          new_sm <- best_sm
+          new_scm <- best_scm
+          old_energy <- best_old_energy
+          new_energy <- best_energy
+          old_sm <- best_old_sm
+          old_scm <- best_old_scm
+          count <- 0
           cat("\n", "reached maximum count with suboptimal configuration\n")
           cat("\n", "restarting with previously best configuration\n")
           cat("\n", count, "iteration(s) with no improvement... stops at",
@@ -278,135 +265,154 @@ spsannCLHS <-
       if (progress) setTxtProgressBar(pb, k)
     }
     if (progress) close(pb)
-    if (plotit) par(par0)
-    res <- .spSANNout(new_sys_config, energy_state0, energy_states, time0)
+    res <- .spSANNout(new_conf, energy0, energies, time0)
     return (res)
   }
 # INTERNAL FUNCTION - BREAKS FOR CONTINUOUS COVARIATES #########################
+# Now we define the breaks and the distribution, and return it as a list
+# Quantiles now honour the fact that the data are discontinuous
 .contStrata <-
   function (n.pts, covars, strata.type) {
     if (strata.type == "equal.area") {
       probs <- seq(0, 1, length.out = n.pts + 1)
-      strata <- sapply(covars, quantile, probs = probs, na.rm = TRUE)
+      breaks <- lapply(covars, quantile, probs, na.rm = TRUE, type = 1)
+      count <- lapply(breaks, table)
+      breaks <- lapply(count, function(x) as.double(names(x)))
+      count <- lapply(count, as.integer)
+      count <- lapply(count, function(x) x[-1L])
+      strata <- list(breaks, count)
     }
     if (strata.type == "equal.range") {
-      strata <- sapply(1:n_cov, function(i) seq(min(covars[, i]), 
-                                                max(covars[, i]),
-                                                length.out = n.pts + 1))
+      n_cov <- ncol(covars)
+      breaks <- lapply(1:n_cov, function(i) 
+        seq(min(covars[, i]), max(covars[, i]), length.out = n.pts + 1))
+      count <- lapply(1:n_cov, function (i)
+        hist(covars[, i], breaks[[i]], plot = FALSE)$counts)
+      zero <- sapply(1:n_cov, function (i) any(count[[i]] == 0))
+      zero <- which(zero)
+      for (i in zero) {
+        wz <- which(count[[i]] == 0)
+        breaks[[i]] <- breaks[[i]][-(wz + 1)]
+      }
+      for (i in 1:n_cov) {
+        mini <- min(covars[, i])
+        maxi <- max(covars[, i])
+        count[[i]] <- diff(breaks[[i]]) / ((maxi - mini) / n.pts)
+      }
+      strata <- list(breaks, count)
     }
-    strata <- data.frame(strata)
     return (strata)
   }
 # INTERNAL FUNCTION - DISTRIBUTION FOR CONTINUOUS COVARIATES ###################
-.contDistri <-
-  function (pre.distri, n.pts) {
-    if (length(pre.distri) > 1) {
-      if (length(pre.distri) || sum(pre.distri) != n.pts) {
-        stop(paste("'pre.distri' must be of length/sum ", n.pts, sep = ""))
-      }
-    }
-    # Sample points covering the extremes of the marginal distribution
-    if (pre.distri == 0.5) {
-      pre.distri <- rep(0, n.pts)
-      pre.distri[1] <- n.pts / 2
-      pre.distri[n.pts] <- n.pts / 2
-    }
-    return (pre.distri)
-  }
+# .contDistri <-
+#   function (pre.distri, n.pts) {
+#     if (length(pre.distri) > 1) {
+#       if (length(pre.distri) || sum(pre.distri) != n.pts) {
+#         stop(paste("'pre.distri' must be of length/sum ", n.pts, sep = ""))
+#       }
+#     }
+#     # Sample points covering the extremes of the marginal distribution
+#     if (pre.distri == 0.5) {
+#       pre.distri <- rep(0, n.pts)
+#       pre.distri[1] <- n.pts / 2
+#       pre.distri[n.pts] <- n.pts / 2
+#     }
+#     return (pre.distri)
+#   }
 # INTERNAL FUNCTION - NADIR FOR CONTINUOUS COVARIATES ##########################
-# Maximum absolute value: upper bound is equal to 100
-# For a single covariate, the lower bound is equal to 0
-# For the correlation matrix, the lower bound is always equal to 0
+# We now always simulate the nadir point
 .contNadir <-
-  function (pre.distri, n.pts, n.cov, pop.cor.mat, sim.nadir,
-            candidates, covars, strata) {
-    # Absolute nadir point
-    if (is.null(sim.nadir)) {
-      if (pre.distri == 1) {
-        strata_nadir <- (2 * (n.pts - 1)) * n.cov / 100
-      } else {
-        if (pre.distri == 0.5) {
-          strata_nadir <- 2 * n.pts * n.cov / 100
-        } else {
-          strata_nadir <- rep(0, n.pts)
-          strata_nadir[which.min(pre.distri)] <- n.pts
-          strata_nadir <- sum(abs(strata_nadir - pre.distri)) * n.cov / 100
-        }
-      }
-      cor_nadir <- (2 * n.cov) + sum(abs(pop.cor.mat - diag(n.cov)))
-      cor_nadir <- cor_nadir / 100
-    } else {
-      # Simulate the nadir point
-      message("simulating nadir values...")
-      strata_nadir <- vector()
-      correl_nadir <- vector()
-      for (i in 1:sim.nadir) {
-        pts <- sample(c(1:dim(candidates)[1]), n.pts)
-        samp_mat <- covars[pts, ]
-        if (n.cov == 1) {
-          samp_mat <- data.frame(samp_mat)
-        }
-        samp_cor_mat <- cor(samp_mat, use = "complete.obs")
-        breaks <- lapply(1:n.cov, function(i) list(samp_mat[, i], strata[, i]))
-        counts <- sapply(breaks, function(x) hist(x[[1]], breaks = x[[2]],
-                                                  plot = FALSE)$counts)
-        r_counts <- rowSums(abs(counts - pre.distri))
-        strata_nadir[i] <- sum(r_counts)
-        correl_nadir[i] <- sum(abs(pop.cor.mat - samp_cor_mat))
-      }
-      strata_nadir <- mean(strata_nadir) / 100
-      correl_nadir <- mean(correl_nadir) / 100
+  function (n.pts, pop.cor.mat, sim.nadir, candi, covars, strata) {
+    # Maximum absolute value: upper bound is equal to 100
+    # For a single covariate, the lower bound is equal to 0
+    # For the correlation matrix, the lower bound is always equal to 0
+    #     # Absolute nadir point
+    #     if (pre.distri == 1) {
+    #       strata_nadir <- (2 * (n.pts - 1)) * n.cov / 100
+    #     } else {
+    #       if (pre.distri == 0.5) {
+    #         strata_nadir <- 2 * n.pts * n.cov / 100
+    #       } else {
+    #         strata_nadir <- rep(0, n.pts)
+    #         strata_nadir[which.min(pre.distri)] <- n.pts
+    #         strata_nadir <- sum(abs(strata_nadir - pre.distri))*n.cov/100
+    #       }
+    #     }
+    #     cor_nadir <- (2 * n.cov) + sum(abs(pop.cor.mat - diag(n.cov)))
+    #     cor_nadir <- cor_nadir / 100
+    
+    # Simulate the nadir point
+    message(paste("simulating ", sim.nadir, " nadir values...", sep = ""))
+    strata_nadir <- vector()
+    correl_nadir <- vector()
+    for (i in 1:sim.nadir) {
+      pts <- sample(c(1:nrow(candi)), n.pts)
+      sm <- covars[pts, ]
+      if (ncol(covars) == 1) sm <- data.frame(sm)
+      scm <- cor(sm, use = "complete.obs")
+      counts <- lapply(1:ncol(covars), function (i)
+        hist(sm[, i], strata[[1]][[i]], plot = FALSE)$counts)
+      counts <- sapply(1:ncol(covars), function (i)
+        sum(abs(counts[[i]] - strata[[2]][[i]])))
+      strata_nadir[i] <- sum(counts)
+      correl_nadir[i] <- sum(abs(pop.cor.mat - scm))
     }
     res <- list(strata = strata_nadir, correl = correl_nadir)
+    a <- attributes(res)
+    a$strata_nadir <- mean(strata_nadir) / 100
+    a$correl_nadir <- mean(correl_nadir) / 100
+    attributes(res) <- a
     return (res)
   }
 # INTERNAL FUNCTION - CRITERION FOR CONTINUOUS COVARIATES ######################
 .objCont <-
-  function (samp.mat, strata, n.cov, pre.distri, pop.cor.mat,
-            samp.cor.mat, nadir, weights) {
-    breaks <- lapply(1:n.cov, function(i) list(samp.mat[, i], 
-                                               strata[, i]))
-    counts <- sapply(breaks, function(x) hist(x[[1]], breaks = x[[2]],
-                                              plot = FALSE)$counts)
-    r_counts <- rowSums(abs(counts - pre.distri))
-    
-    obj_cont <- sum(r_counts) / nadir[[1]]
+  function (sm, strata, pcm, scm, nadir, weights) {
+    counts <- lapply(1:ncol(sm), function (i)
+      hist(sm[, i], strata[[1]][[i]], plot = FALSE)$counts)
+    counts <- sapply(1:ncol(sm), function (i)
+      sum(abs(counts[[i]] - strata[[2]][[i]])))
+    obj_cont <- sum(counts) / attr(nadir, "strata")
     obj_cont <- obj_cont * weights[[1]]
-    obj_cor <- sum(abs(pop.cor.mat - samp.cor.mat)) / nadir[[2]]
+    obj_cor <- sum(abs(pcm - scm)) / attr(nadir, "correl")
     obj_cor <- obj_cor * weights[[2]]
     res <- obj_cont + obj_cor
     return (res)
   }
 # INTERNAL FUNCTION - NADIR FOR CATEGORICAL COVARIATES #########################
 .catNadir <-
-  function (sim.nadir, candi, n.pts, covars, pop.prop, pop.cor.mat, n.cov) {
+  function (sim.nadir, candi, n.pts, covars, pop.prop, pcm) {
     message("simulating nadir values...")
     strata_nadir <- vector()
     correl_nadir <- vector()
     for (i in 1:sim.nadir) {
-      pts <- sample(c(1:dim(candi)[1]), n.pts)
-      samp_mat <- covars[pts, ]
-      if (n.cov == 1) {
-        samp_mat <- data.frame(samp_mat)
+      pts <- sample(c(1:nrow(candi)), n.pts)
+      sm <- covars[pts, ]
+      if (ncol(covars) == 1) {
+        sm <- data.frame(sm)
       }
-      samp_cor_mat <- cramer(samp_mat)
-      samp_prop <- sapply(samp_mat, function(x) table(x) / n.pts)
-      strata_nadir[i] <- sum(abs(samp_prop - pop.prop))
-      correl_nadir[i] <- sum(abs(pop.cor.mat - samp_cor_mat))
+      scm <- cramer(sm)
+      samp_prop <- lapply(sm, function(x) table(x) / n.pts)
+      samp_prop <- sapply(1:ncol(covars), function (i)
+        sum(abs(samp_prop[[i]] - pop.prop[[i]])))
+      strata_nadir[i] <- sum(samp_prop)
+      correl_nadir[i] <- sum(abs(pcm - scm))
     }
-    strata_nadir <- mean(strata_nadir) / 100
-    correl_nadir <- mean(correl_nadir) / 100
     res <- list(strata = strata_nadir, correl = correl_nadir)
+    a <- attributes(res)
+    a$strata_nadir <- mean(strata_nadir) / 100
+    a$correl_nadir <- mean(correl_nadir) / 100
+    attributes(res) <- a
     return (res) 
   }
 # INTERNAL FUNCTION - CRITERION FOR CATEGORICAL COVARIATES #####################
 .objCat <-
-  function (samp.mat, pop.prop, nadir, weights, pop.cor.mat, samp.cor.mat, 
-            n.pts) {
-    samp_prop <- sapply(samp.mat, function(x) table(x) / n.pts)
-    obj_cat <- sum(abs(samp_prop - pop.prop)) / nadir[[1]]
+  function (sm, pop.prop, nadir, weights, pcm, scm, n.pts) {
+    samp_prop <- lapply(sm, function(x) table(x) / n.pts)
+    samp_prop <- sapply(1:ncol(covars), function (i)
+      sum(abs(samp_prop[[i]] - pop.prop[[i]])))
+    obj_cat <- sum(samp_prop) / attr(nadir, "strata")
     obj_cat <- obj_cat * weights[[1]]
-    obj_cor <- sum(abs(pop.cor.mat - samp.cor.mat)) / nadir[[2]]
+    obj_cor <- sum(abs(pcm - scm)) / attr(nadir, "correl")
     obj_cor <- obj_cor * weights[[2]]
     res <- obj_cat + obj_cor
     return (res)
