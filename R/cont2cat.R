@@ -36,6 +36,7 @@ cont2cat <-
       x[, i] <- cut2(x[, i], breaks[[i]])
     }
     x <- lapply(x, as.integer)
+    x <- lapply(x, as.factor)
     if (cl == "data.frame") x <- as.data.frame(x)
     if (cl == "matrix") x <- matrix(x, ncol = n_col)
     return (x)
