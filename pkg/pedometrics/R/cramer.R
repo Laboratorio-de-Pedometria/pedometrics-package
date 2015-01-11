@@ -24,7 +24,7 @@
 #' implemented in C++.
 #' 
 #' @references
-#' Cramér, H. \emphe{Mathematical methods of statistics}. Princeton: Princeton
+#' Cramér, H. \emph{Mathematical methods of statistics}. Princeton: Princeton
 #' University Press, p. 575, 1946.
 #' 
 #' Everitt, B. S. \emph{The Cambridge dictionary of statistics}. Cambridge: 

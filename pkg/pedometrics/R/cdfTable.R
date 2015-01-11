@@ -72,7 +72,7 @@
 #' <\url{http://www.epa.gov/nheerl/arm/}>.
 #' @keywords methods print
 #' @export
-#' @import xtable
+#' @importFrom xtable xtable
 #' @examples
 #' 
 #' \dontrun{
@@ -115,7 +115,7 @@ cdfTable <-
       colnames(tb) <- c("", "xcoord", "sd", "ycoord", "sd",
                         "module", "sd", "azimuth", "sd")
       if(tex == TRUE) {
-        xt <- xtable(tb, NA.string = NA, digits = rounding,
+        xt <- xtable::xtable(tb, NA.string = NA, digits = rounding,
                      caption = paste("Descriptive statistics (n = ",
                                      cdfStats(x, "dx")[1, 2], ").",
                                      sep = ""))
@@ -146,7 +146,7 @@ cdfTable <-
                        )
       colnames(tb) <- c("", "z", "sd")
       if(tex == TRUE) {
-        xt <- xtable(tb, NA.string = NA, digits = rounding,
+        xt <- xtable::xtable(tb, NA.string = NA, digits = rounding,
                      caption = paste("Descriptive statistics (n = ",
                                      cdfStats(x, "dz")[1,2], ").",
                                      sep = ""))
