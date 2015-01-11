@@ -1,7 +1,7 @@
 Package: pedometrics
 Title: Pedometric Tools and Techniques
-Version: 0.4-2
-Date: 2014-12-08
+Version: 0.4-3
+Date: 2015-01-11
 Authors@R: c(person("Alessandro Samuel-Rosa", role = c("aut", "cre"), email =
     "alessandrosamuelrosa@gmail.com"), person("Lucia Helena Cunha dos Anjos",
     role = "ths", email = "lanjos@ufrrj.br"), person("Gustavo de Mattos
