@@ -16,8 +16,13 @@
 #' often and using this package as a dependency for other packages is strongly
 #' discouraged.
 #' 
-#' \tabular{ll}{ Package: \tab pedometrics\cr Type: \tab Package\cr Version:
-#' \tab 0.4-2\cr Date: \tab 2014-12-08\cr License: \tab GPL (>= 2)\cr }
+#' \tabular{ll}{
+#' Package: \tab pedometrics\cr
+#' Type:    \tab Package    \cr
+#' Version: \tab 0.4-3      \cr
+#' Date:    \tab 2015-01-11 \cr
+#' License: \tab GPL (>= 2) \cr
+#' }
 #' 
 #' @name pedometrics-package
 #' @aliases pedometrics-package pedometrics
