@@ -1,6 +1,6 @@
 #' Numeric integer vectors
 #' 
-#' Test for objects of type \code{"numeric"} and \code{"integer}.
+#' Test for objects of type \code{"numeric"} and \code{"integer"}.
 #' 
 #' @param x Object to be tested.
 #' 
@@ -12,7 +12,8 @@
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @example
+#' @export
+#' @examples
 #' x <- 1:10
 #' is.numint(x)
 #' x <- as.numeric(x)
