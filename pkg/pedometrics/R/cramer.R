@@ -29,10 +29,6 @@ cramer <-
     nam <- colnames(x)
     
     # perform some checks
-    check <- sapply(x, length)
-    if (any(check != dim(x)[1])) {
-      stop ("the columns of 'x' must have the same length")
-    }
     check <- sapply(x, is.factor)
     if (any(check != TRUE)) {
       x <- as.data.frame(sapply(x, as.factor))
@@ -47,8 +43,9 @@ cramer <-
     for (i in 1:dim(x)[2]) {
       for (j in 1:dim(x)[2]) {
         n <- length(x[, i])
-        x2 <- suppressWarnings(chisq.test(x[, i], x[, j], correct = FALSE))
-        x2 <- x2$statistic / n
+        x2 <- .chisqTest(x[, i], x[, j]) / n
+        #x2 <- suppressWarnings(chisq.test(x[, i], x[, j], correct = FALSE))
+        #x2 <- x2$statistic / n
         den <- min(length(unique(x[, i])), length(unique(x[, j]))) - 1
         res[i, j] <- as.numeric(sqrt(x2 / den))
       }
@@ -56,4 +53,17 @@ cramer <-
     colnames(res) <- nam
     rownames(res) <- nam
     return (res) 
+  }
+# Pearson's Chi-squared Test ###################################################
+.chisqTest <-
+  function (x, y) {
+    #x <- table(x, y)
+    x <- bigtabulate(cbind(x, y), ccols = c(1, 2))
+    n <- sum(x)
+    sr <- rowSums(x)
+    sc <- colSums(x)
+    E <- outer(sr, sc, "*") / n
+    YATES <- 0
+    STATISTIC <- sum((abs(x - E) - YATES) ^ 2 / E)
+    return (STATISTIC)
   }
