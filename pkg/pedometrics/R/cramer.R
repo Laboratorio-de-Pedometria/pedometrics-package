@@ -1,28 +1,43 @@
 #' Association between categorical variables
 #' 
-#' Computes the Cramer's V, a measure of association between categorical 
+#' Compute the Cramer's V, a measure of association between categorical 
 #' variables
 #' 
-#' @param x data.frame or matrix.
-#' @details Any integer variable is internally converted to a factor. 
-#' @return A matrix with the Cramer's V between the categorical variables.
+#' @param x Data frame or matrix.
+#' 
+#' @details
+#' Any integer variable is internally converted to a factor. 
+#' 
+#' @return
+#' A matrix with the Cramer's V between the categorical variables.
+#' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @note The original code was available at \url{http://sas-and-r.blogspot.nl/},
+#' 
+#' @note
+#' The original code was available at \url{http://sas-and-r.blogspot.nl/},
 #' Example 8.39: calculating Cramer's V, posted by Ken Kleinman on Friday, June
 #' 3, 2011. As such, Ken Kleinman <\email{Ken_Kleinman@@hms.harvard.edu}> is 
 #' entitled a \sQuote{contributor} to the R-package \pkg{pedometrics}.
+#' 
+#' The function \code{bigtabulate} used to compute the chi-squared test is the
+#' main bottleneck in the current version of \code{cramer}. Ideally it will be
+#' implemented in C++.
+#' 
 #' @references
-#' Cramér, H. Mathematical methods of statistics. Princeton: Princeton 
+#' Cramér, H. \emphe{Mathematical methods of statistics}. Princeton: Princeton
 #' University Press, p. 575, 1946.
 #' 
-#' Everitt, B. S. The Cambridge dictionary of statistics. Cambridge: Cambridge 
-#' University Press, p. 432, 2006.
+#' Everitt, B. S. \emph{The Cambridge dictionary of statistics}. Cambridge: 
+#' Cambridge University Press, p. 432, 2006.
+#' 
 #' @seealso \code{\link[vcd]{assocstats}}
+#' @import bigtabulate
 #' @export
 #' @examples
 #' helpdata <- read.csv("http://www.math.smith.edu/r/data/help.csv")
 #' data <- helpdata[, c("female", "homeless", "racegrp")]
-#' cramer(data)
+#' test <- cramer(data)
+#' test
 # FUNCTION #####################################################################
 cramer <-
   function (x) {
@@ -30,12 +45,14 @@ cramer <-
     
     # perform some checks
     check <- sapply(x, is.factor)
-    if (any(check != TRUE)) {
-      x <- as.data.frame(sapply(x, as.factor))
+    if (any(check == FALSE)) {
+      check <- which(check == FALSE)
+      for (i in check)
+      x[, i] <- as.data.frame(sapply(x[, i], as.factor))
     }
     check <- sapply(x, nlevels)
     if (any(check < 2L)) {
-      stop("the columns of 'x' must have at least 2 levels")
+      stop("each variable must have at least 2 levels")
     }
     
     # the statistics is calculated using a for loop
