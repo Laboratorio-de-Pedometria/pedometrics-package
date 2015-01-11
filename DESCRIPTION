@@ -1,6 +1,6 @@
 Package: pedometrics
 Title: Pedometric Tools and Techniques
-Version: 0.4-3
+Version: 0.5-0
 Date: 2015-01-11
 Authors@R: c(person("Alessandro Samuel-Rosa", role = c("aut", "cre"), email =
     "alessandrosamuelrosa@gmail.com"), person("Lucia Helena Cunha dos Anjos",
@@ -27,10 +27,11 @@ Maintainer: Alessandro Samuel-Rosa <alessandrosamuelrosa@gmail.com>
 Depends:
     R (>= 1.8.0)
 Imports:
+    bigtabulate,
     car,
-    fields,
     grid,
     gstat,
+    Hmisc,
     lattice,
     latticeExtra,
     MASS,

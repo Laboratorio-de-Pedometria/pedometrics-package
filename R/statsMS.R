@@ -95,7 +95,7 @@
 #' 
 #' @seealso \code{\link[pedometrics]{buildMS}}, 
 #' \code{\link[pedometrics]{plotMS}}.
-#' @import plyr
+#' @importFrom plyr arrange
 #' @export
 #' @examples
 #' \dontrun{
@@ -184,7 +184,7 @@ statsMS <-
                         ADJ_r2, stringsAsFactors = FALSE)  
     }
     if (!missing(arrange.by)) {
-      tab <- arrange(tab, desc(tab[, arrange.by]))
+      tab <- plyr::arrange(tab, desc(tab[, arrange.by]))
     }
     return(tab)
   }

@@ -213,7 +213,8 @@
 #' 
 #' @seealso \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}, 
 #' \code{\link[mvtsplot]{mvtsplot}}.
-#' @import lattice plyr latticeExtra grid
+#' @import lattice latticeExtra grid
+#' @importFrom plyr arrange desc
 #' @export
 #' @examples
 #' # This example follows the discussion in section "Details"
@@ -290,9 +291,9 @@ plotMS <-
       line <- colnames(obj)[line]
     }
     if (any(line == c("r2", "adj_r2", "ADJ_r2"))) {
-      obj <- arrange(obj, desc(obj[, line]))
+      obj <- plyr::arrange(obj, plyr::desc(obj[, line]))
     } else {
-      obj <- arrange(obj, obj[, line])
+      obj <- plyr::arrange(obj, obj[, line])
     }
     grid <- as.matrix(obj[, grid])
     x <- seq(1, dim(obj)[1], 1)

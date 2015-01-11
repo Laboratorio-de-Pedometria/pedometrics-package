@@ -2,6 +2,15 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.5-0 (2014-01-11)}{
+  \itemize{
+    \item Functions used to optimize sample patterns were moved to the new
+    package \pkg{spsann}: \code{spJitter}, \code{spSANN}, \code{spsannMSSD},
+    \code{spsannPPL}, and \code{spsannCLHS}.
+  }
+}
+
+
 \section{Changes in version 0.4-2 (2014-12-08)}{
   \itemize{
     \item Function to compute the Cramer's V, a measure of association between
