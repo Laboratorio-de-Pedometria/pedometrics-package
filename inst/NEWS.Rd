@@ -2,6 +2,12 @@
 
 \title{News for Package \pkg{pedometrics}}
 
+\section{Changes in version 0.5-1 (2014-01-11)}{
+  \itemize{
+    \item Test for objects of type \code{"numeric"} and \code{"integer}.
+  }
+}
+
 \section{Changes in version 0.5-0 (2014-01-11)}{
   \itemize{
     \item Functions used to optimize sample patterns were moved to the new

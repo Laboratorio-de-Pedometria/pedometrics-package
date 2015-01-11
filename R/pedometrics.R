@@ -19,7 +19,7 @@
 #' \tabular{ll}{
 #' Package: \tab pedometrics\cr
 #' Type:    \tab Package    \cr
-#' Version: \tab 0.5-0     \cr
+#' Version: \tab 0.5-1     \cr
 #' Date:    \tab 2015-01-11 \cr
 #' License: \tab GPL (>= 2) \cr
 #' }
