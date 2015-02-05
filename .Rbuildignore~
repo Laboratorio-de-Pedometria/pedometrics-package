@@ -4,4 +4,3 @@ man-roxygen
 build-packages.R
 NEWS.md
 README.md
-^.*\.so$
