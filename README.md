@@ -1,7 +1,7 @@
-# pedometrics - Pedometric Tools and Techniques
+# Pedometric Tools and Techniques
 
 This R-package contains functions to employ many tools and
-techniques used in the field of [pedometrics](http://en.wikipedia.org/wiki/Pedometrics).
+techniques used in the field of [pedometrics](http://en.wikipedia.org/wiki/Pedometrics). 
 These functions were developed to fulfil the demands created by the PhD
 research project (2012-2016) entitled Contribution to the Construction of
 Models for Predicting Soil Properties, developed by Alessandro Samuel-Rosa
