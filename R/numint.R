@@ -14,16 +14,28 @@
 #' 
 #' @export
 #' @examples
+#' # Vector of integers
 #' x <- 1:10
-#' is.numint(x)
+#' is.numint(x) # FALSE
+#' # Vector of numeric integers
 #' x <- as.numeric(x)
+#' is.numint(x) # TRUE
+#' # Vector of numeric values
+#' x <- c(1.1, 1, 1, 1, 2) # FALSE
 #' is.numint(x)
-#' x <- c(1.1, 1, 1, 1, 2)
-#' is.numint(x)
+#' # Single numeric integer
+#' is.numint(1) # TRUE
+#' # Single numeric value
+#' is.numint(1.1) # FALSE
 # FUNCTION #####################################################################
 is.numint <-
   function (x) {
     if (is.integer(x) || is.factor(x) || is.character(x)) return (FALSE)
-    x <- ifelse(round(x, digits = 0) == x, TRUE, FALSE)
-    ifelse(length(unique(x)) == 1, TRUE, FALSE)
+    if (is.numeric(x) && length(x) > 1) {
+      res <- ifelse(round(x, digits = 0) == x, TRUE, FALSE)
+      res <- ifelse(length(unique(res)) == 1, TRUE, FALSE)
+    } else {
+      res <- ifelse(round(x, digits = 0) == x, TRUE, FALSE)
+    }
+    return (res)
   }
