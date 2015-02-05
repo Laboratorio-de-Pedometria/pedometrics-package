@@ -1,7 +1,7 @@
 #' Association between categorical variables
 #' 
-#' Compute the Cramer's V, a measure of association between categorical 
-#' variables
+#' Compute the Cramer's V, a descriptive statistic that measures the 
+#' association between categorical variables
 #' 
 #' @param x Data frame or matrix.
 #' 
@@ -60,7 +60,7 @@ cramer <-
     for (i in 1:dim(x)[2]) {
       for (j in 1:dim(x)[2]) {
         n <- length(x[, i])
-        x2 <- .chisqTest(x[, i], x[, j]) / n
+        x2 <- .chisqStat(x[, i], x[, j]) / n
         #x2 <- suppressWarnings(chisq.test(x[, i], x[, j], correct = FALSE))
         #x2 <- x2$statistic / n
         den <- min(length(unique(x[, i])), length(unique(x[, j]))) - 1
@@ -71,16 +71,16 @@ cramer <-
     rownames(res) <- nam
     return (res) 
   }
-# Pearson's Chi-squared Test ###################################################
-.chisqTest <-
+# Pearson's Chi-squared statistic ##############################################
+.chisqStat <-
   function (x, y) {
     #x <- table(x, y)
-    x <- bigtabulate(cbind(x, y), ccols = c(1, 2))
-    n <- sum(x)
-    sr <- rowSums(x)
-    sc <- colSums(x)
-    E <- outer(sr, sc, "*") / n
+    OBSERVED <- bigtabulate(cbind(x, y), ccols = c(1, 2))
+    n <- sum(OBSERVED)
+    sr <- rowSums(OBSERVED)
+    sc <- colSums(OBSERVED)
+    EXPECTED <- outer(sr, sc, "*") / n
     YATES <- 0
-    STATISTIC <- sum((abs(x - E) - YATES) ^ 2 / E)
+    STATISTIC <- sum((abs(OBSERVED - EXPECTED) - YATES) ^ 2 / EXPECTED)
     return (STATISTIC)
   }
