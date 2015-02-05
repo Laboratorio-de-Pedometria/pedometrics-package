@@ -1,6 +1,6 @@
 # pedometrics - Pedometric Tools and Techniques
 
-This package contains functions to employ many tools and
+This R-package contains functions to employ many tools and
 techniques used in the field of [pedometrics](http://en.wikipedia.org/wiki/Pedometrics).
 These functions were developed to fulfil the demands created by the PhD
 research project (2012-2016) entitled Contribution to the Construction of
