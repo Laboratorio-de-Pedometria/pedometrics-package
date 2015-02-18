@@ -5,14 +5,15 @@
 #' @param x Object to be tested.
 #' 
 #' @return
-#' \code{TRUE} or \code{FALSE} depending on whether \code{x} contains the tested
+#' \code{TRUE} or \code{FALSE} depending on whether \code{x} contains a given
 #' data type.
 #' 
 #' @seealso \code{\link[base]{is.numeric}}, \code{\link[base]{is.integer}},
 #' \code{\link[base]{is.factor}}.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' 
+#' @aliases is.numint is.all.numint is.all.integer is.all.factor is.any.factor
+#' is.all.numeric is.one.type
 #' @export
 #' @examples
 #' # Vector of integers
@@ -41,7 +42,7 @@ is.numint <-
     return (res)
   }
 # FUNCTION - ARE ALL NUMERIC INTEGERS? #########################################
-#' @rdname numint
+#' @rdname is.numint
 #' @export
 is.all.numint <-
   function (x) {
@@ -50,7 +51,7 @@ is.all.numint <-
     return (res)
   }
 # FUNCTION - ARE ALL INTEGERS? #################################################
-#' @rdname numint
+#' @rdname is.numint
 #' @export
 is.all.integer <-
   function (x) {
@@ -59,7 +60,7 @@ is.all.integer <-
     return (res)
   }
 # FUNCTION - ARE ALL FACTORS? ##################################################
-#' @rdname numint
+#' @rdname is.numint
 #' @export
 is.all.factor <-
   function (x) {
@@ -68,7 +69,7 @@ is.all.factor <-
     return (res)
   }
 # FUNCTION - IS ANY FACTOR? ####################################################
-#' @rdname numint
+#' @rdname is.numint
 #' @export
 is.any.factor <-
   function (x) {
@@ -77,7 +78,7 @@ is.any.factor <-
     return (res)
   }
 # FUNCTION - ARE ALL NUMERIC ###################################################
-#' @rdname numint
+#' @rdname is.numint
 #' @export
 is.all.numeric <-
   function (x) {
@@ -86,7 +87,7 @@ is.all.numeric <-
     return (res)
   }
 # FUNCTION - IS ONE TYPE #######################################################
-#' @rdname numint
+#' @rdname is.numint
 #' @export
 is.one.type <-
   function (x) {

@@ -1,7 +1,10 @@
-# Version 0.6-0
+# Version 0.6-1 (2015-02-18)
+
+* Functions to evaluate the data type contained in an object.
+
+# Version 0.6-0 (2015-02-05)
 
 * Migrated from R-Forge to GitHub;
-* 
 
 # Version 0.5-1 (2014-01-11)
 
