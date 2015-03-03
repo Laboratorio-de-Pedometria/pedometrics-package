@@ -13,8 +13,8 @@ cramer(x)
 A matrix with the Cramer's V between the categorical variables.
 }
 \description{
-Compute the Cramer's V, a measure of association between categorical
-variables
+Compute the Cramer's V, a descriptive statistic that measures the
+association between categorical variables
 }
 \details{
 Any integer variable is internally converted to a factor.
