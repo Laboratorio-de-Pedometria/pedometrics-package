@@ -53,7 +53,7 @@
 #' 
 #' @param lwd Vector of two elements, the first indicating the line width of the
 #' histogram, the second indicating the line width of the density plot. Defaults 
-#' to \code{col = c(1, 1)}.
+#' to \code{lwd = c(1, 1)}.
 #' 
 #' @param lty Character value indicating the line type for the density plot.
 #' Defaults to \code{lty = "dashed"}.
@@ -120,14 +120,15 @@ plotHD <-
       if (missing(xlim)) {
         xlim <- densityplot(x)$x.limits
       }
-      p <- histogram(x, type = "density", col = col[1], xlim = xlim,
-                     lwd = lwd[1], ...,
+      p <- histogram(x, type = "density", col = col[1], xlim = xlim, 
+                     nint = nint, lwd = lwd[1], ...,
                      panel = function(x, ...) {
                        panel.histogram(x, ...)
-                       panel.rug(x, col = col[2])
+                       panel.rug(x, col = col[2], lwd = lwd[2])
                        panel.mathdensity(dmath = dnorm, col = col[2],
                                          lwd = lwd[2], lty = lty,
-                                         args = list(mean = mean(x), sd = sd(x)),
+                                         args = list(mean = mean(x), 
+                                                     sd = sd(x)),
                                          n = length(x))
                      })
       if (missing(ylim)) {
@@ -150,7 +151,8 @@ plotHD <-
           pos <- NA
           p <- p + latticeExtra::layer(panel.text(x = x, y = y, labels = leg, 
                                                   pos = pos),
-                                       data = list(x = c(max(p$x.limits) * 0.99), 
+                                       data = list(x = c(max(p$x.limits) * 
+                                                           0.99), 
                                                    y = c(max(p$y.limits) * 0.9), 
                                                    leg = leg, pos = 2))
         }
