@@ -124,7 +124,7 @@ plotHD <-
                      nint = nint, lwd = lwd[1], ...,
                      panel = function(x, ...) {
                        panel.histogram(x, ...)
-                       panel.rug(x, col = col[2], lwd = lwd[2])
+                       panel.rug(x, col = col[2], lwd = lwd[1])
                        panel.mathdensity(dmath = dnorm, col = col[2],
                                          lwd = lwd[2], lty = lty,
                                          args = list(mean = mean(x), 
