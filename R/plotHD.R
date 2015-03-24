@@ -117,9 +117,9 @@ plotHD <-
       lambda <- 1
     }
     if (HD == "over") {
-      if (missing(xlim)) {
-        xlim <- densityplot(x)$x.limits
-      }
+      #if (missing(xlim)) {
+      #  xlim <- densityplot(x)$x.limits
+      #}
       p <- histogram(x, type = "density", col = col[1], xlim = xlim, 
                      nint = nint, lwd = lwd[1], ...,
                      panel = function(x, ...) {
