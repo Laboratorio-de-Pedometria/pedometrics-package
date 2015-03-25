@@ -100,12 +100,14 @@
 # FUNCTION #####################################################################
 stepVIF <-
   function (model, threshold = 10, verbose = FALSE) {    
+    
     if (!inherits(model, "lm")) {
       stop ("'model' must be of class 'lm'")
     }
     if (threshold <= 0) {
       stop ("'threshold' must be a positive number")
     }
+    
     # set conditional variable (number of iterations = number of variables)
     iter <- dim(model.frame(model))[2]
     iter0 <- iter

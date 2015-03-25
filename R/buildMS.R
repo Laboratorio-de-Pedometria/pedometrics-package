@@ -134,7 +134,8 @@ buildMS <-
     if (class(data) != "data.frame") {
       data <- as.data.frame(data)
     }
-    # lm() #####################################################################
+    
+    # lm()
     print("fitting linear model using ols")
     model <- pblapply(formula, function (X){
       lm(X, data)
@@ -146,14 +147,16 @@ buildMS <-
     n <- sapply(model, function (X) {
       dim(model.matrix(X))[1]
     })
-    # stepVIF() ################################################################
+    
+    # stepVIF()
     if (vif) {
       print("backward variable selection using VIF")
       model <- pblapply(model, function (X) {
         stepVIF(X, threshold = vif.threshold, verbose = vif.verbose)
         })
     }
-    # stepAIC() ################################################################
+    
+    # stepAIC()
     if (aic) {
       print(paste(aic.direction, " variable selection using AIC", sep = ""))
       model <- pblapply(model, function (X) {
@@ -161,8 +164,8 @@ buildMS <-
                 trace = aic.trace, ...)
         })
     }
-    # prepare output ###########################################################
-    # add attributes to the final model
+    
+    # Prepare output - add attributes to the final model
     a <- lapply(model, attributes)
     for (i in 1:length(a)) {
       a[[i]]$p <- p[i]
