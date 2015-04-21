@@ -1,12 +1,12 @@
 #' Association between categorical variables
 #' 
 #' Compute the Cramer's V, a descriptive statistic that measures the 
-#' association between categorical variables
+#' association between categorical variables.
 #' 
-#' @param x Data frame or matrix.
+#' @param x Data frame or matrix with a set of categorical variables.
 #' 
 #' @details
-#' Any integer variable is internally converted to a factor. 
+#' Any integer variable is internally converted to a factor.
 #' 
 #' @return
 #' A matrix with the Cramer's V between the categorical variables.
@@ -14,7 +14,7 @@
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @note
-#' The original code was available at \url{http://sas-and-r.blogspot.nl/},
+#' The original code is available at \url{http://sas-and-r.blogspot.nl/},
 #' Example 8.39: calculating Cramer's V, posted by Ken Kleinman on Friday, June
 #' 3, 2011. As such, Ken Kleinman <\email{Ken_Kleinman@@hms.harvard.edu}> is 
 #' entitled a \sQuote{contributor} to the R-package \pkg{pedometrics}.
@@ -36,6 +36,7 @@
 #' @examples
 #' helpdata <- read.csv("http://www.math.smith.edu/r/data/help.csv")
 #' data <- helpdata[, c("female", "homeless", "racegrp")]
+#' str(data)
 #' test <- cramer(data)
 #' test
 # FUNCTION #####################################################################
@@ -64,7 +65,8 @@ cramer <-
         #x2 <- suppressWarnings(chisq.test(x[, i], x[, j], correct = FALSE))
         #x2 <- x2$statistic / n
         den <- min(length(unique(x[, i])), length(unique(x[, j]))) - 1
-        res[i, j] <- as.numeric(sqrt(x2 / den))
+        #res[i, j] <- as.numeric(sqrt(x2 / den))
+        res[i, j] <- sqrt(x2 / den)
       }
     }
     colnames(res) <- nam
@@ -80,7 +82,8 @@ cramer <-
     sr <- rowSums(OBSERVED)
     sc <- colSums(OBSERVED)
     EXPECTED <- outer(sr, sc, "*") / n
-    YATES <- 0
-    STATISTIC <- sum((abs(OBSERVED - EXPECTED) - YATES) ^ 2 / EXPECTED)
+    #YATES <- 0
+    #STATISTIC <- sum((abs(OBSERVED - EXPECTED) - YATES) ^ 2 / EXPECTED)
+    STATISTIC <- sum(abs(OBSERVED - EXPECTED) ^ 2 / EXPECTED)
     return (STATISTIC)
   }
