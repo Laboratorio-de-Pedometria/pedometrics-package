@@ -15,11 +15,10 @@ require(Rd2roxygen)
 setwd("~/PROJECTS/r-packages/pedometrics")
 roxygen2::roxygenise()
 
-
 # Built and check package
-setwd("~/PROJECTS/r-packages/pedometrics/pkg")
+setwd("~/alessandro") # ISRIC desktop and LGCS-MDS
 system("R CMD build pedometrics")
 system("R CMD check --as-cran pedometrics_0.5-1.tar.gz")
 
-
+setwd("~/alessandro/pedometrics") # ISRIC desktop and LGCS-MDS
 
