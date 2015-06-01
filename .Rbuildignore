@@ -2,6 +2,12 @@
 ^\.Rproj\.user$
 man-roxygen
 build-packages.R
+^.*\.so$
+
+# R code
+R/popStats.R
+
+# Markdown
+cran-comments.md
 NEWS.md
 README.md
-^.*\.so$
