@@ -31,11 +31,11 @@
 #' Cambridge University Press, p. 432, 2006.
 #' 
 #' @seealso \code{\link[vcd]{assocstats}}
-#' @import bigtabulate
+# @import bigtabulate
 #' @export
 #' @examples
-#' helpdata <- read.csv("http://www.math.smith.edu/r/data/help.csv")
-#' data <- helpdata[, c("female", "homeless", "racegrp")]
+#' data <- read.csv("http://www.math.smith.edu/r/data/help.csv")
+#' data <- data[, c("female", "homeless", "racegrp")]
 #' str(data)
 #' test <- cramer(data)
 #' test
@@ -77,7 +77,8 @@ cramer <-
 .chisqStat <-
   function (x, y) {
     #x <- table(x, y)
-    OBSERVED <- bigtabulate(cbind(x, y), ccols = c(1, 2))
+    OBSERVED <- table(x, y)
+    #OBSERVED <- bigtabulate(cbind(x, y), ccols = c(1, 2))
     n <- sum(OBSERVED)
     sr <- rowSums(OBSERVED)
     sc <- colSums(OBSERVED)
