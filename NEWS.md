@@ -1,8 +1,12 @@
+# Version 0.6-2.9000
+
+* Now using Travis to check the package after every commit.
+
 # Version 0.6-2 (2015-06-01)
 
 * Better documentation for several functions.
-* `cramer`: the cross-tabulation is now computed using `table` instead of
-  `bigtabulate` to avoid dependency problems in Windows.
+* `cramer()`: the cross-tabulation is now computed using `table()` instead of
+  `bigtabulate()` to avoid dependency problems in Windows.
 
 # Version 0.6-1 (2015-02-18)
 

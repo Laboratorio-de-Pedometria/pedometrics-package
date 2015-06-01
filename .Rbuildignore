@@ -3,10 +3,9 @@
 man-roxygen
 build-packages.R
 ^.*\.so$
-
+^\.travis\.yml$
 # R code
 R/popStats.R
-
 # Markdown
 cran-comments.md
 NEWS.md
