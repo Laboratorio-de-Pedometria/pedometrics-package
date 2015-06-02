@@ -1,7 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 man-roxygen
-build-packages.R
+build-package.R
 ^.*\.so$
 ^\.travis\.yml$
 # R code

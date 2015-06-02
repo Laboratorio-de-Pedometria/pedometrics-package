@@ -85,6 +85,7 @@ cramer <-
     EXPECTED <- outer(sr, sc, "*") / n
     #YATES <- 0
     #STATISTIC <- sum((abs(OBSERVED - EXPECTED) - YATES) ^ 2 / EXPECTED)
-    STATISTIC <- sum(abs(OBSERVED - EXPECTED) ^ 2 / EXPECTED)
+    #STATISTIC <- sum(abs(OBSERVED - EXPECTED) ^ 2 / EXPECTED)
+    STATISTIC <- sum(abs(OBSERVED - EXPECTED) ^ 2 / EXPECTED, na.rm = TRUE)
     return (STATISTIC)
   }

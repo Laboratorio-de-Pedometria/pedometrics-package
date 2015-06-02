@@ -4,15 +4,15 @@
 #' the field of pedometrics (see http://en.wikipedia.org/wiki/Pedometrics for
 #' definition of pedometrics). These functions were developed to fulfil the
 #' demands created by the PhD research project (2012-2016) entitled
-#' Contribution to the Construction of Models for Predicting Soil Properties,
-#' developed by Alessandro Samuel-Rosa under the supervision of Dr Lúcia HC
-#' Anjos (Universidade Federal Rural do Rio de Janeiro, Brazil), Dr Gustavo M
-#' Vasques (Embrapa Solos, Brazil), and Dr Gerard B M Heuvelink (ISRIC - World
-#' Soil Information, the Netherlands). The project is supported by CAPES,
-#' Minitério da Educação, Brasília - DF 70040-020, Brazil, process ID BEX
-#' 11677/13-9. Several functions are simple wrapper functions that extend the
-#' functionalities of other functions commonly used for the analysis of
-#' pedometric data. It should be noted that changes are likely to occur quite
+#' \dQuote{Contribution to the Construction of Models for Predicting Soil
+#' Properties}, developed by Alessandro Samuel-Rosa under the supervision of 
+#' Dr Lúcia HC Anjos (Universidade Federal Rural do Rio de Janeiro, Brazil), 
+#' Dr Gustavo M Vasques (Embrapa Solos, Brazil), and Dr Gerard B M Heuvelink
+#' (ISRIC - World Soil Information, the Netherlands). The project is supported 
+#' by CAPES, Minitério da Educação, Brasília - DF 70040-020, Brazil, process 
+#' ID BEX 11677/13-9. Several functions are simple wrapper functions that 
+#' extend the functionalities of other functions commonly used for the analysis
+#' of pedometric data. It should be noted that changes are likely to occur quite
 #' often and using this package as a dependency for other packages is strongly
 #' discouraged.
 #' 

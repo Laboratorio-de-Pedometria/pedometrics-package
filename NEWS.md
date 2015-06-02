@@ -1,6 +1,7 @@
 # Version 0.6-2.9000
 
 * Now using Travis to check the package after every commit.
+* `cramer()`: NAs are removed when computing the chi-squared statistic.
 
 # Version 0.6-2 (2015-06-01)
 
