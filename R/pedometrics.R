@@ -10,10 +10,10 @@
 #' Dr Gustavo M Vasques (Embrapa Solos, Brazil), and Dr Gerard B M Heuvelink
 #' (ISRIC - World Soil Information, the Netherlands). The project is supported 
 #' by CAPES, Minitério da Educação, Brasília - DF 70040-020, Brazil, process 
-#' ID BEX 11677/13-9. Several functions are simple wrapper functions that 
+#' ID BEX 11677/13-9. Several functions simply 
 #' extend the functionalities of other functions commonly used for the analysis
 #' of pedometric data. It should be noted that changes are likely to occur quite
-#' often and using this package as a dependency for other packages is strongly
+#' often and the use of this package as a dependency for other packages is strongly
 #' discouraged.
 #' 
 #' \tabular{ll}{
