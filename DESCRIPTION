@@ -42,7 +42,7 @@ LinkingTo: Rcpp
 Suggests:
     methods
 Encoding: UTF-8
-Description: Functions to employ many tools and
+Description: Functions to employ many of the tools and
     techniques used in the field of pedometrics (see
     http://en.wikipedia.org/wiki/Pedometrics for definition of pedometrics).
     These functions were developed to fulfil the demands created by the PhD
