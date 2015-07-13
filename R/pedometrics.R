@@ -1,6 +1,6 @@
 #' Pedometric Tools and Techniques
 #' 
-#' This package contains functions to employ many tools and techniques used in
+#' This package contains functions to employ many of the tools and techniques used in
 #' the field of pedometrics (see http://en.wikipedia.org/wiki/Pedometrics for
 #' definition of pedometrics). These functions were developed to fulfil the
 #' demands created by the PhD research project (2012-2016) entitled
