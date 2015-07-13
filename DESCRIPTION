@@ -52,9 +52,9 @@ Description: Functions to employ many of the tools and
     Rio de Janeiro, Brazil), Dr Gustavo M Vasques (Embrapa Solos, Brazil), and
     Dr Gerard BM Heuvelink (ISRIC - World Soil Information, the Netherlands).
     The project is supported by the CAPES, Ministério da Educação, Brasília -
-    DF 70040-020, Brazil, process ID BEX 11677/13-9. Several functions are
-    simple wrapper functions that extend the functionalities of other functions
+    DF 70040-020, Brazil, process ID BEX 11677/13-9. Several functions 
+    simply extend the functionalities of other functions
     commonly used for the analysis of pedometric data. It should be noted that
-    changes are likely to occur quite often and using this package as a
+    changes are likely to occur quite often and the use of this package as a
     dependency for other packages is strongly discouraged.
 License: GPL (>= 2)
