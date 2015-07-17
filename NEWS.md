@@ -3,6 +3,8 @@
 * `cramer()`: `NA`s are removed when computing the chi-squared statistic.
 * New functions were added to the existing set of functions used to evaluate 
   the data type contained in an object.
+* New functions to extract spatial trend data from an object of class
+  \code{likfit}.
 
 # Version 0.6-2 (2015-06-01)
 * Better documentation for several functions.
