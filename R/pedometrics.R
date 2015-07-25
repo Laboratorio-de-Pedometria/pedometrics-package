@@ -1,6 +1,7 @@
 #' Pedometric Tools and Techniques
 #' 
-#' This package contains functions to employ many of the tools and techniques used in
+#' This package contains functions to employ many of the tools and techniques
+#' used in
 #' the field of pedometrics (see http://en.wikipedia.org/wiki/Pedometrics for
 #' definition of pedometrics). These functions were developed to fulfil the
 #' demands created by the PhD research project (2012-2016) entitled
@@ -13,14 +14,15 @@
 #' ID BEX 11677/13-9. Several functions simply 
 #' extend the functionalities of other functions commonly used for the analysis
 #' of pedometric data. It should be noted that changes are likely to occur quite
-#' often and the use of this package as a dependency for other packages is strongly
+#' often and the use of this package as a dependency for other packages is
+#' strongly
 #' discouraged.
 #' 
 #' \tabular{ll}{
 #' Package: \tab pedometrics\cr
 #' Type:    \tab Package    \cr
-#' Version: \tab 0.6-2.9000 \cr
-#' Date:    \tab 2015-06-02 \cr
+#' Version: \tab 0.6-3      \cr
+#' Date:    \tab 2015-07-25 \cr
 #' License: \tab GPL (>= 2) \cr
 #' }
 #' 
@@ -29,12 +31,5 @@
 #' @docType package
 #' @author Author and Maintainer: Alessandro Samuel-Rosa
 #' \email{alessandrosamuelrosa@@gmail.com}
-#' 
-#' Thesis advisors: Lúcia Helena Cunha dos Anjos, Gustavo de Mattos Vasques,
-#' Gerard B. M. Heuvelink
-#' 
-#' Contributors: Tony Olsen, Tom Kincaid, Juan Carlos Ruiz Cuetos, Maria
-#' Eugenia Polo Garcia, Pablo Garcia Rodriguez, Edzer Pebesma, Jon Skoien, 
-#' Joshua French, Ken Kleinman, Dick Brus
 #' @useDynLib pedometrics
 NULL

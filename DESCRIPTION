@@ -1,25 +1,36 @@
 Package: pedometrics
 Title: Pedometric Tools and Techniques
-Version: 0.6-2.9000
-Date: 2015-06-02
-Authors@R: c(person("Alessandro Samuel-Rosa", role = c("aut", "cre"), email =
-    "alessandrosamuelrosa@gmail.com"), person("Lucia Helena Cunha dos Anjos",
-    role = "ths", email = "lanjos@ufrrj.br"), person("Gustavo de Mattos
-    Vasques", role = "ths", email = "gustavo.vasques@embrapa.br"),
-    person("Gerard B. M. Heuvelink", role = "ths", email =
-    "gerard.heuvelink@wur.nl"), person("Tony Olsen", role = "ctb", email =
-    "Olsen.Tony@epa.gov"), person("Tom Kincaid", role = "ctb", email =
-    "Kincaid.Tom@epa.gov"), person("Juan Carlos Ruiz Cuetos", role = "ctb",
-    email = "bilba_t@hotmail.com"), person("Maria Eugenia Polo Garcia", role =
-    "ctb", email = "mepolo@unex.es"), person("Pablo Garcia Rodriguez", role =
-    "ctb", email = "pablogr@unex.es"), person("Joshua French", role =
-    "ctb", email = "joshua.french@ucdenver.edu"), person("Ken Kleinman", role =
-    "ctb", email = "Ken_Kleinman@hms.harvard.edu"))
-Author: Alessandro Samuel-Rosa [aut, cre], Lucia Helena Cunha dos Anjos [ths],
-    Gustavo de Mattos Vasques [ths], Gerard B. M. Heuvelink [ths], Tony Olsen
-    [ctb], Tom Kincaid [ctb], Juan Carlos Ruiz Cuetos [ctb], Maria Eugenia Polo
-    Garcia [ctb], Pablo Garcia Rodriguez [ctb], Joshua French [ctb], 
-    Ken Kleinman [ctb]
+Version: 0.6-3
+Date: 2015-07-25
+Authors@R: c(
+    person("Alessandro", "Samuel-Rosa", role = c("aut", "cre"), 
+           email = "alessandrosamuelrosa@gmail.com"), 
+    person("Lúcia", "Anjos", role = "ths", email = "lanjos@ufrrj.br"), 
+    person("Gustavo", "Vasques", role = "ths", 
+           email = "gustavo.vasques@embrapa.br"),
+    person("Gerard", "Heuvelink", role = "ths",
+           email = "gerard.heuvelink@wur.nl"), 
+    person("Tony", "Olsen", role = "ctb", email = "Olsen.Tony@epa.gov"), 
+    person("Tom", "Kincaid", role = "ctb", email = "Kincaid.Tom@epa.gov"), 
+    person("Juan Carlos", "Ruiz Cuetos", role = "ctb", 
+           email = "bilba_t@hotmail.com"), 
+    person("Maria Eugenia", "Polo Garcia", role = "ctb", 
+           email = "mepolo@unex.es"), 
+    person("Pablo Garcia Rodriguez", role = "ctb", email = "pablogr@unex.es"), 
+    person("Joshua", "French", role = "ctb", 
+           email = "joshua.french@ucdenver.edu"),
+    person("Ken", "Kleinman", role = "ctb", 
+           email = "Ken_Kleinman@hms.harvard.edu"),
+    person("Dick", "Brus", role = "ctb", 
+           email = "dick.brus@wur.nl"),
+    person("Frank", "Harrell Jr", role = "ctb", 
+           email = "f.harrell@vanderbilt.edu"))
+Author: Alessandro Samuel-Rosa [aut, cre], Lúcia Anjos [ths], 
+    Gustavo Vasques [ths], Gerard Heuvelink [ths], Tony Olsen [ctb], 
+    Tom Kincaid [ctb], Juan Carlos Ruiz Cuetos [ctb], 
+    Maria Eugenia Polo Garcia [ctb], Pablo Garcia Rodriguez [ctb], 
+    Joshua French [ctb], Ken Kleinman [ctb], Dick Brus [ctb],
+    Frank Harrell Jr [ctb]
 Maintainer: Alessandro Samuel-Rosa <alessandrosamuelrosa@gmail.com>
 Depends:
     R (>= 1.8.0)
@@ -27,7 +38,6 @@ Imports:
     car,
     grid,
     gstat,
-    Hmisc,
     lattice,
     latticeExtra,
     MASS,
@@ -36,6 +46,7 @@ Imports:
     pbapply,
     Rcpp (>= 0.11.0),
     sp,
+    SpatialTools,
     spsurvey,
     xtable
 LinkingTo: Rcpp

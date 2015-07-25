@@ -1,15 +1,24 @@
 # Build package
 
+# Dependencies
+devtools::update(devtools::package_deps())
+
 # turn on/off development mode
-dev_mode()
+devtools::dev_mode()
 
 # check examples and documentation
-run_examples()
-check_doc()
+devtools::check_doc()
+devtools::run_examples()
 
 # check the package for Linux and Windows
-check()
-build_win()
+devtools::check()
+devtools::build_win()
+devtools::build()
 
-# upload to CRAN
-release()
+# Check all downstream dependencies
+
+
+# Upload to CRAN
+devtools::release()
+
+

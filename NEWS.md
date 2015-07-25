@@ -1,10 +1,20 @@
-# Version 0.6-2.9000
-* Now using Travis to check the package after every commit.
-* `cramer()`: `NA`s are removed when computing the chi-squared statistic.
-* New functions were added to the existing set of functions used to evaluate 
-  the data type contained in an object.
-* New functions to extract spatial trend data from an object of class
-  \code{likfit}.
+# Version 0.6-3 (2015-07-25)
+* Now using Travis to check the package after every commit;
+* New functions:
+    + Evaluation of the data type contained in an object;
+    + Extract spatial trend data from an object of class `likfit` (see the geoR
+      package for more info): `trend.terms()` and `trend.matrix()`;
+    + Stratification and categorization of continuous data: `breakPoints()` and
+      `stratify()`;
+    + Computation of lag-distance classes for varioram estimation: `vgmLags()`;
+* Existing functions:
+    + `cramer()`: `NA`s are now removed when computing the chi-squared 
+      statistic;
+    + `plotHD()`: if the Box-Cox transformation is required, the data is now
+      first checked for zeros and negative values. If zeros and negative values
+      are present, the data is transformed into a positive-valued data, with 
+      the minimum value equal to 1.
+    + `plotESDA()`: new argument to define the lag-distance classes.
 
 # Version 0.6-2 (2015-06-01)
 * Better documentation for several functions.
