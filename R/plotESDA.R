@@ -10,6 +10,8 @@
 #' of the point locations where the \code{z} variable was observed.
 #' @param lon Vector of numeric values containing the x coordinate (longitude) 
 #' of the point locations where the \code{z} variable was observed.
+#' @param lags Numerical vector; upper boundaries of lag-distance classes. See
+#' argument \code{boundaries} of \code{\link[gstat]{variogram}} for more info.
 #' @param cutoff Integer value defining the spatial separation distance up to 
 #' which point pairs are included in semivariance estimates. Defaults to the 
 #' length of the diagonal of the box spanning the data divided by three.
@@ -39,10 +41,6 @@
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @section TODO:
-#' The next version should include an option to pass data using an object of 
-#' class \code{"SpatialPointsDataFrame"}.
-#' 
 #' @seealso \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
 #' \code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
 #' @export
@@ -57,7 +55,7 @@
 # FUNCTION #####################################################################
 #
 plotESDA <- 
-  function (z, lat, lon, cutoff, width = c(cutoff / 20)) {
+  function (z, lat, lon, lags, cutoff, width = c(cutoff / 20)) {
     if (missing(z)) {
       stop("<z> is a mandatory argument")
     }
@@ -81,14 +79,27 @@ plotESDA <-
     }
     db <- data.frame(lon = lon, lat = lat, z = z)
     coordinates(db) <- ~ lon + lat
-    if (missing(cutoff)) {
-      cutoff <- max(variogram(z ~ 1, loc = db)$dist) 
-    }
+    
+    # Estimate the cutoff
+    cutoff <- max(variogram(z ~ 1, loc = db)$dist)
+    
+    # Bubble plot
     v1 <- bubble(db, zcol = "z", fill = FALSE, main = "", maxsize = 1)
-    v2 <- variogram(z ~ 1, loc = db, map = TRUE, cutoff = cutoff, width = width)
-    v2 <- spplot(v2$map[2], col.regions = bpy.colors(64))
-    v3 <- variogram(z ~ 1, loc = db, cutoff = cutoff, width = width)
+    
+    # Variogram map
+    v2 <- gstat::variogram(z ~ 1, loc = db, map = TRUE, cutoff = cutoff, 
+                           width = width)
+    v2 <- sp::spplot(v2$map[2], col.regions = bpy.colors(64))
+    
+    # Sample variogram
+    if (missing(lags)) {
+      v3 <- variogram(z ~ 1, loc = db, cutoff = cutoff, width = width)
+    } else {
+      v3 <- variogram(z ~ 1, loc = db, boundaries = lags)
+    }
     v3 <- plot(v3, cex = 0.5, type = "b", pch = 20, asp = 1)
+    
+    # Histogram
     v4 <- plotHD(z, HD = "over", stats = FALSE, asp = 1, xlab = "z",
                  col = c("skyblue", "red"))
     print(v4, split = c(1, 1, 2, 2), more = TRUE)
