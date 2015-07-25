@@ -1,20 +1,3 @@
-#  file pedometrics/R/plotHD.R
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 or 3 of the License
-#  (at your option).
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  A copy of the GNU General Public License is available at
-#  http://www.r-project.org/Licenses/
-#
-# DOCUMENTATION ################################################################
-#' 
 #' Histogram and density plot
 #' 
 #' This function plots a histogram and a density plot of a single variable 
@@ -99,12 +82,20 @@
 #' @keywords dplot
 #' 
 # FUNCTION #####################################################################
-#
 plotHD <- 
   function (x, HD = "over", nint = 20, digits = 2, stats = TRUE, 
             BoxCox = FALSE, col = c("lightgray", "black"), lwd = c(1, 1),
             lty = "dashed", xlim, ylim, ...) {
+    
     if (BoxCox) {
+      
+      # Check if the variable has negative values
+      check <- any(x <= 0)
+      if (check) {
+        message("data has negative values...")
+        x <- x + abs(min(x)) + 1
+      }
+      
       lambda <- powerTransform(x)
       print(summary(lambda))
       lambda <- as.numeric(lambda$lambda)
