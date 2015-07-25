@@ -4,18 +4,20 @@
 #' 
 #' @param x Object of class \code{likfit}.
 #' 
+#' @details 
+#' 
+#' \code{trend.terms} is similar to \code{\link[stats]{terms}}.
+#' 
+#' \code{trend.matrix} is similar to \code{\link[stats]{model.frame}}.
+#' 
 #' @seealso \code{\link[geoR]{likfit}}
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @aliases trend.terms trend.matrix
-#' @examples
-#' reml <- likfit(s100, ini=c(0.5, 0.5), fix.nug = TRUE, lik.met = "REML")
-#' trend.terms(reml)
-#' head(trend.matrix(reml))
 # FUNCTION - EXTRACT TREND TERMS ###############################################
 # This function is similar to stats::terms
 #' @export
-#' @rdname terms
+#' @rdname trend
 trend.terms <- 
   function (x) {
     cl <- class(x)
@@ -27,7 +29,7 @@ trend.terms <-
 # FUNCTION - EXTRACT TREND MATRIX ##############################################
 # This function is similar to stats::model.frame
 #' @export
-#' @rdname terms
+#' @rdname trend
 trend.matrix <-
   function (x) {
     cl <- class(x)
