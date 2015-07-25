@@ -31,6 +31,7 @@
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @seealso \code{\link[Hmisc]{cut2}}
+#' @aliases cont2cat breakPoints stratify
 #' @importFrom stats quantile
 #' @importFrom SpatialTools dist2
 #' @importFrom graphics hist
