@@ -24,8 +24,6 @@ Calculates the adjusted coefficient of determination of a multiple linear
 regression model.
 }
 \details{
-
-
 Details will be added later.
 }
 \examples{

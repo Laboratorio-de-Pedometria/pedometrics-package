@@ -25,8 +25,6 @@ variables that meet a user-specific collinearity threshold measured by the
 variance-inflation factor (VIF).
 }
 \details{
-
-
 \code{stepVIF} starts computing the VIF of all predictor variables in the
 linear model. Because some predictor variables can have more than one degree
 of freedom, such as categorical variables, generalized variance-inflation

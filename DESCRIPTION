@@ -5,18 +5,22 @@ Date: 2015-07-25
 Authors@R: c(
     person("Alessandro", "Samuel-Rosa", role = c("aut", "cre"), 
            email = "alessandrosamuelrosa@gmail.com"), 
-    person("Lúcia", "Anjos", role = "ths", email = "lanjos@ufrrj.br"), 
+    person("Lúcia", "Anjos", role = "ths", 
+           email = "lanjos@ufrrj.br"), 
     person("Gustavo", "Vasques", role = "ths", 
            email = "gustavo.vasques@embrapa.br"),
     person("Gerard", "Heuvelink", role = "ths",
            email = "gerard.heuvelink@wur.nl"), 
-    person("Tony", "Olsen", role = "ctb", email = "Olsen.Tony@epa.gov"), 
-    person("Tom", "Kincaid", role = "ctb", email = "Kincaid.Tom@epa.gov"), 
+    person("Tony", "Olsen", role = "ctb", 
+           email = "Olsen.Tony@epa.gov"), 
+    person("Tom", "Kincaid", role = "ctb", 
+           email = "Kincaid.Tom@epa.gov"), 
     person("Juan Carlos", "Ruiz Cuetos", role = "ctb", 
            email = "bilba_t@hotmail.com"), 
     person("Maria Eugenia", "Polo Garcia", role = "ctb", 
            email = "mepolo@unex.es"), 
-    person("Pablo Garcia Rodriguez", role = "ctb", email = "pablogr@unex.es"), 
+    person("Pablo Garcia Rodriguez", role = "ctb", 
+           email = "pablogr@unex.es"), 
     person("Joshua", "French", role = "ctb", 
            email = "joshua.french@ucdenver.edu"),
     person("Ken", "Kleinman", role = "ctb", 
@@ -25,13 +29,6 @@ Authors@R: c(
            email = "dick.brus@wur.nl"),
     person("Frank", "Harrell Jr", role = "ctb", 
            email = "f.harrell@vanderbilt.edu"))
-Author: Alessandro Samuel-Rosa [aut, cre], Lúcia Anjos [ths], 
-    Gustavo Vasques [ths], Gerard Heuvelink [ths], Tony Olsen [ctb], 
-    Tom Kincaid [ctb], Juan Carlos Ruiz Cuetos [ctb], 
-    Maria Eugenia Polo Garcia [ctb], Pablo Garcia Rodriguez [ctb], 
-    Joshua French [ctb], Ken Kleinman [ctb], Dick Brus [ctb],
-    Frank Harrell Jr [ctb]
-Maintainer: Alessandro Samuel-Rosa <alessandrosamuelrosa@gmail.com>
 Depends:
     R (>= 1.8.0)
 Imports:
@@ -42,8 +39,8 @@ Imports:
     latticeExtra,
     MASS,
     moments,
-    plyr,
     pbapply,
+    plyr,
     Rcpp (>= 0.11.0),
     sp,
     SpatialTools,
@@ -69,3 +66,4 @@ Description: Functions to employ many of the tools and
     changes are likely to occur quite often and the use of this package as a
     dependency for other packages is strongly discouraged.
 License: GPL (>= 2)
+Repository: CRAN

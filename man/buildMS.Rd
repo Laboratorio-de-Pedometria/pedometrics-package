@@ -92,7 +92,7 @@ given argument without having to go check the documentation.
 require(MASS)
 cpus1 <- cpus
 for(v in names(cpus)[2:7])
-  cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])),
+  cpus1[[v]] <- cut(cpus[[v]], unique(stats::quantile(cpus[[v]])),
                     include.lowest = TRUE)
 cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
 cpus.samp <- sample(1:209, 100)

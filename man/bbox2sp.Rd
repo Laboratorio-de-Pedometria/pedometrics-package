@@ -34,8 +34,7 @@ Jon Skoien <\email{jon.skoien@gmail.com}>, are entitled
 require(sp)
 data(meuse)
 coordinates(meuse) <- ~ x + y
-proj4string(meuse) <- CRS("+init=epsg:28992")
-bbox2sp(meuse)
+bbox2sp(meuse, keep.crs = FALSE)
 }
 \author{
 Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>

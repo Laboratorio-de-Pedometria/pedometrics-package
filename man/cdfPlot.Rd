@@ -71,7 +71,7 @@ limits. Defaults to \code{conflev = 95}.}
 parameters are the mean, the median, and a percentile defined by the
 argument \code{conflev}.  The legend displays de actual values of all three
 parameters, including the standard deviation of the mean. The percentile
-value is calculated using \code{spsurvey::interp.cdf()}.}
+value is calculated using \code{spsurvey::spsurvey::interp.cdf()}.}
 
 \item{round}{Numeric to set the rounding level of the parameters of the CDF.}
 

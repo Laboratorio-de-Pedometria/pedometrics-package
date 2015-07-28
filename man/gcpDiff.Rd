@@ -7,12 +7,12 @@
 gcpDiff(measured, predicted, type = "xy", aggregate = FALSE, rounding = 0)
 }
 \arguments{
-\item{measured}{Object of class \code{\linkS4class{SpatialPointsDataFrame}}
+\item{measured}{Object of class \code{SpatialPointsDataFrame}
 with the reference GCP. A column named \sQuote{siteID} giving case names is
 mandatory. See \sQuote{Details}, item \sQuote{Type of data}.}
 
 \item{predicted}{An object of class
-\code{\linkS4class{SpatialPointsDataFrame}} with the point data being
+\code{SpatialPointsDataFrame} with the point data being
 validated. A column named \sQuote{siteID} giving case names is mandatory.
 See \sQuote{Details}, item \sQuote{Type of data}.}
 

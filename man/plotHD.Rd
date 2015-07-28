@@ -21,8 +21,8 @@ separated panels. Defaults to \code{HD = "over"}.}
 \item{nint}{Integer specifying the number of histogram bins. Defaults to
 \code{nint = 20}.}
 
-\item{digits}{Integer indicating the number of decimal places to be used when
-printing the statistics of the variable \code{x}. Defaults to
+\item{digits}{Integer indicating the number of decimal places to be used
+when printing the statistics of the variable \code{x}. Defaults to
 \code{digits = 2}.}
 
 \item{stats}{Logical to indicate if descriptive statistics of the variable

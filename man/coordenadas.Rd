@@ -7,7 +7,7 @@
 coordenadas(x)
 }
 \arguments{
-\item{x}{Object of class \code{\linkS4class{SpatialPointsDataFrame}} from
+\item{x}{Object of class \code{SpatialPointsDataFrame} from
 which site ID and XY coordinates are to be returned.}
 }
 \value{

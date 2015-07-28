@@ -91,8 +91,6 @@ the results of functions \code{buildMS} and \code{statsMS}, but can be
 easily adapted to work with any model structure and performance measure.
 }
 \details{
-
-
 This section gives more details about arguments \code{obj}, \code{grid},
 \code{line}, \code{arrange}, and \code{ind}.
 \subsection{obj}{
