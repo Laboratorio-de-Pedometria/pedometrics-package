@@ -1,3 +1,8 @@
+## Changes
+* Improved existing functions
+* Created new functions
+* Fix a test failure on R-devel
+
 ## Test environments
 * ubuntu 12.04 (on travis-ci), R 3.2.1
 * x86_64-pc-linux-gnu (ubuntu 14.04), R version 3.2.1 (2015-06-18)

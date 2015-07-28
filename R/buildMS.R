@@ -104,6 +104,15 @@ buildMS <-
             aic = FALSE, aic.direction = "both", aic.trace = FALSE,
             aic.steps = 5000, ...) {
     
+    # Check if suggested packages are installed
+    pkg <- c("MASS", "pbapply")
+    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
+    if (any(id)) {
+      pkg <- paste(pkg[which(id)], collapse = " ")
+      stop(paste("Package(s) needed for this function to work but not",
+                 "installed: ", pkg, sep = ""), call. = FALSE)
+    }
+    
     # check arguments ##########################################################
     if (missing(formula)) {
       stop("<formula> is a mandatory argument")

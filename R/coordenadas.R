@@ -36,6 +36,16 @@
 # FUNCTION #####################################################################
 coordenadas <-
   function(x) {
+    
+    # Check if suggested packages are installed
+    pkg <- c("sp")
+    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
+    if (any(id)) {
+      pkg <- paste(pkg[which(id)], collapse = " ")
+      stop(paste("Package(s) needed for this function to work but not",
+                 "installed: ", pkg, sep = ""), call. = FALSE)
+    }
+    
     coo <- data.frame(x$siteID, sp::coordinates(x))
     coo <- coo[order(as.numeric(x$siteID)), ]
     colnames(coo) <- c("siteID", "xcoord", "ycoord")

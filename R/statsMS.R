@@ -104,7 +104,15 @@
 #
 statsMS <-
   function (model, design.info, arrange.by, digits) {
-    
+
+    # Check if suggested packages are installed
+    pkg <- c("plyr")
+    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
+    if (any(id)) {
+      pkg <- paste(pkg[which(id)], collapse = " ")
+      stop(paste("Package(s) needed for this function to work but not",
+                 "installed: ", pkg, sep = ""), call. = FALSE)
+    }    
     
     if (missing(model)) {
       stop("<model> is a mandatory argument")
@@ -139,7 +147,7 @@ statsMS <-
     }
     r2     <- as.numeric(unlist(sapply(model, summary)["r.squared", ]))
     adj_r2 <- as.numeric(unlist(sapply(model, summary)["adj.r.squared", ]))
-    ADJ_r2 <- pedometrics::adjR2(r2, n, p = c(p - 1))
+    ADJ_r2 <- adjR2(r2, n, p = c(p - 1))
     id <- seq(1, length(n), 1)
     if (!missing(digits)) {
       if (length(digits) == 6) {

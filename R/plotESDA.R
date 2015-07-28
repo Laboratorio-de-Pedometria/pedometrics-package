@@ -43,6 +43,7 @@
 #' 
 #' @seealso \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
 #' \code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
+#' @importFrom graphics plot
 #' @export
 #' @examples
 #' # require(gstat)
@@ -52,9 +53,17 @@
 #' @keywords dplot
 #' 
 # FUNCTION #####################################################################
-#
 plotESDA <- 
   function (z, lat, lon, lags, cutoff, width = c(cutoff / 20)) {
+    
+    # Check if suggested packages are installed
+    pkg <- c("gstat", "sp")
+    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
+    if (any(id)) {
+      pkg <- paste(pkg[which(id)], collapse = " ")
+      stop(paste("Package(s) needed for this function to work but not",
+                 "installed: ", pkg, sep = ""), call. = FALSE)
+    }
     
     if (missing(z)) {
       stop("<z> is a mandatory argument")

@@ -69,7 +69,13 @@
 # FUNCTION #####################################################################
 cdfTable <- 
   function(x, type = "xy", rounding = 0, tex = FALSE, data.frame = FALSE) {
-    
+
+    # Check if suggested packages are installed
+    if (!requireNamespace("xtable", quietly = TRUE)) {
+      stop(paste("Package 'xtable' needed for this function to work. ",
+                 "Please install it.", sep = ""), call. = FALSE)
+    }
+        
     if(type == "xy") {
       tb <- data.frame(c("Mean", "Absolute mean", "Squared mean"),
                        round(c(cdfStats(x, "dx")[1, 3],

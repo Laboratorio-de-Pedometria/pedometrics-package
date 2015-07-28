@@ -68,6 +68,12 @@
 cont2cat <-
   function (x, breaks, integer = FALSE) {
     
+    # Check if suggested packages are installed
+    if (!requireNamespace("SpatialTools", quietly = TRUE)) {
+      stop(paste("Package 'SpatialTools' needed for this function to work. ",
+                 "Please install it.", sep = ""), call. = FALSE)
+    }
+    
     # Process input
     x_cl <- class(x)
     x <- as.data.frame(x)

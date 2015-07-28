@@ -195,6 +195,7 @@
 #' 
 #' @seealso \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}, 
 #' \code{\link[mvtsplot]{mvtsplot}}.
+#' @importFrom stats update
 #' @export
 #' @examples
 #' # This example follows the discussion in section "Details"
@@ -217,6 +218,15 @@ plotMS <-
   function (obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2),
             size = 0.5, arrange = "desc", color = NULL, 
             xlim = NULL, ylab = NULL, xlab = NULL, at = NULL, ...) {
+    
+    # Check if suggested packages are installed
+    pkg <- c("grDevices", "grid", "plyr")
+    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
+    if (any(id)) {
+      pkg <- paste(pkg[which(id)], collapse = " ")
+      stop(paste("Package(s) needed for this function to work but not",
+                 "installed: ", pkg, sep = ""), call. = FALSE)
+    }
     
     if (missing(obj)) {
       stop("<obj> is a mandatory argument")

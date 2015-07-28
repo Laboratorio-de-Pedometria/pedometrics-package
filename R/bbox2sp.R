@@ -37,6 +37,15 @@
 bbox2sp <- 
   function (obj, sp = "SpatialPolygons", keep.crs = TRUE) {
     
+    # Check if suggested packages are installed
+    pkg <- c("sp")
+    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
+    if (any(id)) {
+      pkg <- paste(pkg[which(id)], collapse = " ")
+      stop(paste("Package(s) needed for this function to work but not",
+                 "installed: ", pkg, sep = ""), call. = FALSE)
+    }
+    
     if (!inherits(obj, "Spatial")) {
       stop ("obj should be of class Spatial")
     }

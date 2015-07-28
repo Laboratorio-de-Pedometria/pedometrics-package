@@ -8,8 +8,8 @@
 #' predictor variables.
 #' @param threshold Positive number defining the maximum allowed VIF. Defaults 
 #' to \code{threshold = 10}.
-#' @param verbose Logical for indicating if iteration results should be printed. 
-#' Defaults to \code{verbose = FALSE}.
+#' @param verbose Logical for indicating if iteration results should be 
+#' printed. Defaults to \code{verbose = FALSE}.
 #' 
 #' @details
 #' \code{stepVIF} starts computing the VIF of all predictor variables in the 
@@ -82,6 +82,12 @@
 # FUNCTION #####################################################################
 stepVIF <-
   function (model, threshold = 10, verbose = FALSE) {
+    
+    # Check if suggested packages are installed
+    if (!requireNamespace("car", quietly = TRUE)) {
+      stop(paste("Package 'car' needed for this function to work. ",
+                 "Please install it.", sep = ""), call. = FALSE)
+    }
     
     if (!inherits(model, "lm")) {
       stop ("'model' must be of class 'lm'")

@@ -72,6 +72,8 @@
 #' @seealso \code{\link[lattice]{histogram}}, 
 #' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
 #' \code{\link[car]{powerTransform}}, \code{\link[car]{bcPower}}.
+#' @import lattice latticeExtra
+#' @importFrom stats update
 #' @export
 #' @examples
 #' x <- rnorm(100, 10, 2)
@@ -85,6 +87,16 @@ plotHD <-
   function (x, HD = "over", nint = 20, digits = 2, stats = TRUE, 
             BoxCox = FALSE, col = c("lightgray", "black"), lwd = c(1, 1),
             lty = "dashed", xlim, ylim, ...) {
+    
+    # Check if suggested packages are installed
+    if (!requireNamespace("moments", quietly = TRUE)) {
+      stop(paste("Package 'moments' needed for this function to work. ",
+                 "Please install it.", sep = ""), call. = FALSE)
+    }
+    if (!requireNamespace("car", quietly = TRUE)) {
+      stop(paste("Package 'car' needed for this function to work. ",
+                 "Please install it.", sep = ""), call. = FALSE)
+    }
     
     if (BoxCox) {
       

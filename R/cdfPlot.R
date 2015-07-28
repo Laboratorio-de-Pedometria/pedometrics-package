@@ -56,7 +56,7 @@
 #' parameters are the mean, the median, and a percentile defined by the
 #' argument \code{conflev}.  The legend displays de actual values of all three
 #' parameters, including the standard deviation of the mean. The percentile
-#' value is calculated using \code{spsurvey::spsurvey::interp.cdf()}.
+#' value is calculated using \code{spsurvey::interp.cdf()}.
 #' @param round Numeric to set the rounding level of the parameters of the CDF.
 #' @param col.param Color of the lines showing the parameters of the CDF.
 #' Defaults to \code{col.param = "black"}.
@@ -112,6 +112,12 @@ cdfPlot <-
             show.conflev = TRUE,
             conflev = 95, show.param = TRUE, round = 0, 
             col.param = "black", ...) {
+    
+    # Check if suggested packages are installed
+    if (!requireNamespace("spsurvey", quietly = TRUE)) {
+      stop(paste("Package 'spsurvey' needed for this function to work. ",
+                 "Please install it.", sep = ""), call. = FALSE)
+    }
     
     op <- graphics::par(mgp = c(1.7, 0.6, 0), mar = c(3, 3, 2, 4) + 0.1)
     obj <- obj
