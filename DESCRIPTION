@@ -1,7 +1,7 @@
 Package: pedometrics
 Title: Pedometric Tools and Techniques
 Version: 0.6-3
-Date: 2015-07-25
+Date: 2015-07-27
 Authors@R: c(
     person("Alessandro", "Samuel-Rosa", role = c("aut", "cre"), 
            email = "alessandrosamuelrosa@gmail.com"), 

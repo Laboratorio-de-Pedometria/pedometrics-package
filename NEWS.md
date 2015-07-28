@@ -1,5 +1,7 @@
-# Version 0.6-3 (2015-07-25)
-* Now using Travis to check the package after every commit;
+# Version 0.6-3 (2015-07-27)
+* Packaging:
+    + Now using Travis to check the package after every commit;
+    + Functions from non-default packages are imported to pass CRAN checks;
 * New functions:
     + Evaluation of the data type contained in an object;
     + Extract spatial trend data from an object of class `likfit` (see the geoR
