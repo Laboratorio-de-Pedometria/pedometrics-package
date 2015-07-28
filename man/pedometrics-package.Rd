@@ -29,7 +29,7 @@ discouraged.
 Package: \tab pedometrics\cr
 Type:    \tab Package    \cr
 Version: \tab 0.6-3      \cr
-Date:    \tab 2015-07-25 \cr
+Date:    \tab 2015-07-28 \cr
 License: \tab GPL (>= 2) \cr
 }
 }

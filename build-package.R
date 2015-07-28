@@ -9,6 +9,7 @@ devtools::update(devtools::package_deps())
 devtools::dev_mode()
 
 # check examples and documentation
+roxygen2::roxygenise()
 devtools::check_doc()
 devtools::run_examples()
 

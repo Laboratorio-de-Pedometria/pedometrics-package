@@ -13,8 +13,8 @@ predictor variables.}
 \item{threshold}{Positive number defining the maximum allowed VIF. Defaults
 to \code{threshold = 10}.}
 
-\item{verbose}{Logical for indicating if iteration results should be printed.
-Defaults to \code{verbose = FALSE}.}
+\item{verbose}{Logical for indicating if iteration results should be
+printed. Defaults to \code{verbose = FALSE}.}
 }
 \value{
 A linear model (object of class \sQuote{lm}) with low collinearity.

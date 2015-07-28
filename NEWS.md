@@ -1,14 +1,11 @@
-# Version 0.6-3 (2015-07-27)
+# Version 0.6-3 (2015-07-28)
 * Packaging:
-    + Now using Travis to check the package after every commit;
-    + Functions from non-default packages are imported to pass CRAN checks;
-* New functions:
-    + Evaluation of the data type contained in an object;
-    + Extract spatial trend data from an object of class `likfit` (see the geoR
-      package for more info): `trend.terms()` and `trend.matrix()`;
-    + Stratification and categorization of continuous data: `breakPoints()` and
-      `stratify()`;
-    + Computation of lag-distance classes for varioram estimation: `vgmLags()`;
+    + Now using Travis-CI to check the package after every commit;
+    + Functions from default packages other than `base` are now imported to
+      comply with the new change to the CRAN policy described at
+      http://developer.r-project.org/blosxom.cgi/R-devel/NEWS/2015/06/29#n2015-06-29;
+    + Most packages that used to be under the `Imports:` field in the
+    `DESCRIPTION` file now are under the `Suggests:` field;
 * Existing functions:
     + `cramer()`: `NA`s are now removed when computing the chi-squared 
       statistic;
@@ -16,7 +13,14 @@
       first checked for zeros and negative values. If zeros and negative values
       are present, the data is transformed into a positive-valued data, with 
       the minimum value equal to 1.
-    + `plotESDA()`: new argument to define the lag-distance classes.
+    + `plotESDA()`: new argument to define the lag-distance classes;
+* New functions:
+    + Evaluation of the data type contained in an object;
+    + Extract spatial trend data from an object of class `likfit` (see the geoR
+      package for more info): `trend.terms()` and `trend.matrix()`;
+    + Stratification and categorization of continuous data: `breakPoints()` and
+      `stratify()`;
+    + Computation of lag-distance classes for varioram estimation: `vgmLags()`.
 
 # Version 0.6-2 (2015-06-01)
 * Better documentation for several functions.
