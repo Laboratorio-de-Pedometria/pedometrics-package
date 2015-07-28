@@ -31,7 +31,6 @@
 #' Cambridge University Press, p. 432, 2006.
 #' 
 #' @seealso \code{\link[vcd]{assocstats}}
-# @import bigtabulate
 #' @export
 #' @examples
 #' data <- read.csv("http://www.math.smith.edu/r/data/help.csv")

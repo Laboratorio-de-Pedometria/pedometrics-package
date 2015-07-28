@@ -1,23 +1,5 @@
-#  file pedometrics/R/plotMS.R
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 or 3 of the License
-#  (at your option).
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  A copy of the GNU General Public License is available at
-#  http://www.r-project.org/Licenses/
-#
-# DOCUMENTATION ################################################################
+#' Model series plot
 #' 
-#' @title Model series plot
-#' 
-#' @description
 #' This function produces a graphical output that allows the examination of the 
 #' effect of using different model specifications (design) on the predictive 
 #' performance of these models (a model series). It generally is used to access 
@@ -213,8 +195,6 @@
 #' 
 #' @seealso \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}, 
 #' \code{\link[mvtsplot]{mvtsplot}}.
-#' @import lattice latticeExtra grid
-#' @importFrom plyr arrange desc
 #' @export
 #' @examples
 #' # This example follows the discussion in section "Details"
@@ -237,6 +217,7 @@ plotMS <-
   function (obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2),
             size = 0.5, arrange = "desc", color = NULL, 
             xlim = NULL, ylab = NULL, xlab = NULL, at = NULL, ...) {
+    
     if (missing(obj)) {
       stop("<obj> is a mandatory argument")
     }
@@ -308,7 +289,7 @@ plotMS <-
       }
     }
     if (missing(color)) {
-      color <- cm.colors(length(unique(as.numeric(grid))))
+      color <- grDevices::cm.colors(length(unique(as.numeric(grid))))
     }
     if (missing(xlim)) {
       xlim <- c(0.5, dim(obj)[1] + 0.5)
@@ -349,22 +330,22 @@ plotMS <-
         mean(cbind(x, grid)[, 1][which(cbind(x, grid)[, i + 1] == ind)])
     }
     grid <- grid[, order(rank_center, decreasing = TRUE)]
-    p1 <- xyplot(y ~ x, xlim = rev(extendrange(xlim, f = 0)), type = type, 
-                 pch = pch[1], scales = list(y = list(rot = 0),
-                                             x = list(at = at)))
-    p2 <- levelplot(grid, colorkey = FALSE, xlim = rev(extendrange(xlim, f = 0)),
-                    col.regions = color,
-                    scales = list(y = list(rot = 90)),
-                    panel = function (...) {
-                      panel.levelplot(...)
-                      grid.points(x = sort(rank_center, decreasing = TRUE), 
-                                  seq(1, dim(grid)[2], 1),
-                                  pch = pch[2], size = unit(size, "char"))
-                    })
-    # print plot ###############################################################
+    p1 <- lattice::xyplot(
+      y ~ x, xlim = rev(grDevices::extendrange(xlim, f = 0)), type = type, 
+      pch = pch[1], scales = list(y = list(rot = 0), x = list(at = at)))
+    p2 <- lattice::levelplot(
+      grid, colorkey = FALSE, xlim = rev(grDevices::extendrange(xlim, f = 0)),
+      col.regions = color, scales = list(y = list(rot = 90)),
+      panel = function (...) {
+        lattice::panel.levelplot(...)
+        grid::grid.points(x = sort(rank_center, decreasing = TRUE), 
+                    seq(1, dim(grid)[2], 1),
+                    pch = pch[2], size = grid::unit(size, "char"))
+        })
+    
+    # Print plot
     update(c(p1, p2), layout = c(1, 2), xlab = xlab, 
            ylab = ylab, aspect = c((dim(grid)[2] * 2) / dim(grid)[1]),
-           par.settings = list(layout.heights = list(panel = c(0.5, 0.5))),
-           ...)
-  }
-# End!
+           par.settings = list(layout.heights = list(panel = c(0.5, 0.5))), ...)
+    }
+

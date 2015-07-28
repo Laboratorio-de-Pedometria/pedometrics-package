@@ -56,7 +56,6 @@
 #' <\url{http://www.epa.gov/nheerl/arm/}>.
 #' @keywords methods print
 #' @export
-#' @importFrom xtable xtable
 #' @examples
 #' 
 #' \dontrun{
@@ -70,6 +69,7 @@
 # FUNCTION #####################################################################
 cdfTable <- 
   function(x, type = "xy", rounding = 0, tex = FALSE, data.frame = FALSE) {
+    
     if(type == "xy") {
       tb <- data.frame(c("Mean", "Absolute mean", "Squared mean"),
                        round(c(cdfStats(x, "dx")[1, 3],

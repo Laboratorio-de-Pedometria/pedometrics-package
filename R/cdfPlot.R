@@ -1,19 +1,3 @@
-#  file pedometrics/R/cdfPlot.R
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 or 3 of the License
-#  (at your option).
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  A copy of the GNU General Public License is available at
-#  http://www.r-project.org/Licenses/
-#
-# DOCUMENTATION ################################################################
 #' Plot estimated cumulative distribution function with confidence limits
 #' 
 #' This function is a modified version of \code{cdf.plot()} of
@@ -72,7 +56,7 @@
 #' parameters are the mean, the median, and a percentile defined by the
 #' argument \code{conflev}.  The legend displays de actual values of all three
 #' parameters, including the standard deviation of the mean. The percentile
-#' value is calculated using \code{spsurvey::interp.cdf()}.
+#' value is calculated using \code{spsurvey::spsurvey::interp.cdf()}.
 #' @param round Numeric to set the rounding level of the parameters of the CDF.
 #' @param col.param Color of the lines showing the parameters of the CDF.
 #' Defaults to \code{col.param = "black"}.
@@ -105,7 +89,6 @@
 #' and Analysis}.  R package version 2.6. URL:
 #' \url{http://www.epa.gov/nheerl/arm/}.
 #' @keywords dplot hplot
-#' @import spsurvey
 #' @export
 #' @examples
 #' 
@@ -129,7 +112,8 @@ cdfPlot <-
             show.conflev = TRUE,
             conflev = 95, show.param = TRUE, round = 0, 
             col.param = "black", ...) {
-    op <- par(mgp = c(1.7, 0.6, 0), mar = c(3, 3, 2, 4) + 0.1)
+    
+    op <- graphics::par(mgp = c(1.7, 0.6, 0), mar = c(3, 3, 2, 4) + 0.1)
     obj <- obj
     ind <- ind
     cdfest <- obj$CDF[obj$CDF$Indicator == paste(ind), ]
@@ -142,9 +126,9 @@ cdfPlot <-
     }
     pctval <- c(confcut, 100 - confcut)
     tvalue <- cdfest[, 6] >= pctval[1] & cdfest[, 6] <= pctval[2]
-    x <- interp.cdf(pctval, cdfest[, 6], cdfdata[, 1])
-    ylow <- interp.cdf(pctval, cdfest[, 6], cdfdata[, 3])
-    yhi <- interp.cdf(pctval, cdfest[, 6], cdfdata[, 4])
+    x <- spsurvey::interp.cdf(pctval, cdfest[, 6], cdfdata[, 1])
+    ylow <- spsurvey::interp.cdf(pctval, cdfest[, 6], cdfdata[, 3])
+    yhi <- spsurvey::interp.cdf(pctval, cdfest[, 6], cdfdata[, 4])
     if (units.cdf == "percent") {
       ylimit <- c(0, 100)
     } else if (units.cdf == "units") {
@@ -154,22 +138,22 @@ cdfPlot <-
     if (type.cdf == "continuous") {
       ty <- c("l", "s")
       if(any(ty == type.plot)){
-        plot(cdfdata[, 1], cdfdata[, 2], type = type.plot, ylim = ylimit, 
-             xlab = xlbl, ylab = ylbl, log = logx, ...)
+        graphics::plot(cdfdata[, 1], cdfdata[, 2], type = type.plot, 
+                       ylim = ylimit, xlab = xlbl, ylab = ylbl, log = logx, ...)
         value <- c(x[1], cdfdata[, 1][tvalue], x[2])
         lower <- c(ylow[1], cdfdata[, 3][tvalue], ylow[2])
         upper <- c(yhi[1], cdfdata[, 4][tvalue], yhi[2])
         if (show.conflev) {  # Logical for showing the CDF's confidence limits
-          lines(value, lower, type = type.plot, lty = 3, lwd = 1.5)
-          lines(value, upper, type = type.plot, lty = 3, lwd = 1.5)
+          graphics::lines(value, lower, type = type.plot, lty = 3, lwd = 1.5)
+          graphics::lines(value, upper, type = type.plot, lty = 3, lwd = 1.5)
         }
         if (show.param) {
           mea <- round(mean(cdfdata[, 1]), round)
-          med <- round(median(cdfdata[, 1]), round)
-          per <- round(interp.cdf(conflev, cdfest[, 6], cdfdata[, 1]), round)
-          lines(rep(mea, 2), ylimit, lty = "dashed", col = col.param)
-          lines(rep(med, 2), ylimit, lty = "dotdash", col = col.param)
-          lines(rep(per, 2), ylimit, lty = "longdash", col = col.param)
+          med <- round(stats::median(cdfdata[, 1]), round)
+          per <- round(spsurvey::interp.cdf(conflev, cdfest[, 6], cdfdata[, 1]), round)
+          graphics::lines(rep(mea, 2), ylimit, lty = "dashed", col = col.param)
+          graphics::lines(rep(med, 2), ylimit, lty = "dotdash", col = col.param)
+          graphics::lines(rep(per, 2), ylimit, lty = "longdash", col = col.param)
         }
       } else{
         stop(paste("the type of plot must be either 'l' (line) or 's' (stair)"))
@@ -182,7 +166,8 @@ cdfPlot <-
       x <- as.vector(t(tmp))
       tmp <- cbind(matrix(y, ncol = 2, byrow = TRUE), rep(NA, nrow(cdfdata)))
       y <- as.vector(t(tmp))
-      plot(x, y, type = "l", ylim = ylimit, xlab = xlbl, ylab = ylbl, ...)
+      graphics::plot(x, y, type = "l", ylim = ylimit, xlab = xlbl, ylab = ylbl,
+                     ...)
       len <- length(cdfdata[, 1][tvalue])
       if (len > 1) {
         value <- rep(cdfdata[, 1][tvalue], each = 2)[-1]
@@ -197,16 +182,16 @@ cdfPlot <-
           upper <- rep(cdfdata[, 4][tvalue], each = 2)
           tmp <- cbind(matrix(upper, ncol = 2, byrow = TRUE), rep(NA, len))
           upper <- as.vector(t(tmp))
-          lines(value, lower, lty = 3, lwd = 1.5)
-          lines(value, upper, lty = 3, lwd = 1.5)
+          graphics::lines(value, lower, lty = 3, lwd = 1.5)
+          graphics::lines(value, upper, lty = 3, lwd = 1.5)
         }
       }
     } else {
       stop(paste("the type of CDF must be either 'continuous' or 'ordinal'"))
     }
-    title(figlab, line = 1)
-    rx <- range(par("usr")[1:2], cdfdata[, 1])
-    ry <- range(par("usr")[3:4], cdfdata[, 2])
+    graphics::title(figlab, line = 1)
+    rx <- range(graphics::par("usr")[1:2], cdfdata[, 1])
+    ry <- range(graphics::par("usr")[3:4], cdfdata[, 2])
     if (legloc == "BR") {
       xjust <- 1
       yjust <- 0
@@ -230,12 +215,11 @@ cdfPlot <-
     }
     if (show.param) {
       mea <- round(mean(cdfdata[, 1]), round)
-      mea_sd <- round(sd(cdfdata[, 1]), round)
-      med <- round(median(cdfdata[, 1]), round)
-      per <- round(interp.cdf(conflev, cdfest[, 6], cdfdata[, 1]), round)
-      legend(x = legx, y = legy, xjust = xjust, yjust = yjust,
-             legend = c("CDF Estimate", 
-                        paste(conflev, "% CL", sep = ""),
+      mea_sd <- round(stats::sd(cdfdata[, 1]), round)
+      med <- round(stats::median(cdfdata[, 1]), round)
+      per <- round(spsurvey::interp.cdf(conflev, cdfest[, 6], cdfdata[, 1]), round)
+      graphics::legend(x = legx, y = legy, xjust = xjust, yjust = yjust,
+             legend = c("CDF Estimate",  paste(conflev, "% CL", sep = ""),
                         paste("Mean = ", mea, " (", mea_sd, ")", sep = ""),
                         paste("Median = ", med, sep = ""),
                         paste("P", conflev, " = ", per, sep = "")),
@@ -244,22 +228,23 @@ cdfPlot <-
              col = c("black", "black", col.param, col.param, col.param))
     }
     else {
-      legend(x = legx, y = legy, xjust = xjust, yjust = yjust,
-             legend = c("CDF Estimate", 
-                        paste(conflev, "% CL", sep = "")),
+      graphics::legend(x = legx, y = legy, xjust = xjust, yjust = yjust,
+             legend = c("CDF Estimate", paste(conflev, "% CL", sep = "")),
              lty = c(1, 3), lwd = c(1, 1.5), bty = "n", cex = 1) 
     }
     if (!is.null(ylbl.r)) {
-      yl.lab <- seq(par("yaxp")[1], par("yaxp")[2], len = par("yaxp")[3] + 1)
+      yl.lab <- seq(graphics::par("yaxp")[1], graphics::par("yaxp")[2], 
+                    len = graphics::par("yaxp")[3] + 1)
       if (ylbl.r == "Same") {
-        axis(side = 4, at = yl.lab, labels = yl.lab)
-        mtext(ylbl, side = 4, line = 2, cex = par("cex"))
+        graphics::axis(side = 4, at = yl.lab, labels = yl.lab)
+        graphics::mtext(ylbl, side = 4, line = 2, cex = graphics::par("cex"))
       } else {
-        yr.lab <- interp.axis(yl.lab, cdfdata[, 2], cdfdata[, 5])
-        axis(side = 4, at = yl.lab, labels = as.character(round(yr.lab)))
-        mtext(ylbl.r, side = 4, line = 2, cex = par("cex"))
+        yr.lab <- spsurvey::interp.axis(yl.lab, cdfdata[, 2], cdfdata[, 5])
+        graphics::axis(side = 4, at = yl.lab, 
+                       labels = as.character(round(yr.lab)))
+        graphics::mtext(ylbl.r, side = 4, line = 2, cex = graphics::par("cex"))
       }
     }
-    par(op)
+    graphics::par(op)
     invisible(NULL)
   }

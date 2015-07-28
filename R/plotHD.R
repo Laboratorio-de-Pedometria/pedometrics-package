@@ -21,8 +21,8 @@
 #' descriptive statistics given the shape of the histogram. Defaults to 
 #' \code{stats = TRUE}.
 #' 
-#' @param digits Integer indicating the number of decimal places to be used when 
-#' printing the statistics of the variable \code{x}. Defaults to 
+#' @param digits Integer indicating the number of decimal places to be used 
+#' when printing the statistics of the variable \code{x}. Defaults to 
 #' \code{digits = 2}.
 #' 
 #' @param BoxCox Logical to indicate if the variable \code{x} should be 
@@ -73,7 +73,6 @@
 #' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
 #' \code{\link[car]{powerTransform}}, \code{\link[car]{bcPower}}.
 #' @export
-#' @import lattice car latticeExtra grid moments
 #' @examples
 #' x <- rnorm(100, 10, 2)
 #' plotHD(x, HD = "stack")
@@ -96,14 +95,14 @@ plotHD <-
         x <- x + abs(min(x)) + 1
       }
       
-      lambda <- powerTransform(x)
+      lambda <- car::powerTransform(x)
       print(summary(lambda))
       lambda <- as.numeric(lambda$lambda)
       if (lambda < 0) {
         message("estimated lambda value is negative... setting to zero")
         lambda <- 0
       }
-      x <- bcPower(x, lambda)
+      x <- car::bcPower(x, lambda)
     } else {
       lambda <- 1
     }
@@ -111,61 +110,63 @@ plotHD <-
       #if (missing(xlim)) {
       #  xlim <- densityplot(x)$x.limits
       #}
-      p <- histogram(x, type = "density", col = col[1], xlim = xlim, 
-                     nint = nint, lwd = lwd[1], ...,
-                     panel = function(x, ...) {
-                       panel.histogram(x, ...)
-                       panel.rug(x, col = col[2], lwd = lwd[1])
-                       panel.mathdensity(dmath = dnorm, col = col[2],
-                                         lwd = lwd[2], lty = lty,
-                                         args = list(mean = mean(x), 
-                                                     sd = sd(x)),
-                                         n = length(x))
-                     })
+      p <- lattice::histogram(
+        x, type = "density", col = col[1], xlim = xlim, nint = nint, 
+        lwd = lwd[1], ..., 
+        panel = function(x, ...) {
+          lattice::panel.histogram(x, ...)
+          lattice::panel.rug(x, col = col[2], lwd = lwd[1])
+          lattice::panel.mathdensity(dmath = stats::dnorm, col = col[2],
+                                     lwd = lwd[2], lty = lty, 
+                                     args = list(mean = mean(x), 
+                                                 sd = stats::sd(x)),
+                                     n = length(x))
+          })
       if (missing(ylim)) {
         y1 <- p$y.limits
-        y2 <- densityplot(x)$y.limits
+        y2 <- lattice::densityplot(x)$y.limits
         ylim <- c(min(c(y1[1], y2[1])), max(c(y1[2], y2[2])))
       }
       p$y.limits <- ylim
       if (stats) {
-        skw <- round(c(skewness(x)), 2)
+        skw <- round(c(moments::skewness(x)), 2)
         leg <- c(paste("Lambda = ", round(lambda, 4), "\n", 
                        "Mean = ", round(mean(x), digits), " (", 
-                                  round(sd(x), digits), ")\n",
-                       "Median = ", round(median(x), digits), "\n",
+                                  round(stats::sd(x), digits), ")\n",
+                       "Median = ", round(stats::median(x), digits), "\n",
                        "Range = ", round(min(x), digits), "-", 
                                    round(max(x), digits), "\n",
                        "Skew = ", skw, sep = ""))
         if (skw >= 1) {
           y <- NA
           pos <- NA
-          p <- p + latticeExtra::layer(panel.text(x = x, y = y, labels = leg, 
-                                                  pos = pos),
-                                       data = list(x = c(max(p$x.limits) * 
-                                                           0.99), 
-                                                   y = c(max(p$y.limits) * 0.9), 
-                                                   leg = leg, pos = 2))
+          p <- p + 
+            latticeExtra::layer(lattice::panel.text(x = x, y = y, labels = leg,
+                                                    pos = pos),
+                                data = list(x = c(max(p$x.limits) * 0.99), 
+                                            y = c(max(p$y.limits) * 0.9), 
+                                            leg = leg, pos = 2))
         }
         if (skw < 1) {
           y <- NA
           pos <- NA
-          p <- p + latticeExtra::layer(panel.text(x = x, y = y, labels = leg, 
-                                                  pos = pos),
-                                       data = list(x = c(min(p$x.limits)),
-                                                   y = c(max(p$y.limits) * 0.9),
-                                                   leg = leg, pos = 4))
+          p <- p + 
+            latticeExtra::layer(lattice::panel.text(x = x, y = y, labels = leg, 
+                                                    pos = pos),
+                                data = list(x = c(min(p$x.limits)),
+                                            y = c(max(p$y.limits) * 0.9),
+                                            leg = leg, pos = 4))
         }
       }
     }
     if (HD == "stack") {
-      p2 <- densityplot(x, col = col[2], pch = 20, cex = 0.5, n = length(x),
-                        lwd = lwd[2], lty = lty, ...)
+      p2 <- lattice::densityplot(x, col = col[2], pch = 20, cex = 0.5, 
+                                 n = length(x), lwd = lwd[2], lty = lty, ...)
       if (missing(xlim)) {
         xlim <- p2$x.limits
       }
-      p1 <- histogram(x, col = col[1], xlim = xlim, nint = nint, lwd = lwd[1],
-                      ...)
+      p1 <- lattice::histogram(x, col = col[1], xlim = xlim, nint = nint, 
+                               lwd = lwd[1], ...)
       p <- update(c(p1, p2), layout = c(1, 2), 
                   ylab = list(c("Percent of Total", "Density")), ...)
     }

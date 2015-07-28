@@ -44,7 +44,6 @@
 #' @seealso \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
 #' \code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
 #' @export
-#' @import gstat sp
 #' @examples
 #' # require(gstat)
 #' # data(meuse)
@@ -56,6 +55,7 @@
 #
 plotESDA <- 
   function (z, lat, lon, lags, cutoff, width = c(cutoff / 20)) {
+    
     if (missing(z)) {
       stop("<z> is a mandatory argument")
     }
@@ -78,24 +78,24 @@ plotESDA <-
       stop("<z>, <lat> and <lon> must have the same length")
     }
     db <- data.frame(lon = lon, lat = lat, z = z)
-    coordinates(db) <- ~ lon + lat
+    sp::coordinates(db) <- ~ lon + lat
     
     # Estimate the cutoff
-    cutoff <- max(variogram(z ~ 1, loc = db)$dist)
+    cutoff <- max(gstat::variogram(z ~ 1, loc = db)$dist)
     
     # Bubble plot
-    v1 <- bubble(db, zcol = "z", fill = FALSE, main = "", maxsize = 1)
+    v1 <- sp::bubble(db, zcol = "z", fill = FALSE, main = "", maxsize = 1)
     
     # Variogram map
     v2 <- gstat::variogram(z ~ 1, loc = db, map = TRUE, cutoff = cutoff, 
                            width = width)
-    v2 <- sp::spplot(v2$map[2], col.regions = bpy.colors(64))
+    v2 <- sp::spplot(v2$map[2], col.regions = sp::bpy.colors(64))
     
     # Sample variogram
     if (missing(lags)) {
-      v3 <- variogram(z ~ 1, loc = db, cutoff = cutoff, width = width)
+      v3 <- gstat::variogram(z ~ 1, loc = db, cutoff = cutoff, width = width)
     } else {
-      v3 <- variogram(z ~ 1, loc = db, boundaries = lags)
+      v3 <- gstat::variogram(z ~ 1, loc = db, boundaries = lags)
     }
     v3 <- plot(v3, cex = 0.5, type = "b", pch = 20, asp = 1)
     

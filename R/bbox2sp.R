@@ -28,52 +28,50 @@
 #' version 1.1-10.  \url{http://CRAN.R-project.org/package=intamapInteractive}
 #' @keywords misc spatial
 #' @export
-#' @import sp
 #' @examples
-#' 
 #' require(sp)
 #' data(meuse)
 #' coordinates(meuse) <- ~ x + y
-#' proj4string(meuse) <- CRS("+init=epsg:28992")
-#' bbox2sp(meuse)
-#' 
+#' bbox2sp(meuse, keep.crs = FALSE)
 # FUNCTION #####################################################################
 bbox2sp <- 
   function (obj, sp = "SpatialPolygons", keep.crs = TRUE) {
+    
     if (!inherits(obj, "Spatial")) {
       stop ("obj should be of class Spatial")
     }
+    
     if (keep.crs) {
-      if (is.na(proj4string(obj))) {
+      if (is.na(sp::proj4string(obj))) {
         stop ("obj DOES NOT have a coordinate reference system")
       }
     }
-    bb <- bbox(obj)
+    
+    bb <- sp::bbox(obj)
     bbx <- c(bb[1, 1], bb[1, 2], bb[1, 2], bb[1, 1], bb[1, 1])
     bby <- c(bb[2, 1], bb[2, 1], bb[2, 2], bb[2, 2], bb[2, 1])
     if (sp == "SpatialPoints") {
-      bb <- SpatialPoints(data.frame(bbx, bby))
+      bb <- sp::SpatialPoints(data.frame(bbx, bby))
       bb <- bb[1:4, ]
     }
     if (sp == "SpatialPointsDataFrame") {
       bb <- data.frame(bbx, bby)
       bb <- bb[1:4, ]
-      bb <- SpatialPointsDataFrame(bb, data = data.frame(ID = c(1, 2, 3, 4)))
+      bb <- sp::SpatialPointsDataFrame(bb, data = data.frame(ID = c(1, 2, 3, 4)))
     }
     if (sp == "SpatialPolygons") {
-      bb <- SpatialPoints(data.frame(bbx, bby))
-      bb <- Polygons(list(Polygon(bb)), ID = as.character(1))
-      bb <- SpatialPolygons(list(bb))
+      bb <- sp::SpatialPoints(data.frame(bbx, bby))
+      bb <- sp::Polygons(list(sp::Polygon(bb)), ID = as.character(1))
+      bb <- sp::SpatialPolygons(list(bb))
     }
     if (sp == "SpatialPolygonsDataFrame") {
-      bb <- SpatialPoints(data.frame(bbx, bby))
-      bb <- Polygons(list(Polygon(bb)), ID = as.character(1))
-      bb <- SpatialPolygons(list(bb))
-      bb <- SpatialPolygonsDataFrame(bb, data = data.frame(ID = 1))
+      bb <- sp::SpatialPoints(data.frame(bbx, bby))
+      bb <- sp::Polygons(list(sp::Polygon(bb)), ID = as.character(1))
+      bb <- sp::SpatialPolygons(list(bb))
+      bb <- sp::SpatialPolygonsDataFrame(bb, data = data.frame(ID = 1))
     }
     if (keep.crs) {
-      proj4string(bb) <- proj4string(obj)
+      sp::proj4string(bb) <- sp::proj4string(obj)
     }
     return (bb)
   }
-# End!

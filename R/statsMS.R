@@ -1,23 +1,5 @@
-#  file pedometrics/R/statsMS.R
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 or 3 of the License
-#  (at your option).
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  A copy of the GNU General Public License is available at
-#  http://www.r-project.org/Licenses/
-#
-# DOCUMENTATION ################################################################
+#' Obtain performance statistics of a series of linear models
 #' 
-#' @title Obtain performance statistics of a series of linear models
-#' 
-#' @description
 #' This function returns several statistics measuring the performance of a 
 #' series of linear models built using the function \code{buildMS}, with an 
 #' option to rank the models based on one of the returned performance 
@@ -95,7 +77,6 @@
 #' 
 #' @seealso \code{\link[pedometrics]{buildMS}}, 
 #' \code{\link[pedometrics]{plotMS}}.
-#' @importFrom plyr arrange
 #' @export
 #' @examples
 #' \dontrun{
@@ -123,6 +104,8 @@
 #
 statsMS <-
   function (model, design.info, arrange.by, digits) {
+    
+    
     if (missing(model)) {
       stop("<model> is a mandatory argument")
     }
@@ -142,35 +125,35 @@ statsMS <-
     if (class(model) == "lm") {
       model <- list(model)
     }
-    n      <- as.numeric(sapply(model, attr, "n"))
-    p      <- as.numeric(sapply(model, attr, "p"))
-    df     <- sapply(model, extractAIC)[1, ]
-    aic    <- sapply(model, extractAIC)[2, ]
-    res    <- sapply(model, residuals)
-    rmse   <- rep(NA, ncol(res))
-    nrmse  <- rep(NA, ncol(res))
-    sd_y   <- sd(data.frame(lapply(model, model.frame))[, 1])
+    n <- as.numeric(sapply(model, attr, "n"))
+    p <- as.numeric(sapply(model, attr, "p"))
+    df <- sapply(model, stats::extractAIC)[1, ]
+    aic <- sapply(model, stats::extractAIC)[2, ]
+    res <- sapply(model, stats::residuals)
+    rmse <- rep(NA, ncol(res))
+    nrmse <- rep(NA, ncol(res))
+    sd_y <- stats::sd(data.frame(lapply(model, stats::model.frame))[, 1])
     for (i in 1:ncol(res)) {
       rmse[i] <- sqrt(sum(res[, i] * res[, i]) / (n[i] - p[i]))
       nrmse[i] <- rmse[i] / sd_y
     }
     r2     <- as.numeric(unlist(sapply(model, summary)["r.squared", ]))
     adj_r2 <- as.numeric(unlist(sapply(model, summary)["adj.r.squared", ]))
-    ADJ_r2 <- adjR2(r2, n, p = c(p - 1))
+    ADJ_r2 <- pedometrics::adjR2(r2, n, p = c(p - 1))
     id <- seq(1, length(n), 1)
     if (!missing(digits)) {
       if (length(digits) == 6) {
-        aic    <- round(aic, digits[1])
-        rmse   <- round(rmse, digits[2])
-        nrmse  <- round(nrmse, digits[3])
-        r2     <- round(r2, digits[4])
+        aic <- round(aic, digits[1])
+        rmse <- round(rmse, digits[2])
+        nrmse <- round(nrmse, digits[3])
+        r2 <- round(r2, digits[4])
         adj_r2 <- round(adj_r2, digits[5])
         ADJ_r2 <- round(ADJ_r2, digits[6])
       } else {
-        aic    <- round(aic, digits)
-        rmse   <- round(rmse, digits)
-        nrmse  <- round(nrmse, digits)
-        r2     <- round(r2, digits)
+        aic <- round(aic, digits)
+        rmse <- round(rmse, digits)
+        nrmse <- round(nrmse, digits)
+        r2 <- round(r2, digits)
         adj_r2 <- round(adj_r2, digits)
         ADJ_r2 <- round(ADJ_r2, digits)
       }
@@ -184,7 +167,7 @@ statsMS <-
                         ADJ_r2, stringsAsFactors = FALSE)  
     }
     if (!missing(arrange.by)) {
-      tab <- plyr::arrange(tab, desc(tab[, arrange.by]))
+      tab <- plyr::arrange(tab, plyr::desc(tab[, arrange.by]))
     }
     return(tab)
   }

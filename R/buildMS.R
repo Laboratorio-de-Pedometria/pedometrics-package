@@ -1,20 +1,3 @@
-#  file pedometrics/R/buildMS.R
-#
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 or 3 of the License
-#  (at your option).
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  A copy of the GNU General Public License is available at
-#  http://www.r-project.org/Licenses/
-#
-# DOCUMENTATION ################################################################
-#' 
 #' Build a series of linear models using automated variable selection
 #' 
 #' This function allows building a series of linear models (\code{lm}) using 
@@ -95,14 +78,13 @@
 #' @seealso \code{\link[MASS]{stepAIC}}, \code{\link[pedometrics]{stepVIF}},
 #' \code{\link[pedometrics]{statsMS}}.
 #' @export
-#' @import MASS pbapply
 #' @examples
 #' \dontrun{
 #' # based on the second example of function stepAIC
 #' require(MASS)
 #' cpus1 <- cpus
 #' for(v in names(cpus)[2:7])
-#'   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])),
+#'   cpus1[[v]] <- cut(cpus[[v]], unique(stats::quantile(cpus[[v]])),
 #'                     include.lowest = TRUE)
 #' cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
 #' cpus.samp <- sample(1:209, 100)
@@ -121,6 +103,7 @@ buildMS <-
             vif = FALSE, vif.threshold = 10, vif.verbose = FALSE,
             aic = FALSE, aic.direction = "both", aic.trace = FALSE,
             aic.steps = 5000, ...) {
+    
     # check arguments ##########################################################
     if (missing(formula)) {
       stop("<formula> is a mandatory argument")
@@ -137,32 +120,24 @@ buildMS <-
     
     # lm()
     print("fitting linear model using ols")
-    model <- pblapply(formula, function (X){
-      lm(X, data)
-      })
+    model <- pbapply::pblapply(formula, function (X) stats::lm(X, data))
     # get the initial number of candidate predictors and observations
-    p <- sapply(model, function (X) {
-      dim(model.matrix(X))[2]
-      })
-    n <- sapply(model, function (X) {
-      dim(model.matrix(X))[1]
-    })
+    p <- sapply(model, function (X) dim(stats::model.matrix(X))[2])
+    n <- sapply(model, function (X) dim(stats::model.matrix(X))[1])
     
     # stepVIF()
     if (vif) {
       print("backward variable selection using VIF")
-      model <- pblapply(model, function (X) {
-        stepVIF(X, threshold = vif.threshold, verbose = vif.verbose)
-        })
+      model <- pbapply::pblapply(model, function (X)
+        stepVIF(X, threshold = vif.threshold, verbose = vif.verbose))
     }
     
     # stepAIC()
     if (aic) {
       print(paste(aic.direction, " variable selection using AIC", sep = ""))
-      model <- pblapply(model, function (X) {
-        stepAIC(X, direction = aic.direction, steps = aic.steps, 
-                trace = aic.trace, ...)
-        })
+      model <- pbapply::pblapply(model, function (X) 
+        MASS::stepAIC(X, direction = aic.direction, steps = aic.steps, 
+                      trace = aic.trace, ...))
     }
     
     # Prepare output - add attributes to the final model

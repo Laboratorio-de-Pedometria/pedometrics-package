@@ -1,5 +1,6 @@
-#  Import functions from non-default packages
+#  Import functions from non-default packages ##################################
+#' @importFrom graphics axis legend lines mtext par title hist
 #' @importFrom grDevices cm.colors extendrange
-#' @importFrom graphics axis legend lines mtext par title
+#' @importFrom grid grid.points unit
 #' @importFrom stats dnorm extractAIC formula lm median model.frame 
-#' @importFrom stats model.matrix residuals sd update
+#'             model.matrix residuals sd update quantile
