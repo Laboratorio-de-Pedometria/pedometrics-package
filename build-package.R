@@ -1,5 +1,7 @@
 # Build package
 
+require(devtools)
+
 # Dependencies
 devtools::update(devtools::package_deps())
 
@@ -16,7 +18,7 @@ devtools::build_win()
 devtools::build()
 
 # Check all downstream dependencies
-
+source("revdep/check.R")
 
 # Upload to CRAN
 devtools::release()
