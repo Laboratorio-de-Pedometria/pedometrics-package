@@ -1,7 +1,5 @@
 # Build package
 
-require(devtools)
-
 # Dependencies
 devtools::update(devtools::package_deps())
 

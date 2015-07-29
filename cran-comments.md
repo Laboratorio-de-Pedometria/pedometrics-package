@@ -1,7 +1,7 @@
 ## Changes
 * Improved existing functions
 * Created new functions
-* Fix a test failure on R-devel
+* Fixed a test failure on R-devel
 
 ## Test environments
 * ubuntu 12.04 (on travis-ci), R 3.2.1
