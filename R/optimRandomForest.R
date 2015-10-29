@@ -20,8 +20,8 @@
 #' @param nodesize Minimum size of terminal nodes. Defaults to 
 #' \code{nodesize = 5}.
 #' 
-#' @param mtry Number of variables randomly sampled as candidates at each split. 
-#' Defaults to 1/3 of the total number of covariates.
+#' @param mtry Number of variables randomly sampled as candidates at each 
+#' split. Defaults to 1/3 of the total number of covariates.
 #' 
 #' @param profile Should the profile of the standardized mean squared prediction
 #' error be plotted at the end of the optimization? Defaults to 
