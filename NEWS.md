@@ -1,3 +1,7 @@
+# Version 0.6-3.9000
+* New functions:
+    + Iteratively debias random forest regression.
+
 # Version 0.6-3 (2015-07-28)
 * Packaging:
     + Now using Travis-CI to check the package after every commit;
