@@ -1,72 +1,115 @@
 #' Evaluation of local geostatistical models of uncertainty
 #' 
-#' Evaluate the accuracy and precision of a local geostatistical model of
-#' uncertainty (\bold{GMU}) using summary measures and graphical displays.
+#' Evaluate the quality of a local geostatistical model of uncertainty 
+#' (\bold{GMU}) using summary measures and graphical displays.
 #' 
 #' @param observed Vector of observed values (validation points).
 #' 
 #' @param simulated Data frame or matrix with simulated values (columns) for
 #' each validation point (rows).
 #' 
-#' @param pi Vector defining the width of the series of symmetric 
-#' \emph{p}-probability intervals. Defaults to 
-#' \code{pi = seq(0.01, 0.99, 0.01)}.
+#' @param pi Vector defining the width of the series of probability intervals.
+#' Defaults to \code{pi = seq(0.01, 0.99, 0.01)}.
+#' 
+#' @param symmetric Logical for choosing the type of probability interval.
+#' Defaults to \code{symmetric = TRUE}.
 #' 
 #' @param plotit Logical for plotting the results. Defaults to 
 #' \code{plotit = TRUE}.
 #' 
 #' @details  
 #' 
+#' 
+#' 
 #' @references 
+#' 
+#' Deutsch, C. Direct assessment of local accuracy and precision. Baafi, E. Y. 
+#' & Schofield, N. A. (Eds.) \emph{Geostatistics Wollongong '96}. Dordrecht:
+#' Kinwer Academic Pubiishers, v. I, p. 115-125, 1997.
+#' 
+#' 
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @example 
-set.seed(2001)
-observed <- round(rnorm(20), 3)
-simulated <- t(sapply(1:length(observed), function (i) round(rnorm(100), 3)))
-res <- checkGMU(observed, simulated)
-res$summary.stats
+#' @example
+#' set.seed(2001)
+#' observed <- round(rnorm(100), 3)
+#' simulated <- t(sapply(1:length(observed), function (i) round(rnorm(100), 3)))
+#' resa <- checkGMU(observed, simulated, symmetric = T)
+#' resb <- checkGMU(observed, simulated, symmetric = F)
+#' round(resa$stats, 3)
+#' round(resb$stats, 3)
 # FUNCTION #####################################################################
 checkGMU <-
-  function (observed, simulated, pi = seq(0.01, 0.99, 0.01), plotit = TRUE) {
+  function (observed, simulated, pi = seq(0.01, 0.99, 0.01), symmetric = TRUE,
+            plotit = TRUE) {
     
     # Initial settings
     n_pts <- length(observed)
     n_pis <- length(pi)
     
-    # Compute the symmetric p-probability intervals
-    pi_bounds <- sapply(1:length(pi), function (i) c(1 - pi[i], 1 + pi[i]) / 2)
+    # If required, compute the symmetric probability intervals
+    if (symmetric) {
+      pi_bounds <- 
+        sapply(1:length(pi), function (i) c(1 - pi[i], 1 + pi[i]) / 2)
+      message("Processing ", n_pis, " symmetric probability intervals...")
+    } else {
+      message("Processing ", n_pis, " probability intervals...")
+    }
     
-    # Check if the true values fall into each of the symmetric p-probability
-    # intervals
+    # Do true values fall into each of the (symmetric) probability intervals?
     fall <- matrix(nrow = n_pts, ncol = n_pis)
     width <- matrix(nrow = n_pts, ncol = n_pis)
-    message("Processing ", n_pis, " symmetric p-probability intervals...")
-    for (i in 1:n_pts) {
-      for (j in 1:n_pis) {
-        bounds <- quantile(simulated[i, ], pi_bounds[, j])
-        fall[i, j] <- bounds[1] < observed[i] & observed[i] <= bounds[2]
-        width[i, j] <- diff(bounds)
+    if (symmetric) { # Deutsch (1997)
+      for (i in 1:n_pts) {
+        x <- simulated[i, ]
+        y <- observed[i]
+        for (j in 1:n_pis) {
+          bounds <- quantile(x = x, pi_bounds[, j])
+          fall[i, j] <- bounds[1] < y & y <= bounds[2]
+          width[i, j] <- bounds[2] - bounds[1]
+        }
+      }
+    } else { # Papritz & Dubois (1999)
+      for (i in 1:n_pts) {
+        x <- simulated[i, ]
+        y <- observed[i]
+        lowwer <- min(x)
+        for (j in 1:n_pis) {
+          upper <- quantile(x, pi[j])
+          fall[i, j] <- y <= upper
+          width[i, j] <- upper - lowwer
+        }
       }
     }
     
     # Compute the proportion of true values that fall into each of the 
-    # symmetric p-probability intervals
+    # (symmetric) probability intervals
     count <- apply(fall, 2, sum)
     prop <- count / n_pts
     
-    # Compute the average width of the symmetric p-probability intervals
+    # Compute the average width of the (symmetric) probability intervals into
+    # each the true values fall
     width <- width * fall
-    local_width <- apply(width, 2, sum) / count
+    width <- apply(width, 2, sum) / count
     
     # Compute summary statistics
-    accu <- prop >= pi
-    pi_idx <- which(accu)
-    accu <- sum(prop >= pi) / n_pis # accuracy (Deutsch, 1997)
+    if (symmetric) {
+      accu <- prop >= pi
+      pi_idx <- which(accu)
+      accu <- sum(prop >= pi) / n_pis # accuracy
+    } else {
+      accu <- prop == pi
+      pi_idx <- which(accu)
+      accu <- sum(prop == pi) / n_pis # accuracy
+    }
     prec <- 1 - 2 * sum(prop[pi_idx] - pi[pi_idx]) / n_pis # precision
-    pi_w <- ifelse(1:n_pis %in% pi_idx, 1, 2)
-    good <- 1 - (sum(pi_w * abs(prop - pi)) / n_pis) # goodness (Deutsch, 1997)
+    if (symmetric) {
+      pi_w <- ifelse(1:n_pis %in% pi_idx, 1, 2)
+      good <- 1 - (sum(pi_w * abs(prop - pi)) / n_pis) # goodness
+    } else {
+      good <- 1 - (sum(2 * abs(prop - pi)) / n_pis) # goodness
+    }
     pred <- apply(simulated, 1, mean)
     pred_var <- apply(simulated, 1, var)
     uncer <- mean(pred_var) # Uncertainty (Deutsch, 1997)
@@ -76,8 +119,8 @@ checkGMU <-
     mse <- mean(serr) # mean squared error
     srmse <- mean(serr / pred_var) # scaled root mean squared error
     corr <- cor(pred, observed) # linear correlation
-    stats <- round(data.frame(me = me, mse = mse, srmse = srmse, cor = corr, 
-                              A = accu, P = prec, G = good, U = uncer), 4)
+    stats <- data.frame(me = me, mse = mse, srmse = srmse, cor = corr, 
+                        A = accu, P = prec, G = good, U = uncer)
     
     if (plotit) {
       on.exit(par())
@@ -85,24 +128,31 @@ checkGMU <-
       cex <- ifelse(n_pts > 10, 0.5, 1)
       
       # Plot accuracy plot
-      plot(0:1, 0:1, type = 'n', main = "Accuracy plot", 
-           xlab = "Probability interval - p", 
-           ylab = "Proportion in this interval")
+      plot(0:1, 0:1, type = 'n', main = "Coverage probability",
+           xlab = ifelse(symmetric, "Symmetric probability interval",
+                         "Probability interval"),
+           ylab = "Proportion")
       abline(a = 0, b = 1)
       points(x = pi, y = prop, cex = cex)
-      text(x = 0, y = 1, labels = "More accurate", pos = 4)
-      text(x = 1, y = 0, labels = "Less accurate", pos = 2)
+      if (symmetric) {
+        text(x = 0, y = 1, labels = "More accurate", pos = 4)
+        text(x = 1, y = 0, labels = "Less accurate", pos = 2)
+      } else {
+        text(x = 0, y = 1, labels = "Less accurate", pos = 4)
+        text(x = 1, y = 0, labels = "Less accurate", pos = 2)
+      }
       
       # Plot PI-width plot
-      plot(x = pi, local_width, main = "PI-width plot", 
-           xlab = "Probability interval - p", 
-           ylab = "Width of this interval", cex = cex)
+      plot(x = pi, width, main = "Interval width", 
+           xlab = ifelse(symmetric, "Symmetric probability interval",
+                         "Probability interval"),
+           ylab = "Width", cex = cex)
       
       # Plot observed vs simulated values
       lim <- range(c(observed, pred))
       plot(x = observed, pred, main = "Observed vs Simulated", 
-           xlab = "Observed value", ylim = lim, xlim = lim,
-           ylab = "Average simulated value", cex = cex)
+           xlab = "Observed", ylim = lim, xlim = lim,
+           ylab = "Simulated (average)", cex = cex)
       abline(a = 0, b = 1)
       
       # Plot box plots
@@ -120,14 +170,12 @@ checkGMU <-
         points(observed[idx], col = "red", pch = 17, cex = cex)
         xlab <- "Validation point"
       }
-      title(main = "Distribution of simulated values",
-            xlab = xlab, ylab = "Simulated and observed values")
-      
+      title(main = "Distribution of values", xlab = xlab, ylab = "Distribution")
     }
     
     # Output
-    res <- list(data.frame(pi = pi, prop = prop, local.width = local_width), 
-                summary.stats = stats)
+    res <- list(data = data.frame(pi = pi, prop = prop, width = width), 
+                stats = stats, symmetric = symmetric)
     return (res)
     
   }
