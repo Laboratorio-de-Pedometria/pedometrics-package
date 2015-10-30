@@ -17,21 +17,65 @@
 #' @param plotit Logical for plotting the results. Defaults to 
 #' \code{plotit = TRUE}.
 #' 
-#' @details  
+#' @details 
+#' Several definitions are needed to correctly interpret the results of this
+#' function.
 #' 
-#' 
-#' 
+#' \subsection{Accuracy}{
+#' The definition of \emph{accuracy}, $A$, depends on the type of probability 
+#' interval that is being used. For the general case (Papritz & Dubois, 1999),
+#' a local GMU is said to be accurate if the proportion $p^*$ of true values 
+#' falling within the $p$ probability interval is equal to $p$, that is, when 
+#' $p^* = p$. Thus, a local GMU will be more accurate when all points in the 
+#' coverage probability plot are exactly on the 1:1 line. For the symmetric 
+#' case (Deutsch, 1997), an accurate local GMU is that for which the proportion 
+#' $p^*$ of true values falling within the symmetric $p$ probability interval 
+#' is equal or larger than $p$, that is, when $p^* \geq p$. Thus, a local GMU 
+#' will be more accurate when all points in the coverage probability plot are 
+#' on or above the 1:1 line. In both cases, $A$ ranges from 0 (lest accurate) 
+#' to 1 (most accurate), with the symmetric case always presenting a larger $A$.
+#' }
+#' \subsection{Precision}{
+#' The \emph{precision}, $P$, is defined only for an accurate local GMU, and
+#' measures how close $p^*$ is to $p$ (Deutsch, 1997). For the general case
+#' (Papritz & Dubois, 1999), $P$ is always equal to 1 because an accurate 
+#' local GMU is defined by $p^* = p$, rendering the measure of precision 
+#' useless. For the symmetric case, $P$ ranges from 0 (lest precise) to 1 (most 
+#' precise).
+#' }
+#' \subsection{Goodness}{
+#' The \emph{goodness}, $G$, is a measure of the departure of the points from
+#' the 1:1 line in the coverage probability plot (Deutsch, 1997). Like $A$ and 
+#' $P$, the definition of $G$ depends on the type of probability interval that 
+#' is being used. Remember that, for the general case, innaccuracy is defined 
+#' as $p^* < p$ and $p^* > p$, while for the symmetric case, innaccuracy is
+#' defined only as $p^* < p$. In both cases, $G$ ranges from 0 (minimum 
+#' goodness) to 1 (maximum goodness), the maximum $G$ being achieved when 
+#' $p^* = p$, that is, all points in the coverage probability plot are exactly 
+#' on the 1:1 line. However, because the innacurate case is weighted twice, the 
+#' symmetric case always presents a larger $G$.
+#' }
 #' @references 
 #' 
 #' Deutsch, C. Direct assessment of local accuracy and precision. Baafi, E. Y. 
 #' & Schofield, N. A. (Eds.) \emph{Geostatistics Wollongong '96}. Dordrecht:
 #' Kinwer Academic Pubiishers, v. I, p. 115-125, 1997.
 #' 
+#' Papritz, A. & Dubois, J. R. Mapping heavy metals in soil by (non-)linear
+#' kriging: an empirical validation. Gómez-Hernández, J.; Soares, A. & 
+#' Froidevaux, R. (Eds.) \emph{geoENV II -- Geostatistics for Environmental
+#' Applications}. Springer, p. 429-440, 1999.
 #' 
+#' Goovaerts, P. Geostatistical modelling of uncertainty in soil science.
+#' \emph{Geoderma}. v. 103, p. 3 - 26, 2001.
+#' 
+#' Goovaerts, P. AUTO-IK: a 2D indicator kriging program for the automated 
+#' non-parametric modeling of local uncertainty in earth sciences. 
+#' \emph{Computers & Geosciences}. v. 35, p. 1255-1270, 2009.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @example
+#' @examples
 #' set.seed(2001)
 #' observed <- round(rnorm(100), 3)
 #' simulated <- t(sapply(1:length(observed), function (i) round(rnorm(100), 3)))
@@ -104,12 +148,8 @@ checkGMU <-
       accu <- sum(prop == pi) / n_pis # accuracy
     }
     prec <- 1 - 2 * sum(prop[pi_idx] - pi[pi_idx]) / n_pis # precision
-    if (symmetric) {
-      pi_w <- ifelse(1:n_pis %in% pi_idx, 1, 2)
-      good <- 1 - (sum(pi_w * abs(prop - pi)) / n_pis) # goodness
-    } else {
-      good <- 1 - (sum(2 * abs(prop - pi)) / n_pis) # goodness
-    }
+    pi_w <- ifelse(1:n_pis %in% pi_idx, 1, 2)
+    good <- 1 - (sum(pi_w * abs(prop - pi)) / n_pis) # goodness
     pred <- apply(simulated, 1, mean)
     pred_var <- apply(simulated, 1, var)
     uncer <- mean(pred_var) # Uncertainty (Deutsch, 1997)
