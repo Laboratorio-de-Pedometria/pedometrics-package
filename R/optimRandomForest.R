@@ -57,12 +57,13 @@
 #' Xu, R. \emph{Improvements to random forest methodology}. Ames, Iowa: Iowa 
 #' State University, p. 87, 2013.
 #' 
-#' @author Ruo Xu \email{xuruo.isu@gmail.com}, with minor improvements by
+#' @author Ruo Xu \email{xuruo.isu@@gmail.com}, with minor improvements by
 #' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @note The original function was published as part of the dissertation of 
 #' Ruo Xu, which was developed under the supervision of Daniel S Nettleton 
-#' \email{dnett@iastate.edu} and Daniel J Nordman \email{dnordman@iastate.edu}.
+#' \email{dnett@@iastate.edu} and Daniel J Nordman 
+#' \email{dnordman@@iastate.edu}.
 #' 
 # FUNCTION - OPTIMIZATION ######################################################
 optimRandomForest <-

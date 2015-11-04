@@ -20,6 +20,6 @@ devtools::build()
 source("revdep/check.R")
 
 # Upload to CRAN
-devtools::release()
+devtools::release(check = FALSE)
 
 
