@@ -3,13 +3,15 @@
 #' Evaluate the local quality of a geostatistical model of uncertainty 
 #' (GMU) using summary measures and graphical displays.
 #' 
-#' @param observed Vector of observed values at the validation points.
+#' @param observed Vector of observed values at the validation points. See 
+#' \sQuote{Details} for more information.
 #' 
 #' @param simulated Data frame or matrix with simulated values (columns) for
-#' each validation point (rows).
+#' each validation point (rows). See \sQuote{Details} for more information.
 #' 
 #' @param pi Vector defining the width of the series of probability intervals.
-#' Defaults to \code{pi = seq(0.01, 0.99, 0.01)}.
+#' Defaults to \code{pi = seq(0.01, 0.99, 0.01)}. See \sQuote{Details} for more 
+#' information.
 #' 
 #' @param symmetric Logical for choosing the type of probability interval.
 #' Defaults to \code{symmetric = TRUE}. See \sQuote{Details} for more 
@@ -27,19 +29,19 @@
 #' summary measures and graphical displays that are most commonly used to 
 #' evaluate the local quality of GMUs.
 #' 
-#' Understanding a few definitions is needed to correctly interpret the 
-#' collection of summary measures and graphical displays presented here. I try 
-#' to give a brief overview of them in the following lines.
+#' Understanding a few definitions is needed to correctly use the collection of 
+#' summary measures and graphical displays presented here. I try to give a 
+#' brief overview of them in the following lines.
 #'
 #' \subsection{Error statistics}{
 #' Error statistics measure how well the GMU predicts the measured values at the
-#' validation points. Four error statistics are employed:
+#' validation points. Four error statistics are presented:
 #' 
 #' \describe{
 #' \item{Mean error (ME)}{
 #' Measures the bias of the predictions of the GMU, being defined as the mean of
 #' the differences between the average of the simulated values and the observed
-#' values.
+#' values, i.e. the average of all simulations is taken as the predicted value.
 #' }
 #' \item{Mean squared error (MSE)}{
 #' Measures the accuracy of the predictions of the GMU, being defined as the
@@ -47,17 +49,19 @@
 #' and the observed values.
 #' }
 #' \item{Scaled root mean squared error (SRMSE)}{
-#' Measures how good is the estimate of the (prediction error) variance of the
-#' GMU, where SRMSE > 1 indicates underestimation, while SRMSE < 1 indicates
-#' overestimation. The SRMSE is defined as the mean of the squared differences
-#' between the average of the simulated values and the observed values divided 
-#' by the variance of the simulated values.
+#' Measures how well the GMU estimate of the prediction error variance (PEV)
+#' approximates the observed prediction error variance, where the first is 
+#' given by the variance of the simulated values, while the second is given by
+#' the squared differences between the average of the simulated values, i.e. 
+#' the squared error (SE). The SRMSE is computed as the average of SE / PEV, 
+#' where SRMSE > 1 indicates underestimation, while SRMSE < 1 indicates
+#' overestimation.
 #' }
-#' \item{Linear correlation}{
+#' \item{Pearson correlation coefficient}{
 #' Measures how close the GMU predictions are to the observed values. A scatter 
 #' plot of the observed values versus the average of the simulated values 
-#' is produced to allow checking for possible unwanted outliers and 
-#' non-linearities. The square of the linear correlation measures the fraction 
+#' can be used to checking for possible unwanted outliers and non-linearities. 
+#' The square of the Pearson correlation coefficient measures the fraction 
 #' of the overall spread of observed values that is explained by the GMU, 
 #' that is, the amount of variance explained (AVE), also known as coefﬁcient 
 #' of determination or ratio of scatter.
@@ -65,47 +69,61 @@
 #' }
 #' }
 #' \subsection{Coverage probabilities}{
-#' Include a description of what coverage probabilities are. Describe the two
-#' types of probability intervals that can be used here.
+#' The coverage probability of an interval is given by the number of times that
+#' that interval contains its parameter over infinite, independent, and
+#' identical replications of an experiment. For example, the interval defined 
+#' by the lower and upper quartiles (0.25, 0.75) of a variable contains, by 
+#' definition, 0.5 of the values of that variable -- that is the nominal 
+#' coverage probability of that interval. Consider now a Gaussian distributed
+#' variable with mean equal to zero and variance equal to one: knowledge of the
+#' mean and variance allows us to compute the exact values of the lower and 
+#' upper quartiles. If we generate a Gaussian distributed \emph{random} 
+#' variable with the same mean and variance, about 0.5 of its values will fall 
+#' in the quartilic interval of our Gaussian variable. If we continue 
+#' generating Gaussian distributed \emph{random} variables with the same mean 
+#' and variance, on average, 0.5 of the values will fall in that interval.
+#' 
+#' Coverage probabilities are very useful to evaluate the local quality of a
+#' GMU: the closer the observed coverage probabilities of a sequence of 
+#' probability intervals (PI) are to the nominal coverage probabilities of 
+#' those PIs, the better the modelling of the local uncertainty. Two types of 
+#' PIs can be used here: symmetric, median-centred PIs, and left-bounded PIs. 
+#' Papritz & Dubois (1999) recommend using left-bounded PIs because they are 
+#' better at evidencing deviations for both large and small PIs. The authors 
+#' also point that the coverage probabilities of the symmetric, median-centred 
+#' PIs can be read from the coverage probability plots produced using 
+#' left-bounded PIs.
 #' 
 #' Deutsch (1997) proposed three summary measures of the coverage 
 #' probabilities to assess the local \emph{goodness} of a GMU: accuracy ($A$),
-#' precision ($P$), and goodness ($G$). According to him, a GMU can be 
-#' considered \dQuote{good} if it is both accurate and precise. He also defined
-#' that its uncertainty ($U$) should be as small as possible. I am unaware of 
-#' the robustness of these measures because they have been poorly explored by 
-#' the geostatistical community, except for a few studies developed by Pierre 
-#' Goovaerts and his later software implementation (Goovaerts, 2009).
-#' 
-#' It is important to note that the goodness measures proposed by Deutsch (1997)
-#' were defined based on the use of symmetric, median-centred probability 
-#' intervals to compute the coverage probabilities. I am unaware of the 
-#' robustness of these goodness measures when the coverage probabilities are
-#' computed using left-bounded probability intervals (Papritz & Dubois, 1999).
-#' The generalization made here is purely operational, and the user should 
-#' use the results with caution till we have a better understanding of these
-#' goodness measures.
+#' precision ($P$), and goodness ($G$). According to Deutsch (1997), a GMU can 
+#' be considered \dQuote{good} if it is both accurate and precise. Although 
+#' easy to compute, these measures seem not to have been explored by many 
+#' geostatiticians, except for the studies developed by Pierre Goovaerts and 
+#' his later software implementation (Goovaerts, 2009). Richmond (2001) 
+#' suggests that they should not be used as the only measures of the local 
+#' quality of a GMU.
 #' 
 #' \describe{
 #' \item{Accuracy}{
 #' An accurate GMU is that for which the proportion $p^*$ of true values 
-#' falling within the symmetric $p$ probability interval is equal to or larger 
-#' than $p$, that is, when $p^* \geq p$. Thus, a GMU will be more accurate when 
-#' all points in the coverage probability plot are on or above the 1:1 line. 
-#' The range of $A$ goes from 0 (lest accurate) to 1 (most accurate).
+#' falling within the symmetric $p$ PI is equal to or larger than $p$, that is, 
+#' when $p^* \geq p$. Thus, a GMU will be more accurate when all points in the 
+#' coverage probability plot are on or above the 1:1 line. The range of $A$ 
+#' goes from 0 (lest accurate) to 1 (most accurate).
 #' }
 #' \item{Precision}{
 #' The \emph{precision}, $P$, is defined only for an accurate GMU, and measures
-#' how close $p^*$ is to $p$ (Deutsch, 1997). The range of $P$ goes from 0 
-#' (lest precise) to 1 (most precise). Thus, a GMU will be more accurate when 
-#' all points in the PI-width plot are on or above the 1:1 line.
+#' how close $p^*$ is to $p$. The range of $P$ goes from 0 (lest precise) to 1
+#' (most precise). Thus, a GMU will be more accurate when all points in the 
+#' PI-width plot are on or above the 1:1 line.
 #' }
 #' \item{Goodness}{
 #' The \emph{goodness}, $G$, is a measure of the departure of the points from
-#' the 1:1 line in the coverage probability plot (Deutsch, 1997). $G$ ranges 
-#' from 0 (minimum goodness) to 1 (maximum goodness), the maximum $G$ being 
-#' achieved when $p^* = p$, that is, all points in both coverage probability 
-#' and interval width plots are exactly on the 1:1 line.
+#' the 1:1 line in the coverage probability plot. $G$ ranges from 0 (minimum
+#' goodness) to 1 (maximum goodness), the maximum $G$ being achieved when 
+#' $p^* = p$, that is, all points in both coverage probability and interval 
+#' width plots are exactly on the 1:1 line.
 #' }
 #' }
 #' }
@@ -126,6 +144,10 @@
 #' Goovaerts, P. AUTO-IK: a 2D indicator kriging program for the automated 
 #' non-parametric modeling of local uncertainty in earth sciences. 
 #' \emph{Computers & Geosciences}. v. 35, p. 1255-1270, 2009.
+#' 
+#' Richmond, A. J. Maximum profitability with minimum risk and effort. Xie, H.;
+#' Wang, Y. & Jiang, Y. (Eds.) \emph{Proceedings 29th APCOM}. Lisse: A. A.
+#' Balkema, p. 45-50, 2001.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
@@ -220,15 +242,14 @@ checkGMU <-
     good <- 1 - (sum(pi_w * abs(prop - pi)) / n_pis) # goodness
     pred <- apply(simulated, 1, mean) # predicted value
     pred_var <- apply(simulated, 1, var) # prediction variance
-    uncer <- mean(pred_var) # uncertainty
     err <- pred - observed # error
     me <- mean(err) # mean error
     serr <- err ^ 2 # squared error
     mse <- mean(serr) # mean squared error
     srmse <- mean(serr / pred_var) # scaled root mean squared error
     corr <- cor(pred, observed) # linear correlation
-    stats <- data.frame(me = me, mse = mse, srmse = srmse, cor = corr, 
-                        A = accu, P = prec, G = good, U = uncer)
+    error_stats <- data.frame(me = me, mse = mse, srmse = srmse, cor = corr)
+    good_meas <- data.frame(A = accu, P = prec, G = good, symmetric = symmetric)
 
     if (plotit) {
       on.exit(par())
@@ -280,7 +301,7 @@ checkGMU <-
     
     # Output
     res <- list(data = data.frame(pi = pi, prop = prop, width = width), 
-                stats = stats, symmetric = symmetric)
+                error = error_stats, goodness = good_meas)
     return (res)
     
   }
