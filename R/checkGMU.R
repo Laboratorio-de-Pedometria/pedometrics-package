@@ -23,16 +23,8 @@
 #' @details 
 #' There is no standard way of evaluating the local quality of a GMU. The 
 #' collection of summary measures and graphical displays presented here is far
-#' from being comprehensive, nor is it intended to be the \sQuote{best}  
-#' selection of existing summary measures and graphical displays. My choice
-#' is purely based on the literature -- I have tried to include here those
-#' summary measures and graphical displays that are most commonly used to 
-#' evaluate the local quality of GMUs.
+#' from being comprehensive. A few definitions are given bellow.
 #' 
-#' Understanding a few definitions is needed to correctly use the collection of 
-#' summary measures and graphical displays presented here. I try to give a 
-#' brief overview of them in the following lines.
-#'
 #' \subsection{Error statistics}{
 #' Error statistics measure how well the GMU predicts the measured values at the
 #' validation points. Four error statistics are presented:
@@ -60,7 +52,7 @@
 #' \item{Pearson correlation coefficient}{
 #' Measures how close the GMU predictions are to the observed values. A scatter 
 #' plot of the observed values versus the average of the simulated values 
-#' can be used to checking for possible unwanted outliers and non-linearities. 
+#' can be used to check for possible unwanted outliers and non-linearities. 
 #' The square of the Pearson correlation coefficient measures the fraction 
 #' of the overall spread of observed values that is explained by the GMU, 
 #' that is, the amount of variance explained (AVE), also known as coefﬁcient 
@@ -70,29 +62,36 @@
 #' }
 #' \subsection{Coverage probabilities}{
 #' The coverage probability of an interval is given by the number of times that
-#' that interval contains its parameter over infinite, independent, and
-#' identical replications of an experiment. For example, the interval defined 
-#' by the lower and upper quartiles (0.25, 0.75) of a variable contains, by 
-#' definition, 0.5 of the values of that variable -- that is the nominal 
-#' coverage probability of that interval. Consider now a Gaussian distributed
-#' variable with mean equal to zero and variance equal to one: knowledge of the
-#' mean and variance allows us to compute the exact values of the lower and 
-#' upper quartiles. If we generate a Gaussian distributed \emph{random} 
-#' variable with the same mean and variance, about 0.5 of its values will fall 
-#' in the quartilic interval of our Gaussian variable. If we continue 
-#' generating Gaussian distributed \emph{random} variables with the same mean 
-#' and variance, on average, 0.5 of the values will fall in that interval.
+#' that interval contains its parameter over several replications of an
+#' experiment. For example, consider the interquartile range $IQR = Q3 - Q1$ of 
+#' a Gaussian distributed variable with mean equal to zero and variance equal 
+#' to one. The nominal coverage probability of the IQR is 0.5, i.e. two 
+#' quarters of the data fall within the IQR. Suppose we generate a Gaussian 
+#' distributed \emph{random} variable with the same mean and variance and count
+#' the number of values that fall within the IQR defined above: about 0.5 of 
+#' its values will fall within the IQR. If we continue generating Gaussian
+#' distributed \emph{random} variables with the same mean and variance, on 
+#' average, 0.5 of the values will fall in that interval.
 #' 
 #' Coverage probabilities are very useful to evaluate the local quality of a
 #' GMU: the closer the observed coverage probabilities of a sequence of 
 #' probability intervals (PI) are to the nominal coverage probabilities of 
-#' those PIs, the better the modelling of the local uncertainty. Two types of 
-#' PIs can be used here: symmetric, median-centred PIs, and left-bounded PIs. 
-#' Papritz & Dubois (1999) recommend using left-bounded PIs because they are 
-#' better at evidencing deviations for both large and small PIs. The authors 
-#' also point that the coverage probabilities of the symmetric, median-centred 
-#' PIs can be read from the coverage probability plots produced using 
-#' left-bounded PIs.
+#' those PIs, the better the modelling of the local uncertainty.
+#' 
+#' Two types of PIs can be used here: symmetric, median-centred PIs, and 
+#' left-bounded PIs. Papritz & Dubois (1999) recommend using left-bounded PIs 
+#' because they are better at evidencing deviations for both large and small 
+#' PIs. The authors also point that the coverage probabilities of the symmetric,
+#' median-centred PIs can be read from the coverage probability plots produced 
+#' using left-bounded PIs.
+#' 
+#' In both cases, the PIs are computed at each validation location using the 
+#' quantiles of the conditional cumulative distribution function (ccdf) defined
+#' by the set of realizations at that validation location. For a sequence of 
+#' PIs of increasing width, we check which of them contains the observed value 
+#' at all validation locations. We then average the results over all validation 
+#' locations to compute the proportion of PIs (with the same width) that 
+#' contains the observed value: this gives the coverage probability of the PIs.
 #' 
 #' Deutsch (1997) proposed three summary measures of the coverage 
 #' probabilities to assess the local \emph{goodness} of a GMU: accuracy ($A$),
@@ -107,10 +106,10 @@
 #' \describe{
 #' \item{Accuracy}{
 #' An accurate GMU is that for which the proportion $p^*$ of true values 
-#' falling within the symmetric $p$ PI is equal to or larger than $p$, that is, 
-#' when $p^* \geq p$. Thus, a GMU will be more accurate when all points in the 
-#' coverage probability plot are on or above the 1:1 line. The range of $A$ 
-#' goes from 0 (lest accurate) to 1 (most accurate).
+#' falling within the $p$ PI is equal to or larger than the nominal probability
+#' $p$, that is, when $p^* \geq p$. In the coverage probability plot, a GMU 
+#' will be more accurate when all points are on or above the 1:1 line. The 
+#' range of $A$ goes from 0 (lest accurate) to 1 (most accurate).
 #' }
 #' \item{Precision}{
 #' The \emph{precision}, $P$, is defined only for an accurate GMU, and measures
@@ -126,6 +125,21 @@
 #' width plots are exactly on the 1:1 line.
 #' }
 #' }
+#' It is worth noting that the coverage probability and PI-width plots are 
+#' relevant mainly to GMU created using \emph{conditional simulations}, that is,
+#' simulations that are locally conditioned to the data observed at the 
+#' validation locations. Conditioning the simulations locally serves the 
+#' purposes of honouring the available data and reducing the variance of the
+#' output realizations. This is why one would like to find the points falling
+#' above the 1:1 line in both coverage probability and PI-width plots. For
+#' \emph{unconditional simulations}, that is, simulations that are only globally
+#' conditioned to the histogram (and variogram) of the data observed at the
+#' validation locations, one would expect to find that, over a large number 
+#' of simulations, the whole set of possible values (i.e. the global histogram)
+#' can be generated at any node of the simulation grid. In other words, it is 
+#' expected to find all points on the 1:1 line in both coverage probability and 
+#' PI-width plots. Deviations from the 1:1 line could then be used as evidence 
+#' of problems in the simulation.
 #' }
 #' @references 
 #' 
@@ -148,6 +162,9 @@
 #' Richmond, A. J. Maximum profitability with minimum risk and effort. Xie, H.;
 #' Wang, Y. & Jiang, Y. (Eds.) \emph{Proceedings 29th APCOM}. Lisse: A. A.
 #' Balkema, p. 45-50, 2001.
+#' 
+#' Ripley, B. D. \emph{Stochastic simulation}. New York: John Wiley & Sons, 
+#' p. 237, 1987.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
