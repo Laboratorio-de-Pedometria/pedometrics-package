@@ -166,6 +166,10 @@
 #' Ripley, B. D. \emph{Stochastic simulation}. New York: John Wiley & Sons, 
 #' p. 237, 1987.
 #' 
+#' @note Comments by Pierre Goovaerts \email{pierre.goovaerts@@biomedware.com} 
+#' were important to describe how to use the coverage probability and 
+#' PI-width plots when a GMU is created using unconditional simulations.
+#' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @examples
