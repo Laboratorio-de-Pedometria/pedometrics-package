@@ -158,8 +158,8 @@
 #'                       function (i) round(rnorm(100), 3)))
 #' resa <- checkGMU(observed, simulated, symmetric = T)
 #' resb <- checkGMU(observed, simulated, symmetric = F)
-#' round(resa$stats, 3)
-#' round(resb$stats, 3)
+#' resa$error;resb$error
+#' resa$goodness;resb$goodness
 # FUNCTION #####################################################################
 checkGMU <-
   function (observed, simulated, pi = seq(0.01, 0.99, 0.01),
@@ -267,8 +267,8 @@ checkGMU <-
       
       # PI-width plot
       lim <- range(c(width, g_width), na.rm = TRUE)
-      plot(x = width, y = g_width, ylim = lim, xlab = "Local PI", 
-           ylab = "Global PI", cex = cex, xlim = lim, main = "PI width")
+      plot(x = width, y = g_width, ylim = lim, xlab = "Local", 
+           ylab = "Global", cex = cex, xlim = lim, main = "PI width")
       abline(a = 0, b = 1)
       if (symmetric) {
         text(x = lim[2], y = lim[1], labels = "Symmetric PIs", pos = 2)
