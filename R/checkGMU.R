@@ -212,11 +212,11 @@ checkGMU <-
           # Local
           bounds <- stats::quantile(x = x, probs = pi_bounds[, j])
           fall[i, j] <- bounds[1] < y & y <= bounds[2]
-          width[i, j] <- bounds[2] - bounds[1]
+          width[i, j] <- as.numeric(bounds[2] - bounds[1])
           # Global
           g_bounds <- stats::quantile(x = observed, probs = pi_bounds[, j])
           g_fall[i, j] <- g_bounds[1] < y & y <= g_bounds[2]
-          g_width[i, j] <- g_bounds[2] - g_bounds[1]
+          g_width[i, j] <- as.numeric(g_bounds[2] - g_bounds[1])
         }
       }
     } else { # Papritz & Dubois (1999)
@@ -229,11 +229,11 @@ checkGMU <-
           # Local
           upper <- stats::quantile(x = x, probs = pi[j])
           fall[i, j] <- y <= upper
-          width[i, j] <- upper - lowwer
+          width[i, j] <- as.numeric(upper - lowwer)
           # Global
           g_upper <- stats::quantile(x = observed, probs = pi[j])
           g_fall[i, j] <- y <= g_upper
-          g_width[i, j] <- g_upper - g_lowwer
+          g_width[i, j] <- as.numeric(g_upper - g_lowwer)
         }
       }
     }
@@ -271,7 +271,7 @@ checkGMU <-
     corr <- cor(pred, observed) # linear correlation
     error_stats <- data.frame(me = me, mse = mse, srmse = srmse, cor = corr)
     good_meas <- data.frame(A = accu, P = prec, G = good, symmetric = symmetric)
-
+    
     if (plotit) {
       on.exit(par())
       par(mfrow = c(2, 2))
@@ -307,12 +307,12 @@ checkGMU <-
       idx <- idx[order(rank(observed))]
       if (n_pts > 100) { 
         sub_idx <- round(seq(1, n_pts, length.out = 100))
-        boxplot(simulated[, idx[sub_idx]], col = "yellow", 
+        boxplot(t(simulated[idx[sub_idx], ]), col = "yellow", 
                 pars = list(cex = cex), names = idx[sub_idx])
         points(observed[idx[sub_idx]], col = "red", pch = 17, cex = cex)
         xlab <- "Validation point (max of 100)"
       } else {
-        boxplot(simulated[, idx], col = "yellow", pars = list(cex = cex),
+        boxplot(t(simulated[idx, ]), col = "yellow", pars = list(cex = cex),
                 names = idx, xlab = "Validation point")
         points(observed[idx], col = "red", pch = 17, cex = cex)
         xlab <- "Validation point"
