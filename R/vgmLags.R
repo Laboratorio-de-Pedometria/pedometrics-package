@@ -26,8 +26,13 @@
 #' that should be used to compute the lag-distance classes. Defaults to 
 #' \code{zero = 0.0001}.
 #' 
+#' @param count Should the number of points (\code{"points"}) or point-pairs 
+#' (\code{"pairs"}) per lag-distance class be computed? Defaults to 
+#' \code{count = "pairs"}.
+#' 
 #' @return Vector of numeric values with the lower and upper boundaries of the 
-#' lag-distance classes.
+#' lag-distance classes. The number of points or point-pairs per lag-distance
+#' class is returned as an attribute.
 #' 
 #' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
 #' @seealso \code{\link[spsann]{optimPPL}}
@@ -39,11 +44,12 @@
 #' @export
 #' @examples
 #' require(sp)
-#' data(meuse.grid)
-#' vgmLags(meuse.grid[, 1:2])
+#' data(meuse)
+#' vgmLags(meuse[, 1:2])
 # FUNCTION - MAIN ##############################################################
 vgmLags <-
-  function (obj, n = 7, type = "exp", cutoff = 0.5, base = 2, zero = 0.001) {
+  function (obj, n = 7, type = "exp", cutoff = 0.5, base = 2, zero = 0.001,
+            count = "pairs") {
     
     # Compute cutoff
     if (class(obj) %in% c("matrix", "data.frame", "array")) {
@@ -64,6 +70,30 @@ vgmLags <-
       lags <- c(zero, rev(cutoff / idx))
     }
     
-    # Output
+    # Count the number of points or point-pairs per lag-distance class
+    dm <- SpatialTools::dist1(as.matrix(obj))
+    ppl <- switch (
+      count,
+      pairs = {
+        ppl <- vector()
+        for (i in 1:n) {
+          n <- which(dm > lags[i] & dm <= lags[i + 1])
+          ppl[i] <- length(n)
+        }
+        ppl
+      },
+      points = {
+        ppl <- vector()
+        for (i in 1:n) {
+          n <- which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)
+          ppl[i] <- length(unique(c(n)))
+        }
+        ppl
+      })
+    
+    # Output with attributes
+    a <- attributes(lags)
+    a$count <- ppl
+    attributes(lags) <- a
     return (lags)
   }
