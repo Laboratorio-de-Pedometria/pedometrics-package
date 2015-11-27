@@ -98,7 +98,7 @@
 #' precision ($P$), and goodness ($G$). According to Deutsch (1997), a GMU can 
 #' be considered \dQuote{good} if it is both accurate and precise. Although 
 #' easy to compute, these measures seem not to have been explored by many 
-#' geostatiticians, except for the studies developed by Pierre Goovaerts and 
+#' geostatisticians, except for the studies developed by Pierre Goovaerts and 
 #' his later software implementation (Goovaerts, 2009). Richmond (2001) 
 #' suggests that they should not be used as the only measures of the local 
 #' quality of a GMU.
@@ -171,12 +171,12 @@
 #' PI-width plots when a GMU is created using unconditional simulations.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' 
+#' @export
 #' @examples
 #' set.seed(2001)
 #' observed <- round(rnorm(100), 3)
-#' simulated <- t(sapply(1:length(observed), 
-#'                       function (i) round(rnorm(100), 3)))
+#' simulated <- t(
+#'   sapply(1:length(observed), function (i) round(rnorm(100), 3)))
 #' resa <- checkGMU(observed, simulated, symmetric = T)
 #' resb <- checkGMU(observed, simulated, symmetric = F)
 #' resa$error;resb$error
