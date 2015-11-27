@@ -1,6 +1,6 @@
 #' Lag-distance classes for variogram estimation
 #' 
-#' Computation of lag-distance classes for varioram estimation.
+#' Computation of lag-distance classes for variogram estimation.
 #' 
 #' @param obj Data frame or matrix with the projected x- and y-coordinates.
 #' 
@@ -50,6 +50,15 @@
 vgmLags <-
   function (obj, n = 7, type = "exp", cutoff = 0.5, base = 2, zero = 0.001,
             count = "pairs") {
+    
+    # Check if suggested packages are installed
+    pkg <- c("SpatialTools")
+    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
+    if (any(id)) {
+      pkg <- paste(pkg[which(id)], collapse = " ")
+      stop(paste("Package(s) needed for this function to work but not",
+                 "installed: ", pkg, sep = ""), call. = FALSE)
+    }
     
     # Compute cutoff
     if (class(obj) %in% c("matrix", "data.frame", "array")) {
