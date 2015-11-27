@@ -59,22 +59,23 @@ vgmLags <-
       message("'obj' should be a data frame with the projected coordinates")
     }
     
-    # Equidistant lag distance classes  
-    if (type == "equi") {
-      lags <- seq(zero, cutoff, length.out = n + 1)
-    }
-    
-    # Exponential lag distance classes
-    if (type == "exp") {
-      idx <- base ^ c(1:n - 1)
-      lags <- c(zero, rev(cutoff / idx))
-    }
+    # Compute the boundaries of the lag-distance classes
+    lags <- switch(
+      type,
+      equi = { # Equidistant
+        seq(zero, cutoff, length.out = n + 1)
+      },
+      exp = { # Exponential
+        idx <- base ^ c(1:n - 1)
+        c(zero, rev(cutoff / idx))
+      }
+    )
     
     # Count the number of points or point-pairs per lag-distance class
     dm <- SpatialTools::dist1(as.matrix(obj))
     ppl <- switch (
       count,
-      pairs = {
+      pairs = { # Point-pairs per lag-distance class
         ppl <- vector()
         for (i in 1:n) {
           n <- which(dm > lags[i] & dm <= lags[i + 1])
@@ -82,7 +83,7 @@ vgmLags <-
         }
         ppl
       },
-      points = {
+      points = { # Points per lag-distance class
         ppl <- vector()
         for (i in 1:n) {
           n <- which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)
