@@ -94,9 +94,9 @@ optimRandomForest <-
       id.train <- sample(1:nsample, ntrain, replace = FALSE)
       id.test <- c(1:nsample)[-id.train]
       
-      res <- .iterRandomForest(xtrain = x[id.train, ], ytrain = y[id.train],
-                               xtest = x[id.test, ], ntree = ntree, mtry = mtry,
-                               nodesize = nodesize, niter = niter)
+      res <- .iterRandomForest(
+        xtrain = x[id.train, ], ytrain = y[id.train], xtest = x[id.test, ], 
+        ntree = ntree, mtry = mtry, nodesize = nodesize, niter = niter)
       
       # prediction for test cases of this holding-out
       res <- res[, -c(1:ntrain)]
@@ -109,11 +109,10 @@ optimRandomForest <-
     
     # Prepare output
     colnames(mse) <- paste("iter-", 1:niter, sep = "")
-    res <- list(mse = data.frame(mean = apply(mse, 2, mean), 
-                                 sd = apply(mse, 2, sd)),
-                call = data.frame(nruns = nruns, ntree = ntree, 
-                                  ntrain = ntrain, ntest = ntest, 
-                                  nodesize = nodesize, mtry = mtry))
+    res <- list(
+      mse = data.frame(mean = apply(mse, 2, mean),  sd = apply(mse, 2, sd)),
+      call = data.frame(nruns = nruns, ntree = ntree,  ntrain = ntrain, 
+                        ntest = ntest, nodesize = nodesize, mtry = mtry))
     
     # Plot mse profile
     if (profile) {
@@ -142,8 +141,8 @@ optimRandomForest <-
     
     repeat {
       ni <- ni + 1
-      RF.temp <- randomForest(x = xtrain, y = b, ntree = ntree, mtry = mtry,
-                              nodesize = nodesize)
+      RF.temp <- randomForest::randomForest(
+        x = xtrain, y = b, ntree = ntree, mtry = mtry, nodesize = nodesize)
       bpred.oob <- RF.temp$predicted
       
       # Predict for test cases
@@ -154,8 +153,8 @@ optimRandomForest <-
     } # repeat ends
     
     rownames(pred.iter) <- paste("iter-", 1:niter, sep = "")
-    colnames(pred.iter) <- c(paste("Tr-", 1:ntrain, sep = ""), 
-                             paste("Test-", 1:ntest, sep = ""))
+    colnames(pred.iter) <- c(
+      paste("Tr-", 1:ntrain, sep = ""),  paste("Test-", 1:ntest, sep = ""))
     
     # This saves the final prediction results of different iterations of BC
     pred <- pred.iter[1,]
@@ -164,8 +163,8 @@ optimRandomForest <-
     } # for k ends
     
     rownames(pred) <- paste("iter-", 1:niter, sep = "")
-    colnames(pred) <- c(paste("Tr-", 1:ntrain, sep = ""), 
-                        paste("Test-", 1:ntest, sep = ""))
+    colnames(pred) <- c(
+      paste("Tr-", 1:ntrain, sep = ""), paste("Test-", 1:ntest, sep = ""))
     
     return(pred)
     

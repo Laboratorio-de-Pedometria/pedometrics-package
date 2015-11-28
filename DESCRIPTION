@@ -55,6 +55,7 @@ Imports:
 LinkingTo: Rcpp
 Suggests:
     car,
+    georob,
     grDevices,
     grid,
     gstat,
@@ -63,6 +64,7 @@ Suggests:
     moments,
     pbapply,
     plyr,
+    randomForest,
     sp,
     SpatialTools,
     spsurvey,

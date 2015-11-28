@@ -55,7 +55,7 @@
 #' can be used to check for possible unwanted outliers and non-linearities. 
 #' The square of the Pearson correlation coefficient measures the fraction 
 #' of the overall spread of observed values that is explained by the GMU, 
-#' that is, the amount of variance explained (AVE), also known as coefﬁcient 
+#' that is, the amount of variance explained (AVE), also known as coefficient 
 #' of determination or ratio of scatter.
 #' }
 #' }
@@ -145,7 +145,7 @@
 #' 
 #' Deutsch, C. Direct assessment of local accuracy and precision. Baafi, E. Y. 
 #' & Schofield, N. A. (Eds.) \emph{Geostatistics Wollongong '96}. Dordrecht:
-#' Kinwer Academic Pubiishers, v. I, p. 115-125, 1997.
+#' Kinwer Academic Publishers, v. I, p. 115-125, 1997.
 #' 
 #' Papritz, A. & Dubois, J. R. Mapping heavy metals in soil by (non-)linear
 #' kriging: an empirical validation. Gómez-Hernández, J.; Soares, A. & 
