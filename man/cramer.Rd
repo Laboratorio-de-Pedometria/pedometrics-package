@@ -30,11 +30,13 @@ main bottleneck in the current version of \code{cramer}. Ideally it will be
 implemented in C++.
 }
 \examples{
+\dontrun{
 data <- read.csv("http://www.math.smith.edu/r/data/help.csv")
 data <- data[, c("female", "homeless", "racegrp")]
 str(data)
 test <- cramer(data)
 test
+}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

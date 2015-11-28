@@ -110,7 +110,7 @@ should be given to the authors of the original implementation in the
 
 \dontrun{
 ## Estimate the CDF
-my.cdf <- cont.analysis(spsurvey.obj = my.spsurvey)
+my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
 
 ## See indicator levels in the resulting object
 levels(my.cdf$Pct$Indicator)

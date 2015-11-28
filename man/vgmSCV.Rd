@@ -2,9 +2,16 @@
 % Please edit documentation in R/vgmSCV.R
 \name{vgmSCV}
 \alias{vgmSCV}
-\title{Spatially correlated variance}
+\alias{vgmSCV.georob}
+\alias{vgmSCV.variogramModel}
+\alias{vgmSCV.variomodel}
+\title{Spatially correlated variance (SCV)}
 \usage{
-vgmSCV(obj, digits = 4)
+\method{vgmSCV}{variomodel}(obj, digits = 4)
+
+\method{vgmSCV}{variogramModel}(obj, digits = 4)
+
+\method{vgmSCV}{georob}(obj, digits = 4)
 }
 \arguments{
 \item{obj}{Variogram model fitted with available function in geostatistical

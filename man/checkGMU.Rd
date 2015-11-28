@@ -64,7 +64,7 @@ plot of the observed values versus the average of the simulated values
 can be used to check for possible unwanted outliers and non-linearities. 
 The square of the Pearson correlation coefficient measures the fraction 
 of the overall spread of observed values that is explained by the GMU, 
-that is, the amount of variance explained (AVE), also known as coefﬁcient 
+that is, the amount of variance explained (AVE), also known as coefficient 
 of determination or ratio of scatter.
 }
 }
@@ -157,6 +157,7 @@ were important to describe how to use the coverage probability and
 PI-width plots when a GMU is created using unconditional simulations.
 }
 \examples{
+\dontrun{
 set.seed(2001)
 observed <- round(rnorm(100), 3)
 simulated <- t(
@@ -166,13 +167,14 @@ resb <- checkGMU(observed, simulated, symmetric = F)
 resa$error;resb$error
 resa$goodness;resb$goodness
 }
+}
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \references{
 Deutsch, C. Direct assessment of local accuracy and precision. Baafi, E. Y. 
 & Schofield, N. A. (Eds.) \emph{Geostatistics Wollongong '96}. Dordrecht:
-Kinwer Academic Pubiishers, v. I, p. 115-125, 1997.
+Kinwer Academic Publishers, v. I, p. 115-125, 1997.
 
 Papritz, A. & Dubois, J. R. Mapping heavy metals in soil by (non-)linear
 kriging: an empirical validation. Gómez-Hernández, J.; Soares, A. & 

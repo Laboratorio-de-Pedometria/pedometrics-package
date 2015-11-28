@@ -4,7 +4,7 @@
 \alias{vgmICP}
 \title{Initial covariance parameters (ICP)}
 \usage{
-vgmICP(z, coords, lags, max.lag = Inf, method = "a", min.npairs = 30,
+vgmICP(z, coords, lags, max.dist = Inf, method = "a", min.npairs = 30,
   model, nu, plotit = FALSE, ...)
 }
 \arguments{
@@ -15,8 +15,8 @@ vgmICP(z, coords, lags, max.lag = Inf, method = "a", min.npairs = 30,
 \item{lags}{Numeric scalar defining a the width of the lag-distance classes,
 or a numeric vector with the upper bounds the lag-distance classes.}
 
-\item{max.lag}{Positive numeric defining the maximum distance up to which
-lag-distance classes should be computed. Defaults to \code{max.lag = Inf}.}
+\item{max.dist}{Positive numeric defining the maximum distance up to which
+lag-distance classes should be computed. Defaults to \code{max.dist = Inf}.}
 
 \item{method}{Character keyword defining the method used for guessing the
 initial covariance parameters. Defauls to \code{method = "a"}. See 

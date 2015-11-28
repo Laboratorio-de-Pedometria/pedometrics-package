@@ -33,11 +33,13 @@
 #' @seealso \code{\link[vcd]{assocstats}}
 #' @export
 #' @examples
+#' \dontrun{
 #' data <- read.csv("http://www.math.smith.edu/r/data/help.csv")
 #' data <- data[, c("female", "homeless", "racegrp")]
 #' str(data)
 #' test <- cramer(data)
 #' test
+#' }
 # FUNCTION #####################################################################
 cramer <-
   function (x) {

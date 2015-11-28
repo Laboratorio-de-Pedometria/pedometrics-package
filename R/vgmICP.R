@@ -53,7 +53,7 @@ vgmICP <-
       if (method %in% c("a", "c")) {
         lags <- vgmLags(coords)[-1]
       } else {
-        lags <- vgmLags(coords, n = 15, type = "equi")[-1]
+        lags <- vgmLags(coords, n.lags = 15, type = "equi")[-1]
       }
     } else {
       if (length(lags) == 1 && is.null(max.dist)) {

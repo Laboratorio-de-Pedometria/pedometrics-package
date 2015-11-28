@@ -4,13 +4,13 @@
 \alias{vgmLags}
 \title{Lag-distance classes for variogram estimation}
 \usage{
-vgmLags(obj, n = 7, type = "exp", cutoff = 0.5, base = 2,
+vgmLags(coords, n.lags = 7, type = "exp", cutoff = 0.5, base = 2,
   zero = 0.001, count = "pairs")
 }
 \arguments{
-\item{obj}{Data frame or matrix with the projected x- and y-coordinates.}
+\item{coords}{Data frame or matrix with the projected x- and y-coordinates.}
 
-\item{n}{Integer value defining the number of lag-distance classes that 
+\item{n.lags}{Integer value defining the number of lag-distance classes that 
 should be computed. Defaults to \code{n = 7}.}
 
 \item{type}{Character value defining the type of lag-distance classes that
@@ -47,7 +47,8 @@ Computation of lag-distance classes for variogram estimation.
 \examples{
 require(sp)
 data(meuse)
-vgmLags(meuse[, 1:2])
+vgmLags(coords = meuse[, 1:2], count = "points")
+vgmLags(coords = meuse[, 1:2], count = "pairs")
 }
 \author{
 Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
