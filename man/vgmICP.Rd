@@ -5,7 +5,7 @@
 \title{Initial covariance parameters (ICP)}
 \usage{
 vgmICP(z, coords, lags, max.dist = Inf, method = "a", min.npairs = 30,
-  model, nu, plotit = FALSE, ...)
+  model = "RMexp", nu, plotit = FALSE, ...)
 }
 \arguments{
 \item{z}{Numeric vector with the values of the response variable.}
@@ -29,17 +29,80 @@ initial covariance parameters. Defaults to \code{min.npairs = 30}.}
 \item{model}{Character keyword defining the variogram model that will be
 fitted to the data. Currently, most basic variogram models provided by the
 \pkg{RandomFields}-package are accepted. See \sQuote{Details} of 
-\code{\link[RandomFields]{RMmodel}}.}
+\code{\link[RandomFields]{RMmodel}}. Defaults to \code{model = "RMexp}.}
 
 \item{nu}{Smoothness parameter \eqn{\nu} of the Whittle-Matérn model. See 
 \code{\link[RandomFields]{RMmodel}}.}
 
-\item{plotit}{Should the guessed initial covariance parameters be ploted
+\item{plotit}{Should the guessed initial covariance parameters be plotted
 along with the sample variogram? Defaults to \code{plotit = FALSE}.}
 
-\item{...}{Further alguments passed to \code{\link[georob]{georob}}.}
+\item{...}{Further arguments passed to 
+\code{\link[georob]{sample.variogram}}, such as \code{estimator}, a character
+keyword defining the estimator for computing the sample variogram. The 
+default estimator is Genton's robust \code{\link[robustbase]{Qn}}-estimator.}
+}
+\value{
+A vector of numeric values: the guesses for the covariance parameters
+nugget, partial sill, and range.
 }
 \description{
-Guess the initial values for the covariance parameters.
+Guess the initial values for the covariance parameters required to fit a
+variogram model.
+}
+\details{
+There are five methods two guess the initial covariance parameters
+(ICP). Two of them (\code{"a"} and \code{"b"}) rely a sample variogram with
+exponentially spaced lag-distance classes, while the other three (\code{"b"},
+\code{"d"}, and \code{"e"}) use equidistant lag-distance classes (see
+\code{\link[pedometrics]{vgmLags}}). All of them are 
+\href{https://en.wikipedia.org/wiki/Heuristic}{heuristic}.
+
+Method \code{"a"} was developed in-house, and is the most elaborated of them,
+specially for guessing the nugget variance. Method \code{"c"} is implemented 
+in the \pkg{automap}-package and was developed by 
+\href{http://dx.doi.org/10.1016/j.cageo.2008.10.011}{Hiemstra et al. (2009)}.
+
+Method \code{"b"} was proposed by 
+\href{http://dx.doi.org/10.1016/0098-3004(95)00095-X}{Jian et al. (1996)} and
+is implemented in \href{https://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_variogram_a0000000593.htm}{SAS/STAT(R) 9.22}.
+Method \code{"d"} was developed by 
+\href{http://dx.doi.org/10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
+Method \code{"e"} was proposed by 
+\href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of 
+\href{http://www.gslib.com/}{GSLIB}.
+}
+\examples{
+data(meuse, package = "sp")
+icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
+}
+\author{
+Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+}
+\references{
+Desassis, N. & Renard, D. Automatic variogram modelling by iterative least
+squares: univariate and multivariate cases. \emph{Mathematical Geosciences}.
+Springer Science \eqn{+} Business Media, v. 45, p. 453-470, 2012.
+
+Hiemstra, P. H.; Pebesma, E. J.; Twenhöfel, C. J. & Heuvelink, G. B. 
+Real-time automatic interpolation of ambient gamma dose rates from the Dutch 
+radioactivity monitoring network. \emph{Computers & Geosciences}. Elsevier 
+BV, v. 35, p. 1711-1721, 2009.
+
+Jian, X.; Olea, R. A. & Yu, Y.-S. Semivariogram modelling by weighted least
+squares. \emph{Computers & Geosciences}. Elsevier BV, v. 22, p. 387-397, 
+1996.
+
+Larrondo, P. F.; Neufeld, C. T. & Deutsch, C. V. \emph{VARFIT: a program for 
+semi-automatic variogram modelling}. Edmonton: Department of Civil and
+Environmental Engineering, University of Alberta, p. 17, 2003.
+}
+\seealso{
+\code{\link[pedometrics]{vgmLags}}, 
+         \code{\link[georob]{sample.variogram}}, 
+         \code{\link[automap]{autofitVariogram}}
+}
+\concept{
+variogram
 }
 

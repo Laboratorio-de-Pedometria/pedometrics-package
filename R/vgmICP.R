@@ -1,6 +1,7 @@
 #' Initial covariance parameters (ICP)
 #' 
-#' Guess the initial values for the covariance parameters.
+#' Guess the initial values for the covariance parameters required to fit a
+#' variogram model.
 #' 
 #' @param z Numeric vector with the values of the response variable.
 #' 
@@ -23,21 +24,78 @@
 #' @param model Character keyword defining the variogram model that will be
 #' fitted to the data. Currently, most basic variogram models provided by the
 #' \pkg{RandomFields}-package are accepted. See \sQuote{Details} of 
-#' \code{\link[RandomFields]{RMmodel}}.
+#' \code{\link[RandomFields]{RMmodel}}. Defaults to \code{model = "RMexp}.
 #' 
 #' @param nu Smoothness parameter \eqn{\nu} of the Whittle-Matérn model. See 
 #' \code{\link[RandomFields]{RMmodel}}.
 #' 
-#' @param plotit Should the guessed initial covariance parameters be ploted
+#' @param plotit Should the guessed initial covariance parameters be plotted
 #' along with the sample variogram? Defaults to \code{plotit = FALSE}.
 #' 
-#' @param ... Further alguments passed to \code{\link[georob]{georob}}.
+#' @param ... Further arguments passed to 
+#' \code{\link[georob]{sample.variogram}}, such as \code{estimator}, a character
+#' keyword defining the estimator for computing the sample variogram. The 
+#' default estimator is Genton's robust \code{\link[robustbase]{Qn}}-estimator.
 #' 
+#' @return A vector of numeric values: the guesses for the covariance parameters
+#' nugget, partial sill, and range.
+#' 
+#' @details There are five methods two guess the initial covariance parameters
+#' (ICP). Two of them (\code{"a"} and \code{"b"}) rely a sample variogram with
+#' exponentially spaced lag-distance classes, while the other three (\code{"b"},
+#' \code{"d"}, and \code{"e"}) use equidistant lag-distance classes (see
+#' \code{\link[pedometrics]{vgmLags}}). All of them are 
+#' \href{https://en.wikipedia.org/wiki/Heuristic}{heuristic}.
+#' 
+#' Method \code{"a"} was developed in-house, and is the most elaborated of them,
+#' specially for guessing the nugget variance. Method \code{"c"} is implemented 
+#' in the \pkg{automap}-package and was developed by 
+#' \href{http://dx.doi.org/10.1016/j.cageo.2008.10.011}{Hiemstra et al. (2009)}.
+#' 
+#' Method \code{"b"} was proposed by 
+#' \href{http://dx.doi.org/10.1016/0098-3004(95)00095-X}{Jian et al. (1996)} and
+#' is implemented in \href{https://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_variogram_a0000000593.htm}{SAS/STAT(R) 9.22}.
+#' Method \code{"d"} was developed by 
+#' \href{http://dx.doi.org/10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
+#' Method \code{"e"} was proposed by 
+#' \href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of 
+#' \href{http://www.gslib.com/}{GSLIB}.
+#' 
+#' @references 
+#' 
+#' Desassis, N. & Renard, D. Automatic variogram modelling by iterative least
+#' squares: univariate and multivariate cases. \emph{Mathematical Geosciences}.
+#' Springer Science \eqn{+} Business Media, v. 45, p. 453-470, 2012.
+#' 
+#' Hiemstra, P. H.; Pebesma, E. J.; Twenhöfel, C. J. & Heuvelink, G. B. 
+#' Real-time automatic interpolation of ambient gamma dose rates from the Dutch 
+#' radioactivity monitoring network. \emph{Computers & Geosciences}. Elsevier 
+#' BV, v. 35, p. 1711-1721, 2009.
+#' 
+#' Jian, X.; Olea, R. A. & Yu, Y.-S. Semivariogram modelling by weighted least
+#' squares. \emph{Computers & Geosciences}. Elsevier BV, v. 22, p. 387-397, 
+#' 1996.
+#' 
+#' Larrondo, P. F.; Neufeld, C. T. & Deutsch, C. V. \emph{VARFIT: a program for 
+#' semi-automatic variogram modelling}. Edmonton: Department of Civil and
+#' Environmental Engineering, University of Alberta, p. 17, 2003.
+#' 
+#' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
+#' 
+#' @seealso \code{\link[pedometrics]{vgmLags}}, 
+#'          \code{\link[georob]{sample.variogram}}, 
+#'          \code{\link[automap]{autofitVariogram}}
+#' 
+#' @concept variogram
 #' @export
+#' 
+#' @examples 
+#' data(meuse, package = "sp")
+#' icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
 # FUNCTION - MAIN ##############################################################
 vgmICP <- 
   function (z, coords, lags, max.dist = Inf, method = "a", min.npairs = 30, 
-            model, nu, plotit = FALSE, ...) {
+            model = "RMexp", nu, plotit = FALSE, ...) {
     
     # Check if suggested packages are installed
     pkg <- c("georob")
@@ -122,20 +180,20 @@ vgmICP <-
     # RANGE
     # In general, the initial guess for the range (scale) parameter is made 
     # based on the lag-distance classes and on the dimensions of the study area.
-    # The most commom rule is to compute the initial range as half the 
+    # The most common rule is to compute the initial range as half the 
     # maximum distance up to which lag-distance classes have been defined 
     # (Jian et al., 1996; Larrondo et al., 2003; Desassis & Renard, 2012). 
     # Others set the initial range to a proportion of the diagonal of the study 
     # area, say 0.1, 0.35 or 0.5 (Hiemstra et al., 2009).
     # I think that this rather arbitrary and, possibly, suboptimal because the 
-    # lag-distance classes usually are defined by some authomatic proceedure
+    # lag-distance classes usually are defined by some automatic procedure
     # implemented in the software being used, which does not account for the
     # features of the data that is being analysed.
     # I propose using the estimate of the variance and semivariance of the data
     # to make an initial guess for the range parameter. The variance is used
     # here because it is the initial guess of the total sill (see bellow).
     # I start computing the absolute difference between the semivariogram and 
-    # the variance in each lag-distance classe (except for the first). Then, I
+    # the variance in each lag-distance class (except for the first). Then, I
     # record the index of the lag-distance class where the semivariance is 
     # closest to the variance. The separation distance at the centre of this 
     # lag-distance class is used as the initial guess for the range parameter.
@@ -185,7 +243,7 @@ vgmICP <-
     #    2009)
     # 2) set the initial nugget value to zero (Larrondo et al., 2003)
     # We can also find rules that take into account the difference in the
-    # semivariance between the first and second lag-distance classes ponderated
+    # semivariance between the first and second lag-distance classes weighted
     # by the difference in the size of these lag-distance classes (Jian et al.,
     # 1996). The resulting initial guess for the nugget variance is always lower
     # than the minimum semivariance value.
@@ -200,7 +258,7 @@ vgmICP <-
           # If the minimum gamma is in lags other than in the first, then we 
           # may have one of two possibilities at hand. First, it may be that
           # the best covariance model is that of a pure nugget effect. Second,
-          # the data at hand is not appropriate to estimate the bahaviour of 
+          # the data at hand is not appropriate to estimate the behaviour of 
           # the variogram close to the origin. So, what is the best initial
           # guess?
           # 
@@ -222,7 +280,7 @@ vgmICP <-
             } else {
               #
               # When gamma in the first lag is lower than in the third lag, then
-              # the best initial guess is the avegare of gamma in the first and
+              # the best initial guess is the average of gamma in the first and
               # second lags.
               # 
               mean(v$gamma[c(1, 2, 2)])
@@ -273,7 +331,7 @@ vgmICP <-
             # gamma in the first lag.
             # 
             # The task now is to evaluate the third lag in relation to the first
-            # two. In the ideal situation, gamma will increase monotonicaly 
+            # two. In the ideal situation, gamma will increase monotonically 
             # from the first to the third lag. If not, i.e. gamma in the third
             # lag is lower than in the second lag, then our data is not 
             # appropriate to estimate the behaviour of the variogram near the 
@@ -287,7 +345,7 @@ vgmICP <-
               mean(v$gamma[c(1, 3)])
               
             } else {
-              # Gamma increases monotonicaly from the first to the third lag,
+              # Gamma increases monotonically from the first to the third lag,
               # but gamma at the first lag is too low. It may be better to use 
               # a conservative initial guess, such as the average of gamma at 
               # the first and second lags.
