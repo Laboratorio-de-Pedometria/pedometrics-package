@@ -9,7 +9,7 @@ devtools::dev_mode()
 # check examples and documentation
 roxygen2::roxygenise()
 devtools::check_doc()
-devtools::run_examples()
+devtools::run_examples(run = FALSE)
 
 # check the package for Linux and Windows
 devtools::check()

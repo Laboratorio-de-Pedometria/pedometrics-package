@@ -173,6 +173,7 @@
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @export
 #' @examples
+#' \dontrun{
 #' set.seed(2001)
 #' observed <- round(rnorm(100), 3)
 #' simulated <- t(
@@ -181,6 +182,7 @@
 #' resb <- checkGMU(observed, simulated, symmetric = F)
 #' resa$error;resb$error
 #' resa$goodness;resb$goodness
+#' }
 # FUNCTION #####################################################################
 checkGMU <-
   function (observed, simulated, pi = seq(0.01, 0.99, 0.01),
