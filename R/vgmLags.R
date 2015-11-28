@@ -2,9 +2,9 @@
 #' 
 #' Computation of lag-distance classes for variogram estimation.
 #' 
-#' @param obj Data frame or matrix with the projected x- and y-coordinates.
+#' @param coords Data frame or matrix with the projected x- and y-coordinates.
 #' 
-#' @param n Integer value defining the number of lag-distance classes that 
+#' @param n.lags Integer value defining the number of lag-distance classes that 
 #' should be computed. Defaults to \code{n = 7}.
 #' 
 #' @param type Character value defining the type of lag-distance classes that
@@ -45,11 +45,12 @@
 #' @examples
 #' require(sp)
 #' data(meuse)
-#' vgmLags(meuse[, 1:2])
+#' vgmLags(coords = meuse[, 1:2], count = "points")
+#' vgmLags(coords = meuse[, 1:2], count = "pairs")
 # FUNCTION - MAIN ##############################################################
 vgmLags <-
-  function (obj, n = 7, type = "exp", cutoff = 0.5, base = 2, zero = 0.001,
-            count = "pairs") {
+  function (coords, n.lags = 7, type = "exp", cutoff = 0.5, base = 2, 
+            zero = 0.001, count = "pairs") {
     
     # Check if suggested packages are installed
     pkg <- c("SpatialTools")
@@ -61,44 +62,50 @@ vgmLags <-
     }
     
     # Compute cutoff
-    if (class(obj) %in% c("matrix", "data.frame", "array")) {
+    if (class(coords) %in% c("matrix", "data.frame", "array")) {
       cutoff <- sqrt(
-        sum(apply(apply(obj[, 1:2], 2, range), 2, diff) ^ 2)) * cutoff
+        sum(apply(apply(coords[, 1:2], 2, range), 2, diff) ^ 2)) * cutoff
     } else {
-      message("'obj' should be a data frame with the projected coordinates")
+      message("'coords' should be a data frame with the projected coordinates")
     }
     
     # Compute the boundaries of the lag-distance classes
+    n_pts <- nrow(coords)
     lags <- switch(
       type,
       equi = { # Equidistant
-        seq(zero, cutoff, length.out = n + 1)
+        seq(zero, cutoff, length.out = n.lags + 1)
       },
       exp = { # Exponential
-        idx <- base ^ c(1:n - 1)
+        idx <- base ^ c(1:n.lags - 1)
         c(zero, rev(cutoff / idx))
       }
     )
     
     # Count the number of points or point-pairs per lag-distance class
-    dm <- SpatialTools::dist1(as.matrix(obj))
+    dm <- SpatialTools::dist1(as.matrix(coords))
     ppl <- switch (
       count,
       pairs = { # Point-pairs per lag-distance class
-        ppl <- vector()
-        for (i in 1:n) {
-          n <- which(dm > lags[i] & dm <= lags[i + 1])
-          ppl[i] <- length(n)
-        }
-        ppl
+        # ppl <- vector()
+        # for (i in 1:n_lags) {
+          # n <- which(dm > lags[i] & dm <= lags[i + 1])
+          # ppl[i] <- length(n)
+        # }
+        # ppl
+        diff(sapply(
+          1:length(lags), function (i) length(which(dm <= lags[i]))) - n_pts)
       },
       points = { # Points per lag-distance class
-        ppl <- vector()
-        for (i in 1:n) {
-          n <- which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)
-          ppl[i] <- length(unique(c(n)))
-        }
-        ppl
+        # ppl <- vector()
+        # for (i in 1:n.lags) {
+          # n <- which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)
+          # ppl[i] <- length(unique(c(n)))
+        # }
+        # ppl
+        sapply(1:n.lags, function (i)
+          length(unique(c(
+            which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)))))
       })
     
     # Output with attributes
