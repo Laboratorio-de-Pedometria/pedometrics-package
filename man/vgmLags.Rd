@@ -45,10 +45,9 @@ class is returned as an attribute.
 Computation of lag-distance classes for variogram estimation.
 }
 \examples{
-require(sp)
-data(meuse)
-vgmLags(coords = meuse[, 1:2], count = "points")
-vgmLags(coords = meuse[, 1:2], count = "pairs")
+data(meuse, package = "sp")
+lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
+lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
 }
 \author{
 Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>

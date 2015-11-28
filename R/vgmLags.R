@@ -43,10 +43,9 @@
 #' 390-399, 2013.
 #' @export
 #' @examples
-#' require(sp)
-#' data(meuse)
-#' vgmLags(coords = meuse[, 1:2], count = "points")
-#' vgmLags(coords = meuse[, 1:2], count = "pairs")
+#' data(meuse, package = "sp")
+#' lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
+#' lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
 # FUNCTION - MAIN ##############################################################
 vgmLags <-
   function (coords, n.lags = 7, type = "exp", cutoff = 0.5, base = 2, 
