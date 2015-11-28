@@ -102,7 +102,7 @@ stats <- statsMS(cpus.ms, design.info = cpus.des, arrange.by = "aic")
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \references{
-Harrell, F. E. (2001) \emph{Regression modeling strategies: with 
+Harrell, F. E. (2001) \emph{Regression modelling strategies: with 
 applications to linear models, logistic regression, and survival analysis.} 
 First edition. New York: Springer.
 
