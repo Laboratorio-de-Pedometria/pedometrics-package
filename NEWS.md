@@ -2,6 +2,9 @@
 * Improved documentation of the `vgmLags`-function, and added functionality to
   count the number of points or point-pairs per lag-distance class so that the
   user can decide if the returned lag-distance classes meet his/her needs.
+* New function `vgmSCV` to compute the proportion of the variance that is
+  spatially correlated.
+* Minor improvement of the documentation of almost all functions.
 
 # Version 0.6-3.9001 (2015-11-05)
 * Developed a new function (`checkGMU()`) which can be used to check the quality
