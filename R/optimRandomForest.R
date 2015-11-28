@@ -57,7 +57,7 @@
 #' Xu, R. \emph{Improvements to random forest methodology}. Ames, Iowa: Iowa 
 #' State University, p. 87, 2013.
 #' 
-#' @author Ruo Xu \email{xuruo.isu@@gmail.com}, with minor improvements by
+#' @author Ruo Xu \email{xuruo.isu@@gmail.com}, with improvements by
 #' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @note The original function was published as part of the dissertation of 
@@ -65,6 +65,8 @@
 #' \email{dnett@@iastate.edu} and Daniel J Nordman 
 #' \email{dnordman@@iastate.edu}.
 #' 
+#' @importFrom stats predict
+#' @export
 # FUNCTION - OPTIMIZATION ######################################################
 optimRandomForest <-
   function (x, y, niter = 10, nruns = 100, ntree = 500, ntrain = 2/3, 
@@ -110,7 +112,8 @@ optimRandomForest <-
     # Prepare output
     colnames(mse) <- paste("iter-", 1:niter, sep = "")
     res <- list(
-      mse = data.frame(mean = apply(mse, 2, mean),  sd = apply(mse, 2, sd)),
+      mse = data.frame(
+        mean = apply(mse, 2, mean),  sd = apply(mse, 2, stats::sd)),
       call = data.frame(nruns = nruns, ntree = ntree,  ntrain = ntrain, 
                         ntest = ntest, nodesize = nodesize, mtry = mtry))
     
@@ -174,17 +177,19 @@ optimRandomForest <-
   function (mse, nruns, niter) {
     
     # Prepare data for plotting
-    eb <- apply(mse, 2, sd) / sqrt(nruns)
+    eb <- apply(mse, 2, stats::sd) / sqrt(nruns)
     mse <- apply(mse, 2, mean)
     upper <- (mse + eb) / mse[1]
     lower <- (mse - eb) / mse[1]
     mse <- mse / mse[1]
     
     # Plotting
-    plot(1:niter, mse, type = "b", ylim = c(min(lower), max(upper)),
-         ylab = "Standardized mean squared error", xlab = "Iteration",
-         main = "Mean squared error profile")
-    abline(h = mse[1], col = "red")
-    arrows(1:niter, lower, 1:niter, upper, length = 0.05, angle = 90, code = 3)
-    points(x = which.min(mse), y = min(mse), col = "blue", lwd = 2)
+    graphics::plot(
+      1:niter, mse, type = "b", ylim = c(min(lower), max(upper)),
+      ylab = "Standardized mean squared error", xlab = "Iteration",
+      main = "Mean squared error profile")
+    graphics::abline(h = mse[1], col = "red")
+    graphics::arrows(
+      1:niter, lower, 1:niter, upper, length = 0.05, angle = 90, code = 3)
+    graphics::points(x = which.min(mse), y = min(mse), col = "blue", lwd = 2)
   }

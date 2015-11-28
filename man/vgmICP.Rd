@@ -29,7 +29,7 @@ initial covariance parameters. Defaults to \code{min.npairs = 30}.}
 \item{model}{Character keyword defining the variogram model that will be
 fitted to the data. Currently, most basic variogram models provided by the
 \pkg{RandomFields}-package are accepted. See \sQuote{Details} of 
-\code{\link[RandomFields]{RMmodel}}. Defaults to \code{model = "RMexp}.}
+\code{\link[RandomFields]{RMmodel}}. Defaults to \code{model = "RMexp"}.}
 
 \item{nu}{Smoothness parameter \eqn{\nu} of the Whittle-Matérn model. See 
 \code{\link[RandomFields]{RMmodel}}.}

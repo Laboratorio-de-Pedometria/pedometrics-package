@@ -60,7 +60,7 @@ Ruo Xu, which was developed under the supervision of Daniel S Nettleton
 \email{dnordman@iastate.edu}.
 }
 \author{
-Ruo Xu \email{xuruo.isu@gmail.com}, with minor improvements by
+Ruo Xu \email{xuruo.isu@gmail.com}, with improvements by
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \references{

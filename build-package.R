@@ -1,7 +1,7 @@
 # Build package
 
 # Dependencies
-devtools::update(devtools::package_deps())
+update(devtools::package_deps())
 
 # turn on/off development mode
 devtools::dev_mode()

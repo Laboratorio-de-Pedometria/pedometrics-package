@@ -1,5 +1,5 @@
 Package: pedometrics
-Version: 0.6-3.9003
+Version: 0.6-4
 Date: 2015-11-28
 Title: Pedometric Tools and Techniques
 Description: Functions to employ many of the tools and techniques used in the 
@@ -30,7 +30,10 @@ Authors@R: c(
     person("Dick", "Brus", role = "ctb", 
            email = "dick.brus@wur.nl"),
     person("Frank", "Harrell Jr", role = "ctb", 
-           email = "f.harrell@vanderbilt.edu"))
+           email = "f.harrell@vanderbilt.edu"),
+    person("Ruo", "Xu", role = "ctb", 
+           email = "xuruo.isu@gmail.com")
+           )
 URL: https://github.com/samuel-rosa/pedometrics
 BugReports: https://github.com/samuel-rosa/pedometrics/issues
 Depends:

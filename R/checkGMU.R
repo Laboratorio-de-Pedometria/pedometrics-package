@@ -264,62 +264,68 @@ checkGMU <-
     pi_w <- ifelse(1:n_pis %in% pi_idx, 1, 2)
     good <- 1 - (sum(pi_w * abs(prop - pi)) / n_pis) # goodness
     pred <- apply(simulated, 1, mean) # predicted value
-    pred_var <- apply(simulated, 1, var) # prediction variance
+    pred_var <- apply(simulated, 1, stats::var) # prediction variance
     err <- pred - observed # error
     me <- mean(err) # mean error
     serr <- err ^ 2 # squared error
     mse <- mean(serr) # mean squared error
     srmse <- mean(serr / pred_var) # scaled root mean squared error
-    corr <- cor(pred, observed) # linear correlation
+    corr <- stats::cor(pred, observed) # linear correlation
     error_stats <- data.frame(me = me, mse = mse, srmse = srmse, cor = corr)
     good_meas <- data.frame(A = accu, P = prec, G = good, symmetric = symmetric)
     
     if (plotit) {
-      on.exit(par())
-      par(mfrow = c(2, 2))
+      on.exit(graphics::par())
+      graphics::par(mfrow = c(2, 2))
       cex <- ifelse(n_pts > 10, 0.5, 1)
       
       # Coverage probability plot
-      plot(0:1, 0:1, type = 'n', main = "Coverage probability",
-           xlab = "Probability interval", ylab = "Proportion")
-      abline(a = 0, b = 1)
-      points(x = pi, y = prop, cex = cex)
+      graphics::plot(
+        0:1, 0:1, type = 'n', main = "Coverage probability",
+        xlab = "Probability interval", ylab = "Proportion")
+      graphics::abline(a = 0, b = 1)
+      graphics::points(x = pi, y = prop, cex = cex)
       if (symmetric) {
-        text(x = 1, y = 0, labels = "Symmetric PIs", pos = 2)
+        graphics::text(x = 1, y = 0, labels = "Symmetric PIs", pos = 2)
       }
       
       # PI-width plot
       lim <- range(c(width, g_width), na.rm = TRUE)
-      plot(x = width, y = g_width, ylim = lim, xlab = "Local", 
-           ylab = "Global", cex = cex, xlim = lim, main = "PI width")
-      abline(a = 0, b = 1)
+      graphics::plot(
+        x = width, y = g_width, ylim = lim, xlab = "Local", 
+        ylab = "Global", cex = cex, xlim = lim, main = "PI width")
+      graphics::abline(a = 0, b = 1)
       if (symmetric) {
-        text(x = lim[2], y = lim[1], labels = "Symmetric PIs", pos = 2)
+        graphics::text(x = lim[2], y = lim[1], labels = "Symmetric PIs", pos = 2)
       }
       
       # Plot observed vs simulated values
       lim <- range(c(observed, pred))
-      plot(x = observed, pred, main = "Observed vs Simulated", 
-           xlab = "Observed", ylim = lim, xlim = lim,
-           ylab = "Simulated (average)", cex = cex)
-      abline(a = 0, b = 1)
+      graphics::plot(
+        x = observed, pred, main = "Observed vs Simulated", xlab = "Observed",
+        ylim = lim, xlim = lim, ylab = "Simulated (average)", cex = cex)
+      graphics::abline(a = 0, b = 1)
       
       # Plot box plots
       idx <- 1:n_pts
       idx <- idx[order(rank(observed))]
       if (n_pts > 100) { 
         sub_idx <- round(seq(1, n_pts, length.out = 100))
-        boxplot(t(simulated[idx[sub_idx], ]), col = "yellow", 
-                pars = list(cex = cex), names = idx[sub_idx])
-        points(observed[idx[sub_idx]], col = "red", pch = 17, cex = cex)
+        graphics::boxplot(
+          t(simulated[idx[sub_idx], ]), col = "yellow", pars = list(cex = cex),
+          names = idx[sub_idx])
+        graphics::points(
+          observed[idx[sub_idx]], col = "red", pch = 17, cex = cex)
         xlab <- "Validation point (max of 100)"
       } else {
-        boxplot(t(simulated[idx, ]), col = "yellow", pars = list(cex = cex),
-                names = idx, xlab = "Validation point")
-        points(observed[idx], col = "red", pch = 17, cex = cex)
+        graphics::boxplot(
+          t(simulated[idx, ]), col = "yellow", pars = list(cex = cex),
+          names = idx, xlab = "Validation point")
+        graphics::points(observed[idx], col = "red", pch = 17, cex = cex)
         xlab <- "Validation point"
       }
-      title(main = "Distribution of values", xlab = xlab, ylab = "Distribution")
+      graphics::title(
+        main = "Distribution of values", xlab = xlab, ylab = "Distribution")
     }
     
     # Output

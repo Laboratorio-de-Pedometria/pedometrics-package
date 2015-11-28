@@ -1,3 +1,14 @@
+# Version 0.6-4 (2015-11-28)
+* New functions have been added. They are designed for three purposes:
+    + Variogram estimation and analysis
+    + Evaluation of geostatistical models of uncertainty
+    + Calibrating random forest models
+
+# Version 0.6-3.9003 (2015-11-28)
+* New function `vgmICP` to guess the initial covariance parameters when fitting
+  a variogram model.
+* Included description of funding agencies in package description.
+
 # Version 0.6-3.9002 (2015-11-27)
 * Improved documentation of the `vgmLags`-function, and added functionality to
   count the number of points or point-pairs per lag-distance class so that the
@@ -7,12 +18,12 @@
 * Minor improvement of the documentation of almost all functions.
 
 # Version 0.6-3.9001 (2015-11-05)
-* Developed a new function (`checkGMU()`) which can be used to check the quality
+* Developed a new function `checkGMU` which can be used to check the quality
   of a geostatistical model on uncertainty.
 
 # Version 0.6-3.9000 (2015-09-25)
 * New functions:
-    + Iteratively debias random forest regression.
+    + Iteratively de-bias random forest regression.
 
 # Version 0.6-3 (2015-07-28)
 * Packaging:
@@ -36,7 +47,7 @@
       package for more info): `trend.terms()` and `trend.matrix()`;
     + Stratification and categorization of continuous data: `breakPoints()` and
       `stratify()`;
-    + Computation of lag-distance classes for varioram estimation: `vgmLags()`.
+    + Computation of lag-distance classes for variogram estimation: `vgmLags()`.
 
 # Version 0.6-2 (2015-06-01)
 * Better documentation for several functions.
