@@ -1,13 +1,13 @@
-#' Table with descriptive statistics of an estimated cummulative distribution
+#' Table with descriptive statistics of an estimated cumulative distribution
 #' function
 #' 
 #' This function returns a table containing the descriptive statistics of the
-#' cummulative distribution function of a set of continuous variables. TeX code
+#' cumulative distribution function of a set of continuous variables. TeX code
 #' is printed to copy and paste in a document.
 #' 
 #' Summary statistics included in the table (estimated population mean and
 #' standard deviation) are obtained from the resulting object of
-#' \code{cont.analysis()} by internaly using the function \code{cdfStats()}.
+#' \code{cont.analysis()} by internally using the function \code{cdfStats()}.
 #' 
 #' There are two types of data that can be submitted to function
 #' \code{cdfTable()}.  The first (\code{type = "xy"}) is composed by two
@@ -21,7 +21,7 @@
 #' in the attribute space). Thus, \sQuote{z} represents the vertical
 #' displacement (error) of the attribute \sQuote{z} being measured.
 #' 
-#' @param x Object with the estimated cummulative distribution function of the
+#' @param x Object with the estimated cumulative distribution function of the
 #' set of continuous variables. The resulting object of \code{cont.analysis()}
 #' of \pkg{spsurvey}-package.
 #' @param type Type of data under analysis. Defaults to \code{type = "xy"}. See

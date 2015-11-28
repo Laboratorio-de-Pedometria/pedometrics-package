@@ -1,4 +1,4 @@
-#' Diffence on xyz coordinates between ground control points
+#' Difference on xyz coordinates between ground control points
 #' 
 #' This function estimates the difference, absolute difference, and squared
 #' difference on x, y and z coordinates of two sets of ground control points
@@ -20,7 +20,7 @@
 #' and its azimuth.  Both objects \code{measured} and \code{predicted} used
 #' with function \code{gcpDiff()} must be of class
 #' \code{SpatialPointsDataFrame}. They must have at least one column named
-#' \sQuote{siteID} giving the identification of evary case. Matching of case
+#' \sQuote{siteID} giving the identification of every case. Matching of case
 #' IDs is mandatory. Other columns are discarded.
 #' 
 #' Vertical validation exercises are interested in comparing the

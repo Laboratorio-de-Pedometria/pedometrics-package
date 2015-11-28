@@ -21,7 +21,7 @@
 trend.terms <- 
   function (x) {
     cl <- class(x)
-    if (all(cl == c("likGRF","variomodel"))) {
+    if (all(cl == c("likGRF", "variomodel"))) {
       res <- all.vars(x$trend)
     }
     return (res)
@@ -33,7 +33,7 @@ trend.terms <-
 trend.matrix <-
   function (x) {
     cl <- class(x)
-    if (all(cl == c("likGRF","variomodel"))) {
+    if (all(cl == c("likGRF", "variomodel"))) {
       res <- x$trend.matrix[, -1]
       colnames(res) <- trend.terms(x)
     }

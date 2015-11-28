@@ -11,7 +11,7 @@
 #' performance statistics of the linear models should be arranged, and which 
 #' column should be used. Available options are \code{"candidates"}, 
 #' \code{"df"}, \code{"aic"}, \code{"rmse"}, \code{"nrmse"}, \code{"r2"}, 
-#' \code{"adj_r2"}, and \code{"ADJ_r2"}. Decending order is used by default and 
+#' \code{"adj_r2"}, and \code{"ADJ_r2"}. Descending order is used by default and 
 #' cannot be changed in the current implementation. See \sQuote{Value} for more 
 #' information.
 #' @param digits Integer or vector with six integers indicating the number of 
@@ -59,7 +59,7 @@
 #' }
 #' 
 #' @references
-#' Harrell, F. E. (2001) \emph{Regression modeling strategies: with 
+#' Harrell, F. E. (2001) \emph{Regression modelling strategies: with 
 #' applications to linear models, logistic regression, and survival analysis.} 
 #' First edition. New York: Springer.
 #' 

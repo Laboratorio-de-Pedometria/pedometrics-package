@@ -1,5 +1,5 @@
 #' Descriptive statistics of the cumulative distribution function of a
-#' continuos variable
+#' continuous variable
 #' 
 #' This function returns summary statistics of the cumulative distribution
 #' function of a continuous variable estimated with \pkg{spsurvey}-package.

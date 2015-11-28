@@ -50,7 +50,7 @@
 #' Some important details should be clear when using \code{buildMS}:
 #' 
 #' \enumerate{
-#' \item this function was originaly devised to deal with a list of formulas, 
+#' \item this function was originally devised to deal with a list of formulas, 
 #' but can also be used with a single formula;
 #' \item in the current implementation, \code{stepVIF} runs before 
 #' \code{stepAIC};
@@ -63,7 +63,7 @@
 #' @return A list containing the fitted linear models.
 #' 
 #' @references
-#' Harrell, F. E. (2001) \emph{Regression modeling strategies: with 
+#' Harrell, F. E. (2001) \emph{Regression modelling strategies: with 
 #' applications to linear models, logistic regression, and survival analysis.}
 #' First edition. New York: Springer.
 #' 

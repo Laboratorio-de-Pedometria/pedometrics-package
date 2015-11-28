@@ -63,8 +63,8 @@
 #' \subsection{Coverage probabilities}{
 #' The coverage probability of an interval is given by the number of times that
 #' that interval contains its parameter over several replications of an
-#' experiment. For example, consider the interquartile range $IQR = Q3 - Q1$ of 
-#' a Gaussian distributed variable with mean equal to zero and variance equal 
+#' experiment. For example, consider the interquartile range \eqn{IQR = Q3 - Q1}
+#' of a Gaussian distributed variable with mean equal to zero and variance equal 
 #' to one. The nominal coverage probability of the IQR is 0.5, i.e. two 
 #' quarters of the data fall within the IQR. Suppose we generate a Gaussian 
 #' distributed \emph{random} variable with the same mean and variance and count
@@ -105,15 +105,15 @@
 #' 
 #' \describe{
 #' \item{Accuracy}{
-#' An accurate GMU is that for which the proportion $p^*$ of true values 
+#' An accurate GMU is that for which the proportion \eqn{p^*} of true values 
 #' falling within the $p$ PI is equal to or larger than the nominal probability
-#' $p$, that is, when $p^* \geq p$. In the coverage probability plot, a GMU 
+#' $p$, that is, when \eqn{p^* \geq p}. In the coverage probability plot, a GMU 
 #' will be more accurate when all points are on or above the 1:1 line. The 
 #' range of $A$ goes from 0 (lest accurate) to 1 (most accurate).
 #' }
 #' \item{Precision}{
 #' The \emph{precision}, $P$, is defined only for an accurate GMU, and measures
-#' how close $p^*$ is to $p$. The range of $P$ goes from 0 (lest precise) to 1
+#' how close \eqn{p^*} is to $p$. The range of $P$ goes from 0 (lest precise) to 1
 #' (most precise). Thus, a GMU will be more accurate when all points in the 
 #' PI-width plot are on or above the 1:1 line.
 #' }
@@ -121,7 +121,7 @@
 #' The \emph{goodness}, $G$, is a measure of the departure of the points from
 #' the 1:1 line in the coverage probability plot. $G$ ranges from 0 (minimum
 #' goodness) to 1 (maximum goodness), the maximum $G$ being achieved when 
-#' $p^* = p$, that is, all points in both coverage probability and interval 
+#' \eqn{p^* = p}, that is, all points in both coverage probability and interval 
 #' width plots are exactly on the 1:1 line.
 #' }
 #' }

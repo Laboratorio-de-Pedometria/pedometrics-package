@@ -1,6 +1,6 @@
 Package: pedometrics
-Version: 0.6-3
-Date: 2015-07-28
+Version: 0.6-3.9002
+Date: 2015-11-27
 Title: Pedometric Tools and Techniques
 Description: Functions to employ many of the tools and
     techniques used in the field of pedometrics (see
@@ -12,7 +12,7 @@ Description: Functions to employ many of the tools and
     Rio de Janeiro, Brazil), Dr Gustavo M Vasques (Embrapa Solos, Brazil), and
     Dr Gerard BM Heuvelink (ISRIC - World Soil Information, the Netherlands).
     The project is supported by the CAPES, Ministério da Educação, Brasília -
-    DF 70040-020, Brazil, process ID BEX 11677/13-9. Several functions 
+    DF 70040-020, Brazil, process ID BEX 11677/13-9. Several functions
     simply extend the functionalities of other functions
     commonly used for the analysis of pedometric data. It should be noted that
     changes are likely to occur quite often and the use of this package as a
@@ -70,3 +70,4 @@ Suggests:
 License: GPL (>= 2)
 Encoding: UTF-8
 Repository: CRAN
+RoxygenNote: 5.0.1

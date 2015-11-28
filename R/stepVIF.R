@@ -30,7 +30,7 @@
 #' larger than the specified threshold. Because \code{stepVIF} estimates GVIF 
 #' and the threshold corresponds to a VIF value, the last is transformed to the 
 #' scale of GVIF by taking its square root. If there is only one predictor 
-#' variable that does not meet the VIF threshold, it is authomatically removed 
+#' variable that does not meet the VIF threshold, it is automatically removed 
 #' from the model and no further processing occurs. When there are two or more 
 #' predictor variables that do not meet the VIF threshold, \code{stepVIF} fits 
 #' a linear model between each of them and the dependent variable. The 

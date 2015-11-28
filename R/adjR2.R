@@ -3,7 +3,7 @@
 #' Calculates the adjusted coefficient of determination of a multiple linear 
 #' regression model.
 #' 
-#' @param r2 Numeric vector with the coeficient of deternmination to be 
+#' @param r2 Numeric vector with the coefficient of determination to be 
 #' adjusted.
 #' @param n Numeric vector providing the number of observations used to fit the
 #' multiple linear regression model.

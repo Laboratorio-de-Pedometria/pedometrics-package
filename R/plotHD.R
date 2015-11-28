@@ -30,8 +30,8 @@
 #' lambda value of the Box-Cox transform is printed in the console. It is set to
 #' zero when negative. Defaults to \code{BoxCox = FALSE}.
 #' 
-#' @param col Vector of two elements, the first indicating the color of the
-#' histogram, the second indicating the color of the density plot. Defaults to 
+#' @param col Vector of two elements, the first indicating the colour of the
+#' histogram, the second indicating the colour of the density plot. Defaults to 
 #' \code{col = c("lightgray", "black")}.
 #' 
 #' @param lwd Vector of two elements, the first indicating the line width of the

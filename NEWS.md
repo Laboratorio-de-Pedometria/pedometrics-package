@@ -1,4 +1,13 @@
-# Version 0.6-3.9000
+# Version 0.6-3.9002 (2015-11-27)
+* Improved documentation of the `vgmLags`-function, and added functionality to
+  count the number of points or point-pairs per lag-distance class so that the
+  user can decide if the returned lag-distance classes meet his/her needs.
+
+# Version 0.6-3.9001 (2015-11-05)
+* Developed a new function (`checkGMU()`) which can be used to check the quality
+  of a geostatistical model on uncertainty.
+
+# Version 0.6-3.9000 (2015-09-25)
 * New functions:
     + Iteratively debias random forest regression.
 

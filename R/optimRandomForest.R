@@ -1,6 +1,6 @@
-#' Optimum number of iterations to debias a random forest regression
+#' Optimum number of iterations to de-bias a random forest regression
 #' 
-#' Compute the optimum number of iterations needed to debias a random forest 
+#' Compute the optimum number of iterations needed to de-bias a random forest 
 #' regression.
 #' 
 #' @param x Data frame or matrix of covariates (predictor variables).
@@ -38,10 +38,10 @@
 #' smaller the calibration dataset, the more simulation runs are needed to 
 #' obtain stable estimates of the mean squared prediction error (MSPE).
 #' 
-#' The optimum number of iterations needed to debias the random forest 
+#' The optimum number of iterations needed to de-bias the random forest 
 #' regression is obtained observing the evolution of the MSPE as the number of
 #' iterations increases. The MSPE is defined as the mean of the squared 
-#' diferences between predicted and observed values.
+#' differences between predicted and observed values.
 #' 
 #' @seealso \code{\link[randomForest]{randomForest}}
 #' 

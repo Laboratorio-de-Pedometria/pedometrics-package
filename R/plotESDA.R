@@ -13,10 +13,10 @@
 #' @param lags Numerical vector; upper boundaries of lag-distance classes. See
 #' argument \code{boundaries} of \code{\link[gstat]{variogram}} for more info.
 #' @param cutoff Integer value defining the spatial separation distance up to 
-#' which point pairs are included in semivariance estimates. Defaults to the 
+#' which point pairs are included in semi-variance estimates. Defaults to the 
 #' length of the diagonal of the box spanning the data divided by three.
 #' @param width Integer value specifying the width of subsequent distance 
-#' intervals into which data point pairs are grouped for semivariance 
+#' intervals into which data point pairs are grouped for semi-variance 
 #' estimates. Defaults to \code{width = cutoff / 20}.
 #' 
 #' @details

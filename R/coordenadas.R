@@ -7,7 +7,7 @@
 #' \code{spsurvey.analysis} requires a series of inputs. However, it can be fed
 #' with data about site ID and coordinates. \code{coordenadas()} returns a data
 #' frame that provides this information, assuming that all other design
-#' variables are provided manualy in the arguments list.
+#' variables are provided manually in the arguments list.
 #' 
 #' @param x Object of class \code{SpatialPointsDataFrame} from
 #' which site ID and XY coordinates are to be returned.
