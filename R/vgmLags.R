@@ -86,22 +86,11 @@ vgmLags <-
     ppl <- switch (
       count,
       pairs = { # Point-pairs per lag-distance class
-        # ppl <- vector()
-        # for (i in 1:n_lags) {
-          # n <- which(dm > lags[i] & dm <= lags[i + 1])
-          # ppl[i] <- length(n)
-        # }
-        # ppl
         diff(sapply(
-          1:length(lags), function (i) length(which(dm <= lags[i]))) - n_pts)
+          1:length(lags), function (i) 
+            length(which(dm <= lags[i]))) - n_pts) * 0.5
       },
       points = { # Points per lag-distance class
-        # ppl <- vector()
-        # for (i in 1:n.lags) {
-          # n <- which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)
-          # ppl[i] <- length(unique(c(n)))
-        # }
-        # ppl
         sapply(1:n.lags, function (i)
           length(unique(c(
             which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)))))

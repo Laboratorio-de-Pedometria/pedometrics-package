@@ -1,6 +1,6 @@
 Package: pedometrics
-Version: 0.6-4
-Date: 2015-11-28
+Version: 0.6-5
+Date: 2015-11-30
 Title: Pedometric Tools and Techniques
 Description: Functions to employ many of the tools and techniques used in the 
     field of pedometrics.

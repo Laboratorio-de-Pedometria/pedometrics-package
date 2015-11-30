@@ -1,3 +1,10 @@
+# Version 0.6-5 (2015-11-30)
+* FIX: the computation of the number of point-pairs per lag-distance class in
+  `vgmLags` was incorrect because it neglected the fact that, in a full distance
+  matrix, two points *a* and *b* form two pairs, i.e. *ab* and *ba*. The mistake
+  is due to the fact that we use `SpatialTools::dist1` to compute the distance
+  matrix instead of `stats::dist`.
+
 # Version 0.6-4 (2015-11-28)
 * New functions have been added. They are designed for three purposes:
     + Variogram estimation and analysis
