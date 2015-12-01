@@ -323,7 +323,7 @@ vgmICP <-
           # means that the sample variogram is very steep near the origin.
           # Because the distance between these two lags and the difference in 
           # their sizes are very small, it may be that gamma in the first 
-          # lag-distance class is spuriously low.
+          # lag-distance class is spuriously low (or not).
           # 
           # if (diff(v$gamma[1:2]) > abs(diff(c(v$gamma[2], var(z))))) {
           if (diff(v$gamma[1:2]) > abs(diff(c(v$gamma[2], sill)))) {
@@ -350,7 +350,8 @@ vgmICP <-
               # a conservative initial guess, such as the average of gamma at 
               # the first and second lags.
               # 
-              mean(v$gamma[c(1, 2)])
+              # mean(v$gamma[c(1, 2)])
+              mean(v$gamma[c(1, 1, 2)])
             }
           } else {
             # Gamma in the second lag is closer to gamma in the first lag than
