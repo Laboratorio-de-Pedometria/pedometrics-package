@@ -109,9 +109,9 @@ vgmICP <-
     # Check lags and max.dist
     if (missing(lags)) {
       if (method %in% c("a", "c")) {
-        lags <- vgmLags(coords)[-1]
+        lags <- vgmLags(coords)
       } else {
-        lags <- vgmLags(coords, n.lags = 15, type = "equi")[-1]
+        lags <- vgmLags(coords, n.lags = 15, type = "equi")
       }
     } else {
       if (length(lags) == 1 && is.null(max.dist)) {
@@ -128,13 +128,13 @@ vgmICP <-
     # Merge lag-distance classes that have too few point-pairs
     if (any(v$npairs < min.npairs)) {
       message("correcting lags for minimum number of point-pairs...")
-      idx <- which(v$npairs < min.npairs)
+      idx <- which(v$npairs < min.npairs) + 1
       while (length(idx) >= 1) {
         lags <- lags[-idx[1]]
         v <- georob::sample.variogram(
           response = z, locations = coords, lag.dist.def = lags, 
           max.lag = max.dist, ...)
-        idx <- which(v$npairs < min.npairs)
+        idx <- which(v$npairs < min.npairs) + 1
       }
     }
     if (plotit) {

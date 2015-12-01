@@ -4,6 +4,13 @@
   matrix, two points *a* and *b* form two pairs, i.e. *ab* and *ba*. The mistake
   is due to the fact that we use `SpatialTools::dist1` to compute the distance
   matrix instead of `stats::dist`.
+* FIX: the definition of the lag-distance classes passed to
+  `georob::sample.variogram` in `vgmLags` was incorrect due to an error in the
+  documentation the former. Instead of "a numeric vector with the upper bounds 
+  of a set of contiguous bins", the argument `lag.dist.def` of
+  `georob::sample.variogram` requires "a numeric vector with the *lower and*
+  upper bounds of a set of contiguous bins". The author and maintainer of the
+  ***georob***-package has been warned about this documentation error.
 
 # Version 0.6-4 (2015-11-28)
 * New functions have been added. They are designed for three purposes:
