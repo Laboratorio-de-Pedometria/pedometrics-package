@@ -1,3 +1,7 @@
+# Version 0.6-5.9001 (2015-12-02)
+* `vgmICP`: Improve the guess of the partial sill for a pure nugget effect 
+  model.
+
 # Version 0.6-5.9000 (2015-12-01)
 * FIX: the definition of the lag-distance classes passed to
   `georob::sample.variogram` in `vgmLags` was incorrect due to an error in the

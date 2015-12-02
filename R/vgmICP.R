@@ -223,12 +223,22 @@ vgmICP <-
     if (model == "RMgauss") {
       range <- range / sqrt(3)
     }
-    if (model == "RMmatern") {
+    if (model == "RMmatern" || "RMwhittle") {
       if (missing(nu)) {
-        stop ("'nu' should be defined when 'model = RMmatern'")
+        stop ("'nu' should be set when using the RMmatern or RMwhittle model")
       } else {
-        if (nu == 0.5) { range <- range / 3 }
-        if (nu >= 2.0) { range <- range / sqrt(3) }
+        # Webster, R. & Oliver, M. A. Geostatistics for environmental 
+        # scientists. Chichester: John Wiley & Sons, p. 315, 2007.
+        # if (nu == 0.5) { range <- range / 3 }
+        # if (nu == 1.0) { range <- range / 4 }
+        # if (nu >= 2.0) { range <- range / sqrt(3) }
+        if (nu < 0.75) { 
+          range <- range / 3 
+        } else if (nu < 1.5) {
+          range <- range / 4
+        } else {
+          range <- range / sqrt(3)
+        }
       }
     }
     
@@ -352,6 +362,7 @@ vgmICP <-
               # 
               # mean(v$gamma[c(1, 2)])
               mean(v$gamma[c(1, 1, 2)])
+              
             }
           } else {
             # Gamma in the second lag is closer to gamma in the first lag than
@@ -402,7 +413,12 @@ vgmICP <-
       graphics::abline(h = nugget, lty = "dashed")
     }
     
-    p_sill <- sill - nugget
+    # Guess the partial sill for a pure nugget effect model
+    if (nugget < sill) {
+      p_sill <- sill - nugget
+    } else {
+      p_sill <- 1e-12
+    }
     
     # Prepare output
     res <- c(range = range, p_sill = p_sill, nugget = nugget)
