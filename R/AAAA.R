@@ -8,3 +8,4 @@
 #' @importFrom stats dnorm extractAIC formula lm median model.frame cor 
 #'             model.matrix residuals sd quantile var
 #' @importFrom randomForest randomForest
+#' @importFrom geoR practicalRange

@@ -30,8 +30,8 @@ dependency for other packages is strongly discouraged.
 \tabular{ll}{
 Package: \tab pedometrics\cr
 Type:    \tab Package    \cr
-Version: \tab 0.6-4.9000 \cr
-Date:    \tab 2015-11-30 \cr
+Version: \tab 0.6-6      \cr
+Date:    \tab 2015-12-03 \cr
 License: \tab GPL (>= 2) \cr
 }
 }

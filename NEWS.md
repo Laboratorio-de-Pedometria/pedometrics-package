@@ -1,3 +1,9 @@
+# Version 0.6-6 (2015-12-03)
+* FIX: corrected error in `vgmICP` caused by the recent update of package 
+  ***georob***.
+* `vgmICP`: Improved estimation of the scale parameter (range) for monotonous
+  variograms by using function `practicalRange` from package ***geoR***.
+
 # Version 0.6-5.9001 (2015-12-02)
 * `vgmICP`: Improve the guess of the partial sill for a pure nugget effect 
   model.
