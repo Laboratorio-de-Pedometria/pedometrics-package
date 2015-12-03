@@ -4,19 +4,25 @@
 \alias{vgmICP}
 \title{Initial covariance parameters (ICP)}
 \usage{
-vgmICP(z, coords, lags, max.dist = Inf, method = "a", min.npairs = 30,
-  model = "RMexp", nu, plotit = FALSE, ...)
+vgmICP(z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30,
+  model = "matern", nu = 0.5, estimator = "qn", plotit = FALSE)
 }
 \arguments{
-\item{z}{Numeric vector with the values of the response variable.}
+\item{z}{Numeric vector with the values of the response variable for which 
+the initial values for the covariance parameters should be guessed.}
 
 \item{coords}{Data frame or matrix with the projected x- and y-coordinates.}
 
-\item{lags}{Numeric scalar defining a the width of the lag-distance classes,
-or a numeric vector with the upper bounds the lag-distance classes.}
+\item{lags}{Numeric scalar defining the width of the lag-distance classes,
+or a numeric vector with the lower and upper bounds of the lag-distance
+classes. If missing, the lag-distance classes are computed using 
+\code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more 
+information.}
 
-\item{max.dist}{Positive numeric defining the maximum distance up to which
-lag-distance classes should be computed. Defaults to \code{max.dist = Inf}.}
+\item{cutoff}{Numeric value defining the fraction of the diagonal of the
+rectangle that spans the data (bounding box) that should be used to set the
+maximum distance up to which lag-distance classes should be computed. 
+Defaults to \code{cutoff = 0.5}, i.e. half the diagonal of the bounding box.}
 
 \item{method}{Character keyword defining the method used for guessing the
 initial covariance parameters. Defauls to \code{method = "a"}. See 
@@ -27,20 +33,22 @@ point-pairs required so that a lag-distance class is used for guessing the
 initial covariance parameters. Defaults to \code{min.npairs = 30}.}
 
 \item{model}{Character keyword defining the variogram model that will be
-fitted to the data. Currently, most basic variogram models provided by the
-\pkg{RandomFields}-package are accepted. See \sQuote{Details} of 
-\code{\link[RandomFields]{RMmodel}}. Defaults to \code{model = "RMexp"}.}
+fitted to the data. Currently, most basic variogram models are accepted.
+See \code{\link[geoR]{cov.spatial}} for more information. Defaults to
+\code{model = "matern"}.}
 
-\item{nu}{Smoothness parameter \eqn{\nu} of the Whittle-Matérn model. See 
-\code{\link[RandomFields]{RMmodel}}.}
+\item{nu}{numerical value for the additional smoothness parameter \eqn{\nu} 
+of the correlation function. See \code{\link[RandomFields]{RMmodel}} and
+argument \code{kappa} of \code{\link[geoR]{cov.spatial}} for more 
+information.}
+
+\item{estimator}{Character keyword defining the estimator for computing the
+sample variogram, with options \code{"qn"}, \code{"mad"}, \code{"matheron"},
+and \code{"ch"}. Defaults to \code{estimator = "qn"}. See 
+\code{\link[georob]{sample.variogram}} for more details.}
 
 \item{plotit}{Should the guessed initial covariance parameters be plotted
 along with the sample variogram? Defaults to \code{plotit = FALSE}.}
-
-\item{...}{Further arguments passed to 
-\code{\link[georob]{sample.variogram}}, such as \code{estimator}, a character
-keyword defining the estimator for computing the sample variogram. The 
-default estimator is Genton's robust \code{\link[robustbase]{Qn}}-estimator.}
 }
 \value{
 A vector of numeric values: the guesses for the covariance parameters

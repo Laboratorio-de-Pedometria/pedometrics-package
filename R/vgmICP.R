@@ -3,15 +3,16 @@
 #' Guess the initial values for the covariance parameters required to fit a
 #' variogram model.
 #' 
-#' @param z Numeric vector with the values of the response variable.
+#' @inheritParams vgmLags
 #' 
-#' @param coords Data frame or matrix with the projected x- and y-coordinates.
+#' @param z Numeric vector with the values of the response variable for which 
+#' the initial values for the covariance parameters should be guessed.
 #' 
-#' @param lags Numeric scalar defining a the width of the lag-distance classes,
-#' or a numeric vector with the upper bounds the lag-distance classes.
-#' 
-#' @param max.dist Positive numeric defining the maximum distance up to which
-#' lag-distance classes should be computed. Defaults to \code{max.dist = Inf}.
+#' @param lags Numeric scalar defining the width of the lag-distance classes,
+#' or a numeric vector with the lower and upper bounds of the lag-distance
+#' classes. If missing, the lag-distance classes are computed using 
+#' \code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more 
+#' information.
 #' 
 #' @param method Character keyword defining the method used for guessing the
 #' initial covariance parameters. Defauls to \code{method = "a"}. See 
@@ -22,20 +23,22 @@
 #' initial covariance parameters. Defaults to \code{min.npairs = 30}.
 #' 
 #' @param model Character keyword defining the variogram model that will be
-#' fitted to the data. Currently, most basic variogram models provided by the
-#' \pkg{RandomFields}-package are accepted. See \sQuote{Details} of 
-#' \code{\link[RandomFields]{RMmodel}}. Defaults to \code{model = "RMexp"}.
+#' fitted to the data. Currently, most basic variogram models are accepted.
+#' See \code{\link[geoR]{cov.spatial}} for more information. Defaults to
+#' \code{model = "matern"}.
 #' 
-#' @param nu Smoothness parameter \eqn{\nu} of the Whittle-Matérn model. See 
-#' \code{\link[RandomFields]{RMmodel}}.
+#' @param nu numerical value for the additional smoothness parameter \eqn{\nu} 
+#' of the correlation function. See \code{\link[RandomFields]{RMmodel}} and
+#' argument \code{kappa} of \code{\link[geoR]{cov.spatial}} for more 
+#' information.
 #' 
 #' @param plotit Should the guessed initial covariance parameters be plotted
 #' along with the sample variogram? Defaults to \code{plotit = FALSE}.
 #' 
-#' @param ... Further arguments passed to 
-#' \code{\link[georob]{sample.variogram}}, such as \code{estimator}, a character
-#' keyword defining the estimator for computing the sample variogram. The 
-#' default estimator is Genton's robust \code{\link[robustbase]{Qn}}-estimator.
+#' @param estimator Character keyword defining the estimator for computing the
+#' sample variogram, with options \code{"qn"}, \code{"mad"}, \code{"matheron"},
+#' and \code{"ch"}. Defaults to \code{estimator = "qn"}. See 
+#' \code{\link[georob]{sample.variogram}} for more details.
 #' 
 #' @return A vector of numeric values: the guesses for the covariance parameters
 #' nugget, partial sill, and range.
@@ -89,16 +92,25 @@
 #' @concept variogram
 #' @export
 #' 
-#' @examples 
+#' @examples
 #' data(meuse, package = "sp")
 #' icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
 # FUNCTION - MAIN ##############################################################
 vgmICP <- 
-  function (z, coords, lags, max.dist = Inf, method = "a", min.npairs = 30, 
-            model = "RMexp", nu, plotit = FALSE, ...) {
+  function (z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30, 
+            model = "matern", nu = 0.5, estimator = "qn", plotit = FALSE) {
+    
+    # Check arguments
+    cov_models <- c(
+      "matern", "exponential", "gaussian", "spherical", "circular", "cubic",
+      "wave", "linear", "power", "powered.exponential", "stable", "cauchy",
+      "gencauchy", "gneiting", "gneiting.matern", "pure.nugget")
+    if (!model %in% cov_models) {
+      stop (paste("model '", model, "' is not implemented", sep = ""))
+    }
     
     # Check if suggested packages are installed
-    pkg <- c("georob")
+    pkg <- c("georob", "geoR")
     id <- !sapply(pkg, requireNamespace, quietly = TRUE)
     if (any(id)) {
       pkg <- paste(pkg[which(id)], collapse = " ")
@@ -109,20 +121,18 @@ vgmICP <-
     # Check lags and max.dist
     if (missing(lags)) {
       if (method %in% c("a", "c")) {
-        lags <- vgmLags(coords)
+        lags <- vgmLags(coords, cutoff = cutoff)
       } else {
-        lags <- vgmLags(coords, n.lags = 15, type = "equi")
-      }
-    } else {
-      if (length(lags) == 1 && is.null(max.dist)) {
-        stop ("use 'max.dist' to define the largest lag distance")
+        lags <- vgmLags(coords, n.lags = 15, type = "equi", cutoff = cutoff)
       }
     }
+    cutoff <- sqrt(
+      sum(apply(apply(coords[, 1:2], 2, range), 2, diff) ^ 2)) * cutoff
     
     # Compute variogram
     v <- georob::sample.variogram(
-      response = z, locations = coords, lag.dist.def = lags, max.lag = max.dist,
-      ...)
+      object = z, locations = coords, lag.dist.def = lags, max.lag = cutoff,
+      estimator = estimator)
     lags0 <- length(v$lag.dist)
     
     # Merge lag-distance classes that have too few point-pairs
@@ -132,8 +142,8 @@ vgmICP <-
       while (length(idx) >= 1) {
         lags <- lags[-idx[1]]
         v <- georob::sample.variogram(
-          response = z, locations = coords, lag.dist.def = lags, 
-          max.lag = max.dist, ...)
+          object = z, locations = coords, lag.dist.def = lags, 
+          max.lag = cutoff, estimator = estimator)
         idx <- which(v$npairs < min.npairs) + 1
       }
     }
@@ -217,30 +227,8 @@ vgmICP <-
     )
     
     # Correct initial guess of the range parameter
-    if (model == "RMexp") {
-      range <- range / 3
-    }
-    if (model == "RMgauss") {
-      range <- range / sqrt(3)
-    }
-    if (model == "RMmatern" || "RMwhittle") {
-      if (missing(nu)) {
-        stop ("'nu' should be set when using the RMmatern or RMwhittle model")
-      } else {
-        # Webster, R. & Oliver, M. A. Geostatistics for environmental 
-        # scientists. Chichester: John Wiley & Sons, p. 315, 2007.
-        # if (nu == 0.5) { range <- range / 3 }
-        # if (nu == 1.0) { range <- range / 4 }
-        # if (nu >= 2.0) { range <- range / sqrt(3) }
-        if (nu < 0.75) { 
-          range <- range / 3 
-        } else if (nu < 1.5) {
-          range <- range / 4
-        } else {
-          range <- range / sqrt(3)
-        }
-      }
-    }
+    range <- range / 
+      geoR::practicalRange(cov.model = model, phi = 1, kappa = nu)
     
     if (plotit) {
       graphics::abline(v = range, lty = "dashed")
