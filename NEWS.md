@@ -1,3 +1,8 @@
+# Version 0.6-6.9000 (2015-12-10)
+* A new guess of `p_sill` is used when the variance is spatially uncorrelated. 
+  It is defined as 1e-3 times the guess of `nugget` (before the `p_sill` was 
+  set to 1e-12, which caused errors in `optim` and `nlminb`).
+
 # Version 0.6-6 (2015-12-03)
 * FIX: corrected error in `vgmICP` caused by the recent update of package 
   ***georob***.
