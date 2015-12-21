@@ -149,7 +149,8 @@ plotHD <-
                        "Range = ", round(min(x), digits), "-", 
                                    round(max(x), digits), "\n",
                        "Skew = ", skw, sep = ""))
-        if (skw >= 1) {
+        if (round(skw, 1) >= 0.9) {
+        #if (skw >= 1) {
           y <- NA
           pos <- NA
           p <- p + 

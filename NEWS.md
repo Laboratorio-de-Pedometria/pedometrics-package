@@ -1,3 +1,6 @@
+# Version 0.6-6.9001 (2015-12-21)
+* Improved selection of the location to place the legend in `plotHD`.
+
 # Version 0.6-6.9000 (2015-12-10)
 * A new guess of `p_sill` is used when the variance is spatially uncorrelated. 
   It is defined as 1e-3 times the guess of `nugget` (before the `p_sill` was 
