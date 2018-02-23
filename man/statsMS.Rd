@@ -77,6 +77,7 @@ max(VIF);
 \item Add option to select which performance statistics should be returned.
 }
 }
+
 \examples{
 \dontrun{
 # based on the second example of function stepAIC
@@ -98,9 +99,6 @@ stats <- statsMS(cpus.ms, design.info = cpus.des, arrange.by = "aic")
 }
 
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Harrell, F. E. (2001) \emph{Regression modelling strategies: with 
 applications to linear models, logistic regression, and survival analysis.} 
@@ -113,6 +111,8 @@ with S.} Fourth edition. New York: Springer.
 \code{\link[pedometrics]{buildMS}}, 
 \code{\link[pedometrics]{plotMS}}.
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{manip}
 \keyword{models}
-

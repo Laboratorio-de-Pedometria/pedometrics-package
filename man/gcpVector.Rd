@@ -38,12 +38,6 @@ gcpVector(dx = rnorm(3, 5, 10), dy = rnorm(3, 5, 10))
 }
 
 }
-\author{
-Juan Carlos Ruiz Cuetos \email{bilba_t@hotmail.com}\cr Maria
-Eugenia Polo Garcia \email{mepolo@unex.es}\cr Pablo Garcia Rodriguez
-\email{pablogr@unex.es}\cr Alessandro Samuel-Rosa
-\email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012).
 \emph{VecStatGraphs2D: Vector analysis using graphical and analytical
@@ -54,5 +48,10 @@ methods in 2D}. R package version 1.6.
 \code{\link[VecStatGraphs2D]{LoadData}},
 \code{\link[pedometrics]{gcpDiff}}
 }
+\author{
+Juan Carlos Ruiz Cuetos \email{bilba_t@hotmail.com}\cr Maria
+Eugenia Polo Garcia \email{mepolo@unex.es}\cr Pablo Garcia Rodriguez
+\email{pablogr@unex.es}\cr Alessandro Samuel-Rosa
+\email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{methods}
-

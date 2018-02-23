@@ -66,14 +66,12 @@ function \code{\link[MASS]{stepAIC}}.
 Include other criteria (RMSE, AIC, etc) as option to drop collinear 
 predictor variables.
 }
+
 \examples{
 require(car)
 fit <- lm(prestige ~ income + education + type, data = Duncan)
 fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
 
-}
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \references{
 Fox, J. and Monette, G. (1992) Generalized collinearity diagnostics. 
@@ -94,6 +92,8 @@ with S.} Fourth edition. Springer.
 \seealso{
 \code{\link[car]{vif}}, \code{\link[MASS]{stepAIC}}.
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{methods}
 \keyword{regression}
-

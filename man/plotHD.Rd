@@ -79,9 +79,6 @@ plotHD(x, HD = "stack")
 plotHD(x, HD = "over")
 
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with 
 R}, Springer. \url{http://lmdvr.r-forge.r-project.org/}
@@ -91,5 +88,7 @@ R}, Springer. \url{http://lmdvr.r-forge.r-project.org/}
 \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
 \code{\link[car]{powerTransform}}, \code{\link[car]{bcPower}}.
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{dplot}
-

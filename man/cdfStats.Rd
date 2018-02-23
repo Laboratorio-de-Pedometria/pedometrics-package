@@ -52,9 +52,6 @@ cdfStats(my.cdf, "dx", all = TRUE)
 }
 
 }
-\author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
-}
 \references{
 Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
 Design and Analysis. R package version 2.6. URL:
@@ -63,6 +60,8 @@ Design and Analysis. R package version 2.6. URL:
 \seealso{
 \code{\link[spsurvey]{cont.analysis}}.
 }
+\author{
+Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+}
 \keyword{methods}
 \keyword{print}
-

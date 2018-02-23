@@ -2,8 +2,8 @@
 % Please edit documentation in R/pedometrics.R
 \docType{package}
 \name{pedometrics-package}
-\alias{pedometrics}
 \alias{pedometrics-package}
+\alias{pedometrics}
 \title{Pedometric Tools and Techniques}
 \description{
 This package contains many tools and techniques used in the field of 
@@ -39,4 +39,3 @@ License: \tab GPL (>= 2) \cr
 Author and Maintainer: Alessandro Samuel-Rosa
 \email{alessandrosamuelrosa@gmail.com}
 }
-

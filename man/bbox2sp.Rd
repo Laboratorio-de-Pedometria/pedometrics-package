@@ -36,9 +36,6 @@ data(meuse)
 coordinates(meuse) <- ~ x + y
 bbox2sp(meuse, keep.crs = FALSE)
 }
-\author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
-}
 \references{
 Edzer Pebesma, Jon Skoien with contributions from Olivier Baume,
 A. Chorti, D.T. Hristopulos, S.J. Melles and G. Spiliopoulos (2013).
@@ -46,6 +43,8 @@ A. Chorti, D.T. Hristopulos, S.J. Melles and G. Spiliopoulos (2013).
 only to be used interactively, not included in intamap package.} R package
 version 1.1-10.  \url{http://CRAN.R-project.org/package=intamapInteractive}
 }
+\author{
+Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+}
 \keyword{misc}
 \keyword{spatial}
-

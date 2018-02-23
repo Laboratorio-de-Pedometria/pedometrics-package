@@ -48,9 +48,6 @@ used to built \code{plotESDA}.
 # plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
 
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John 
 Wiley \& Sons, p.900, 1993.
@@ -65,5 +62,7 @@ scientists}. Chichester: John Wiley \& Sons, p.315, 2007.
 \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
 \code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{dplot}
-

@@ -1,3 +1,6 @@
+# Version 0.6-6.9002 (2018-02-23)
+* Evaluates the upcoming new version (3.0-0) of the **car** package.
+
 # Version 0.6-6.9001 (2015-12-21)
 * Improved selection of the location to place the legend in `plotHD`.
 

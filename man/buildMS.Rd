@@ -86,6 +86,7 @@ given argument without having to go check the documentation.
  Add option to set the order in which \code{stepAIC} and
 \code{stepVIF} are run.
 }
+
 \examples{
 \dontrun{
 # based on the second example of function stepAIC
@@ -104,9 +105,6 @@ data <- cpus1[cpus.samp,2:8]
 cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 }
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Harrell, F. E. (2001) \emph{Regression modelling strategies: with 
 applications to linear models, logistic regression, and survival analysis.}
@@ -119,6 +117,8 @@ with S.} Fourth edition. New York: Springer.
 \code{\link[MASS]{stepAIC}}, \code{\link[pedometrics]{stepVIF}},
 \code{\link[pedometrics]{statsMS}}.
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{iteration}
 \keyword{models}
-
