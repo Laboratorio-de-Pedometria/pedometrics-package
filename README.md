@@ -42,8 +42,8 @@ install.packages(pkgs = "pedometrics")
 The development version, available on [GitHub][github], can be installed -- using the `devtools` package -- as
 follows:
 
-[cran]: https://CRAN.R-project.org/package=febr
-[github]: https://github.com/febr-team/febr-package
+[cran]: https://CRAN.R-project.org/package=pedometrics
+[github]: https://github.com/samuel-rosa/pedometrics
 
 ```R
 if (!require(devtools)) {
