@@ -207,6 +207,7 @@ the R-package \pkg{pedometrics}.
 Use the original functions \code{\link[lattice]{xyplot}} and 
 \code{\link[lattice]{levelplot}} for higher customization.
 }
+
 \examples{
 # This example follows the discussion in section "Details"
 # Note that the data.frame is created manually
@@ -222,9 +223,6 @@ p <- plotMS(obj, grid = c(2:4), line = "adj_r2", ind = 1,
 print(p)
 
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Deepayan Sarkar (2008). \emph{Lattice: Multivariate Data Visualization with 
 R.} Springer, New York. ISBN 978-0-387-75968-5.
@@ -239,5 +237,7 @@ package version 1.0-1. \url{http://CRAN.R-project.org/package=mvtsplot}.
 \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}, 
 \code{\link[mvtsplot]{mvtsplot}}.
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{hplot}
-

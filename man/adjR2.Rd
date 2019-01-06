@@ -29,13 +29,12 @@ Details will be added later.
 \examples{
 adjR2(r2 = 0.95, n = 100, p = 80)
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Coefficient of determination. Wikipedia, The Free Encyclopedia.
 Available at \url{http://en.wikipedia.org/wiki/Coefficient_of_determination}.
 [Online; accessed 31-July-2014].
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{misc}
-

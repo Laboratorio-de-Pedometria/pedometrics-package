@@ -49,9 +49,6 @@ data(meuse, package = "sp")
 lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
 lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
 }
-\author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
-}
 \references{
 Truong, P. N.; Heuvelink, G. B. M.; Gosling, J. P. Web-based tool for expert
 elicitation of the variogram. \emph{Computers and Geosciences}. v. 51, p.
@@ -60,7 +57,7 @@ elicitation of the variogram. \emph{Computers and Geosciences}. v. 51, p.
 \seealso{
 \code{\link[spsann]{optimPPL}}
 }
-\concept{
-variogram
+\author{
+Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
 }
-
+\concept{variogram}

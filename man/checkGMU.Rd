@@ -4,8 +4,8 @@
 \alias{checkGMU}
 \title{Evaluation of geostatistical models of uncertainty}
 \usage{
-checkGMU(observed, simulated, pi = seq(0.01, 0.99, 0.01), symmetric = TRUE,
-  plotit = TRUE)
+checkGMU(observed, simulated, pi = seq(0.01, 0.99, 0.01),
+  symmetric = TRUE, plotit = TRUE)
 }
 \arguments{
 \item{observed}{Vector of observed values at the validation points. See 
@@ -168,9 +168,6 @@ resa$error;resb$error
 resa$goodness;resb$goodness
 }
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Deutsch, C. Direct assessment of local accuracy and precision. Baafi, E. Y. 
 & Schofield, N. A. (Eds.) \emph{Geostatistics Wollongong '96}. Dordrecht:
@@ -195,4 +192,6 @@ Balkema, p. 45-50, 2001.
 Ripley, B. D. \emph{Stochastic simulation}. New York: John Wiley & Sons, 
 p. 237, 1987.
 }
-
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}

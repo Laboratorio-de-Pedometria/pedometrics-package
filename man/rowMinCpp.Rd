@@ -23,11 +23,10 @@ large matrices.
 x <- matrix(rnorm(20), nrow = 5)
 rowMinCpp(x)
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \seealso{
 \code{\link[matrixStats]{rowMins}}
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{univar}
-

@@ -59,10 +59,6 @@ Ruo Xu, which was developed under the supervision of Daniel S Nettleton
 \email{dnett@iastate.edu} and Daniel J Nordman 
 \email{dnordman@iastate.edu}.
 }
-\author{
-Ruo Xu \email{xuruo.isu@gmail.com}, with improvements by
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Breiman, L. Random forests. \emph{Machine Learning}. v. 45, p. 5-32, 2001.
 
@@ -78,4 +74,7 @@ State University, p. 87, 2013.
 \seealso{
 \code{\link[randomForest]{randomForest}}
 }
-
+\author{
+Ruo Xu \email{xuruo.isu@gmail.com}, with improvements by
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}

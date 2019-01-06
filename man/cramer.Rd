@@ -38,9 +38,6 @@ test <- cramer(data)
 test
 }
 }
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Cramér, H. \emph{Mathematical methods of statistics}. Princeton: Princeton
 University Press, p. 575, 1946.
@@ -51,4 +48,6 @@ Cambridge University Press, p. 432, 2006.
 \seealso{
 \code{\link[vcd]{assocstats}}
 }
-
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}

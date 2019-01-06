@@ -1,9 +1,8 @@
 Package: pedometrics
-Version: 0.6-6
-Date: 2015-12-03
-Title: Pedometric Tools and Techniques
-Description: Functions to employ many of the tools and techniques used in the 
-    field of pedometrics.
+Version: 0.6-6.9000
+Date: 2019-01-06
+Title: Miscellaneous Pedometric Tools
+Description: An R implementation of some useful tools employed in the field of pedometrics.
 Authors@R: c(
     person("Alessandro", "Samuel-Rosa", role = c("aut", "cre"), 
            email = "alessandrosamuelrosa@gmail.com"), 
@@ -50,6 +49,7 @@ Suggests:
     grDevices,
     grid,
     gstat,
+    knitr,
     MASS,
     methods,
     moments,
@@ -63,4 +63,5 @@ Suggests:
 License: GPL (>= 2)
 Encoding: UTF-8
 Repository: CRAN
-RoxygenNote: 5.0.1
+RoxygenNote: 6.1.1
+VignetteBuilder: knitr

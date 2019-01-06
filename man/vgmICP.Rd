@@ -84,9 +84,6 @@ Method \code{"e"} was proposed by
 data(meuse, package = "sp")
 icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
 }
-\author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
-}
 \references{
 Desassis, N. & Renard, D. Automatic variogram modelling by iterative least
 squares: univariate and multivariate cases. \emph{Mathematical Geosciences}.
@@ -110,7 +107,7 @@ Environmental Engineering, University of Alberta, p. 17, 2003.
          \code{\link[georob]{sample.variogram}}, 
          \code{\link[automap]{autofitVariogram}}
 }
-\concept{
-variogram
+\author{
+Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
 }
-
+\concept{variogram}

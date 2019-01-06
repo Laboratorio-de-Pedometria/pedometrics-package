@@ -17,3 +17,16 @@ simple wrapper functions that extend the functionalities of other functions
 commonly used for the analysis of pedometric data. It should be noted that
 changes are likely to occur quite often and using this package as a
 dependency for other packages is strongly discouraged.
+
+# How to collaborate
+
+We use the *fork & pull* collaborative development model. This means that anyone can fork the `pedometrics` 
+repository and push changes to their personal fork without requiring access be granted to the source 
+`pedometrics` repository. The changes will be reviewed and, if pertinent, will be pulled into the source
+`pedometrics` repository by the project maintainers.
+
+We use the *fork & pull* collaborative development model mainly because it reduces the amount of friction for
+new contributors. It makes it easier for others to contribute. Besides, it is very popular with open source
+projects because it allows people to work independently without upfront coordination. Visit
+https://help.github.com/articles/using-pull-requests/ for more details on how to fork a repository and make
+pull requests.

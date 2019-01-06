@@ -2,9 +2,9 @@
 % Please edit documentation in R/vgmSCV.R
 \name{vgmSCV}
 \alias{vgmSCV}
-\alias{vgmSCV.georob}
-\alias{vgmSCV.variogramModel}
 \alias{vgmSCV.variomodel}
+\alias{vgmSCV.variogramModel}
+\alias{vgmSCV.georob}
 \title{Spatially correlated variance (SCV)}
 \usage{
 \method{vgmSCV}{variomodel}(obj, digits = 4)
@@ -26,13 +26,10 @@ spatially correlated.
 \description{
 Compute the proportion of the variance that is spatially correlated.
 }
-\author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
-}
 \seealso{
 \code{\link[pedometrics]{vgmLags}}
 }
-\concept{
-variogram
+\author{
+Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
 }
-
+\concept{variogram}

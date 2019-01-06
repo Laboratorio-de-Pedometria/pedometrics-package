@@ -14,8 +14,7 @@
 #' @return An object of the class \code{data.frame} containing the module, its
 #' square and azimuth. These three columns are named \sQuote{module},
 #' \sQuote{sq.module} and \sQuote{azimuth}.
-#' @note This function was addapted from
-#' \code{\link[VecStatGraphs2D]{LoadData}}.
+#' @note This function was addapted from \code{\link[VecStatGraphs2D]{LoadData}}.
 #' @author Juan Carlos Ruiz Cuetos \email{bilba_t@@hotmail.com}\cr Maria
 #' Eugenia Polo Garcia \email{mepolo@@unex.es}\cr Pablo Garcia Rodriguez
 #' \email{pablogr@@unex.es}\cr Alessandro Samuel-Rosa

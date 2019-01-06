@@ -46,7 +46,7 @@
 #' @importFrom graphics plot
 #' @export
 #' @examples
-#' # require(gstat)
+#' # library(sp)
 #' # data(meuse)
 #' # plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
 #' 

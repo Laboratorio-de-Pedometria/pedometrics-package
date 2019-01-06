@@ -5,10 +5,10 @@
 \title{Plot estimated cumulative distribution function with confidence limits}
 \usage{
 cdfPlot(obj, ind, units.cdf = "percent", type.plot = "s",
-  type.cdf = "continuous", logx = "", xlbl = NULL, ylbl = "Percent",
-  ylbl.r = NULL, figlab = NULL, legloc = "BR", confcut = 5,
-  show.conflev = TRUE, conflev = 95, show.param = TRUE, round = 0,
-  col.param = "black", ...)
+  type.cdf = "continuous", logx = "", xlbl = NULL,
+  ylbl = "Percent", ylbl.r = NULL, figlab = NULL, legloc = "BR",
+  confcut = 5, show.conflev = TRUE, conflev = 95,
+  show.param = TRUE, round = 0, col.param = "black", ...)
 }
 \arguments{
 \item{obj}{Object with the estimated CDF. The resulting object of
@@ -121,11 +121,6 @@ cdfPlot(obj = my.cdf, ind = "dz", figlab = "",
 }
 
 }
-\author{
-Tony Olsen \email{Olsen.Tony@epa.gov}\cr Tom Kincaid
-\email{Kincaid.Tom@epa.gov}\cr Alessandro Samuel-Rosa
-\email{alessandrosamuelrosa@gmail.com}
-}
 \references{
 Brus, D. J., Kempen, B. and Heuvelink, G. B. M. (2011).
 Sampling for validation of digital soil maps.  \emph{European Journal of
@@ -144,6 +139,10 @@ and Analysis}.  R package version 2.6. URL:
 \seealso{
 \code{\link[spsurvey]{cdf.plot}}.
 }
+\author{
+Tony Olsen \email{Olsen.Tony@epa.gov}\cr Tom Kincaid
+\email{Kincaid.Tom@epa.gov}\cr Alessandro Samuel-Rosa
+\email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{dplot}
 \keyword{hplot}
-

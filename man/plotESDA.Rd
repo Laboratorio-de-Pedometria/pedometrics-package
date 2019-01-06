@@ -43,13 +43,10 @@ The user should visit the help pages of \code{\link[gstat]{variogram}},
 used to built \code{plotESDA}.
 }
 \examples{
-# require(gstat)
+# library(sp)
 # data(meuse)
 # plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
 
-}
-\author{
-Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \references{
 Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John 
@@ -65,5 +62,7 @@ scientists}. Chichester: John Wiley \& Sons, p.315, 2007.
 \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
 \code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
+}
 \keyword{dplot}
-
