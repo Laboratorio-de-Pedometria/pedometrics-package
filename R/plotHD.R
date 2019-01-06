@@ -149,31 +149,30 @@ plotHD <-
                        "Range = ", round(min(x), digits), "-", 
                                    round(max(x), digits), "\n",
                        "Skew = ", skw, sep = ""))
-        if (skw >= 1) {
+        if (round(skw, 1) >= 0.9) {
           y <- NA
           pos <- NA
           p <- p + 
-            latticeExtra::layer(lattice::panel.text(x = x, y = y, labels = leg,
-                                                    pos = pos),
-                                data = list(x = c(max(p$x.limits) * 0.99), 
-                                            y = c(max(p$y.limits) * 0.9), 
-                                            leg = leg, pos = 2))
+            latticeExtra::layer(
+              lattice::panel.text(x = x, y = y, labels = leg, pos = pos),
+              data = list(x = c(max(p$x.limits) * 0.99), 
+                          y = c(max(p$y.limits) * 0.8), leg = leg, pos = 2))
         }
-        if (skw < 1) {
+        if (round(skw, 1) < 0.9) {
           y <- NA
           pos <- NA
           p <- p + 
-            latticeExtra::layer(lattice::panel.text(x = x, y = y, labels = leg, 
-                                                    pos = pos),
-                                data = list(x = c(min(p$x.limits)),
-                                            y = c(max(p$y.limits) * 0.9),
-                                            leg = leg, pos = 4))
+            latticeExtra::layer(
+              lattice::panel.text(x = x, y = y, labels = leg, pos = pos),
+              data = list(x = c(min(p$x.limits)), y = c(max(p$y.limits) * 0.8),
+                          leg = leg, pos = 4))
         }
       }
     }
     if (HD == "stack") {
-      p2 <- lattice::densityplot(x, col = col[2], pch = 20, cex = 0.5, 
-                                 n = length(x), lwd = lwd[2], lty = lty, ...)
+      p2 <- lattice::densityplot(
+        x, col = col[2], pch = 20, cex = 0.5, n = length(x), lwd = lwd[2], 
+        lty = lty, ...)
       if (missing(xlim)) {
         xlim <- p2$x.limits
       }

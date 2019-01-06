@@ -405,7 +405,8 @@ vgmICP <-
     if (nugget < sill) {
       p_sill <- sill - nugget
     } else {
-      p_sill <- 1e-12
+      # p_sill <- 1e-12
+      p_sill <- nugget * 1e-3
     }
     
     # Prepare output

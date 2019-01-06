@@ -1,3 +1,14 @@
+# Version 0.6-6.9002 (2018-02-23)
+* Evaluates the upcoming new version (3.0-0) of the **car** package.
+
+# Version 0.6-6.9001 (2015-12-21)
+* Improved selection of the location to place the legend in `plotHD`.
+
+# Version 0.6-6.9000 (2015-12-10)
+* A new guess of `p_sill` is used when the variance is spatially uncorrelated. 
+  It is defined as 1e-3 times the guess of `nugget` (before the `p_sill` was 
+  set to 1e-12, which caused errors in `optim` and `nlminb`).
+
 # Version 0.6-6 (2015-12-03)
 * FIX: corrected error in `vgmICP` caused by the recent update of package 
   ***georob***.

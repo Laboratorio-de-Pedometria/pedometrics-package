@@ -1,5 +1,5 @@
 Package: pedometrics
-Version: 0.6-6.9000
+Version: 0.6-6.9003
 Date: 2019-01-06
 Title: Miscellaneous Pedometric Tools
 Description: An R implementation of some useful tools employed in the field of pedometrics.
