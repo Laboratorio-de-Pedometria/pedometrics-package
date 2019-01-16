@@ -10,7 +10,7 @@ vgmLags(coords, n.lags = 7, type = "exp", cutoff = 0.5, base = 2,
 \arguments{
 \item{coords}{Data frame or matrix with the projected x- and y-coordinates.}
 
-\item{n.lags}{Integer value defining the number of lag-distance classes that 
+\item{n.lags}{Integer value defining the number of lag-distance classes that
 should be computed. Defaults to \code{n = 7}.}
 
 \item{type}{Character value defining the type of lag-distance classes that
@@ -19,25 +19,25 @@ should be computed, with options \code{"equi"} (equidistant) and \code{"exp"}
 
 \item{cutoff}{Numeric value defining the fraction of the diagonal of the
 rectangle that spans the data (bounding box) that should be used to set the
-maximum distance up to which lag-distance classes should be computed. 
+maximum distance up to which lag-distance classes should be computed.
 Defaults to \code{cutoff = 0.5}, i.e. half the diagonal of the bounding box.}
 
-\item{base}{Numeric value defining the base of the exponential expression 
-used to create exponentially spaced lag-distance classes. Used only when 
-\code{type = "exp"}. Defaults to \code{base = 2}, i.e. the width of the 
-rightmost lag-distance classes is equal to half the diagonal of 
+\item{base}{Numeric value defining the base of the exponential expression
+used to create exponentially spaced lag-distance classes. Used only when
+\code{type = "exp"}. Defaults to \code{base = 2}, i.e. the width of the
+rightmost lag-distance classes is equal to half the diagonal of
 \code{cutoff}, and so on.}
 
-\item{zero}{Numeric value setting the minimum pair-wise separation distance 
-that should be used to compute the lag-distance classes. Defaults to 
+\item{zero}{Numeric value setting the minimum pair-wise separation distance
+that should be used to compute the lag-distance classes. Defaults to
 \code{zero = 0.0001}.}
 
-\item{count}{Should the number of points (\code{"points"}) or point-pairs 
-(\code{"pairs"}) per lag-distance class be computed? Defaults to 
+\item{count}{Should the number of points (\code{"points"}) or point-pairs
+(\code{"pairs"}) per lag-distance class be computed? Defaults to
 \code{count = "pairs"}.}
 }
 \value{
-Vector of numeric values with the lower and upper boundaries of the 
+Vector of numeric values with the lower and upper boundaries of the
 lag-distance classes. The number of points or point-pairs per lag-distance
 class is returned as an attribute.
 }

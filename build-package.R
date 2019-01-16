@@ -16,7 +16,7 @@ Rcpp::compileAttributes()
 # check examples and documentation
 roxygen2::roxygenise()
 devtools::check_man()
-devtools::run_examples(run = FALSE)
+devtools::run_examples()
 devtools::spell_check()
 devtools::check_rhub()
 

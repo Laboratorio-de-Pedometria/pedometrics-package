@@ -8,27 +8,27 @@ vgmICP(z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30,
   model = "matern", nu = 0.5, estimator = "qn", plotit = FALSE)
 }
 \arguments{
-\item{z}{Numeric vector with the values of the response variable for which 
+\item{z}{Numeric vector with the values of the response variable for which
 the initial values for the covariance parameters should be guessed.}
 
 \item{coords}{Data frame or matrix with the projected x- and y-coordinates.}
 
 \item{lags}{Numeric scalar defining the width of the lag-distance classes,
 or a numeric vector with the lower and upper bounds of the lag-distance
-classes. If missing, the lag-distance classes are computed using 
-\code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more 
+classes. If missing, the lag-distance classes are computed using
+\code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more
 information.}
 
 \item{cutoff}{Numeric value defining the fraction of the diagonal of the
 rectangle that spans the data (bounding box) that should be used to set the
-maximum distance up to which lag-distance classes should be computed. 
+maximum distance up to which lag-distance classes should be computed.
 Defaults to \code{cutoff = 0.5}, i.e. half the diagonal of the bounding box.}
 
 \item{method}{Character keyword defining the method used for guessing the
-initial covariance parameters. Defauls to \code{method = "a"}. See 
+initial covariance parameters. Defauls to \code{method = "a"}. See
 \sQuote{Details} for more information.}
 
-\item{min.npairs}{Positive integer defining the minimum number of 
+\item{min.npairs}{Positive integer defining the minimum number of
 point-pairs required so that a lag-distance class is used for guessing the
 initial covariance parameters. Defaults to \code{min.npairs = 30}.}
 
@@ -37,14 +37,14 @@ fitted to the data. Currently, most basic variogram models are accepted.
 See \code{\link[geoR]{cov.spatial}} for more information. Defaults to
 \code{model = "matern"}.}
 
-\item{nu}{numerical value for the additional smoothness parameter \eqn{\nu} 
+\item{nu}{numerical value for the additional smoothness parameter \eqn{\nu}
 of the correlation function. See \code{\link[RandomFields]{RMmodel}} and
-argument \code{kappa} of \code{\link[geoR]{cov.spatial}} for more 
+argument \code{kappa} of \code{\link[geoR]{cov.spatial}} for more
 information.}
 
 \item{estimator}{Character keyword defining the estimator for computing the
 sample variogram, with options \code{"qn"}, \code{"mad"}, \code{"matheron"},
-and \code{"ch"}. Defaults to \code{estimator = "qn"}. See 
+and \code{"ch"}. Defaults to \code{estimator = "qn"}. See
 \code{\link[georob]{sample.variogram}} for more details.}
 
 \item{plotit}{Should the guessed initial covariance parameters be plotted
@@ -63,21 +63,21 @@ There are five methods two guess the initial covariance parameters
 (ICP). Two of them (\code{"a"} and \code{"b"}) rely a sample variogram with
 exponentially spaced lag-distance classes, while the other three (\code{"b"},
 \code{"d"}, and \code{"e"}) use equidistant lag-distance classes (see
-\code{\link[pedometrics]{vgmLags}}). All of them are 
+\code{\link[pedometrics]{vgmLags}}). All of them are
 \href{https://en.wikipedia.org/wiki/Heuristic}{heuristic}.
 
 Method \code{"a"} was developed in-house, and is the most elaborated of them,
-specially for guessing the nugget variance. Method \code{"c"} is implemented 
-in the \pkg{automap}-package and was developed by 
+specially for guessing the nugget variance. Method \code{"c"} is implemented
+in the \pkg{automap}-package and was developed by
 \href{http://dx.doi.org/10.1016/j.cageo.2008.10.011}{Hiemstra et al. (2009)}.
 
-Method \code{"b"} was proposed by 
+Method \code{"b"} was proposed by
 \href{http://dx.doi.org/10.1016/0098-3004(95)00095-X}{Jian et al. (1996)} and
 is implemented in \href{https://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_variogram_a0000000593.htm}{SAS/STAT(R) 9.22}.
-Method \code{"d"} was developed by 
+Method \code{"d"} was developed by
 \href{http://dx.doi.org/10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
-Method \code{"e"} was proposed by 
-\href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of 
+Method \code{"e"} was proposed by
+\href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of
 \href{http://www.gslib.com/}{GSLIB}.
 }
 \examples{
@@ -89,23 +89,23 @@ Desassis, N. & Renard, D. Automatic variogram modelling by iterative least
 squares: univariate and multivariate cases. \emph{Mathematical Geosciences}.
 Springer Science \eqn{+} Business Media, v. 45, p. 453-470, 2012.
 
-Hiemstra, P. H.; Pebesma, E. J.; Twenhöfel, C. J. & Heuvelink, G. B. 
-Real-time automatic interpolation of ambient gamma dose rates from the Dutch 
-radioactivity monitoring network. \emph{Computers & Geosciences}. Elsevier 
+Hiemstra, P. H.; Pebesma, E. J.; Twenhöfel, C. J. & Heuvelink, G. B.
+Real-time automatic interpolation of ambient gamma dose rates from the Dutch
+radioactivity monitoring network. \emph{Computers & Geosciences}. Elsevier
 BV, v. 35, p. 1711-1721, 2009.
 
 Jian, X.; Olea, R. A. & Yu, Y.-S. Semivariogram modelling by weighted least
-squares. \emph{Computers & Geosciences}. Elsevier BV, v. 22, p. 387-397, 
+squares. \emph{Computers & Geosciences}. Elsevier BV, v. 22, p. 387-397,
 1996.
 
-Larrondo, P. F.; Neufeld, C. T. & Deutsch, C. V. \emph{VARFIT: a program for 
+Larrondo, P. F.; Neufeld, C. T. & Deutsch, C. V. \emph{VARFIT: a program for
 semi-automatic variogram modelling}. Edmonton: Department of Civil and
 Environmental Engineering, University of Alberta, p. 17, 2003.
 }
 \seealso{
-\code{\link[pedometrics]{vgmLags}}, 
-         \code{\link[georob]{sample.variogram}}, 
-         \code{\link[automap]{autofitVariogram}}
+\code{\link[pedometrics]{vgmLags}},
+\code{\link[georob]{sample.variogram}},
+\code{\link[automap]{autofitVariogram}}
 }
 \author{
 Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>

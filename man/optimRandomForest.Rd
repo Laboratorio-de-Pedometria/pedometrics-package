@@ -20,55 +20,55 @@ optimRandomForest(x, y, niter = 10, nruns = 100, ntree = 500,
 
 \item{ntree}{Number of trees to grow. Defaults to \code{ntree = 500}.}
 
-\item{ntrain}{Number (or proportion) of observation to be used as training 
+\item{ntrain}{Number (or proportion) of observation to be used as training
 cases. Defaults to 2/3 of the total number of observations.}
 
-\item{nodesize}{Minimum size of terminal nodes. Defaults to 
+\item{nodesize}{Minimum size of terminal nodes. Defaults to
 \code{nodesize = 5}.}
 
-\item{mtry}{Number of variables randomly sampled as candidates at each 
+\item{mtry}{Number of variables randomly sampled as candidates at each
 split. Defaults to 1/3 of the total number of covariates.}
 
 \item{profile}{Should the profile of the standardized mean squared prediction
-error be plotted at the end of the optimization? Defaults to 
+error be plotted at the end of the optimization? Defaults to
 \code{profile = TRUE}.}
 
-\item{progress}{Should a progress bar be displayed. Defaults to 
+\item{progress}{Should a progress bar be displayed. Defaults to
 \code{progress = TRUE}.}
 }
 \description{
-Compute the optimum number of iterations needed to de-bias a random forest 
+Compute the optimum number of iterations needed to de-bias a random forest
 regression.
 }
 \details{
 A fixed proportion of the total number of observations is used to calibrate
 (train) the random forest regression. The set of calibration observations is
 randomly selected from the full set of observations in each simulation. The
-remaining observations are used as test cases (validation). In general, the 
-smaller the calibration dataset, the more simulation runs are needed to 
+remaining observations are used as test cases (validation). In general, the
+smaller the calibration dataset, the more simulation runs are needed to
 obtain stable estimates of the mean squared prediction error (MSPE).
 
-The optimum number of iterations needed to de-bias the random forest 
+The optimum number of iterations needed to de-bias the random forest
 regression is obtained observing the evolution of the MSPE as the number of
-iterations increases. The MSPE is defined as the mean of the squared 
+iterations increases. The MSPE is defined as the mean of the squared
 differences between predicted and observed values.
 }
 \note{
-The original function was published as part of the dissertation of 
-Ruo Xu, which was developed under the supervision of Daniel S Nettleton 
-\email{dnett@iastate.edu} and Daniel J Nordman 
+The original function was published as part of the dissertation of
+Ruo Xu, which was developed under the supervision of Daniel S Nettleton
+\email{dnett@iastate.edu} and Daniel J Nordman
 \email{dnordman@iastate.edu}.
 }
 \references{
 Breiman, L. Random forests. \emph{Machine Learning}. v. 45, p. 5-32, 2001.
 
-Breiman, L. \emph{Using adaptive bagging to debias regressions}. Berkeley: 
+Breiman, L. \emph{Using adaptive bagging to debias regressions}. Berkeley:
 University of California, p. 16, 1999.
 
-Liaw, A. & Wiener, M. Classification and regression by randomForest. 
+Liaw, A. & Wiener, M. Classification and regression by randomForest.
 \emph{R News}. v. 2/3, p. 18-22, 2002.
 
-Xu, R. \emph{Improvements to random forest methodology}. Ames, Iowa: Iowa 
+Xu, R. \emph{Improvements to random forest methodology}. Ames, Iowa: Iowa
 State University, p. 87, 2013.
 }
 \seealso{

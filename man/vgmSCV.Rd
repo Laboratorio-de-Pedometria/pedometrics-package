@@ -20,7 +20,7 @@ packages such as \pkg{gstat}, \pkg{geoR}, and \pkg{georob}.}
 \item{digits}{Integer indicating the number of decimal places to be used.}
 }
 \value{
-Numeric value indicating the proportion of the variance that is 
+Numeric value indicating the proportion of the variance that is
 spatially correlated.
 }
 \description{

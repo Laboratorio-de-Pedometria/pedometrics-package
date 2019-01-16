@@ -13,7 +13,7 @@ cramer(x)
 A matrix with the Cramer's V between the categorical variables.
 }
 \description{
-Compute the Cramer's V, a descriptive statistic that measures the 
+Compute the Cramer's V, a descriptive statistic that measures the
 association between categorical variables.
 }
 \details{
@@ -22,7 +22,7 @@ Any integer variable is internally converted to a factor.
 \note{
 The original code is available at \url{http://sas-and-r.blogspot.nl/},
 Example 8.39: calculating Cramer's V, posted by Ken Kleinman on Friday, June
-3, 2011. As such, Ken Kleinman <\email{Ken_Kleinman@hms.harvard.edu}> is 
+3, 2011. As such, Ken Kleinman <\email{Ken_Kleinman@hms.harvard.edu}> is
 entitled a \sQuote{contributor} to the R-package \pkg{pedometrics}.
 
 The function \code{bigtabulate} used to compute the chi-squared test is the
@@ -42,7 +42,7 @@ test
 Cramér, H. \emph{Mathematical methods of statistics}. Princeton: Princeton
 University Press, p. 575, 1946.
 
-Everitt, B. S. \emph{The Cambridge dictionary of statistics}. Cambridge: 
+Everitt, B. S. \emph{The Cambridge dictionary of statistics}. Cambridge:
 Cambridge University Press, p. 432, 2006.
 }
 \seealso{

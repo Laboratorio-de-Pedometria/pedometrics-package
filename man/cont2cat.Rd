@@ -15,8 +15,8 @@ stratify(x, n, type = "area", integer = FALSE)
 \arguments{
 \item{x}{Vector, data frame or matrix; the continuous data to be processed.}
 
-\item{breaks}{Vector or list; the lower and upper limits that should be used 
-to break the continuous data into categories. See \sQuote{Details} for more 
+\item{breaks}{Vector or list; the lower and upper limits that should be used
+to break the continuous data into categories. See \sQuote{Details} for more
 information.}
 
 \item{integer}{Logical value; should the categorical data be returned as
@@ -28,7 +28,7 @@ integers? Defaults to \code{integer = FALSE}.}
 for equal-area, and \code{"range"}, for equal-range strata. Defaults to
 \code{type = "area"}.}
 
-\item{prop}{Logical value; should the marginal strata proportions be 
+\item{prop}{Logical value; should the marginal strata proportions be
 returned? Defaults to \code{prop = FALSE}.}
 }
 \value{

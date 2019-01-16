@@ -8,8 +8,6 @@
 [![Rdoc](http://www.rdocumentation.org/badges/version/pedometrics)](http://www.rdocumentation.org/packages/pedometrics)
 [![Downloads](http://cranlogs.r-pkg.org/badges/pedometrics?color=brightgreen)](http://www.r-pkg.org/pkg/pedometrics)
 
-## Presentation
-
 The __pedometrics__ package was originally created to share the developments of my PhD research project 
 entitled _Contribution to the Construction of Models for Predicting Soil Properties_ (2012-2016) carried out
 under the supervision of Dr Lucia HC Anjos (Universidade Federal Rural do Rio de Janeiro, Brazil), Dr Gustavo 

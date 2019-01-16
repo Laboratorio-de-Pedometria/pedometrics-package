@@ -7,7 +7,7 @@
 adjR2(r2, n, p)
 }
 \arguments{
-\item{r2}{Numeric vector with the coefficient of determination to be 
+\item{r2}{Numeric vector with the coefficient of determination to be
 adjusted.}
 
 \item{n}{Numeric vector providing the number of observations used to fit the
@@ -20,7 +20,7 @@ multiple linear regression model.}
 A numeric vector with the adjusted coefficient of determination.
 }
 \description{
-Calculates the adjusted coefficient of determination of a multiple linear 
+Calculates the adjusted coefficient of determination of a multiple linear
 regression model.
 }
 \details{
@@ -31,8 +31,7 @@ adjR2(r2 = 0.95, n = 100, p = 80)
 }
 \references{
 Coefficient of determination. Wikipedia, The Free Encyclopedia.
-Available at \url{http://en.wikipedia.org/wiki/Coefficient_of_determination}.
-[Online; accessed 31-July-2014].
+Available at http://en.wikipedia.org/wiki/Coefficient_of_determination.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
