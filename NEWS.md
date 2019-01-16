@@ -1,3 +1,6 @@
+# Version 0.6-6.9005 (2019-01-15)
+* Adds `plotCor`, a function to create correlation plots using a colorblind-friendly pallete.
+
 # Version 0.6-6.9002 (2018-02-23)
 * Evaluates the upcoming new version (3.0-0) of the **car** package.
 
