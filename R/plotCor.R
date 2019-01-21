@@ -12,9 +12,13 @@
 #' @param breaks (optional) Break points in sorted order to indicate the intervals for assigning the colors.
 #' See \code{\link[fields]{image.plot}} for more details.
 #' 
-#' @param mar Numerical vector of the form `c(bottom, left, top, right)` which gives the number of lines of
-#' margin to be specified on the four sides of the plot. The default is `c(4, 4, 4, 6) + 0.1`. See 
-#' \code{\link[graphics]{par}} for more details.
+#' @param col.names (optional) Character vector with short (up to 5 characters) column names.
+#' 
+#' @param ... (optional) Additional parameters passed to plotting functions.
+#' 
+# @param mar Numerical vector of the form `c(bottom, left, top, right)` which gives the number of lines of
+# margin to be specified on the four sides of the plot. The default is `c(4, 4, 4, 6) + 0.1`. See 
+# \code{\link[graphics]{par}} for more details.
 #' 
 #' @details 
 #' A correlation plot in an alternative and interesting way of showing the strength of correlations between
@@ -47,7 +51,7 @@
 #' 
 # FUNCTION ####################################################################################################
 plotCor <-
-  function (r, r2, col, breaks, mar = c(4, 4, 4, 6) + 0.1) {
+  function (r, r2, col, breaks, col.names, ...) {
     
     # Check if suggested packages are installed
     if (!requireNamespace("RColorBrewer", quietly = TRUE)) {
@@ -79,6 +83,10 @@ plotCor <-
       
       r[upper.tri(r)] <- r2[upper.tri(r2)]
       diag(r) <- NA_real_
+      
+      # if (missing(mar)) {
+      #   mar <- c(4, 4, 4, 6) + 0.1
+      # }
     }
     
     # Missing color ramp
@@ -97,18 +105,30 @@ plotCor <-
     
     # The correlation matrix need to be transposed/transformed
     r <- t(r[n_col:1, ])
-    graphics::par(mar = mar)
-    fields::image.plot(r, axes = FALSE, col = col, breaks = breaks)
+    # graphics::par(mar = mar)
+    fields::image.plot(r, axes = FALSE, col = col, breaks = breaks, legend.shrink = 1)
     graphics::box()
     graphics::text(
-      x = (rep(1:n_col, n_col) - 1) / (n_col - 1), 
-      y = (rep(1:n_col, each = n_col) - 1) / (n_col - 1), 
-      labels = as.numeric(r))
+      x = (rep(1:n_col, n_col) - 1) / (n_col - 1), y = (rep(1:n_col, each = n_col) - 1) / (n_col - 1), 
+      labels = as.numeric(r), ...)
     
-    col_names <- colnames(r)
     at <- seq(0, 1, length.out = n_col)
+    
+    # Column names
+    if (missing(col.names)) {
+      col_names <- colnames(r)
+    } else {
+      col_names <- col.names
+    }
+    if (any(nchar(col_names) > 5)) {
+      idx_names <- paste("x", seq(n_col), " - ", rev(col_names), sep = "", collapse = "; ")
+      message(paste("Too long column names found. Replacing with ", idx_names, ".", sep = ""))
+      col_names <- paste("x", seq(n_col), sep = "")
+    }
     graphics::axis(side = 1, at = at, labels = col_names, las = 2)
     graphics::axis(side = 2, at = at, labels = rev(col_names), las = 1)
-    graphics::axis(side = 3, at = at, labels = col_names, las = 2)
-    graphics::axis(side = 4, at = at, labels = rev(col_names), las = 1)
+    if (!missing(r2)) {
+      graphics::axis(side = 3, at = at, labels = col_names, las = 2)
+      graphics::axis(side = 4, at = at, labels = rev(col_names), las = 1)
+    }
   }
