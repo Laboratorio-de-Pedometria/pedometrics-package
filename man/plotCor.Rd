@@ -4,7 +4,7 @@
 \alias{plotCor}
 \title{Correlation plot}
 \usage{
-plotCor(r, r2, col, breaks, mar = c(4, 4, 4, 6) + 0.1)
+plotCor(r, r2, col, breaks, col.names, ...)
 }
 \arguments{
 \item{r}{Square matrix with correlation values.}
@@ -17,9 +17,9 @@ default is a colorblind-friendly palette (\code{"RdBu"}) created using \code{\li
 \item{breaks}{(optional) Break points in sorted order to indicate the intervals for assigning the colors.
 See \code{\link[fields]{image.plot}} for more details.}
 
-\item{mar}{Numerical vector of the form \code{c(bottom, left, top, right)} which gives the number of lines of
-margin to be specified on the four sides of the plot. The default is \code{c(4, 4, 4, 6) + 0.1}. See
-\code{\link[graphics]{par}} for more details.}
+\item{col.names}{(optional) Character vector with short (up to 5 characters) column names.}
+
+\item{...}{(optional) Additional parameters passed to plotting functions.}
 }
 \value{
 A correlation plot.
