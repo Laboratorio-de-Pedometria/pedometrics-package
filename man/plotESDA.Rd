@@ -5,7 +5,7 @@
 \title{Plots for exploratory spatial data analysis (ESDA)}
 \usage{
 plotESDA(z, lat, lon, lags = NULL, cutoff = NULL,
-  width = c(cutoff/20))
+  width = c(cutoff/20), leg.pos = "right")
 }
 \arguments{
 \item{z}{Vector of numeric values of the variable for with ESDA plots should
@@ -27,6 +27,9 @@ divided by three.}
 \item{width}{Integer value specifying the width of subsequent distance
 intervals into which data point pairs are grouped for semi-variance
 estimates. Defaults to \code{width = cutoff / 20}.}
+
+\item{leg.pos}{(optional) Character value indication the location of the legend of the bubble plot.
+Defaults to \code{leg.pos = "right"}}
 }
 \value{
 Four plots: histogram and density plot, bubble plot, empirical variogram,

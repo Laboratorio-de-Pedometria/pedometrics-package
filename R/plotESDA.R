@@ -19,6 +19,9 @@
 #' intervals into which data point pairs are grouped for semi-variance 
 #' estimates. Defaults to \code{width = cutoff / 20}.
 #' 
+#' @param leg.pos (optional) Character value indication the location of the legend of the bubble plot. 
+#' Defaults to `leg.pos = "right"`
+#' 
 #' @details
 #' The user should visit the help pages of \code{\link[gstat]{variogram}},
 #' \code{\link[pedometrics]{plotHD}}, \code{\link[sp]{bubble}} and
@@ -52,9 +55,9 @@
 #' 
 #' @keywords dplot
 #' 
-# FUNCTION #####################################################################
+# FUNCTION ####################################################################################################
 plotESDA <- 
-  function (z, lat, lon, lags = NULL, cutoff = NULL, width = c(cutoff / 20)) {
+  function (z, lat, lon, lags = NULL, cutoff = NULL, width = c(cutoff / 20), leg.pos = "right") {
     
     # Check if suggested packages are installed
     pkg <- c("gstat", "sp")
@@ -95,7 +98,7 @@ plotESDA <-
     }
     
     # Bubble plot
-    v1 <- sp::bubble(db, zcol = "z", fill = FALSE, main = "", maxsize = 1)
+    v1 <- sp::bubble(db, zcol = "z", fill = FALSE, main = "", maxsize = 1, key.space = leg.pos)
     
     # Variogram map
     v2 <- gstat::variogram(z ~ 1, loc = db, map = TRUE, cutoff = cutoff, width = width)
@@ -110,8 +113,8 @@ plotESDA <-
     v3 <- plot(v3, cex = 0.5, type = "b", pch = 20, asp = 1)
     
     # Histogram
-    v4 <- plotHD(z, HD = "over", stats = FALSE, asp = 1, xlab = "z",
-                 col = c("skyblue", "red"))
+    v4 <- plotHD(z, HD = "over", stats = FALSE, asp = 1, xlab = "z", col = c("skyblue", "red"))
+    
     print(v4, split = c(1, 1, 2, 2), more = TRUE)
     print(v3, split = c(1, 2, 2, 2), more = TRUE)
     print(v1, split = c(2, 1, 2, 2), more = TRUE)

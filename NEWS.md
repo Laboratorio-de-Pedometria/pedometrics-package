@@ -1,6 +1,7 @@
 # Version 0.6-6.9007 (2019-01-22)
 * Improvements:
   - `plotHD`: adds grid lines to histogram.
+  - `plotESDA`: choose the position of the legend of the bubble plot
 
 # Version 0.6-6.9006 (2019-01-21)
 * Improvements on `plotCor` to deal with long column names in the correlation matrix. Long column names (> 5 
