@@ -123,17 +123,16 @@ plotHD <-
       #  xlim <- densityplot(x)$x.limits
       #}
       p <- lattice::histogram(
-        x, type = "density", col = col[1], xlim = xlim, nint = nint, 
-        lwd = lwd[1], ..., 
-        panel = function(x, ...) {
+        x, type = "density", col = col[1], xlim = xlim, nint = nint, lwd = lwd[1], ..., 
+        panel = function (x, ...) {
+          lattice::panel.grid(h = -1, v = -1, lty = "dotted")
           lattice::panel.histogram(x, ...)
           lattice::panel.rug(x, col = col[2], lwd = lwd[1])
-          lattice::panel.mathdensity(dmath = stats::dnorm, col = col[2],
-                                     lwd = lwd[2], lty = lty, 
-                                     args = list(mean = mean(x), 
-                                                 sd = stats::sd(x)),
-                                     n = length(x))
-          })
+          lattice::panel.mathdensity(
+            dmath = stats::dnorm, col = col[2], lwd = lwd[2], lty = lty, n = length(x),
+            args = list(mean = mean(x), sd = stats::sd(x)))
+          }
+        )
       if (missing(ylim)) {
         y1 <- p$y.limits
         y2 <- lattice::densityplot(x)$y.limits

@@ -1,7 +1,7 @@
 # pedometrics: Miscellaneous Pedometric Tools
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![packageversion](https://img.shields.io/badge/devel%20version-0.6.6.9006-firebrick.svg?style=flat-square)](commits/master)
+[![packageversion](https://img.shields.io/badge/devel%20version-0.6.6.9007-firebrick.svg?style=flat-square)](commits/master)
 [![Build Status](https://travis-ci.org/samuel-rosa/pedometrics.svg?branch=master)](https://travis-ci.org/samuel-rosa/pedometrics)
 [![CRAN](https://www.r-pkg.org/badges/version/pedometrics)](https://cran.r-project.org/package=pedometrics)
 [![cran checks](https://cranchecks.info/badges/worst/pedometrics)](https://cran.r-project.org/web/checks/check_results_pedometrics.html)
