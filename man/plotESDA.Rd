@@ -4,7 +4,8 @@
 \alias{plotESDA}
 \title{Plots for exploratory spatial data analysis (ESDA)}
 \usage{
-plotESDA(z, lat, lon, lags, cutoff, width = c(cutoff/20))
+plotESDA(z, lat, lon, lags = NULL, cutoff = NULL,
+  width = c(cutoff/20))
 }
 \arguments{
 \item{z}{Vector of numeric values of the variable for with ESDA plots should
@@ -16,12 +17,12 @@ of the point locations where the \code{z} variable was observed.}
 \item{lon}{Vector of numeric values containing the x coordinate (longitude)
 of the point locations where the \code{z} variable was observed.}
 
-\item{lags}{Numerical vector; upper boundaries of lag-distance classes. See
-argument \code{boundaries} of \code{\link[gstat]{variogram}} for more info.}
+\item{lags}{(optinal) Numerical vector; upper boundaries of lag-distance classes. See argument
+\code{boundaries} of \code{\link[gstat]{variogram}} for more info.}
 
-\item{cutoff}{Integer value defining the spatial separation distance up to
-which point pairs are included in semi-variance estimates. Defaults to the
-length of the diagonal of the box spanning the data divided by three.}
+\item{cutoff}{(optional) Integer value defining the spatial separation distance up to which point pairs are
+included in semi-variance estimates. Defaults to the length of the diagonal of the box spanning the data
+divided by three.}
 
 \item{width}{Integer value specifying the width of subsequent distance
 intervals into which data point pairs are grouped for semi-variance
