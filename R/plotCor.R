@@ -110,7 +110,7 @@ plotCor <-
     graphics::box()
     graphics::text(
       x = (rep(1:n_col, n_col) - 1) / (n_col - 1), y = (rep(1:n_col, each = n_col) - 1) / (n_col - 1), 
-      labels = as.numeric(r), ...)
+      labels = as.numeric(r), col = ifelse(abs(as.numeric(r)) >= 0.9, "ivory", "black"), ...)
     
     at <- seq(0, 1, length.out = n_col)
     
