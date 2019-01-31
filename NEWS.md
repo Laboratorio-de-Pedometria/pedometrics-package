@@ -1,3 +1,9 @@
+# Version 0.6-6.9008 (2019-01-31)
+
+* Improvements:
+  - `plotCor`: reverses default color ramp so that positive and negative correlations are depicted using red 
+    and blue colors, respectively.
+
 # Version 0.6-6.9007 (2019-01-22)
 * Improvements:
   - `plotHD`: adds grid lines to histogram.

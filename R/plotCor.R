@@ -93,7 +93,7 @@ plotCor <-
     if (missing(col)) {
       col <- RColorBrewer::brewer.pal(11, name = "RdBu")
       col <- grDevices::colorRampPalette(col)
-      col <- col(100)
+      col <- rev(col(100))
     }
     
     # Missing breaks
