@@ -1,39 +1,37 @@
-#' Variable selection using the variance-inflation factor (VIF)
+#' Variable selection using the (generalized) variance-inflation factor (VIF)
 #' 
 #' This function takes a linear model and selects the subset of predictor variables that meet a user-specific 
-#' collinearity threshold measured by the variance-inflation factor (VIF).
+#' collinearity threshold measured by the (generalized) variance-inflation factor (VIF).
 #' 
 #' @param model Linear model (object of class 'lm') containing collinear predictor variables.
 #' @param threshold Positive number defining the maximum allowed VIF. Defaults to `threshold = 10`.
 #' @param verbose Logical indicating if iteration results should be printed. Defaults to `verbose = FALSE`.
 #' 
 #' @details
-#' `stepVIF` starts computing the VIF of all predictor variables in the linear model. Because some predictor 
-#' variables can have more than one degree of freedom, such as categorical variables, generalized 
-#' variance-inflation factors (Fox and Monette, 1992) are calculated instead using \code{\link[car]{vif}}. 
-#' Generalized variance-inflation factors (GVIF) consist of VIF corrected to the number of degrees of freedom 
-#' (df) of the predictor variable:
+#' `stepVIF` starts computing the VIF of all predictor variables in the linear model. If the linear model 
+#' contains categorical predictor variables, generalized variance-inflation factors, GVIF, (Fox and Monette,
+#' 1992) are calculated instead using \code{\link[car]{vif}}. GVIF is interpretable as the inflation in size 
+#' of the confidence ellipse or ellipsoid for the coefficients of the predictor variable in comparison with
+#' what would be obtained for orthogonal, uncorrelated data. Since categorical predictors have more than one
+#' degree of freedom (_df_), the confidence ellipsoid will have _df_ dimensions, and GVIF will need to be
+#' adjusted so that it can be comparable accross predictor variables. The adjustment is made using the
+#' following equation:
 #' 
-#' \eqn{GVIF = VIF^{1/(2\times df)}}{GVIF = VIF^[1/(2*df)]}
+#' \eqn{GVIF^{1/(2\times df)}}{GVIF^[1/(2*df)]}
 #' 
-#' GVIFs is interpretable as the inflation in size of the confidence ellipse or ellipsoid for the coefficients
-#' of the predictor variable in comparison with what would be obtained for orthogonal data (Fox and Weisberg, 
-#' 2011).
+#' The next step consists of evaluating if any of the predictor variables has a (G)VIF larger than the
+#' specified threshold, the function default being `threshold = 10`. For, GVIF^[1/(2*df)], the threshold will 
+#' be `sqrt(threshold)`.
 #' 
-#' The next step is to evaluate if any of the predictor variables has a VIF larger than the specified 
-#' threshold, the function default being `threshold = 10`.
+#' If there is only one predictor variable that does not meet the VIF threshold, it is automatically removed
+#' from the model and no further processing occurs. When there are two or more predictor variables that do not
+#' meet the (G)VIF threshold, `stepVIF` fits a linear model between each of them and the dependent variable.
+#' The predictor variable with the lowest adjusted coefficient of determination is dropped from the model and
+#' new coefficients are calculated, resulting in a new linear model.
 #' 
-#' Because `stepVIF` estimates GVIF and the threshold corresponds to a VIF value, the last is transformed 
-#' to the scale of GVIF by taking its square root. If there is only one predictor variable that does not meet 
-#' the VIF threshold, it is automatically removed from the model and no further processing occurs. When there 
-#' are two or more predictor variables that do not meet the VIF threshold, `stepVIF` fits a linear model 
-#' between each of them and the dependent variable. The predictor variable with the lowest adjusted coefficient
-#' of determination is dropped from the model and new coefficients are calculated, resulting in a new linear
-#' model.
+#' This process lasts until all predictor variables included in the new model meet the (G)VIF threshold.
 #' 
-#' This process lasts until all predictor variables included in the new model meet the VIF threshold.
-#' 
-#' Nothing is done if all predictor variables have a VIF value lower that the threshold, and `stepVIF` returns
+#' Nothing is done if all predictor variables have a (G)VIF value lower that the threshold, and `stepVIF` returns
 #' the original linear model.
 #' 
 #' @return A linear model (object of class \sQuote{lm}) with low collinearity.
@@ -51,6 +49,9 @@
 #' Venables, W. N. and Ripley, B. D. (2002) _Modern Applied Statistics with S_. Fourth edition. Springer.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
+#' 
+#' @note More on the use of GVIF to measure the collinearity in linear models containing categorical predictor
+#' variables can be found on [StackExchange](https://stats.stackexchange.com/questions/70679/which-variance-inflation-factor-should-i-be-using-textgvif-or-textgvif/).
 #' 
 #' @seealso \code{\link[car]{vif}}, \code{\link[MASS]{stepAIC}}.
 #' @export
