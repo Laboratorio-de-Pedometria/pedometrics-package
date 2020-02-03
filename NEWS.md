@@ -1,3 +1,11 @@
+# Version 0.6-6.9009 (2020-02-03)
+
+* Improvements:
+  + Reviews documentation.
+* Fixes:
+  + Corrects for the fact that matrix objects now also inherit from class "array".
+  + Deals with the fact that the suggested package geoR has been orphaned on 2020-01-12.
+
 # Version 0.6-6.9008 (2019-01-31)
 
 * Improvements:
