@@ -21,10 +21,12 @@
 #' \email{alessandrosamuelrosa@@gmail.com}
 #' @seealso \code{\link[VecStatGraphs2D]{LoadData}},
 #' \code{\link[pedometrics]{gcpDiff}}
-#' @references Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012).
-#' \emph{VecStatGraphs2D: Vector analysis using graphical and analytical
-#' methods in 2D}. R package version 1.6.
-#' \url{http://CRAN.R-project.org/package=VecStatGraphs2D}
+#' 
+#' @references
+#' Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012).
+#' _VecStatGraphs2D: Vector analysis using graphical and analytical methods in 2D_. R package version 1.6.
+#' \url{https://CRAN.R-project.org/package=VecStatGraphs2D}
+#' 
 #' @keywords methods
 #' @export
 #' @examples

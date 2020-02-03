@@ -21,11 +21,13 @@
 #' \sQuote{contributors} to the R-package \pkg{pedometrics}.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @references Edzer Pebesma, Jon Skoien with contributions from Olivier Baume,
-#' A. Chorti, D.T. Hristopulos, S.J. Melles and G. Spiliopoulos (2013).
-#' \emph{intamapInteractive: procedures for automated interpolation - methods
-#' only to be used interactively, not included in intamap package.} R package
-#' version 1.1-10. \url{http://CRAN.R-project.org/package=intamapInteractive}
+#' @references
+#' Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos, S.J. Melles 
+#' and G. Spiliopoulos (2013).
+#' _intamapInteractive: procedures for automated interpolation - methods only to be used interactively, not_ 
+#' _included in intamap package._ R package version 1.1-10. 
+#' \url{https://CRAN.R-project.org/package=intamapInteractive}
+#' 
 #' @keywords misc spatial
 #' @export
 #' @examples

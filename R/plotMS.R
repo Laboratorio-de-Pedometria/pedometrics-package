@@ -178,8 +178,8 @@
 #' Roger D. Peng (2008). \emph{A method for visualizing multivariate time series
 #' data.} Journal of Statistical Software. v. 25 (Code Snippet), p. 1-17.
 #' 
-#' Roger D. Peng (2012). \emph{mvtsplot: Multivariate Time Series Plot.} R 
-#' package version 1.0-1. \url{http://CRAN.R-project.org/package=mvtsplot}.
+#' Roger D. Peng (2012). _mvtsplot: Multivariate Time Series Plot._ R package version 1.0-1. 
+#' \url{https://CRAN.R-project.org/package=mvtsplot}.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
