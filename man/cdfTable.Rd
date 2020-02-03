@@ -5,8 +5,7 @@
 \title{Table with descriptive statistics of an estimated cumulative distribution
 function}
 \usage{
-cdfTable(x, type = "xy", rounding = 0, tex = FALSE,
-  data.frame = FALSE)
+cdfTable(x, type = "xy", rounding = 0, tex = FALSE, data.frame = FALSE)
 }
 \arguments{
 \item{x}{Object with the estimated cumulative distribution function of the
@@ -79,14 +78,14 @@ cdfTable(my.cdf)
 \references{
 Kincaid, T. M. and Olsen, A. R. (2013).  spsurvey: Spatial
 Survey Design and Analysis.  R package version 2.6. URL:
-<\url{http://www.epa.gov/nheerl/arm/}>.
+\url{http://www.epa.gov/nheerl/arm/}.
 }
 \seealso{
 \code{\link[pedometrics]{cdfStats}},
 \code{\link[spsurvey]{cont.analysis}}.
 }
 \author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \keyword{methods}
 \keyword{print}

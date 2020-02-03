@@ -30,6 +30,6 @@ Compute the proportion of the variance that is spatially correlated.
 \code{\link[pedometrics]{vgmLags}}
 }
 \author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \concept{variogram}

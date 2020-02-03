@@ -4,8 +4,18 @@
 \alias{vgmICP}
 \title{Initial covariance parameters (ICP)}
 \usage{
-vgmICP(z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30,
-  model = "matern", nu = 0.5, estimator = "qn", plotit = FALSE)
+vgmICP(
+  z,
+  coords,
+  lags,
+  cutoff = 0.5,
+  method = "a",
+  min.npairs = 30,
+  model = "matern",
+  nu = 0.5,
+  estimator = "qn",
+  plotit = FALSE
+)
 }
 \arguments{
 \item{z}{Numeric vector with the values of the response variable for which
@@ -108,6 +118,6 @@ Environmental Engineering, University of Alberta, p. 17, 2003.
 \code{\link[automap]{autofitVariogram}}
 }
 \author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \concept{variogram}

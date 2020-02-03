@@ -4,8 +4,15 @@
 \alias{plotESDA}
 \title{Plots for exploratory spatial data analysis (ESDA)}
 \usage{
-plotESDA(z, lat, lon, lags = NULL, cutoff = NULL,
-  width = c(cutoff/20), leg.pos = "right")
+plotESDA(
+  z,
+  lat,
+  lon,
+  lags = NULL,
+  cutoff = NULL,
+  width = c(cutoff/20),
+  leg.pos = "right"
+)
 }
 \arguments{
 \item{z}{Vector of numeric values of the variable for with ESDA plots should
@@ -54,13 +61,13 @@ used to built \code{plotESDA}.
 }
 \references{
 Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John
-Wiley & Sons, p.900, 1993.
+Wiley \& Sons, p.900, 1993.
 
 Pebesma, E.J. (2004) Multivariable geostatistics in S: the gstat package.
-\emph{Computers & Geosciences}, 30:683-691, 2004.
+\emph{Computers \& Geosciences}, 30:683-691, 2004.
 
-Webster, R. & Oliver, M.A. \emph{Geostatistics for environmental
-scientists}. Chichester: John Wiley & Sons, p.315, 2007.
+Webster, R. \& Oliver, M.A. \emph{Geostatistics for environmental
+scientists}. Chichester: John Wiley \& Sons, p.315, 2007.
 }
 \seealso{
 \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},

@@ -24,7 +24,7 @@
 #' \sQuote{Details}.
 #' @return A \code{data.frame} containing summary statistics of the cumulative
 #' distribution function of a continuous variable.
-#' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @seealso \code{\link[spsurvey]{cont.analysis}}.
 #' @references Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
 #' Design and Analysis. R package version 2.6. URL:

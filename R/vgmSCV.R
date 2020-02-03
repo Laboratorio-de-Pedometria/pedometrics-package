@@ -11,7 +11,7 @@ vgmSCV <- function (obj, digits = 4) UseMethod("vgmSCV")
 #' @return Numeric value indicating the proportion of the variance that is 
 #' spatially correlated.
 #' 
-#' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @seealso \code{\link[pedometrics]{vgmLags}}
 #' @aliases vgmSCV vgmSCV.variomodel vgmSCV.variogramModel vgmSCV.georob
 #' @concept variogram

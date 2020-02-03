@@ -83,7 +83,7 @@
 #' semi-automatic variogram modelling}. Edmonton: Department of Civil and
 #' Environmental Engineering, University of Alberta, p. 17, 2003.
 #' 
-#' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @seealso \code{\link[pedometrics]{vgmLags}}, 
 #'          \code{\link[georob]{sample.variogram}}, 

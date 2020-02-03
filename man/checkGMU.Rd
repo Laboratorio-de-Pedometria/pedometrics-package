@@ -4,8 +4,13 @@
 \alias{checkGMU}
 \title{Evaluation of geostatistical models of uncertainty}
 \usage{
-checkGMU(observed, simulated, pi = seq(0.01, 0.99, 0.01),
-  symmetric = TRUE, plotit = TRUE)
+checkGMU(
+  observed,
+  simulated,
+  pi = seq(0.01, 0.99, 0.01),
+  symmetric = TRUE,
+  plotit = TRUE
+)
 }
 \arguments{
 \item{observed}{Vector of observed values at the validation points. See

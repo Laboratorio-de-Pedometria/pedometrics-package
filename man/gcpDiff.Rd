@@ -4,8 +4,7 @@
 \alias{gcpDiff}
 \title{Difference on xyz coordinates between ground control points}
 \usage{
-gcpDiff(measured, predicted, type = "xy", aggregate = FALSE,
-  rounding = 0)
+gcpDiff(measured, predicted, type = "xy", aggregate = FALSE, rounding = 0)
 }
 \arguments{
 \item{measured}{Object of class \code{SpatialPointsDataFrame}
@@ -114,6 +113,6 @@ Design and Analysis. R package version 2.6. URL:
 \code{\link[spsurvey]{spsurvey.analysis}}.
 }
 \author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \keyword{methods}

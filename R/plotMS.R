@@ -186,7 +186,7 @@
 #' @note 
 #' Some of the solutions used to build this function were found in the source 
 #' code of the R-package \pkg{mvtsplot}. As such, the author of that package, 
-#' Roger D. Peng <\email{rpeng@@jhsph.edu}>, is entitled \sQuote{contributors} to
+#' Roger D. Peng \email{rpeng@@jhsph.edu}, is entitled \sQuote{contributors} to
 #' the R-package \pkg{pedometrics}.
 #' 
 #' @section Warning:

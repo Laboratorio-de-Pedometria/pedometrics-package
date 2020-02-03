@@ -48,12 +48,12 @@
 #' \item{list("tex")}{ If \code{tex = TRUE}, them the function prints the TeX
 #' code for the table defined by the argument \code{type}. Otherwise the TeX
 #' code is not generated. }
-#' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @seealso \code{\link[pedometrics]{cdfStats}},
 #' \code{\link[spsurvey]{cont.analysis}}.
 #' @references Kincaid, T. M. and Olsen, A. R. (2013).  spsurvey: Spatial
 #' Survey Design and Analysis.  R package version 2.6. URL:
-#' <\url{http://www.epa.gov/nheerl/arm/}>.
+#' \url{http://www.epa.gov/nheerl/arm/}.
 #' @keywords methods print
 #' @export
 #' @examples

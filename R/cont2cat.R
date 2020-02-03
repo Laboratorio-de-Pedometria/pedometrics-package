@@ -1,33 +1,29 @@
 #' Stratification and categorization of continuous data
 #' 
-#' Compute break points and marginal strata proportions, stratify and convert
-#' continuous data (numeric) into categorical data (factor or integer).
+#' Compute break points and strata proportions, stratify and convert continuous data (numeric) into
+#' categorical data (factor or integer).
 #' 
 #' @param x Vector, data frame or matrix; the continuous data to be processed.
 #' 
-#' @param breaks Vector or list; the lower and upper limits that should be used 
-#' to break the continuous data into categories. See \sQuote{Details} for more 
-#' information.
+#' @param breaks Vector or list; the lower and upper limits that should be used to break the continuous data
+#' into categories. See \sQuote{Details} for more information.
 #' 
 #' @param n Integer value; the number of strata that should be created.
 #' 
-#' @param type Character value; the type of strata, with options \code{"area"},
-#' for equal-area, and \code{"range"}, for equal-range strata. Defaults to
-#' \code{type = "area"}.
+#' @param type Character value; the type of strata, with options `"area"`, for equal-area, and `"range"`, for
+#' equal-range strata. Defaults to `type = "area"`.
 #' 
-#' @param integer Logical value; should the categorical data be returned as
-#' integers? Defaults to \code{integer = FALSE}.
+#' @param integer Logical value; should the categorical data be returned as integers? Defaults to 
+#' `integer = FALSE`.
 #' 
-#' @param prop Logical value; should the marginal strata proportions be 
-#' returned? Defaults to \code{prop = FALSE}.
+#' @param prop Logical value; should the marginal strata proportions be returned? Defaults to `prop = FALSE`.
 #' 
 #' @details
-#' Breaks must be a vector if \code{x} is a vector, but a list if \code{x} is a
-#' data frame or matrix. Using a list allows breaking the data into a different
-#' number of classes.
+#' Argument `breaks` must be a vector if `x` is a vector, but a list if `x` is a data frame or matrix. Using a
+#' list allows breaking each column of `x` into different number of classes.
 #' 
 #' @return
-#' A vector, data frame, or matrix, depending on the class of \code{x}.
+#' A vector, data frame, or matrix, depending on the class of `x`.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @seealso \code{\link[Hmisc]{cut2}}
@@ -62,7 +58,7 @@
 #'x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
 #'x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
 #'x
-# FUNCTION - CONVERT CONTINUOUS DATA INTO CATEGORICAL DATA #####################
+# FUNCTION - CONVERT CONTINUOUS DATA INTO CATEGORICAL DATA ####################################################
 #' @export
 #' @rdname cont2cat 
 cont2cat <-
@@ -88,8 +84,7 @@ cont2cat <-
       if (r[2] > max(breaks[[i]])) breaks[[i]] <- c(breaks[[i]], r[2])
       
       # Cut data
-      x[, i] <- cut(x = x[, i], breaks = breaks[[i]], include.lowest = TRUE,
-                    right = FALSE)
+      x[, i] <- cut(x = x[, i], breaks = breaks[[i]], include.lowest = TRUE, right = FALSE)
     }
     
     # Process output
@@ -100,7 +95,7 @@ cont2cat <-
     # Output
     return (x)
   }
-# FUNCTION - COMPUTE BREAK POINTS AND STRATA PROPORTIONS #######################
+# FUNCTION - COMPUTE BREAK POINTS AND STRATA PROPORTIONS ######################################################
 #' @export
 #' @rdname cont2cat 
 breakPoints <-
@@ -153,7 +148,7 @@ breakPoints <-
     # Output
     return (res)
   }
-# FUNCTION - MARGINAL STRATIFICATION ###########################################
+# FUNCTION - MARGINAL STRATIFICATION ##########################################################################
 #' @export
 #' @rdname cont2cat 
 stratify <-

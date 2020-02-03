@@ -30,10 +30,10 @@ degree of freedom (\emph{df}), the confidence ellipsoid will have \emph{df} dime
 adjusted so that it can be comparable accross predictor variables. The adjustment is made using the
 following equation:
 
-\eqn{GVIF^{1/(2\times df)}}{GVIF^[1/(2*df)]}
+\eqn{GVIF^{1/(2\times df)}}{GVIF^(1/(2*df))}
 
 The next step consists of evaluating if any of the predictor variables has a (G)VIF larger than the
-specified threshold, the function default being \code{threshold = 10}. For, GVIF^\link{1/(2*df)}, the threshold will
+specified threshold, the function default being \code{threshold = 10}. For, GVIF^(1/(2*df)), the threshold will
 be \code{sqrt(threshold)}.
 
 If there is only one predictor variable that does not meet the VIF threshold, it is automatically removed

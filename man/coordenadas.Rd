@@ -41,7 +41,7 @@ my.spsurvey <-
 \references{
 Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
 Design and Analysis. R package version 2.6. URL:
-<\url{http://www.epa.gov/nheerl/arm/}>.
+\url{http://www.epa.gov/nheerl/arm/}.
 }
 \seealso{
 \code{\link[pedometrics]{gcpDiff}},

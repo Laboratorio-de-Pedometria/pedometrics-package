@@ -34,7 +34,7 @@
 #' lag-distance classes. The number of points or point-pairs per lag-distance
 #' class is returned as an attribute.
 #' 
-#' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @seealso \code{\link[spsann]{optimPPL}}
 #' @concept variogram
 #' @references

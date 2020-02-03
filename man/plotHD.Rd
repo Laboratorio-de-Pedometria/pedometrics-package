@@ -4,9 +4,20 @@
 \alias{plotHD}
 \title{Histogram and density plot}
 \usage{
-plotHD(x, HD = "over", nint = 20, digits = 2, stats = TRUE,
-  BoxCox = FALSE, col = c("lightgray", "black"), lwd = c(1, 1),
-  lty = "dashed", xlim, ylim, ...)
+plotHD(
+  x,
+  HD = "over",
+  nint = 20,
+  digits = 2,
+  stats = TRUE,
+  BoxCox = FALSE,
+  col = c("lightgray", "black"),
+  lwd = c(1, 1),
+  lty = "dashed",
+  xlim,
+  ylim,
+  ...
+)
 }
 \arguments{
 \item{x}{Vector of numeric values of the variable for which the histogram

@@ -4,8 +4,15 @@
 \alias{vgmLags}
 \title{Lag-distance classes for variogram estimation}
 \usage{
-vgmLags(coords, n.lags = 7, type = "exp", cutoff = 0.5, base = 2,
-  zero = 0.001, count = "pairs")
+vgmLags(
+  coords,
+  n.lags = 7,
+  type = "exp",
+  cutoff = 0.5,
+  base = 2,
+  zero = 0.001,
+  count = "pairs"
+)
 }
 \arguments{
 \item{coords}{Data frame or matrix with the projected x- and y-coordinates.}
@@ -58,6 +65,6 @@ elicitation of the variogram. \emph{Computers and Geosciences}. v. 51, p.
 \code{\link[spsann]{optimPPL}}
 }
 \author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \concept{variogram}

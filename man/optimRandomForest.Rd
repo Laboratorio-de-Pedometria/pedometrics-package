@@ -4,9 +4,18 @@
 \alias{optimRandomForest}
 \title{Optimum number of iterations to de-bias a random forest regression}
 \usage{
-optimRandomForest(x, y, niter = 10, nruns = 100, ntree = 500,
-  ntrain = 2/3, nodesize = 5, mtry = max(floor(ncol(x)/3), 1),
-  profile = TRUE, progress = TRUE)
+optimRandomForest(
+  x,
+  y,
+  niter = 10,
+  nruns = 100,
+  ntree = 500,
+  ntrain = 2/3,
+  nodesize = 5,
+  mtry = max(floor(ncol(x)/3), 1),
+  profile = TRUE,
+  progress = TRUE
+)
 }
 \arguments{
 \item{x}{Data frame or matrix of covariates (predictor variables).}

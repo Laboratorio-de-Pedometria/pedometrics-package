@@ -77,7 +77,7 @@
 #' argument \code{data.cont} when creating a \code{spsurvey.analysis} object.
 #' @note Data of \code{type = "xy"} cannot be submitted to cluster aggregation
 #' in the present version.
-#' @author Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@@gmail.com}>
+#' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @seealso \code{\link[pedometrics]{coordenadas}},
 #' \code{\link[pedometrics]{gcpVector}},
 #' \code{\link[spsurvey]{spsurvey.analysis}}.

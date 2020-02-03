@@ -61,7 +61,7 @@ Design and Analysis. R package version 2.6. URL:
 \code{\link[spsurvey]{cont.analysis}}.
 }
 \author{
-Alessandro Samuel-Rosa <\email{alessandrosamuelrosa@gmail.com}>
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
 \keyword{methods}
 \keyword{print}

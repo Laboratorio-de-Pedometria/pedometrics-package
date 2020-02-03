@@ -4,9 +4,18 @@
 \alias{buildMS}
 \title{Build a series of linear models using automated variable selection}
 \usage{
-buildMS(formula, data, vif = FALSE, vif.threshold = 10,
-  vif.verbose = FALSE, aic = FALSE, aic.direction = "both",
-  aic.trace = FALSE, aic.steps = 5000, ...)
+buildMS(
+  formula,
+  data,
+  vif = FALSE,
+  vif.threshold = 10,
+  vif.verbose = FALSE,
+  aic = FALSE,
+  aic.direction = "both",
+  aic.trace = FALSE,
+  aic.steps = 5000,
+  ...
+)
 }
 \arguments{
 \item{formula}{A list containing one or several model formulas (a symbolic
