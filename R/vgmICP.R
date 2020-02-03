@@ -1,47 +1,39 @@
 #' Initial covariance parameters (ICP)
 #' 
-#' Guess the initial values for the covariance parameters required to fit a
-#' variogram model.
+#' Guess the initial values for the covariance parameters required to fit a variogram model.
 #' 
 #' @inheritParams vgmLags
 #' 
-#' @param z Numeric vector with the values of the response variable for which 
-#' the initial values for the covariance parameters should be guessed.
+#' @param z Numeric vector with the values of the response variable for which the initial values for the
+#' covariance parameters should be guessed.
 #' 
-#' @param lags Numeric scalar defining the width of the lag-distance classes,
-#' or a numeric vector with the lower and upper bounds of the lag-distance
-#' classes. If missing, the lag-distance classes are computed using 
-#' \code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more 
+#' @param lags Numeric scalar defining the width of the lag-distance classes, or a numeric vector with the 
+#' lower and upper bounds of the lag-distance classes. If missing, the lag-distance classes are computed using 
+#' \code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more information.
+#' 
+#' @param method Character keyword defining the method used for guessing the initial covariance parameters. 
+#' Defauls to \code{method = "a"}. See \sQuote{Details} for more information.
+#' 
+#' @param min.npairs Positive integer defining the minimum number of point-pairs required so that a 
+#' lag-distance class is used for guessing the initial covariance parameters. Defaults to `min.npairs = 30`.
+#' 
+#' @param model Character keyword defining the variogram model that will be fitted to the data. Currently, 
+#' most basic variogram models are accepted. See \code{\link[geoR]{cov.spatial}} for more information. Defaults
+#' to `model = "matern"`.
+#' 
+#' @param nu numerical value for the additional smoothness parameter \eqn{\nu} of the correlation function. See
+#' \code{\link[RandomFields]{RMmodel}} and argument \code{kappa} of \code{\link[geoR]{cov.spatial}} for more 
 #' information.
 #' 
-#' @param method Character keyword defining the method used for guessing the
-#' initial covariance parameters. Defauls to \code{method = "a"}. See 
-#' \sQuote{Details} for more information.
+#' @param plotit Should the guessed initial covariance parameters be plotted along with the sample variogram? 
+#' Defaults to \code{plotit = FALSE}.
 #' 
-#' @param min.npairs Positive integer defining the minimum number of 
-#' point-pairs required so that a lag-distance class is used for guessing the
-#' initial covariance parameters. Defaults to \code{min.npairs = 30}.
-#' 
-#' @param model Character keyword defining the variogram model that will be
-#' fitted to the data. Currently, most basic variogram models are accepted.
-#' See \code{\link[geoR]{cov.spatial}} for more information. Defaults to
-#' \code{model = "matern"}.
-#' 
-#' @param nu numerical value for the additional smoothness parameter \eqn{\nu} 
-#' of the correlation function. See \code{\link[RandomFields]{RMmodel}} and
-#' argument \code{kappa} of \code{\link[geoR]{cov.spatial}} for more 
-#' information.
-#' 
-#' @param plotit Should the guessed initial covariance parameters be plotted
-#' along with the sample variogram? Defaults to \code{plotit = FALSE}.
-#' 
-#' @param estimator Character keyword defining the estimator for computing the
-#' sample variogram, with options \code{"qn"}, \code{"mad"}, \code{"matheron"},
-#' and \code{"ch"}. Defaults to \code{estimator = "qn"}. See 
+#' @param estimator Character keyword defining the estimator for computing the sample variogram, with options 
+#' `"qn"`, `"mad"`, `"matheron"`, and `"ch"`. Defaults to `estimator = "qn"`. See 
 #' \code{\link[georob]{sample.variogram}} for more details.
 #' 
-#' @return A vector of numeric values: the guesses for the covariance parameters
-#' nugget, partial sill, and range.
+#' @return A vector of numeric values: the guesses for the covariance parameters nugget, partial sill, and 
+#' range.
 #' 
 #' @details There are five methods two guess the initial covariance parameters
 #' (ICP). Two of them (\code{"a"} and \code{"b"}) rely a sample variogram with
