@@ -95,7 +95,7 @@
 #' @examples
 #' data(meuse, package = "sp")
 #' icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
-# FUNCTION - MAIN ##############################################################
+# FUNCTION - MAIN #############################################################################################
 vgmICP <- 
   function (z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30, 
             model = "matern", nu = 0.5, estimator = "qn", plotit = FALSE) {
@@ -105,17 +105,19 @@ vgmICP <-
       "matern", "exponential", "gaussian", "spherical", "circular", "cubic",
       "wave", "linear", "power", "powered.exponential", "stable", "cauchy",
       "gencauchy", "gneiting", "gneiting.matern", "pure.nugget")
+    
     if (!model %in% cov_models) {
       stop (paste("model '", model, "' is not implemented", sep = ""))
     }
     
     # Check if suggested packages are installed
-    pkg <- c("georob", "geoR")
+    # geoR has been orphaned on 2020-01-12
+    # pkg <- c("georob", "geoR")
+    pkg <- c("georob")
     id <- !sapply(pkg, requireNamespace, quietly = TRUE)
     if (any(id)) {
       pkg <- paste(pkg[which(id)], collapse = " ")
-      stop(paste("Package(s) needed for this function to work but not",
-                 "installed: ", pkg, sep = ""), call. = FALSE)
+      stop(paste("Package(s) needed for this function to work but not installed:", pkg), call. = FALSE)
     }
     
     # Check lags and max.dist
@@ -188,25 +190,21 @@ vgmICP <-
     }
     
     # RANGE
-    # In general, the initial guess for the range (scale) parameter is made 
-    # based on the lag-distance classes and on the dimensions of the study area.
-    # The most common rule is to compute the initial range as half the 
-    # maximum distance up to which lag-distance classes have been defined 
-    # (Jian et al., 1996; Larrondo et al., 2003; Desassis & Renard, 2012). 
-    # Others set the initial range to a proportion of the diagonal of the study 
-    # area, say 0.1, 0.35 or 0.5 (Hiemstra et al., 2009).
-    # I think that this rather arbitrary and, possibly, suboptimal because the 
-    # lag-distance classes usually are defined by some automatic procedure
-    # implemented in the software being used, which does not account for the
-    # features of the data that is being analysed.
-    # I propose using the estimate of the variance and semivariance of the data
-    # to make an initial guess for the range parameter. The variance is used
-    # here because it is the initial guess of the total sill (see bellow).
-    # I start computing the absolute difference between the semivariogram and 
-    # the variance in each lag-distance class (except for the first). Then, I
-    # record the index of the lag-distance class where the semivariance is 
-    # closest to the variance. The separation distance at the centre of this 
-    # lag-distance class is used as the initial guess for the range parameter.
+    # In general, the initial guess for the range (scale) parameter is made based on the lag-distance classes
+    # and on the dimensions of the study area. A common rule is to compute the initial range as half the 
+    # maximum distance up to which lag-distance classes have been defined (Jian et al., 1996; Larrondo et al.,
+    # 2003; Desassis & Renard, 2012). Others set the initial range to a proportion of the diagonal of the study
+    # area, say 0.1, 0.35 or 0.5 (Hiemstra et al., 2009). This is rather arbitrary: the lag-distance classes
+    # usually are defined by some automatic procedure implemented in the software being used, which does not
+    # account for the features of the data that is being analysed.
+    # I propose using the estimate of the total variance and semivariance of the variable to make an initial
+    # guess for the range parameter. The total variance is used here because it is the initial guess of the
+    # total sill (see bellow).
+    # I start computing the absolute difference between the total variance and the semivariogram in each 
+    # lag-distance class (except for the first). Then, I record the index of the lag-distance class where the
+    # semivariance is closest to the variance. The separation distance at the centre of this lag-distance class
+    # is recorded. This value can be taken to be approximately equivalent to the practical range. Thus, it is
+    # corrected using geoR::practicalRange.
     range <- switch(
       method, 
       a = { # Samuel-Rosa2015
@@ -225,10 +223,31 @@ vgmICP <-
         lags[length(lags)]
       }
     )
-    
     # Correct initial guess of the range parameter
-    range <- range / 
-      geoR::practicalRange(cov.model = model, phi = 1, kappa = nu)
+    # geoR has been orphaned on 2020-01-12
+    if (model %in% c('linear', 'power')) {
+      range <- Inf
+    } else if (model == 'pure.nugget') {
+      range <- 0
+    } else if (model == 'exponential' | model == 'matern' & nu == 0.5) {
+      range <- range / 2.995731
+    } else if (model %in% c('spherical', 'circular', 'cubic')) {
+      range <- range
+    } else if (model == 'gaussian') {
+      range <- range / 1.730818
+    } else if (model == 'wave') {
+      range <- range / 2.991457
+    } else {
+      # "matern", "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting", "gneiting.matern"
+      if (requireNamespace('geoR', quietly = TRUE)) {
+        range <- range / geoR::practicalRange(cov.model = model, phi = 1, kappa = nu)
+      } else {
+        message(
+          paste('geoR not installed... returning guess of practical range for model', model)
+        )
+        range <- range
+      }
+    }
     
     if (plotit) {
       graphics::abline(v = range, lty = "dashed")
