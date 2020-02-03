@@ -17,4 +17,4 @@ addons:
   apt:
     packages:
       - libudunits2-dev
-      - gdal-config
+      - libgdal-dev
