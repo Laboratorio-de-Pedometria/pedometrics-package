@@ -30,34 +30,34 @@
 #' @aliases cont2cat breakPoints stratify
 #' @examples
 #'
-#'## Compute the break points of marginal strata
-#'x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
-#'x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
-#'x
-#'
-#'## Convert continuous data into categorical data
-#'# Matrix
-#'x <- y <- c(1:10)
-#'x <- cbind(x, y)
-#'breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
-#'y <- cont2cat(x, breaks)
-#'y
-#'# Data frame
-#'x <- y <- c(1:10)
-#'x <- data.frame(x, y)
-#'breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
-#'y <- cont2cat(x, breaks, integer = TRUE)
-#'y
-#'# Vector
-#'x <- c(1:10)
-#'breaks <- c(1, 2, 4, 8, 10)
-#'y <- cont2cat(x, breaks, integer = TRUE)
-#'y
-#'
-#'## Stratification
-#'x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
-#'x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
-#'x
+## Compute the break points of marginal strata
+x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
+x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
+x
+
+## Convert continuous data into categorical data
+# Matrix
+x <- y <- c(1:10)
+x <- cbind(x, y)
+breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
+y <- cont2cat(x, breaks)
+y
+# Data frame
+x <- y <- c(1:10)
+x <- data.frame(x, y)
+breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
+y <- cont2cat(x, breaks, integer = TRUE)
+y
+# Vector
+x <- c(1:10)
+breaks <- c(1, 2, 4, 8, 10)
+y <- cont2cat(x, breaks, integer = TRUE)
+y
+
+## Stratification
+x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
+x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
+x
 # FUNCTION - CONVERT CONTINUOUS DATA INTO CATEGORICAL DATA ####################################################
 #' @export
 #' @rdname cont2cat 
@@ -90,7 +90,18 @@ cont2cat <-
     # Process output
     if (integer) x <- sapply(x, as.integer)
     if (n_col == 1) x <- as.vector(x)
-    if (x_cl == "matrix") x <- as.matrix(x)
+    # if (x_cl == "matrix") x <- as.matrix(x)
+    # 2020-february-03
+    # The NEWS for current r-devel contains:
+    #     * matrix objects now also inherit from class "array", namely, e.g.,
+    #     class(diag(1)) is c("matrix", "array") which invalidates code
+    #     assuming that length(class(obj)) == 1, an incorrect assumption that
+    #     is less frequently fulfilled now.
+    # Martin Maechler: When you think `class(.) == *`, think again!
+    # https://developer.r-project.org/Blog/public/2019/11/09/when-you-think-class.-think-again/index.html
+    if ('matrix' %in% x_cl) {
+      x <- as.matrix(x)
+    }
     
     # Output
     return (x)
