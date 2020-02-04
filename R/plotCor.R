@@ -22,12 +22,12 @@
 #' 
 #' @details 
 #' A correlation plot in an alternative and interesting way of showing the strength of correlations between
-#' variables. This is done by using a diverging color pallete, where the darker the color, the stronger the
+#' variables. This is done by using a diverging color palette, where the darker the color, the stronger the
 #' absolute correlation.
 #' 
 #' `plotCor` also enables comparing correlations between the same variables at different points in time or 
 #' space or for different observations. This can be done by passing two square correlation matrices using
-#' arguments `r` and `r2`. The lower triangle of the resulting correlation plot will containg correlations 
+#' arguments `r` and `r2`. The lower triangle of the resulting correlation plot will contain correlations 
 #' from `r`, correlations from `r2` will be in the upper triangle, and the diagonal will be empty.
 #' 
 #' @return A correlation plot.

@@ -113,7 +113,7 @@ original function \code{\link[spsurvey]{cdf.plot}} and those passed to
 functions was one of the reasons for creating this new implementation.
 }
 \note{
-Most of the source code that constitutes this function was originaly
+Most of the source code that constitutes this function was originally
 published in the \pkg{spsurvey}-package, version 2.6 (2013-09-20). The
 authors were asked to include a few new functionalities, but did not seem to
 be interested in doing so, since no reply was obtained. This implementation

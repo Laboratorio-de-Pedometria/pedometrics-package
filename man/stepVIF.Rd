@@ -27,7 +27,7 @@ contains categorical predictor variables, generalized variance-inflation factors
 of the confidence ellipse or ellipsoid for the coefficients of the predictor variable in comparison with
 what would be obtained for orthogonal, uncorrelated data. Since categorical predictors have more than one
 degree of freedom (\emph{df}), the confidence ellipsoid will have \emph{df} dimensions, and GVIF will need to be
-adjusted so that it can be comparable accross predictor variables. The adjustment is made using the
+adjusted so that it can be comparable across predictor variables. The adjustment is made using the
 following equation:
 
 \eqn{GVIF^{1/(2\times df)}}{GVIF^(1/(2*df))}

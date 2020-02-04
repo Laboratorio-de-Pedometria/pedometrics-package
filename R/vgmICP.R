@@ -12,7 +12,7 @@
 #' \code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more information.
 #' 
 #' @param method Character keyword defining the method used for guessing the initial covariance parameters. 
-#' Defauls to \code{method = "a"}. See \sQuote{Details} for more information.
+#' Defaults to \code{method = "a"}. See \sQuote{Details} for more information.
 #' 
 #' @param min.npairs Positive integer defining the minimum number of point-pairs required so that a 
 #' lag-distance class is used for guessing the initial covariance parameters. Defaults to `min.npairs = 30`.
