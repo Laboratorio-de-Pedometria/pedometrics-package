@@ -28,7 +28,7 @@ coordinates only. The origin is set in the y coordinate, and rotation
 performed clockwise.
 }
 \note{
-This function was addapted from \code{\link[VecStatGraphs2D]{LoadData}}.
+This function was adapted from \code{\link[VecStatGraphs2D]{LoadData}}.
 }
 \examples{
 

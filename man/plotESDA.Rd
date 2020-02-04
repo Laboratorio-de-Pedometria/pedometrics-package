@@ -24,7 +24,7 @@ of the point locations where the \code{z} variable was observed.}
 \item{lon}{Vector of numeric values containing the x coordinate (longitude)
 of the point locations where the \code{z} variable was observed.}
 
-\item{lags}{(optinal) Numerical vector; upper boundaries of lag-distance classes. See argument
+\item{lags}{(optional) Numerical vector; upper boundaries of lag-distance classes. See argument
 \code{boundaries} of \code{\link[gstat]{variogram}} for more info.}
 
 \item{cutoff}{(optional) Integer value defining the spatial separation distance up to which point pairs are

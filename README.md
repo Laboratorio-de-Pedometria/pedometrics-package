@@ -27,7 +27,7 @@ being broadly employed as I would expect. But why? The answer seemed
 straightforward: because they were not available as a computer program
 ready to be used. This was also making it difficult to reproduce the
 analyses carried out by others. Creating a generic package for R – a
-popular programing language among pedometricians – could be a solution.
+popular programming language among pedometricians – could be a solution.
 
 The current **pedometrics** package is an implementation of
 miscellaneous functions for various pedometric purposes. This includes
@@ -67,9 +67,9 @@ How to collaborate
 We use the *fork & pull* collaborative development model. This means
 that you have the freedom to make a parallel copy – *fork* – of this
 repository, edit the source code as you see fit and then send – *push* –
-the changes to your personal coppy of this repository. You can do all
+the changes to your personal copy of this repository. You can do all
 this without asking any permission. In case the changes that you have
-made in your pesonal copy of this repository are interesting and you
+made in your personal copy of this repository are interesting and you
 have the interest of sharing them with us, then all you have to do is
 require them to be pushed – *pull request* – to this repository. After a
 review of the changes, we will decide if they can be merged – *merge* –

@@ -10,7 +10,7 @@
 #' of the point locations where the \code{z} variable was observed.
 #' @param lon Vector of numeric values containing the x coordinate (longitude) 
 #' of the point locations where the \code{z} variable was observed.
-#' @param lags (optinal) Numerical vector; upper boundaries of lag-distance classes. See argument 
+#' @param lags (optional) Numerical vector; upper boundaries of lag-distance classes. See argument 
 #' `boundaries` of \code{\link[gstat]{variogram}} for more info.
 #' @param cutoff (optional) Integer value defining the spatial separation distance up to which point pairs are 
 #' included in semi-variance estimates. Defaults to the length of the diagonal of the box spanning the data 

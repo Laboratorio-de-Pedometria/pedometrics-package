@@ -1,10 +1,11 @@
 # Version 0.6-6.9009 (2020-02-03)
 
 * Improvements:
-  + Reviews documentation.
+  + Reviews and improves documentation.
 * Fixes:
-  + Corrects for the fact that matrix objects now also inherit from class "array".
-  + Deals with the fact that the suggested package geoR has been orphaned on 2020-01-12.
+  + Deals with the fact that matrix objects now also inherit from class "array".
+  + Deals with the fact that the suggested package __geoR__ has been orphaned on 2020-01-12. This is done by 
+    keeping the package in `Suggests` and using it conditionally by employing `requireNamespace()`.
 
 # Version 0.6-6.9008 (2019-01-31)
 
@@ -20,7 +21,7 @@
 # Version 0.6-6.9006 (2019-01-21)
 * Improvements on `plotCor` to deal with long column names in the correlation matrix. Long column names (> 5 
   characters) are now replaced with x1, x2, ..., xn, where n is the number of columns in the correlation matrix.
-  A message is issues identifying coluns and their respective index.
+  A message is issues identifying columns and their respective index.
 
 # Version 0.6-6.9005 (2019-01-15)
 * Adds `plotCor`, a function to create correlation plots using a colorblind-friendly pallete.

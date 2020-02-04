@@ -44,11 +44,10 @@
 #' cdfStats(my.cdf, "dx", all = TRUE)
 #' }
 #' 
-# FUNCTION #####################################################################
+# FUNCTION ####################################################################################################
 cdfStats <- 
   function(obj, ind, all = TRUE) {
-    stats <- data.frame(obj$Pct[obj$Pct$Indicator == ind, 4:9][8:10, ],
-                        row.names = NULL)
+    stats <- data.frame(obj$Pct[obj$Pct$Indicator == ind, 4:9][8:10, ], row.names = NULL)
     if(all) {
       res <- stats  
     } else {

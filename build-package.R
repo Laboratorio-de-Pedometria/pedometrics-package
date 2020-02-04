@@ -18,7 +18,6 @@ roxygen2::roxygenise()
 devtools::check_man()
 devtools::run_examples()
 devtools::spell_check()
-devtools::check_rhub()
 
 # check the package for Linux (local)
 devtools::check(document = TRUE, manual = TRUE, force_suggests = TRUE, run_dont_test = TRUE)
@@ -27,6 +26,10 @@ devtools::check(document = TRUE, manual = TRUE, force_suggests = TRUE, run_dont_
 devtools::check_win_devel()
 devtools::check_win_release()
 devtools::check_win_oldrelease()
+
+# check the package in R-hub
+# rhub::validate_email(email = 'alessandrosamuelrosa@gmail.com')
+devtools::check_rhub()
 
 # Check all downstream dependencies
 source("revdep/check.R")
