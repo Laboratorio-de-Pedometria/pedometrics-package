@@ -79,6 +79,9 @@ Method \code{"d"} was developed by \href{http://dx.doi.org/10.1007/s11004-012-94
 
 Method \code{"e"} was proposed by \href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of \href{http://www.gslib.com/}{GSLIB}.
 }
+\note{
+Package \strong{geoR} is used to guess the range (scale) parameter of the following covariance models: "matern" (except when \code{nu = 0.5}), "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting", and "gneiting.matern". However, \strong{geoR} is an orphan package since 2020-01-12. Thus, if \strong{geoR} is not installed, a guess of the practical range of these covariance models is returned. The practical range is the distance at which the semivariance reaches its maximum, i.e. the sill.
+}
 \examples{
 data(meuse, package = "sp")
 icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])

@@ -90,13 +90,13 @@ average, 0.5 of the values will fall in that interval.
 Coverage probabilities are very useful to evaluate the local quality of a
 GMU: the closer the observed coverage probabilities of a sequence of
 probability intervals (PI) are to the nominal coverage probabilities of
-those PIs, the better the modelling of the local uncertainty.
+those PIs, the better the modeling of the local uncertainty.
 
-Two types of PIs can be used here: symmetric, median-centred PIs, and
+Two types of PIs can be used here: symmetric, median-centered PIs, and
 left-bounded PIs. Papritz & Dubois (1999) recommend using left-bounded PIs
 because they are better at evidencing deviations for both large and small
 PIs. The authors also point that the coverage probabilities of the symmetric,
-median-centred PIs can be read from the coverage probability plots produced
+median-centered PIs can be read from the coverage probability plots produced
 using left-bounded PIs.
 
 In both cases, the PIs are computed at each validation location using the
@@ -143,7 +143,7 @@ It is worth noting that the coverage probability and PI-width plots are
 relevant mainly to GMU created using \emph{conditional simulations}, that is,
 simulations that are locally conditioned to the data observed at the
 validation locations. Conditioning the simulations locally serves the
-purposes of honouring the available data and reducing the variance of the
+purposes of honoring the available data and reducing the variance of the
 output realizations. This is why one would like to find the points falling
 above the 1:1 line in both coverage probability and PI-width plots. For
 \emph{unconditional simulations}, that is, simulations that are only globally

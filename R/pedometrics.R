@@ -1,8 +1,8 @@
 #' Pedometric Tools and Techniques
 #' 
 #' This package contains many tools and techniques used in the field of 
-#' pedometrics (see http://en.wikipedia.org/wiki/Pedometrics for a definition 
-#' of \emph{pedometrics}). These tools and techniques were developed to fulfil 
+#' pedometrics (see https://en.wikipedia.org/wiki/Pedometric_mapping for a definition 
+#' of \emph{pedometrics}). These tools and techniques were developed to fulfill 
 #' the demands created by the PhD research project (2012-2016) entitled
 #' \dQuote{Contribution to the Construction of Models for Predicting Soil
 #' Properties}, developed by Alessandro Samuel-Rosa under the supervision of 
@@ -20,18 +20,10 @@
 #' changes are likely to occur quite often and the use of this package as a 
 #' dependency for other packages is strongly discouraged.
 #' 
-#' \tabular{ll}{
-#' Package: \tab pedometrics\cr
-#' Type:    \tab Package    \cr
-#' Version: \tab 0.6-6.9001 \cr
-#' Date:    \tab 2015-12-21 \cr
-#' License: \tab GPL (>= 2) \cr
-#' }
-#' 
+# General information #########################################################################################
+#' @author Author and Maintainer: Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}.
 #' @name pedometrics-package
 #' @aliases pedometrics-package pedometrics
 #' @docType package
-#' @author Author and Maintainer: Alessandro Samuel-Rosa
-#' \email{alessandrosamuelrosa@@gmail.com}
 #' @useDynLib pedometrics
 NULL

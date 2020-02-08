@@ -47,8 +47,8 @@ transformed using the Box-Cox family of power transformations. The estimated
 lambda value of the Box-Cox transform is printed in the console. It is set to
 zero when negative. Defaults to \code{BoxCox = FALSE}.}
 
-\item{col}{Vector of two elements, the first indicating the colour of the
-histogram, the second indicating the colour of the density plot. Defaults to
+\item{col}{Vector of two elements, the first indicating the color of the
+histogram, the second indicating the color of the density plot. Defaults to
 \code{col = c("lightgray", "black")}.}
 
 \item{lwd}{Vector of two elements, the first indicating the line width of the

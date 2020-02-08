@@ -69,6 +69,9 @@
 #' Larrondo, P. F.; Neufeld, C. T. & Deutsch, C. V. _VARFIT: a program for semi-automatic variogram modelling_.
 #' Edmonton: Department of Civil and Environmental Engineering, University of Alberta, p. 17, 2003.
 #' 
+#' @note 
+#' Package __geoR__ is used to guess the range (scale) parameter of the following covariance models: "matern" (except when `nu = 0.5`), "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting", and "gneiting.matern". However, __geoR__ is an orphan package since 2020-01-12. Thus, if __geoR__ is not installed, a guess of the practical range of these covariance models is returned. The practical range is the distance at which the semivariance reaches its maximum, i.e. the sill.
+#' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @seealso \code{\link[pedometrics]{vgmLags}}, 
@@ -136,7 +139,7 @@ vgmICP <-
       graphics::plot(v)
     }
     
-    # SILL
+    # SILL ----------------------------------------------------------------------------------------------------
     # The initial guess for the sill should be the easiest among all
     # parameters needed to fit a covariance model. Several rules are used in the
     # literature:
@@ -172,7 +175,7 @@ vgmICP <-
       graphics::abline(h = sill, lty = "dashed")
     }
     
-    # RANGE
+    # RANGE ---------------------------------------------------------------------------------------------------
     # In general, the initial guess for the range (scale) parameter is made based on the lag-distance classes
     # and on the dimensions of the study area. A common rule is to compute the initial range as half the 
     # maximum distance up to which lag-distance classes have been defined (Jian et al., 1996; Larrondo et al.,
@@ -236,7 +239,7 @@ vgmICP <-
       graphics::abline(v = range, lty = "dashed")
     }
     
-    # NUGGET
+    # NUGGET --------------------------------------------------------------------------------------------------
     # The initial guess for the nugget variance is commonly made using one of
     # the following rules:
     # 1) use the minimum semivariance in the sample variogram (Hiemstra et al.,

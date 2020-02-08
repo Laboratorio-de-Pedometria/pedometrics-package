@@ -1,6 +1,6 @@
 Package: pedometrics
-Version: 0.6.6.9009
-Date: 2020-02-03
+Version: 0.6.6.9010
+Date: 2020-02-08
 Title: Miscellaneous Pedometric Tools
 Description: An R implementation of some useful tools employed in the field of pedometrics.
 Authors@R: c(
@@ -59,3 +59,4 @@ Repository: CRAN
 RoxygenNote: 7.0.2
 SystemRequirements: pandoc
 Roxygen: list(markdown = TRUE)
+Language: en-US

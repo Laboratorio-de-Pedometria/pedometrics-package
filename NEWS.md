@@ -1,3 +1,8 @@
+# Version 0.6-6.9010 (2020-02-08)
+
+* Improvements:
+  + Reviews and improves documentation.
+
 # Version 0.6-6.9009 (2020-02-03)
 
 * Improvements:
@@ -24,7 +29,7 @@
   A message is issues identifying columns and their respective index.
 
 # Version 0.6-6.9005 (2019-01-15)
-* Adds `plotCor`, a function to create correlation plots using a colorblind-friendly pallete.
+* Adds `plotCor`, a function to create correlation plots using a colorblind-friendly palette.
 
 # Version 0.6-6.9002 (2018-02-23)
 * Evaluates the upcoming new version (3.0-0) of the **car** package.

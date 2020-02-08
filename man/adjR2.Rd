@@ -31,7 +31,7 @@ adjR2(r2 = 0.95, n = 100, p = 80)
 }
 \references{
 Coefficient of determination. Wikipedia, The Free Encyclopedia.
-Available at http://en.wikipedia.org/wiki/Coefficient_of_determination.
+Available at https://en.wikipedia.org/wiki/Coefficient_of_determination.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

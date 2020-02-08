@@ -5,6 +5,7 @@ This is a patch.
 # Test environments
 
 * OK: local, x86_64-pc-linux-gnu (64-bit), Ubuntu 18.04.3 LTS, R 3.6.2
+
 * OK: travis-ci, x86_64-pc-linux-gnu (64-bit), Ubuntu 14.04.6 LTS, R 3.6.2
 * OK: win-builder, x86_64-w64-mingw32 (64-bit), Windows, R 3.5.3
 * OK: win-builder, x86_64-w64-mingw32 (64-bit), Windows, R 3.6.2
