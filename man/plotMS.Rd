@@ -178,9 +178,9 @@ while the model of \code{id = 5} is the poorest one.
 }
 \subsection{ind}{
 The model series plot allows to see how the design influences model
-performance. This is achieved mainly through the use of different colours in
+performance. This is achieved mainly through the use of different colors in
 the grid output, where each unique value in the \emph{design} data is
-represented by a different colour. For the example given above, one could
+represented by a different color. For the example given above, one could
 try to see if the models built with the more accurate versions of the
 predictor variables have a better performance by identifying their relative
 distribution in the model series plot. The models placed at the
