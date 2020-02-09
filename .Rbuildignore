@@ -8,7 +8,6 @@ build-package.R
 R/popStats.R
 # Markdown
 cran-comments.md
-NEWS.md
 README.md
 README.Rmd
 revdep
