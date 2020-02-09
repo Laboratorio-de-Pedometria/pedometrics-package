@@ -1,5 +1,11 @@
 # Build package
 
+# TODO
+# 'geoR' is an orphaned package since 2020-01-12 -- work to remove it from Suggests
+# 'spsurvey' constantly gives errors (missing package) during remote checks -- work to remove it from Suggests
+# deprecated functions
+# 'moments' is used in plotHD -- work to remove it from Suggests
+
 # update dependencies ----
 update(remotes::package_deps(packages = "pedometrics"))
 update(remotes::package_deps(packages = "devtools"))

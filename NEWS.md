@@ -1,3 +1,7 @@
+# Version 0.7.0.9000 (2020-02-09)
+
+* `plotHD` and `stepVIF`: reviews documentation and plans future changes.
+
 # Version 0.7.0 (2020-02-08)
 
 * New version (minor) including bug fixes, new functions, and function improvements.

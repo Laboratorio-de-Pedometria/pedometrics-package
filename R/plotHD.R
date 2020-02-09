@@ -82,7 +82,12 @@
 #' 
 #' @keywords dplot
 #' 
-# FUNCTION #####################################################################
+# FUNCTION ####################################################################################################
+# 
+# TODO:
+#   - moments::skewness() is used here, creating an entry in Suggests. To avoid this, implement code to
+#     compute the skewness and remove 'moments' from Suggests.
+#   - replace 'lattice'-functions with 'graphics'-functions
 plotHD <- 
   function (x, HD = "over", nint = 20, digits = 2, stats = TRUE, 
             BoxCox = FALSE, col = c("lightgray", "black"), lwd = c(1, 1),
@@ -93,6 +98,7 @@ plotHD <-
       stop(paste("Package 'moments' needed for this function to work. ",
                  "Please install it.", sep = ""), call. = FALSE)
     }
+    # car is an activelly maintained package with a long list of authors/contributors, including R-Core
     if (!requireNamespace("car", quietly = TRUE)) {
       stop(paste("Package 'car' needed for this function to work. ",
                  "Please install it.", sep = ""), call. = FALSE)
@@ -182,4 +188,3 @@ plotHD <-
     }
     return(p)
   }
-# End!

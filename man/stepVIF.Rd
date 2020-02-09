@@ -14,7 +14,7 @@ stepVIF(model, threshold = 10, verbose = FALSE)
 \item{verbose}{Logical indicating if iteration results should be printed. Defaults to \code{verbose = FALSE}.}
 }
 \value{
-A linear model (object of class \sQuote{lm}) with low collinearity.
+A linear model (object of class 'lm') with low collinearity.
 }
 \description{
 This function takes a linear model and selects the subset of predictor variables that meet a user-specific
@@ -22,11 +22,11 @@ collinearity threshold measured by the (generalized) variance-inflation factor (
 }
 \details{
 \code{stepVIF} starts computing the VIF of all predictor variables in the linear model. If the linear model
-contains categorical predictor variables, generalized variance-inflation factors, GVIF, (Fox and Monette,
-1992) are calculated instead using \code{\link[car]{vif}}. GVIF is interpretable as the inflation in size
+contains categorical predictor variables, generalized variance-inflation factors (GVIF) (Fox and Monette,
+1992), are calculated instead using \code{\link[car]{vif}}. GVIF is interpretable as the inflation in size
 of the confidence ellipse or ellipsoid for the coefficients of the predictor variable in comparison with
 what would be obtained for orthogonal, uncorrelated data. Since categorical predictors have more than one
-degree of freedom (\emph{df}), the confidence ellipsoid will have \emph{df} dimensions, and GVIF will need to be
+degree of freedom, \emph{df}, the confidence ellipsoid will have \emph{df} dimensions, and GVIF will need to be
 adjusted so that it can be comparable across predictor variables. The adjustment is made using the
 following equation:
 
@@ -44,8 +44,8 @@ new coefficients are calculated, resulting in a new linear model.
 
 This process lasts until all predictor variables included in the new model meet the (G)VIF threshold.
 
-Nothing is done if all predictor variables have a (G)VIF value lower that the threshold, and \code{stepVIF} returns
-the original linear model.
+Nothing is done if all predictor variables have a (G)VIF value lower that the threshold, and \code{stepVIF}
+returns the original linear model.
 }
 \note{
 More on the use of GVIF to measure the collinearity in linear models containing categorical predictor
@@ -55,7 +55,6 @@ variables can be found on \href{https://stats.stackexchange.com/questions/70679/
 require(car)
 fit <- lm(prestige ~ income + education + type, data = Duncan)
 fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
-
 }
 \references{
 Fox, J. and Monette, G. (1992) Generalized collinearity diagnostics. \emph{JASA}, 87, 178--183.

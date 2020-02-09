@@ -4,16 +4,18 @@
 #' collinearity threshold measured by the (generalized) variance-inflation factor (VIF).
 #' 
 #' @param model Linear model (object of class 'lm') containing collinear predictor variables.
+#' 
 #' @param threshold Positive number defining the maximum allowed VIF. Defaults to `threshold = 10`.
+#' 
 #' @param verbose Logical indicating if iteration results should be printed. Defaults to `verbose = FALSE`.
 #' 
 #' @details
 #' `stepVIF` starts computing the VIF of all predictor variables in the linear model. If the linear model 
-#' contains categorical predictor variables, generalized variance-inflation factors, GVIF, (Fox and Monette,
-#' 1992) are calculated instead using \code{\link[car]{vif}}. GVIF is interpretable as the inflation in size 
+#' contains categorical predictor variables, generalized variance-inflation factors (GVIF) (Fox and Monette,
+#' 1992), are calculated instead using \code{\link[car]{vif}}. GVIF is interpretable as the inflation in size 
 #' of the confidence ellipse or ellipsoid for the coefficients of the predictor variable in comparison with
 #' what would be obtained for orthogonal, uncorrelated data. Since categorical predictors have more than one
-#' degree of freedom (_df_), the confidence ellipsoid will have _df_ dimensions, and GVIF will need to be
+#' degree of freedom, _df_, the confidence ellipsoid will have _df_ dimensions, and GVIF will need to be
 #' adjusted so that it can be comparable across predictor variables. The adjustment is made using the
 #' following equation:
 #' 
@@ -31,10 +33,10 @@
 #' 
 #' This process lasts until all predictor variables included in the new model meet the (G)VIF threshold.
 #' 
-#' Nothing is done if all predictor variables have a (G)VIF value lower that the threshold, and `stepVIF` returns
-#' the original linear model.
+#' Nothing is done if all predictor variables have a (G)VIF value lower that the threshold, and `stepVIF`
+#' returns the original linear model.
 #' 
-#' @return A linear model (object of class \sQuote{lm}) with low collinearity.
+#' @return A linear model (object of class 'lm') with low collinearity.
 #' 
 #' @references
 #' Fox, J. and Monette, G. (1992) Generalized collinearity diagnostics. _JASA_, 87, 178--183.
@@ -50,22 +52,27 @@
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @note More on the use of GVIF to measure the collinearity in linear models containing categorical predictor
+#' @note
+#' More on the use of GVIF to measure the collinearity in linear models containing categorical predictor
 #' variables can be found on [StackExchange](https://stats.stackexchange.com/questions/70679/which-variance-inflation-factor-should-i-be-using-textgvif-or-textgvif/).
 #' 
 #' @seealso \code{\link[car]{vif}}, \code{\link[MASS]{stepAIC}}.
+#' 
 #' @export
+#' 
 #' @keywords methods regression
+#' 
 #' @examples
 #' require(car)
 #' fit <- lm(prestige ~ income + education + type, data = Duncan)
 #' fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
-#' 
 # FUNCTION ####################################################################################################
 stepVIF <-
   function (model, threshold = 10, verbose = FALSE) {
     
     # Check if suggested packages are installed
+    # car is an activelly maintained package with a long list of authors/contributors, including R-Core
+    # http://r-forge.r-project.org/projects/car/
     if (!requireNamespace("car", quietly = TRUE)) {
       stop(paste("Package 'car' needed for this function to work. ",
                  "Please install it.", sep = ""), call. = FALSE)
@@ -107,8 +114,7 @@ stepVIF <-
         # update model formula
         #out <- names(vars_vif)
         out <- df_nam
-        new_form <- stats::formula(paste(". ~ .", paste(out, collapse = "-"), 
-                                         sep = "-"))
+        new_form <- stats::formula(paste(". ~ .", paste(out, collapse = "-"), sep = "-"))
         model <- stats::update(model, new_form)
         break
       }
@@ -120,8 +126,7 @@ stepVIF <-
       min_r2 <- which(r2 == min(r2))
       # update model formula
       out <- names(min_r2)
-      new_form <- stats::formula(paste(". ~ .", paste(out, collapse = "-"), 
-                                       sep = "-"))
+      new_form <- stats::formula(paste(". ~ .", paste(out, collapse = "-"), sep = "-"))
       model <- stats::update(model, new_form)
       end_vif <- data.frame(car::vif(model))
       if (ncol(end_vif) == 3) {
@@ -149,5 +154,3 @@ stepVIF <-
     }
     return (model)
   }
-#
-# End!
