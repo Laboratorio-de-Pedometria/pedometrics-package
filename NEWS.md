@@ -1,9 +1,13 @@
-# Version 0.6-6.9010 (2020-02-08)
+# Version 0.6.6.9010 (2020-02-08)
 
 * Improvements:
   + Reviews and improves documentation.
+* Deprecated functions: `coordenadas()`, `cdfTable()`, `cdfStats()` and `cdfPlot()`. These functions were
+  developed to fulfill the demands created by the PhD research project (2012-2016) and are no longer (or
+  rarely) used. Some will be replaced, but all will move to a package currently under developed at 
+  https://github.com/samuel-rosa/ASRtools.
 
-# Version 0.6-6.9009 (2020-02-03)
+# Version 0.6.6.9009 (2020-02-03)
 
 * Improvements:
   + Reviews and improves documentation.
@@ -12,37 +16,37 @@
   + Deals with the fact that the suggested package __geoR__ has been orphaned on 2020-01-12. This is done by 
     keeping the package in `Suggests` and using it conditionally by employing `requireNamespace()`.
 
-# Version 0.6-6.9008 (2019-01-31)
+# Version 0.6.6.9008 (2019-01-31)
 
 * Improvements:
   - `plotCor`: reverses default color ramp so that positive and negative correlations are depicted using red 
     and blue colors, respectively.
 
-# Version 0.6-6.9007 (2019-01-22)
+# Version 0.6.6.9007 (2019-01-22)
 * Improvements:
   - `plotHD`: adds grid lines to histogram.
   - `plotESDA`: choose the position of the legend of the bubble plot
 
-# Version 0.6-6.9006 (2019-01-21)
+# Version 0.6.6.9006 (2019-01-21)
 * Improvements on `plotCor` to deal with long column names in the correlation matrix. Long column names (> 5 
   characters) are now replaced with x1, x2, ..., xn, where n is the number of columns in the correlation matrix.
   A message is issues identifying columns and their respective index.
 
-# Version 0.6-6.9005 (2019-01-15)
+# Version 0.6.6.9005 (2019-01-15)
 * Adds `plotCor`, a function to create correlation plots using a colorblind-friendly palette.
 
-# Version 0.6-6.9002 (2018-02-23)
+# Version 0.6.6.9002 (2018-02-23)
 * Evaluates the upcoming new version (3.0-0) of the **car** package.
 
-# Version 0.6-6.9001 (2015-12-21)
+# Version 0.6.6.9001 (2015-12-21)
 * Improved selection of the location to place the legend in `plotHD`.
 
-# Version 0.6-6.9000 (2015-12-10)
+# Version 0.6.6.9000 (2015-12-10)
 * A new guess of `p_sill` is used when the variance is spatially uncorrelated. 
   It is defined as 1e-3 times the guess of `nugget` (before the `p_sill` was 
   set to 1e-12, which caused errors in `optim` and `nlminb`).
 
-# Version 0.6-6 (2015-12-03)
+# Version 0.6.6 (2015-12-03)
 * FIX: corrected error in `vgmICP` caused by the recent update of package 
   ***georob***.
 * `vgmICP`: Improved estimation of the scale parameter (range) for monotonous

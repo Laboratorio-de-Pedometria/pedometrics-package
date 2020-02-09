@@ -32,7 +32,9 @@ devtools::check_win_oldrelease()
 
 # check in R-hub ----
 # rhub::validate_email(email = 'alessandrosamuelrosa@gmail.com')
-devtools::check_rhub()
+rhub::check_for_cran()
+# rhub::check(platform = c('windows-x86_64-devel'))
+# rhub::platforms()
 # devtools::check_rhub(env_vars = c("_R_CHECK_FORCE_SUGGESTS_" = "false")) # scape missing suggested packages
 
 # check all downstream dependencies
