@@ -41,6 +41,7 @@ be set to \code{FALSE}.
 \examples{
 
 \dontrun{
+if (require(spsurvey)) {
 ## Estimate the CDF
 my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
 
@@ -49,6 +50,7 @@ levels(my.cdf$Pct$Indicator)
 
 ## Return all summary statistics of indicator variable 'dx'
 cdfStats(my.cdf, "dx", all = TRUE)
+}
 }
 
 }

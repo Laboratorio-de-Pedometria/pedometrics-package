@@ -59,16 +59,20 @@
 #' @examples
 #' 
 #' \dontrun{
+#' if (require(spsurvey)) {
 #' ## Estimate the CDF
-#' my.cdf <- cont.analysis(spsurvey.obj = my.spsurvey)
+#' my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
 #' 
 #' ## Print table and TeX code
 #' cdfTable(my.cdf)
+#' }
 #' }
 #' 
 # FUNCTION #####################################################################
 cdfTable <- 
   function(x, type = "xy", rounding = 0, tex = FALSE, data.frame = FALSE) {
+    
+    .Deprecated(msg = "'cdfTable' is deprecated.\nSee https://github.com/samuel-rosa/ASRtools")
 
     # Check if suggested packages are installed
     if (!requireNamespace("xtable", quietly = TRUE)) {

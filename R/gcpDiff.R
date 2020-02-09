@@ -89,6 +89,7 @@
 #' @examples
 #' 
 #' \dontrun{
+#' if (require(spsurvey)) {
 #' ## Create an spsurvey.analysis object
 #' my.spsurvey <- 
 #'   spsurvey.analysis(design = coordenadas(my.data),
@@ -96,6 +97,7 @@
 #'                     popcorrect = TRUE, pcfsize = length(my.data$id),
 #'                     support = rep(1, length(my.data$id)),
 #'                     wgt = rep(1, length(my.data$id)), vartype = "SRS")
+#' }
 #' }
 #' 
 gcpDiff <- 

@@ -34,6 +34,7 @@
 #' @examples
 #' 
 #' \dontrun{
+#' if (require(spsurvey)) {
 #' ## Estimate the CDF
 #' my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
 #' 
@@ -43,10 +44,14 @@
 #' ## Return all summary statistics of indicator variable 'dx'
 #' cdfStats(my.cdf, "dx", all = TRUE)
 #' }
+#' }
 #' 
 # FUNCTION ####################################################################################################
 cdfStats <- 
   function(obj, ind, all = TRUE) {
+    
+    .Deprecated(msg = "'cdfStats' is deprecated.\nSee https://github.com/samuel-rosa/ASRtools")
+    
     stats <- data.frame(obj$Pct[obj$Pct$Indicator == ind, 4:9][8:10, ], row.names = NULL)
     if(all) {
       res <- stats  

@@ -67,11 +67,13 @@ displacement (error) of the attribute \sQuote{z} being measured.
 \examples{
 
 \dontrun{
+if (require(spsurvey)) {
 ## Estimate the CDF
-my.cdf <- cont.analysis(spsurvey.obj = my.spsurvey)
+my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
 
 ## Print table and TeX code
 cdfTable(my.cdf)
+}
 }
 
 }

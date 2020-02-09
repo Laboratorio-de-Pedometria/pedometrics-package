@@ -9,33 +9,40 @@
 #' frame that provides this information, assuming that all other design
 #' variables are provided manually in the arguments list.
 #' 
-#' @param x Object of class \code{SpatialPointsDataFrame} from
-#' which site ID and XY coordinates are to be returned.
-#' @return An object of class \code{data.frame} containing three columns with
-#' names \code{siteID}, \code{xcoord}, and \code{ycoord}.
+#' @param x Object of class `SpatialPointsDataFrame` from which site ID and XY coordinates are to be returned.
+#' 
+#' @return An object of class `data.frame` containing three columns with names `siteID`, `xcoord`, and 
+#' `ycoord`.
+#' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[pedometrics]{gcpDiff}},
-#' \code{\link[spsurvey]{cont.analysis}}.
-#' @references Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
-#' Design and Analysis. R package version 2.6. URL:
-#' \url{http://www.epa.gov/nheerl/arm/}.
+#' 
+#' @seealso \code{\link[pedometrics]{gcpDiff}}, \code{\link[spsurvey]{cont.analysis}}.
+#' 
+#' @references Kincaid, T. M. and Olsen, A. R. (2013). _spsurvey: Spatial Survey Design and Analysis_. 
+#' R package version 2.6. URL: \url{https://www.epa.gov/nheerl/arm/}.
+
 #' @keywords methods
 #' @export
 #' @examples
 #' 
 #' \dontrun{
-#' ## Create an spsurvey.analysis object
-#' my.spsurvey <- 
-#'   spsurvey.analysis(design = coordenadas(my.data),
-#'                     data.cont = delta(ref.data, my.data),
-#'                     popcorrect = TRUE, pcfsize = length(my.data$id),
-#'                     support = rep(1, length(my.data$id)),
-#'                     wgt = rep(1, length(my.data$id)), vartype = "SRS")
+#' if (require(spsurvey)) {
+#'   ## Create an spsurvey.analysis object
+#'   my.spsurvey <-
+#'     spsurvey::spsurvey.analysis(
+#'       design = coordenadas(my.data),
+#'       data.cont = delta(ref.data, my.data),
+#'       popcorrect = TRUE, pcfsize = length(my.data$id),
+#'       support = rep(1, length(my.data$id)),
+#'       wgt = rep(1, length(my.data$id)), vartype = "SRS")
+#' }
 #' }
 #' 
-# FUNCTION #####################################################################
+# FUNCTION ####################################################################################################
 coordenadas <-
   function(x) {
+    
+    .Deprecated(msg = "'coordenadas' is deprecated.\nSee https://github.com/samuel-rosa/ASRtools")
     
     # Check if suggested packages are installed
     pkg <- c("sp")

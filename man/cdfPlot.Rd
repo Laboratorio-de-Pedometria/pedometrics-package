@@ -124,6 +124,7 @@ should be given to the authors of the original implementation in the
 \examples{
 
 \dontrun{
+if (require(spsurvey)) {
 ## Estimate the CDF
 my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
 
@@ -133,6 +134,7 @@ levels(my.cdf$Pct$Indicator)
 ## Plot CDF
 cdfPlot(obj = my.cdf, ind = "dz", figlab = "",
    xlbl = "Difference (m)", xlim = c(-30, 10), type.plot = "s")
+}
 }
 
 }

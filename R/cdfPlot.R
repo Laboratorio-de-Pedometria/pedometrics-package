@@ -93,6 +93,7 @@
 #' @examples
 #' 
 #' \dontrun{
+#' if (require(spsurvey)) {
 #' ## Estimate the CDF
 #' my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
 #' 
@@ -103,6 +104,7 @@
 #' cdfPlot(obj = my.cdf, ind = "dz", figlab = "",
 #'    xlbl = "Difference (m)", xlim = c(-30, 10), type.plot = "s")
 #' }
+#' }
 #' 
 # FUNCTION #####################################################################
 cdfPlot <- 
@@ -112,6 +114,8 @@ cdfPlot <-
             show.conflev = TRUE,
             conflev = 95, show.param = TRUE, round = 0, 
             col.param = "black", ...) {
+    
+    .Deprecated(msg = "'cdfPlot' is deprecated.\nSee https://github.com/samuel-rosa/ASRtools")
     
     # Check if suggested packages are installed
     if (!requireNamespace("spsurvey", quietly = TRUE)) {
