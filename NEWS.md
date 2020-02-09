@@ -1,3 +1,7 @@
+# Version 0.7.0 (2020-02-08)
+
+* New version (minor) including bug fixes, new functions, and function improvements.
+
 # Version 0.6.6.9010 (2020-02-08)
 
 * Improvements:
