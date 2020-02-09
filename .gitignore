@@ -12,3 +12,4 @@ Rprof.out
 ^.*\.so$
 .Rbuildignore~
 .gitignore~
+CRAN-RELEASE
