@@ -49,26 +49,26 @@ The latest stable version of the __pedometrics__ package generally can be instal
 Comprehensive R Archive Network ([CRAN][cran]).
 
 ```R
-# Install pedometrics from CRAN
+# Install package pedometrics from CRAN
 install.packages(pkgs = "pedometrics")
 ```
 
 If installation from CRAN fails, you can install the development version of the __pedometrics__
-package available on [GitHub][github] using the __devtools__ package. If you are using a
+package available on [GitHub][github] using the __remotes__ package. If you are using a
 [Windows][windows] machine, however, you will need to install [Rtools][rtools] first.
 
 ```R
-# Install pedometrics from GitHub
-if (!require(devtools)) {
-  install.packages(pkgs = "devtools")
+# Install package pedometrics from GitHub
+if (!require(remotes)) {
+  install.packages(pkgs = "remotes")
 }
-devtools::install_github(repo = "laboratorio-de-pedometria/pedometrics")
+remotes::install_github(repo = "laboratorio-de-pedometria/pedometrics")
 ```
 
 [windows]: https://cran.r-project.org/bin/windows/
 [rtools]: https://cran.r-project.org/bin/windows/Rtools/
 [cran]: https://CRAN.R-project.org/package=pedometrics
-[github]: https://github.com/laboratorio-de-pedometria/pedometrics
+[github]: https://github.com/laboratorio-de-pedometria/pedometrics-package
 
 ## How to collaborate
 
