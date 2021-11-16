@@ -27,10 +27,8 @@
 #' A vector, data frame, or matrix, depending on the class of `x`.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[Hmisc]{cut2}}
 #' @aliases cont2cat breakPoints stratify
 #' @examples
-#'
 #' ## Compute the break points of marginal strata
 #' x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
 #' x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
@@ -59,7 +57,7 @@
 #' x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
 #' x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
 #' x
-# FUNCTION - CONVERT CONTINUOUS DATA INTO CATEGORICAL DATA ####################################################
+# FUNCTION - CONVERT CONTINUOUS DATA INTO CATEGORICAL DATA #########################################
 #' @export
 #' @rdname cont2cat 
 cont2cat <-

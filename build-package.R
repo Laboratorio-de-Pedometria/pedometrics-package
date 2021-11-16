@@ -1,9 +1,8 @@
 # Build package
 
 # TODO
-# 'geoR' is an orphaned package since 2020-01-12 -- work to remove it from Suggests
-# 'spsurvey' constantly gives errors (missing package) during remote checks -- work to remove it from Suggests
-# deprecated functions
+# 'spsurvey' gives errors (missing package) in remote checks -- work to remove from Suggests
+#  deprecate functions
 # 'moments' is used in plotHD -- work to remove it from Suggests
 
 # update dependencies ----
@@ -15,9 +14,12 @@ update(remotes::package_deps(packages = "devtools"))
 
 # RCpp
 # Avoid error
-# Error in dyn.load(dllfile) : 
+# Error in dyn.load(dllfile) :
 # unable to load shared object <...>.so
 Rcpp::compileAttributes()
+
+# Render README
+rmarkdown::render("README.Rmd")
 
 # check documentation ----
 roxygen2::roxygenise()

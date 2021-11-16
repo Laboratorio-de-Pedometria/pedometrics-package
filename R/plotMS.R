@@ -193,8 +193,7 @@
 #' Use the original functions \code{\link[lattice]{xyplot}} and 
 #' \code{\link[lattice]{levelplot}} for higher customization.
 #' 
-#' @seealso \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}, 
-#' \code{\link[mvtsplot]{mvtsplot}}.
+#' @seealso \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}.
 #' @importFrom stats update
 #' @export
 #' @examples

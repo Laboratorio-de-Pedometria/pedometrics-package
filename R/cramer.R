@@ -23,24 +23,23 @@
 #' main bottleneck in the current version of \code{cramer}. Ideally it will be
 #' implemented in C++.
 #' 
+#' See also `vcd::assocstats()`.
+#' 
 #' @references
-#' Cramér, H. \emph{Mathematical methods of statistics}. Princeton: Princeton
-#' University Press, p. 575, 1946.
+#' Cramér, H. _Mathematical methods of statistics_. Princeton: Princeton University Press, p. 575,
+#' 1946.
 #' 
-#' Everitt, B. S. \emph{The Cambridge dictionary of statistics}. Cambridge: 
-#' Cambridge University Press, p. 432, 2006.
+#' Everitt, B. S. _The Cambridge dictionary of statistics_. Cambridge: Cambridge University Press, 
+#' p. 432, 2006.
 #' 
-#' @seealso \code{\link[vcd]{assocstats}}
 #' @export
 #' @examples
-#' \dontrun{
-#' data <- read.csv("http://www.math.smith.edu/r/data/help.csv")
-#' data <- data[, c("female", "homeless", "racegrp")]
-#' str(data)
-#' test <- cramer(data)
-#' test
+#' if (interactive()) {
+#' data(meuse, package = "sp")
+#' str(meuse)
+#' test <- cramer(meuse[, c("ffreq", "soil", "lime", "landuse")])
 #' }
-# FUNCTION #####################################################################
+# FUNCTION #########################################################################################
 cramer <-
   function (x) {
     nam <- colnames(x)
@@ -79,7 +78,7 @@ cramer <-
   function (x, y) {
     #x <- table(x, y)
     OBSERVED <- table(x, y)
-    #OBSERVED <- bigtabulate(cbind(x, y), ccols = c(1, 2))
+    # OBSERVED <- bigtabulate::bigtabulate(cbind(x, y), ccols = c(1, 2))
     n <- sum(OBSERVED)
     sr <- rowSums(OBSERVED)
     sc <- colSums(OBSERVED)

@@ -54,7 +54,7 @@
 #' @details
 #' The user should visit the help pages of \code{\link[lattice]{histogram}},
 #' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}}, 
-#' \code{\link[car]{powerTransform}} and \code{\link[car]{bcPower}} to obtain 
+#' `car::powerTransform()` and `car::bcPower()` to obtain 
 #' more details about the main functions used to built \code{plotHD}.
 #' 
 #' @return
@@ -70,28 +70,22 @@
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @seealso \code{\link[lattice]{histogram}}, 
-#' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
-#' \code{\link[car]{powerTransform}}, \code{\link[car]{bcPower}}.
+#' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}}.
 #' @import lattice latticeExtra
 #' @importFrom stats update
 #' @export
 #' @examples
 #' x <- rnorm(100, 10, 2)
-#' plotHD(x, HD = "stack")
-#' plotHD(x, HD = "over")
-#' 
-#' @keywords dplot
-#' 
-# FUNCTION ####################################################################################################
-# 
+#' p1 <- plotHD(x, HD = "stack")
+#' p2 <- plotHD(x, HD = "over")
+# FUNCTION #########################################################################################
 # TODO:
-#   - moments::skewness() is used here, creating an entry in Suggests. To avoid this, implement code to
-#     compute the skewness and remove 'moments' from Suggests.
+#   - moments::skewness() is used here, creating an entry in Suggests. To avoid this, implement code
+#     to compute the skewness and remove 'moments' from Suggests.
 #   - replace 'lattice'-functions with 'graphics'-functions
 plotHD <- 
-  function (x, HD = "over", nint = 20, digits = 2, stats = TRUE, 
-            BoxCox = FALSE, col = c("lightgray", "black"), lwd = c(1, 1),
-            lty = "dashed", xlim, ylim, ...) {
+  function (x, HD = "over", nint = 20, digits = 2, stats = TRUE, BoxCox = FALSE,
+            col = c("lightgray", "black"), lwd = c(1, 1), lty = "dashed", xlim, ylim, ...) {
     
     # Check if suggested packages are installed
     if (!requireNamespace("moments", quietly = TRUE)) {
@@ -105,7 +99,6 @@ plotHD <-
     }
     
     if (BoxCox) {
-      
       # Check if the variable has negative values
       check <- any(x <= 0)
       if (check) {
@@ -125,11 +118,12 @@ plotHD <-
       lambda <- 1
     }
     if (HD == "over") {
-      #if (missing(xlim)) {
-      #  xlim <- densityplot(x)$x.limits
-      #}
+      if (missing(xlim)) {
+        xlim <- lattice::densityplot(x)$x.limits
+      }
       p <- lattice::histogram(
-        x, type = "density", col = col[1], xlim = xlim, nint = nint, lwd = lwd[1], ..., 
+        x, type = "density", col = col[1], xlim = xlim, nint = nint, lwd = lwd[1],
+        ...,
         panel = function (x, ...) {
           lattice::panel.grid(h = -1, v = -1, lty = "dotted")
           lattice::panel.histogram(x, ...)

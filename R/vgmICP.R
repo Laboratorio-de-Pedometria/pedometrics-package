@@ -29,28 +29,28 @@
 #' Defaults to \code{plotit = FALSE}.
 #' 
 #' @param estimator Character keyword defining the estimator for computing the sample variogram, with options 
-#' `"qn"`, `"mad"`, `"matheron"`, and `"ch"`. Defaults to `estimator = "qn"`. See 
-#' \code{\link[georob]{sample.variogram}} for more details.
-#' 
+#' `"qn"`, `"mad"`, `"matheron"`, and `"ch"`. Defaults to `estimator = "qn"`. See
+#' `georob::sample.variogram()` for more details.
+#'
 #' @return A vector of numeric values: the guesses for the covariance parameters nugget, partial sill, and 
 #' range.
-#' 
+#'
 #' @details There are five methods two guess the initial covariance parameters  (ICP). Two of them, `"a"` and
 #' `"c"`, rely a sample variogram with exponentially spaced lag-distance classes, while the other three, `"b"`,
 #' `"d"`, and `"e"`, use equidistant lag-distance classes (see \code{\link[pedometrics]{vgmLags}}). All of them
 #' are \href{https://en.wikipedia.org/wiki/Heuristic}{heuristic}.
-#' 
+#'
 #' Method `"a"` was developed in-house and is the most elaborated of them, specially for guessing the nugget
 #' variance.
-#' 
-#' Method `"b"` was proposed by \href{http://dx.doi.org/10.1016/0098-3004(95)00095-X}{Jian et al. (1996)} and
+#'
+#' Method `"b"` was proposed by \doi{10.1016/0098-3004(95)00095-X}{Jian et al. (1996)} and
 #' is implemented in \href{https://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_variogram_a0000000593.htm}{SAS/STAT(R) 9.22}.
-#' 
-#' Method `"c"` is implemented in the __automap__-package and was developed by 
-#' \href{http://dx.doi.org/10.1016/j.cageo.2008.10.011}{Hiemstra et al. (2009)}.
-#' 
-#' Method `"d"` was developed by \href{http://dx.doi.org/10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
-#' 
+#'
+#' Method `"c"` is implemented in the __automap__-package and was developed by
+#' \doi{10.1016/j.cageo.2008.10.011}{Hiemstra et al. (2009)}.
+#'
+#' Method `"d"` was developed by \doi{10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
+#'
 #' Method `"e"` was proposed by \href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of \href{http://www.gslib.com/}{GSLIB}.
 #' 
 #' @references 
@@ -74,9 +74,7 @@
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @seealso \code{\link[pedometrics]{vgmLags}}, 
-#'          \code{\link[georob]{sample.variogram}}, 
-#'          \code{\link[automap]{autofitVariogram}}
+#' @seealso \code{\link[pedometrics]{vgmLags}}
 #' 
 #' @concept variogram
 #' @export

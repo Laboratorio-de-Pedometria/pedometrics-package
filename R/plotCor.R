@@ -36,6 +36,7 @@
 #' 
 #' @export
 #' @examples
+#' if (interactive()) {
 #' data(meuse, package = "sp")
 #' cols <- c("cadmium", "copper", "lead", "zinc", "elev", "dist", "om")
 #' 
@@ -48,8 +49,8 @@
 #' r2 <- cor(meuse[21:40, cols], use = "complete")
 #' r2 <- round(r2, 2)
 #' plotCor(r, r2)
-#' 
-# FUNCTION ####################################################################################################
+#' }
+# FUNCTION #########################################################################################
 plotCor <-
   function (r, r2, col, breaks, col.names, ...) {
     

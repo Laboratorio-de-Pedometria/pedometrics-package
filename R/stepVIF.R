@@ -55,18 +55,17 @@
 #' @note
 #' More on the use of GVIF to measure the collinearity in linear models containing categorical predictor
 #' variables can be found on [StackExchange](https://stats.stackexchange.com/questions/70679/which-variance-inflation-factor-should-i-be-using-textgvif-or-textgvif/).
-#' 
-#' @seealso \code{\link[car]{vif}}, \code{\link[MASS]{stepAIC}}.
-#' 
+#'
+#' @seealso \code{\link[MASS]{stepAIC}}.
 #' @export
-#' 
-#' @keywords methods regression
-#' 
+#'
 #' @examples
-#' require(car)
-#' fit <- lm(prestige ~ income + education + type, data = Duncan)
-#' fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
-# FUNCTION ####################################################################################################
+#' if (interactive()) {
+#'   library(car)
+#'   fit <- lm(prestige ~ income + education + type, data = Duncan)
+#'   fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
+#' }
+# FUNCTION #########################################################################################
 stepVIF <-
   function (model, threshold = 10, verbose = FALSE) {
     

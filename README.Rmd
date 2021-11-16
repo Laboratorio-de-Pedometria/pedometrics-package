@@ -41,28 +41,34 @@ the functions that I find very useful is `plotESDA()`. This function creates fou
 data analysis (ESDA): a histogram + density plot, a bubble plot, a variogram plot, and a variogram map. The 
 figure below shows the result for the zinc concentration in the Meuse river data set.
 
-![](https://raw.githubusercontent.com/samuel-rosa/pedometrics/master/inst/extdata/plot-esda.png)
+![](https://raw.githubusercontent.com/laboratorio-de-pedometria/pedometrics/master/inst/extdata/plot-esda.png)
 
 ## Installation
 
-The package can be installed from [CRAN][cran] using:
+The latest stable version of the __pedometrics__ package generally can be installed from the
+Comprehensive R Archive Network ([CRAN][cran]).
 
 ```R
+# Install pedometrics from CRAN
 install.packages(pkgs = "pedometrics")
 ```
 
-The development version, available on [GitHub][github], can be installed -- using the `devtools` package -- as
-follows:
-
-[cran]: https://CRAN.R-project.org/package=pedometrics
-[github]: https://github.com/samuel-rosa/pedometrics
+If installation from CRAN fails, you can install the development version of the __pedometrics__
+package available on [GitHub][github] using the __devtools__ package. If you are using a
+[Windows][windows] machine, however, you will need to install [Rtools][rtools] first.
 
 ```R
+# Install pedometrics from GitHub
 if (!require(devtools)) {
   install.packages(pkgs = "devtools")
 }
-devtools::install_github(repo = "samuel-rosa/pedometrics")
+devtools::install_github(repo = "laboratorio-de-pedometria/pedometrics")
 ```
+
+[windows]: https://cran.r-project.org/bin/windows/
+[rtools]: https://cran.r-project.org/bin/windows/Rtools/
+[cran]: https://CRAN.R-project.org/package=pedometrics
+[github]: https://github.com/laboratorio-de-pedometria/pedometrics
 
 ## How to collaborate
 

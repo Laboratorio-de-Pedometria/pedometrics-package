@@ -23,10 +23,9 @@
 #' Defaults to `leg.pos = "right"`
 #' 
 #' @details
-#' The user should visit the help pages of \code{\link[gstat]{variogram}},
-#' \code{\link[pedometrics]{plotHD}}, \code{\link[sp]{bubble}} and
-#' \code{\link[sp]{spplot}} to obtain more details about the main functions 
-#' used to built \code{plotESDA}.
+#' The user should visit the help pages of `gstat::variogram()`, \code{\link[pedometrics]{plotHD}},
+#' `sp::bubble()` and `sp::spplot()` to obtain more details about the main functions used to built
+#' \code{plotESDA}.
 #' 
 #' @return
 #' Four plots: histogram and density plot, bubble plot, empirical variogram, 
@@ -44,18 +43,15 @@
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @seealso \code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
-#' \code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
+#' @seealso \code{\link[pedometrics]{plotHD}}
 #' @importFrom graphics plot
 #' @export
 #' @examples
-#' # library(sp)
-#' # data(meuse)
-#' # plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
-#' 
-#' @keywords dplot
-#' 
-# FUNCTION ####################################################################################################
+#' \dontrun{
+#'   data(meuse, package = "sp")
+#'   p <- plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
+#' }
+# FUNCTION #########################################################################################
 plotESDA <- 
   function (z, lat, lon, lags = NULL, cutoff = NULL, width = c(cutoff / 20), leg.pos = "right") {
     
@@ -120,4 +116,3 @@ plotESDA <-
     print(v1, split = c(2, 1, 2, 2), more = TRUE)
     print(v2, split = c(2, 2, 2, 2), more = FALSE)
   }
-# End!

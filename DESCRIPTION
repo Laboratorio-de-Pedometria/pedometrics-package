@@ -1,6 +1,6 @@
 Package: pedometrics
-Version: 0.7.0.9000
-Date: 2020-02-09
+Version: 0.8.1
+Date: 2021-11-16
 Title: Miscellaneous Pedometric Tools
 Description: An R implementation of some useful tools employed in the field of pedometrics.
 Authors@R: c(
@@ -24,8 +24,8 @@ Authors@R: c(
     person("Frank", "Harrell Jr", role = "ctb", email = "f.harrell@vanderbilt.edu"),
     person("Ruo", "Xu", role = "ctb", email = "xuruo.isu@gmail.com")
            )
-URL: https://github.com/samuel-rosa/pedometrics
-BugReports: https://github.com/samuel-rosa/pedometrics/issues
+URL: https://github.com/Laboratorio-de-Pedometria/pedometrics-package
+BugReports: https://github.com/Laboratorio-de-Pedometria/pedometrics-package/issues
 Depends:
     R (>= 3.2.0)
 Imports:
@@ -45,18 +45,17 @@ Suggests:
     MASS,
     methods,
     moments,
-    pbapply,
     plyr,
     randomForest,
     RColorBrewer,
     sp,
     SpatialTools,
-    spsurvey,
+    spsurvey (< 5.0),
     xtable
 License: GPL (>= 2)
 Encoding: UTF-8
 Repository: CRAN
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 SystemRequirements: pandoc
 Roxygen: list(markdown = TRUE)
 Language: en-US

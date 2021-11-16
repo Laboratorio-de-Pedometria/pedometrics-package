@@ -78,13 +78,9 @@
 #' @note Data of \code{type = "xy"} cannot be submitted to cluster aggregation
 #' in the present version.
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[pedometrics]{coordenadas}},
-#' \code{\link[pedometrics]{gcpVector}},
-#' \code{\link[spsurvey]{spsurvey.analysis}}.
+#' @seealso \code{\link[pedometrics]{coordenadas}}, \code{\link[pedometrics]{gcpVector}}.
 #' @references Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
-#' Design and Analysis. R package version 2.6. URL:
-#' \url{http://www.epa.gov/nheerl/arm/}.
-#' @keywords methods
+#' Design and Analysis. R package version 2.6. URL: \url{https://www.epa.gov/}.
 #' @export
 #' @examples
 #' 

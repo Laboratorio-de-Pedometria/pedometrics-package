@@ -22,7 +22,7 @@
 #' @keywords misc
 #' @export
 #' @examples
-#' adjR2(r2 = 0.95, n = 100, p = 80)
+#' x <- adjR2(r2 = 0.95, n = 100, p = 80)
 # FUNCTION #####################################################################
 adjR2 <- 
   function (r2, n, p) {

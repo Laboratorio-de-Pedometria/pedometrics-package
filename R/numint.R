@@ -5,8 +5,7 @@
 #' @param x Object to be tested.
 #' 
 #' @return
-#' \code{TRUE} or \code{FALSE} depending on whether \code{x} contains a given
-#' data type.
+#' \code{TRUE} or \code{FALSE} depending on whether \code{x} contains a given data type.
 #' 
 #' @seealso \code{\link[base]{is.numeric}}, \code{\link[base]{is.integer}},
 #' \code{\link[base]{is.factor}}.

@@ -10,7 +10,7 @@
 #' 
 #' \code{trend.matrix} is similar to \code{\link[stats]{model.frame}}.
 #' 
-#' @seealso \code{\link[geoR]{likfit}}
+#' Se also `geoR::likfit()`.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @aliases trend.terms trend.matrix

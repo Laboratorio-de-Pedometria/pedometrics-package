@@ -49,12 +49,9 @@
 #' code for the table defined by the argument \code{type}. Otherwise the TeX
 #' code is not generated. }
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[pedometrics]{cdfStats}},
-#' \code{\link[spsurvey]{cont.analysis}}.
+#' @seealso \code{\link[pedometrics]{cdfStats}}.
 #' @references Kincaid, T. M. and Olsen, A. R. (2013).  spsurvey: Spatial
-#' Survey Design and Analysis.  R package version 2.6. URL:
-#' \url{http://www.epa.gov/nheerl/arm/}.
-#' @keywords methods print
+#' Survey Design and Analysis.  R package version 2.6. URL: \url{https://www.epa.gov/}.
 #' @export
 #' @examples
 #' 

@@ -75,8 +75,7 @@
 #' \item Add option to select which performance statistics should be returned.
 #' }
 #' 
-#' @seealso \code{\link[pedometrics]{buildMS}}, 
-#' \code{\link[pedometrics]{plotMS}}.
+#' @seealso \code{\link[pedometrics]{buildMS}}, \code{\link[pedometrics]{plotMS}}
 #' @export
 #' @examples
 #' \dontrun{
@@ -97,10 +96,7 @@
 #' cpus.des <- data.frame(a = c(0, 1, 0), b = c(1, 0, 1), c = c(1, 1, 0))
 #' stats <- statsMS(cpus.ms, design.info = cpus.des, arrange.by = "aic")
 #' }
-#' 
-#' @keywords models manip
-#' 
-# FUNCTION #####################################################################
+# FUNCTION #########################################################################################
 #
 statsMS <-
   function (model, design.info, arrange.by, digits) {

@@ -6,7 +6,7 @@
 #' Parameter \code{type.plot} is used only when \code{type.cdf = "Continuous"}.
 #' 
 #' Care should be taken with possible conflicts between the arguments of the
-#' original function \code{\link[spsurvey]{cdf.plot}} and those passed to
+#' original function `spsurvey::cdf.plot()` and those passed to
 #' \code{plot()} using \code{...}. The existence of conflicts between these two
 #' functions was one of the reasons for creating this new implementation.
 #' 
@@ -56,7 +56,7 @@
 #' parameters are the mean, the median, and a percentile defined by the
 #' argument \code{conflev}.  The legend displays de actual values of all three
 #' parameters, including the standard deviation of the mean. The percentile
-#' value is calculated using \code{spsurvey::interp.cdf()}.
+#' value is calculated using `spsurvey::interp.cdf()`.
 #' @param round Numeric to set the rounding level of the parameters of the CDF.
 #' @param col.param Color of the lines showing the parameters of the CDF.
 #' Defaults to \code{col.param = "black"}.
@@ -74,28 +74,26 @@
 #' @author Tony Olsen \email{Olsen.Tony@@epa.gov}\cr Tom Kincaid
 #' \email{Kincaid.Tom@@epa.gov}\cr Alessandro Samuel-Rosa
 #' \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[spsurvey]{cdf.plot}}.
 #' @references Brus, D. J., Kempen, B. and Heuvelink, G. B. M. (2011).
 #' Sampling for validation of digital soil maps.  \emph{European Journal of
 #' Soil Science}, v. 62, p. 394-407.
-#' 
+#'
 #' Diaz-Ramos, S., D.L. Stevens, Jr., and A.R. Olsen. (1996).  \emph{EMAP
 #' Statistical Methods Manual}. EPA/620/R-96/XXX. Corvallis, OR: U.S.
 #' Environmental Protection Agency, Office of Research and Development,
 #' National Health Effects and Environmental Research Laboratory, Western
 #' Ecology Division.
-#' 
+#'
 #' Kincaid, T. M. and Olsen, A. R. (2013) \emph{spsurvey: Spatial Survey Design
-#' and Analysis}.  R package version 2.6. URL:
-#' \url{http://www.epa.gov/nheerl/arm/}.
-#' @keywords dplot hplot
+#' and Analysis}.  R package version 2.6. URL: \url{https://www.epa.gov/}.
 #' @export
 #' @examples
 #' 
 #' \dontrun{
 #' if (require(spsurvey)) {
 #' ## Estimate the CDF
-#' my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
+#' library(spsurvey)
+#' my.cdf <- cont.analysis(spsurvey.obj = my.spsurvey)
 #' 
 #' ## See indicator levels in the resulting object
 #' levels(my.cdf$Pct$Indicator)
@@ -106,7 +104,7 @@
 #' }
 #' }
 #' 
-# FUNCTION #####################################################################
+# FUNCTION #########################################################################################
 cdfPlot <- 
   function (obj, ind, units.cdf = "percent", type.plot = "s", 
             type.cdf = "continuous", logx = "", xlbl = NULL, ylbl = "Percent",

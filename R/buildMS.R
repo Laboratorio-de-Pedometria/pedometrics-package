@@ -75,11 +75,10 @@
 #' @section TODO: Add option to set the order in which \code{stepAIC} and
 #' \code{stepVIF} are run.
 #' 
-#' @seealso \code{\link[MASS]{stepAIC}}, \code{\link[pedometrics]{stepVIF}},
-#' \code{\link[pedometrics]{statsMS}}.
+#' @seealso \code{\link[pedometrics]{stepVIF}}, \code{\link[pedometrics]{statsMS}}.
 #' @export
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
 #' # based on the second example of function stepAIC
 #' require(MASS)
 #' cpus1 <- cpus
@@ -95,60 +94,53 @@
 #' data <- cpus1[cpus.samp,2:8]
 #' cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 #' }
-#' @keywords iteration models
-#' 
-# FUNCTION #####################################################################
+# FUNCTION #########################################################################################
 buildMS <- 
-  function (formula, data,
-            vif = FALSE, vif.threshold = 10, vif.verbose = FALSE,
-            aic = FALSE, aic.direction = "both", aic.trace = FALSE,
-            aic.steps = 5000, ...) {
-    
+  function (formula, data, vif = FALSE, vif.threshold = 10, vif.verbose = FALSE, aic = FALSE,
+            aic.direction = "both", aic.trace = FALSE, aic.steps = 5000, ...) {
     # Check if suggested packages are installed
     pkg <- c("MASS", "pbapply")
     id <- !sapply(pkg, requireNamespace, quietly = TRUE)
     if (any(id)) {
       pkg <- paste(pkg[which(id)], collapse = " ")
-      stop(paste("Package(s) needed for this function to work but not",
-                 "installed: ", pkg, sep = ""), call. = FALSE)
+      stop_out <- paste0("Package(s) needed for this function to work but not installed: ", pkg)
+      stop(stop_out, call. = FALSE)
     }
-    
     # check arguments ##########################################################
     if (missing(formula)) {
-      stop("<formula> is a mandatory argument")
+      stop("'formula' is a mandatory argument")
     }
     if (class(formula) != "list") {
       formula <- list(formula)
     }
     if (missing(data)) {
-      stop("<data> is a mandatory argument")
+      stop("'data' is a mandatory argument")
     }
     if (class(data) != "data.frame") {
       data <- as.data.frame(data)
     }
-    
     # lm()
-    print("fitting linear model using ols")
-    model <- pbapply::pblapply(formula, function (X) stats::lm(X, data))
+    print("fitting multiple linear regression model using OLS")
+    model <- lapply(formula, function (X) stats::lm(X, data))
     # get the initial number of candidate predictors and observations
     p <- sapply(model, function (X) dim(stats::model.matrix(X))[2])
     n <- sapply(model, function (X) dim(stats::model.matrix(X))[1])
-    
     # stepVIF()
     if (vif) {
-      print("backward variable selection using VIF")
-      model <- pbapply::pblapply(model, function (X)
-        stepVIF(X, threshold = vif.threshold, verbose = vif.verbose))
+      print("backward predictor variable selection using VIF")
+      model <- lapply(model, function (X) {
+        stepVIF(X, threshold = vif.threshold, verbose = vif.verbose)
+      })
     }
-    
     # stepAIC()
     if (aic) {
-      print(paste(aic.direction, " variable selection using AIC", sep = ""))
-      model <- pbapply::pblapply(model, function (X) 
-        MASS::stepAIC(X, direction = aic.direction, steps = aic.steps, 
-                      trace = aic.trace, ...))
+      print_aic <- ifelse(aic.direction == "both", "both way", aic.direction)
+      print_out <- paste0(print_aic, " predictor variable selection using AIC")
+      print(print_out)
+      model <- lapply(model, function (X) {
+        MASS::stepAIC(X, direction = aic.direction, steps = aic.steps, trace = aic.trace, ...)
+      })
     }
-    
     # Prepare output - add attributes to the final model
     a <- lapply(model, attributes)
     for (i in 1:length(a)) {
@@ -162,4 +154,3 @@ buildMS <-
     }
     return(model)
   }
-# End!

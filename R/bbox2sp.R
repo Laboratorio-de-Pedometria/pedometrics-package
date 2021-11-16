@@ -31,10 +31,11 @@
 #' @keywords misc spatial
 #' @export
 #' @examples
-#' require(sp)
-#' data(meuse)
-#' coordinates(meuse) <- ~ x + y
+#' if (interactive()) {
+#' data(meuse, package = "sp")
+#' sp::coordinates(meuse) <- ~ x + y
 #' bbox2sp(meuse, keep.crs = FALSE)
+#' }
 # FUNCTION #####################################################################
 bbox2sp <- 
   function (obj, sp = "SpatialPolygons", keep.crs = TRUE) {

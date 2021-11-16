@@ -7,12 +7,9 @@
 #'
 #' @param x Numeric matrix with two or more rows and/or columns.
 #' @details
-#' This function is implemented in C++ to speed-up the computation time for
-#' large matrices.
+#' This function is implemented in C++ to speed-up the computation time for large matrices.
 #' @return A numeric vector with the minimum value of each row if the matrix.
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[matrixStats]{rowMins}}
-#' @keywords univar
 #' @import Rcpp
 #' @export
 #' @examples

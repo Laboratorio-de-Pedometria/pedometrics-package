@@ -20,7 +20,7 @@
 #' changes are likely to occur quite often and the use of this package as a 
 #' dependency for other packages is strongly discouraged.
 #' 
-# General information #########################################################################################
+# General information ##############################################################################
 #' @author Author and Maintainer: Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}.
 #' @name pedometrics-package
 #' @aliases pedometrics-package pedometrics
