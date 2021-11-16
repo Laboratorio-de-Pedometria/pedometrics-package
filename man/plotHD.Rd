@@ -81,14 +81,13 @@ using the R-package \pkg{lattice}.
 \details{
 The user should visit the help pages of \code{\link[lattice]{histogram}},
 \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
-\code{\link[car]{powerTransform}} and \code{\link[car]{bcPower}} to obtain
+\code{car::powerTransform()} and \code{car::bcPower()} to obtain
 more details about the main functions used to built \code{plotHD}.
 }
 \examples{
 x <- rnorm(100, 10, 2)
-plotHD(x, HD = "stack")
-plotHD(x, HD = "over")
-
+p1 <- plotHD(x, HD = "stack")
+p2 <- plotHD(x, HD = "over")
 }
 \references{
 Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with
@@ -96,10 +95,8 @@ R}, Springer. \url{http://lmdvr.r-forge.r-project.org/}
 }
 \seealso{
 \code{\link[lattice]{histogram}},
-\code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
-\code{\link[car]{powerTransform}}, \code{\link[car]{bcPower}}.
+\code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
-\keyword{dplot}

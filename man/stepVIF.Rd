@@ -52,9 +52,11 @@ More on the use of GVIF to measure the collinearity in linear models containing 
 variables can be found on \href{https://stats.stackexchange.com/questions/70679/which-variance-inflation-factor-should-i-be-using-textgvif-or-textgvif/}{StackExchange}.
 }
 \examples{
-require(car)
-fit <- lm(prestige ~ income + education + type, data = Duncan)
-fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
+if (interactive()) {
+  library(car)
+  fit <- lm(prestige ~ income + education + type, data = Duncan)
+  fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
+}
 }
 \references{
 Fox, J. and Monette, G. (1992) Generalized collinearity diagnostics. \emph{JASA}, 87, 178--183.
@@ -69,10 +71,8 @@ Pearson Prentice Hall.
 Venables, W. N. and Ripley, B. D. (2002) \emph{Modern Applied Statistics with S}. Fourth edition. Springer.
 }
 \seealso{
-\code{\link[car]{vif}}, \code{\link[MASS]{stepAIC}}.
+\code{\link[MASS]{stepAIC}}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
-\keyword{methods}
-\keyword{regression}

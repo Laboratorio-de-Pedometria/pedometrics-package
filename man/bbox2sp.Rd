@@ -31,10 +31,11 @@ Jon Skoien \email{jon.skoien@gmail.com}, are entitled
 \sQuote{contributors} to the R-package \pkg{pedometrics}.
 }
 \examples{
-require(sp)
-data(meuse)
-coordinates(meuse) <- ~ x + y
+if (interactive()) {
+data(meuse, package = "sp")
+sp::coordinates(meuse) <- ~ x + y
 bbox2sp(meuse, keep.crs = FALSE)
+}
 }
 \references{
 Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos, S.J. Melles

@@ -247,8 +247,7 @@ Roger D. Peng (2012). \emph{mvtsplot: Multivariate Time Series Plot.} R package 
 \url{https://CRAN.R-project.org/package=mvtsplot}.
 }
 \seealso{
-\code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}},
-\code{\link[mvtsplot]{mvtsplot}}.
+\code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

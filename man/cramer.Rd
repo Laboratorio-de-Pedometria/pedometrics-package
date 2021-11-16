@@ -28,25 +28,22 @@ entitled a \sQuote{contributor} to the R-package \pkg{pedometrics}.
 The function \code{bigtabulate} used to compute the chi-squared test is the
 main bottleneck in the current version of \code{cramer}. Ideally it will be
 implemented in C++.
+
+See also \code{vcd::assocstats()}.
 }
 \examples{
-\dontrun{
-data <- read.csv("http://www.math.smith.edu/r/data/help.csv")
-data <- data[, c("female", "homeless", "racegrp")]
-str(data)
-test <- cramer(data)
-test
+if (interactive()) {
+data(meuse, package = "sp")
+str(meuse)
+test <- cramer(meuse[, c("ffreq", "soil", "lime", "landuse")])
 }
 }
 \references{
-Cramér, H. \emph{Mathematical methods of statistics}. Princeton: Princeton
-University Press, p. 575, 1946.
+Cramér, H. \emph{Mathematical methods of statistics}. Princeton: Princeton University Press, p. 575,
+1946.
 
-Everitt, B. S. \emph{The Cambridge dictionary of statistics}. Cambridge:
-Cambridge University Press, p. 432, 2006.
-}
-\seealso{
-\code{\link[vcd]{assocstats}}
+Everitt, B. S. \emph{The Cambridge dictionary of statistics}. Cambridge: Cambridge University Press,
+p. 432, 2006.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

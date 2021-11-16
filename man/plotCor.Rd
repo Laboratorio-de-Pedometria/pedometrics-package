@@ -38,6 +38,7 @@ arguments \code{r} and \code{r2}. The lower triangle of the resulting correlatio
 from \code{r}, correlations from \code{r2} will be in the upper triangle, and the diagonal will be empty.
 }
 \examples{
+if (interactive()) {
 data(meuse, package = "sp")
 cols <- c("cadmium", "copper", "lead", "zinc", "elev", "dist", "om")
 
@@ -50,7 +51,7 @@ plotCor(r)
 r2 <- cor(meuse[21:40, cols], use = "complete")
 r2 <- round(r2, 2)
 plotCor(r, r2)
-
+}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

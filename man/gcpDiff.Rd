@@ -106,15 +106,11 @@ my.spsurvey <-
 }
 \references{
 Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
-Design and Analysis. R package version 2.6. URL:
-\url{http://www.epa.gov/nheerl/arm/}.
+Design and Analysis. R package version 2.6. URL: \url{https://www.epa.gov/}.
 }
 \seealso{
-\code{\link[pedometrics]{coordenadas}},
-\code{\link[pedometrics]{gcpVector}},
-\code{\link[spsurvey]{spsurvey.analysis}}.
+\code{\link[pedometrics]{coordenadas}}, \code{\link[pedometrics]{gcpVector}}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
-\keyword{methods}

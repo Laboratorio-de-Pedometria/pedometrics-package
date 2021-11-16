@@ -48,7 +48,7 @@ information.}
 
 \item{estimator}{Character keyword defining the estimator for computing the sample variogram, with options
 \code{"qn"}, \code{"mad"}, \code{"matheron"}, and \code{"ch"}. Defaults to \code{estimator = "qn"}. See
-\code{\link[georob]{sample.variogram}} for more details.}
+\code{georob::sample.variogram()} for more details.}
 
 \item{plotit}{Should the guessed initial covariance parameters be plotted along with the sample variogram?
 Defaults to \code{plotit = FALSE}.}
@@ -69,13 +69,13 @@ are \href{https://en.wikipedia.org/wiki/Heuristic}{heuristic}.
 Method \code{"a"} was developed in-house and is the most elaborated of them, specially for guessing the nugget
 variance.
 
-Method \code{"b"} was proposed by \href{http://dx.doi.org/10.1016/0098-3004(95)00095-X}{Jian et al. (1996)} and
+Method \code{"b"} was proposed by \doi{10.1016/0098-3004(95)00095-X}{Jian et al. (1996)} and
 is implemented in \href{https://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_variogram_a0000000593.htm}{SAS/STAT(R) 9.22}.
 
 Method \code{"c"} is implemented in the \strong{automap}-package and was developed by
-\href{http://dx.doi.org/10.1016/j.cageo.2008.10.011}{Hiemstra et al. (2009)}.
+\doi{10.1016/j.cageo.2008.10.011}{Hiemstra et al. (2009)}.
 
-Method \code{"d"} was developed by \href{http://dx.doi.org/10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
+Method \code{"d"} was developed by \doi{10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
 
 Method \code{"e"} was proposed by \href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of \href{http://www.gslib.com/}{GSLIB}.
 }
@@ -102,9 +102,7 @@ Larrondo, P. F.; Neufeld, C. T. & Deutsch, C. V. \emph{VARFIT: a program for sem
 Edmonton: Department of Civil and Environmental Engineering, University of Alberta, p. 17, 2003.
 }
 \seealso{
-\code{\link[pedometrics]{vgmLags}},
-\code{\link[georob]{sample.variogram}},
-\code{\link[automap]{autofitVariogram}}
+\code{\link[pedometrics]{vgmLags}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

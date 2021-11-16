@@ -97,7 +97,7 @@ given argument without having to go check the documentation.
 }
 
 \examples{
-\dontrun{
+if (interactive()) {
 # based on the second example of function stepAIC
 require(MASS)
 cpus1 <- cpus
@@ -123,11 +123,8 @@ Venables, W. N. and Ripley, B. D. (2002) \emph{Modern applied statistics
 with S.} Fourth edition. New York: Springer.
 }
 \seealso{
-\code{\link[MASS]{stepAIC}}, \code{\link[pedometrics]{stepVIF}},
-\code{\link[pedometrics]{statsMS}}.
+\code{\link[pedometrics]{stepVIF}}, \code{\link[pedometrics]{statsMS}}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
-\keyword{iteration}
-\keyword{models}

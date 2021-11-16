@@ -52,17 +52,16 @@ class is returned as an attribute.
 Computation of lag-distance classes for variogram estimation.
 }
 \examples{
+if (interactive()) {
 data(meuse, package = "sp")
 lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
 lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
+}
 }
 \references{
 Truong, P. N.; Heuvelink, G. B. M.; Gosling, J. P. Web-based tool for expert
 elicitation of the variogram. \emph{Computers and Geosciences}. v. 51, p.
 390-399, 2013.
-}
-\seealso{
-\code{\link[spsann]{optimPPL}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

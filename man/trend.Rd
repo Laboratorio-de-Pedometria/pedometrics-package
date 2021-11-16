@@ -19,9 +19,8 @@ Extract spatial trend data from an object of class \code{likfit}.
 \code{trend.terms} is similar to \code{\link[stats]{terms}}.
 
 \code{trend.matrix} is similar to \code{\link[stats]{model.frame}}.
-}
-\seealso{
-\code{\link[geoR]{likfit}}
+
+Se also \code{geoR::likfit()}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

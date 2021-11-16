@@ -49,8 +49,7 @@ uniqueClass(x)
 \item{x}{Object to be tested.}
 }
 \value{
-\code{TRUE} or \code{FALSE} depending on whether \code{x} contains a given
-data type.
+\code{TRUE} or \code{FALSE} depending on whether \code{x} contains a given data type.
 }
 \description{
 Evaluate the data type contained in an object.

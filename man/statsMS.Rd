@@ -97,7 +97,6 @@ cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 cpus.des <- data.frame(a = c(0, 1, 0), b = c(1, 0, 1), c = c(1, 1, 0))
 stats <- statsMS(cpus.ms, design.info = cpus.des, arrange.by = "aic")
 }
-
 }
 \references{
 Harrell, F. E. (2001) \emph{Regression modelling strategies: with
@@ -108,11 +107,8 @@ Venables, W. N. and Ripley, B. D. (2002) \emph{Modern applied statistics
 with S.} Fourth edition. New York: Springer.
 }
 \seealso{
-\code{\link[pedometrics]{buildMS}},
-\code{\link[pedometrics]{plotMS}}.
+\code{\link[pedometrics]{buildMS}}, \code{\link[pedometrics]{plotMS}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
-\keyword{manip}
-\keyword{models}

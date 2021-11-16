@@ -7,11 +7,12 @@
 coordenadas(x)
 }
 \arguments{
-\item{x}{Object of class \code{SpatialPointsDataFrame} from which site ID and XY coordinates are to be returned.}
+\item{x}{Object of class \code{SpatialPointsDataFrame} from which site ID and XY coordinates are to be
+returned.}
 }
 \value{
-An object of class \code{data.frame} containing three columns with names \code{siteID}, \code{xcoord}, and
-\code{ycoord}.
+An object of class \code{data.frame} containing three columns with names \code{siteID}, \code{xcoord},
+and \code{ycoord}.
 }
 \description{
 This function returns an object to feed the argument \code{design} when
@@ -25,7 +26,6 @@ frame that provides this information, assuming that all other design
 variables are provided manually in the arguments list.
 }
 \examples{
-
 \dontrun{
 if (require(spsurvey)) {
   ## Create an spsurvey.analysis object
@@ -38,14 +38,13 @@ if (require(spsurvey)) {
       wgt = rep(1, length(my.data$id)), vartype = "SRS")
 }
 }
-
 }
 \references{
-Kincaid, T. M. and Olsen, A. R. (2013). \emph{spsurvey: Spatial Survey Design and Analysis}.
-R package version 2.6. URL: \url{https://www.epa.gov/nheerl/arm/}.
+Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
+Design and Analysis. R package version 2.6. URL: \url{https://www.epa.gov/}.
 }
 \seealso{
-\code{\link[pedometrics]{gcpDiff}}, \code{\link[spsurvey]{cont.analysis}}.
+\code{\link[pedometrics]{gcpDiff}}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

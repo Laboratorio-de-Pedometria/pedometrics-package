@@ -56,11 +56,7 @@ cdfStats(my.cdf, "dx", all = TRUE)
 }
 \references{
 Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
-Design and Analysis. R package version 2.6. URL:
-\url{http://www.epa.gov/nheerl/arm/}.
-}
-\seealso{
-\code{\link[spsurvey]{cont.analysis}}.
+Design and Analysis. R package version 2.6. URL: \url{https://www.epa.gov/}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

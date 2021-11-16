@@ -48,16 +48,15 @@ This function creates four plots for exploratory spatial data analysis
 map.
 }
 \details{
-The user should visit the help pages of \code{\link[gstat]{variogram}},
-\code{\link[pedometrics]{plotHD}}, \code{\link[sp]{bubble}} and
-\code{\link[sp]{spplot}} to obtain more details about the main functions
-used to built \code{plotESDA}.
+The user should visit the help pages of \code{gstat::variogram()}, \code{\link[pedometrics]{plotHD}},
+\code{sp::bubble()} and \code{sp::spplot()} to obtain more details about the main functions used to built
+\code{plotESDA}.
 }
 \examples{
-# library(sp)
-# data(meuse)
-# plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
-
+\dontrun{
+  data(meuse, package = "sp")
+  p <- plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
+}
 }
 \references{
 Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John
@@ -70,10 +69,8 @@ Webster, R. \& Oliver, M.A. \emph{Geostatistics for environmental
 scientists}. Chichester: John Wiley \& Sons, p.315, 2007.
 }
 \seealso{
-\code{\link[gstat]{variogram}}, \code{\link[pedometrics]{plotHD}},
-\code{\link[sp]{bubble}}, \code{\link[sp]{spplot}}.
+\code{\link[pedometrics]{plotHD}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }
-\keyword{dplot}

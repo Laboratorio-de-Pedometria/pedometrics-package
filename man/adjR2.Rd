@@ -27,7 +27,7 @@ regression model.
 Details will be added later.
 }
 \examples{
-adjR2(r2 = 0.95, n = 100, p = 80)
+x <- adjR2(r2 = 0.95, n = 100, p = 80)
 }
 \references{
 Coefficient of determination. Wikipedia, The Free Encyclopedia.

@@ -108,7 +108,7 @@ This function is a modified version of \code{cdf.plot()} of
 Parameter \code{type.plot} is used only when \code{type.cdf = "Continuous"}.
 
 Care should be taken with possible conflicts between the arguments of the
-original function \code{\link[spsurvey]{cdf.plot}} and those passed to
+original function \code{spsurvey::cdf.plot()} and those passed to
 \code{plot()} using \code{...}. The existence of conflicts between these two
 functions was one of the reasons for creating this new implementation.
 }
@@ -126,7 +126,8 @@ should be given to the authors of the original implementation in the
 \dontrun{
 if (require(spsurvey)) {
 ## Estimate the CDF
-my.cdf <- spsurvey::cont.analysis(spsurvey.obj = my.spsurvey)
+library(spsurvey)
+my.cdf <- cont.analysis(spsurvey.obj = my.spsurvey)
 
 ## See indicator levels in the resulting object
 levels(my.cdf$Pct$Indicator)
@@ -150,16 +151,10 @@ National Health Effects and Environmental Research Laboratory, Western
 Ecology Division.
 
 Kincaid, T. M. and Olsen, A. R. (2013) \emph{spsurvey: Spatial Survey Design
-and Analysis}.  R package version 2.6. URL:
-\url{http://www.epa.gov/nheerl/arm/}.
-}
-\seealso{
-\code{\link[spsurvey]{cdf.plot}}.
+and Analysis}.  R package version 2.6. URL: \url{https://www.epa.gov/}.
 }
 \author{
 Tony Olsen \email{Olsen.Tony@epa.gov}\cr Tom Kincaid
 \email{Kincaid.Tom@epa.gov}\cr Alessandro Samuel-Rosa
 \email{alessandrosamuelrosa@gmail.com}
 }
-\keyword{dplot}
-\keyword{hplot}
