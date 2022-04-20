@@ -4,14 +4,15 @@ Date: 2022-04-19
 Title: Miscellaneous Pedometric Tools
 Description: An R implementation of some useful tools employed in the field of pedometrics.
 Authors@R: c(
-    person("Alessandro", "Samuel-Rosa", role = c("aut", "cre"), email = "alessandrosamuelrosa@gmail.com",
-           comment = c(ORCID = "0000-0003-0877-1320")), 
+    person("Alessandro", "Samuel-Rosa", role = c("aut", "cre"),
+       email = "alessandrosamuelrosa@gmail.com",
+       comment = c(ORCID = "0000-0003-0877-1320")), 
     person("Lucia Helena Cunha dos", "Anjos", role = "ths", email = "lanjos@ufrrj.br",
-           comment = c(ORCID = "0000-0003-0063-3521")),
+       comment = c(ORCID = "0000-0003-0063-3521")),
     person("Gustavo", "Vasques", role = "ths", email = "gustavo.vasques@embrapa.br", 
-           comment = c(ORCID = "0000-0001-9463-1898")),
+       comment = c(ORCID = "0000-0001-9463-1898")),
     person("Gerard B M", "Heuvelink", role = "ths", email = "gerard.heuvelink@wur.nl",
-           comment = c(ORCID = "0000-0003-0959-9358")),
+       comment = c(ORCID = "0000-0003-0959-9358")),
     person("Tony", "Olsen", role = "ctb", email = "Olsen.Tony@epa.gov"), 
     person("Tom", "Kincaid", role = "ctb", email = "Kincaid.Tom@epa.gov"), 
     person("Juan Carlos", "Ruiz Cuetos", role = "ctb", email = "bilba_t@hotmail.com"), 
@@ -20,10 +21,10 @@ Authors@R: c(
     person("Joshua", "French", role = "ctb", email = "joshua.french@ucdenver.edu"),
     person("Ken", "Kleinman", role = "ctb", email = "Ken_Kleinman@hms.harvard.edu"),
     person("Dick", "Brus", role = "ctb", email = "dick.brus@wur.nl",
-           comment = c(ORCID = "0000-0003-2194-4783")),
+       comment = c(ORCID = "0000-0003-2194-4783")),
     person("Frank", "Harrell Jr", role = "ctb", email = "f.harrell@vanderbilt.edu"),
     person("Ruo", "Xu", role = "ctb", email = "xuruo.isu@gmail.com")
-           )
+       )
 URL: https://github.com/Laboratorio-de-Pedometria/pedometrics-package
 BugReports: https://github.com/Laboratorio-de-Pedometria/pedometrics-package/issues
 Depends:

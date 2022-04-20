@@ -1,22 +1,26 @@
 # News
 
+## pedometrics 0.9.0
+
+* __Improvement__
+
 ## pedometrics 0.8.2
 
-* __Improvement 1.__
+* __Improvement__ Expanded the documentation and cleaned the code of various functions.
 
 ## pedometrics 0.8.1
 
-* __Improvement.__ Improved documentation on how to install the development version from GitHub.
+* __Improvement__ Expanded documentation on installing the development version from GitHub.
 
 ## pedometrics 0.8.0
 
-* __Improvement 1.__ The __spsurvey__ package is included in Suggests. A major update to version 5.0
-  of the __spsurvey__ package is to be released soon. This major release will introduce some
-  breaking changes to previously existing functions. To avoid that this breaking changes have
+* __Improvement 1__ The __spsurvey__ package moved to Suggests. A major update to version 5.0
+  of the __spsurvey__ package is to be released soon. This major release will introduce
+  breaking changes to previously existing functions. To avoid these breaking changes to have
   immediate effect on the __pedometrics__ package, it now Suggests spsurvey (< 5.0).
-* __Improvement 2.__ We are working to reduce the number of dependencies as well as of the suggested
+* __Improvement 2__ We are working to reduce the number of dependencies as well as of the suggested
   packages. This is positive for users. From this version on, the __pbapply__ package is not
-  suggested anymore.
+  suggested any more.
 * __Bug fix.__ Fixes CRAN check note on r-devel-linux-x86_64-fedora-clang due to undeclared packages
   in Rd xrefs.
 
@@ -26,7 +30,7 @@
 
 ## pedometrics 0.7.0 (2020-02-08)
 
-* New version (minor) including bug fixes, new functions, and function improvements.
+* New version (minor), including bug fixes, new functions, and function improvements.
 
 ## pedometrics 0.6.6.9010 (2020-02-08)
 

@@ -1,8 +1,6 @@
 # Build package
 
 # TODO
-# 'spsurvey' gives errors (missing package) in remote checks -- work to remove from Suggests
-#  deprecate functions
 # 'moments' is used in plotHD -- work to remove it from Suggests
 
 # Test package #####################################################################################
