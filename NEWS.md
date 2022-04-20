@@ -1,5 +1,9 @@
 # News
 
+## pedometrics 0.10.0
+
+* __Improvement__ Run local and remote tests. Prepare comments to CRAN maintainers.
+
 ## pedometrics 0.9.0
 
 * __Improvement__ Functions depending on the __spsurvey__ package were causing problems. These

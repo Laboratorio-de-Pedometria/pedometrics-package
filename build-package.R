@@ -45,9 +45,6 @@ platforms <- c("fedora-clang-devel",
   "ubuntu-gcc-release", "debian-clang-devel", "windows-x86_64-devel")
 devtools::check_rhub(platforms = platforms)
 
-# check all downstream dependencies
-source("revdep/check.R")
-
 # upload to CRAN ----
 # devtools::build()
 devtools::release(check = FALSE)
