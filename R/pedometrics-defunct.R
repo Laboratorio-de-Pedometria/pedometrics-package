@@ -1,7 +1,7 @@
 #' Defunct functions in the __pedometrics__ package
 #'
-#' The functions listed here are no longer part of the __pedometrics__ package as they are not
-#' needed (any more).
+#' The functions listed here are no longer part of the __pedometrics__ package. If you need to use
+#' any of these functions, you can still found at \url{https://github.com/samuel-rosa/ASRtools}.
 #'
 #' @param ... Not used.
 #'
@@ -9,7 +9,7 @@
 #'
 #' @export
 #' @rdname pedometrics-defunct
-#' @aliases coordenadas febr febr2spdf febr2xlsx standard header
+#' @aliases coordenadas cdfPlot cdfStats cdfTable
 coordenadas <-
   function(...) {
     msg <- "'pedometrics::coordenadas()' is defunct.\nSee https://github.com/samuel-rosa/ASRtools"
@@ -27,5 +27,12 @@ cdfPlot <-
 cdfStats <-
   function(...) {
     msg <- "'pedometrics::cdfStats()' is defunct.\nSee https://github.com/samuel-rosa/ASRtools"
+    .Defunct(msg = msg)
+  }
+#' @export
+#' @rdname pedometrics-defunct
+cdfTable <-
+  function(...) {
+    msg <- "'pedometrics::cdfTable()' is defunct.\nSee https://github.com/samuel-rosa/ASRtools"
     .Defunct(msg = msg)
   }

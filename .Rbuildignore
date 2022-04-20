@@ -4,14 +4,16 @@ man-roxygen
 build-package.R
 ^.*\.so$
 ^\.travis\.yml$
-# R code
 
-R/popStats.R
+## R code
+
 R/coordenadas.R
 R/cdfPlot.R
 R/cdfStats.R
+R/cdfTable.R
+R/popStats.R
 
-# Markdown
+## Markdown
 
 cran-comments.md
 README.md

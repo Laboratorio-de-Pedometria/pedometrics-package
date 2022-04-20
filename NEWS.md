@@ -2,7 +2,12 @@
 
 ## pedometrics 0.9.0
 
-* __Improvement__
+* __Improvement__ Functions depending on the __spsurvey__ package were causing problems. These
+  problems occurred due to the changes introduced in version 5.0.0 of the __spsurvey__ package. The
+  most efficient solution was to move those functions to the __ASRtools__ package: `cdfPlot()`,
+  `cdfStats()`, `cdfTable()`, and `coordenadas()`. As a result, packages __spsurvey__ and __xtable__
+  were removed from Suggests. The __ASRtools__ package is available at
+  https://github.com/samuel-rosa/ASRtools.
 
 ## pedometrics 0.8.2
 

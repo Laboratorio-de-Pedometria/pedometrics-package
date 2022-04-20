@@ -68,16 +68,7 @@
 # FUNCTION #####################################################################
 cdfTable <-
   function(x, type = "xy", rounding = 0, tex = FALSE, data.frame = FALSE) {
-    # Deprecate function
-    msg <- "'pedometrics::cdfTable()' is deprecated.\nSee https://github.com/samuel-rosa/ASRtools"
-    .Deprecated(msg = msg)
-
-    # Check if suggested packages are installed
-    if (!requireNamespace("xtable", quietly = TRUE)) {
-      stop(paste("Package 'xtable' needed for this function to work. ",
-                 "Please install it.", sep = ""), call. = FALSE)
-    }
-    if(type == "xy") {
+    if (type == "xy") {
       tb <- data.frame(c("Mean", "Absolute mean", "Squared mean"),
                        round(c(cdfStats(x, "dx")[1, 3],
                                cdfStats(x, "abs.dx")[1, 3],
@@ -103,30 +94,26 @@ cdfTable <-
                        round(c(cdfStats(x, "azimuth")[3, 3],
                                NA,
                                NA), rounding))
-      colnames(tb) <- c("", "xcoord", "sd", "ycoord", "sd",
-                        "module", "sd", "azimuth", "sd")
-      if(tex == TRUE) {
+      colnames(tb) <- c("", "xcoord", "sd", "ycoord", "sd", "module", "sd", "azimuth", "sd")
+      if (tex == TRUE) {
         xt <- xtable::xtable(tb, NA.string = NA, digits = rounding,
-                     caption = paste("Descriptive statistics (n = ",
-                                     cdfStats(x, "dx")[1, 2], ").",
-                                     sep = ""))
+          caption = paste0("Descriptive statistics (n = ", cdfStats(x, "dx")[1, 2], ")."))
       }
       if (data.frame) {
-        return (tb)
+        return(tb)
       }
       else {
         cat("-------------------------------------------------", "\n")
-        cat("Descriptive statistics (n = ", cdfStats(x, "dx")[1, 2], ")",
-            sep = "", "\n")
+        cat("Descriptive statistics (n = ", cdfStats(x, "dx")[1, 2], ")", sep = "", "\n")
         cat("-------------------------------------------------", "\n")
         print(tb)
         cat("-------------------------------------------------", "\n")
-        if(tex == TRUE) {
+        if (tex == TRUE) {
           print(xt, caption.placement = "top")
         }
       }
     }
-    if(type == "z") {
+    if (type == "z") {
       tb <- data.frame(c("Mean", "Absolute mean", "Squared mean"),
                        round(c(cdfStats(x, "dz")[1, 3],
                                cdfStats(x, "abs.dz")[1, 3],
@@ -136,25 +123,22 @@ cdfTable <-
                                cdfStats(x, "sq.dz")[3, 3]), rounding)
                        )
       colnames(tb) <- c("", "z", "sd")
-      if(tex == TRUE) {
+      if (tex == TRUE) {
         xt <- xtable::xtable(tb, NA.string = NA, digits = rounding,
-                     caption = paste("Descriptive statistics (n = ",
-                                     cdfStats(x, "dz")[1,2], ").",
-                                     sep = ""))
+          caption = paste("Descriptive statistics (n = ", cdfStats(x, "dz")[1, 2], ")."))
       }
       if (data.frame) {
-        return (tb)
+        return(tb)
       }
       else {
         cat("-------------------------------------------------", "\n")
-        cat("Descriptive statistics (n = ", cdfStats(x, "dz")[1, 2], ")",
-            sep = "", "\n")
+        cat("Descriptive statistics (n = ", cdfStats(x, "dz")[1, 2], ")", sep = "", "\n")
         cat("-------------------------------------------------", "\n")
         print(tb)
         cat("-------------------------------------------------", "\n")
-        if(tex == TRUE) {
+        if (tex == TRUE) {
           print(xt, caption.placement = "top")
-        }  
+        }
       }
     }
   }

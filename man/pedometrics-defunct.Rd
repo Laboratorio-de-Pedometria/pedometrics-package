@@ -2,13 +2,9 @@
 % Please edit documentation in R/pedometrics-defunct.R
 \name{coordenadas}
 \alias{coordenadas}
-\alias{febr}
-\alias{febr2spdf}
-\alias{febr2xlsx}
-\alias{standard}
-\alias{header}
 \alias{cdfPlot}
 \alias{cdfStats}
+\alias{cdfTable}
 \title{Defunct functions in the \strong{pedometrics} package}
 \usage{
 coordenadas(...)
@@ -16,6 +12,8 @@ coordenadas(...)
 cdfPlot(...)
 
 cdfStats(...)
+
+cdfTable(...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -24,6 +22,6 @@ cdfStats(...)
 No return value, called for side effects.
 }
 \description{
-The functions listed here are no longer part of the \strong{pedometrics} package as they are not
-needed (any more).
+The functions listed here are no longer part of the \strong{pedometrics} package. If you need to use
+any of these functions, you can still found at \url{https://github.com/samuel-rosa/ASRtools}.
 }
