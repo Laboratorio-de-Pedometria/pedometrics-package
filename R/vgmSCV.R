@@ -18,27 +18,27 @@ vgmSCV <- function (obj, digits = 4) UseMethod("vgmSCV")
 #' @name vgmSCV
 #' @export
 # FUNCTION - geoR ##############################################################
-vgmSCV.variomodel <- 
-  function (obj, digits = 4) {
+vgmSCV.variomodel <-
+  function(obj, digits = 4) {
     res <- obj$sigmasq / (obj$sigmasq + obj$tausq)
     res <- round(unname(res), digits = digits)
-    return (res)
+    return(res)
   }
 # FUNCTION - gstat #############################################################
 #' @export
 #' @rdname vgmSCV
-vgmSCV.variogramModel <- 
-  function (obj, digits = 4) {
+vgmSCV.variogramModel <-
+  function(obj, digits = 4) {
     res <- obj$psill[2] / sum(obj$psill)
     res <- round(unname(res), digits = digits)
-    return (res)
+    return(res)
   }
 # FUNCTION - georob ############################################################
 #' @export
 #' @rdname vgmSCV
-vgmSCV.georob <- 
-  function (obj, digits = 4) {
+vgmSCV.georob <-
+  function(obj, digits = 4) {
     res <- obj$param[1] / sum(obj$param[1:3])
     res <- round(unname(res), digits = digits)
-    return (res)
+    return(res)
   }

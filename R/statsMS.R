@@ -97,19 +97,11 @@
 #' stats <- statsMS(cpus.ms, design.info = cpus.des, arrange.by = "aic")
 #' }
 # FUNCTION #########################################################################################
-#
 statsMS <-
-  function (model, design.info, arrange.by, digits) {
-
-    # Check if suggested packages are installed
-    pkg <- c("plyr")
-    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
-    if (any(id)) {
-      pkg <- paste(pkg[which(id)], collapse = " ")
-      stop(paste("Package(s) needed for this function to work but not",
-                 "installed: ", pkg, sep = ""), call. = FALSE)
-    }    
-    
+  function(model, design.info, arrange.by, digits) {
+    # check if suggested packages are installed
+    if (!requireNamespace("plyr")) stop("plyr package is missing")
+    # check function arguments
     if (missing(model)) {
       stop("<model> is a mandatory argument")
     }
@@ -124,9 +116,9 @@ statsMS <-
     if (!missing(arrange.by)) {
       if (class(arrange.by) != "character") {
         stop("<arrange.by> should be of class character")
-      }  
+      }
     }
-    if (class(model) == "lm") {
+    if (inherits(model, "lm")) {
       model <- list(model)
     }
     n <- as.numeric(sapply(model, attr, "n"))
@@ -137,7 +129,7 @@ statsMS <-
     rmse <- rep(NA, ncol(res))
     nrmse <- rep(NA, ncol(res))
     sd_y <- stats::sd(data.frame(lapply(model, stats::model.frame))[, 1])
-    for (i in 1:ncol(res)) {
+    for (i in seq_len(ncol(res))) {
       rmse[i] <- sqrt(sum(res[, i] * res[, i]) / (n[i] - p[i]))
       nrmse[i] <- rmse[i] / sd_y
     }
@@ -164,15 +156,14 @@ statsMS <-
     }
     if (!missing(design.info)) {
       candidates <- p
-      tab <- data.frame(cbind(id, design.info, candidates, df, aic, rmse, nrmse,
-                              r2, adj_r2, ADJ_r2), stringsAsFactors = FALSE)
+      tab <- data.frame(cbind(id, design.info, candidates, df, aic, rmse, nrmse, r2, adj_r2, ADJ_r2),
+        stringsAsFactors = FALSE)
     } else {
-      tab <- data.frame(id, candidates = p, df, aic, rmse, nrmse, r2, adj_r2, 
-                        ADJ_r2, stringsAsFactors = FALSE)  
+      tab <- data.frame(id, candidates = p, df, aic, rmse, nrmse, r2, adj_r2, ADJ_r2,
+        stringsAsFactors = FALSE)
     }
     if (!missing(arrange.by)) {
       tab <- plyr::arrange(tab, plyr::desc(tab[, arrange.by]))
     }
     return(tab)
   }
-# End!

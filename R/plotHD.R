@@ -83,21 +83,13 @@
 #   - moments::skewness() is used here, creating an entry in Suggests. To avoid this, implement code
 #     to compute the skewness and remove 'moments' from Suggests.
 #   - replace 'lattice'-functions with 'graphics'-functions
-plotHD <- 
-  function (x, HD = "over", nint = 20, digits = 2, stats = TRUE, BoxCox = FALSE,
-            col = c("lightgray", "black"), lwd = c(1, 1), lty = "dashed", xlim, ylim, ...) {
-    
+plotHD <-
+  function(x, HD = "over", nint = 20, digits = 2, stats = TRUE, BoxCox = FALSE,
+    col = c("lightgray", "black"), lwd = c(1, 1), lty = "dashed", xlim, ylim, ...) {
     # Check if suggested packages are installed
-    if (!requireNamespace("moments", quietly = TRUE)) {
-      stop(paste("Package 'moments' needed for this function to work. ",
-                 "Please install it.", sep = ""), call. = FALSE)
-    }
-    # car is an activelly maintained package with a long list of authors/contributors, including R-Core
-    if (!requireNamespace("car", quietly = TRUE)) {
-      stop(paste("Package 'car' needed for this function to work. ",
-                 "Please install it.", sep = ""), call. = FALSE)
-    }
-    
+    if (!requireNamespace("moments")) stop("moments package is missing")
+    if (!requireNamespace("car")) stop("car package is missing")
+    if (!requireNamespace("lattice")) stop("lattice package is missing")
     if (BoxCox) {
       # Check if the variable has negative values
       check <- any(x <= 0)
@@ -105,7 +97,6 @@ plotHD <-
         message("data has negative values...")
         x <- x + abs(min(x)) + 1
       }
-      
       lambda <- car::powerTransform(x)
       print(summary(lambda))
       lambda <- as.numeric(lambda$lambda)
@@ -122,8 +113,7 @@ plotHD <-
         xlim <- lattice::densityplot(x)$x.limits
       }
       p <- lattice::histogram(
-        x, type = "density", col = col[1], xlim = xlim, nint = nint, lwd = lwd[1],
-        ...,
+        x, type = "density", col = col[1], xlim = xlim, nint = nint, lwd = lwd[1], ...,
         panel = function (x, ...) {
           lattice::panel.grid(h = -1, v = -1, lty = "dotted")
           lattice::panel.histogram(x, ...)
@@ -141,44 +131,40 @@ plotHD <-
       p$y.limits <- ylim
       if (stats) {
         skw <- round(c(moments::skewness(x)), 2)
-        leg <- c(paste("Lambda = ", round(lambda, 4), "\n", 
-                       "Mean = ", round(mean(x), digits), " (", 
+        leg <- c(paste("Lambda = ", round(lambda, 4), "\n",
+                       "Mean = ", round(mean(x), digits), " (",
                                   round(stats::sd(x), digits), ")\n",
                        "Median = ", round(stats::median(x), digits), "\n",
-                       "Range = ", round(min(x), digits), "-", 
+                       "Range = ", round(min(x), digits), "-",
                                    round(max(x), digits), "\n",
                        "Skew = ", skw, sep = ""))
         if (round(skw, 1) >= 0.9) {
           y <- NA
           pos <- NA
-          p <- p + 
+          p <- p +
             latticeExtra::layer(
               lattice::panel.text(x = x, y = y, labels = leg, pos = pos),
-              data = list(x = c(max(p$x.limits) * 0.99), 
-                          y = c(max(p$y.limits) * 0.8), leg = leg, pos = 2))
+              data = list(x = c(max(p$x.limits) * 0.99),
+                y = c(max(p$y.limits) * 0.8), leg = leg, pos = 2))
         }
         if (round(skw, 1) < 0.9) {
           y <- NA
           pos <- NA
-          p <- p + 
+          p <- p +
             latticeExtra::layer(
               lattice::panel.text(x = x, y = y, labels = leg, pos = pos),
-              data = list(x = c(min(p$x.limits)), y = c(max(p$y.limits) * 0.8),
-                          leg = leg, pos = 4))
+              data = list(x = c(min(p$x.limits)), y = c(max(p$y.limits) * 0.8), leg = leg, pos = 4))
         }
       }
     }
     if (HD == "stack") {
       p2 <- lattice::densityplot(
-        x, col = col[2], pch = 20, cex = 0.5, n = length(x), lwd = lwd[2], 
-        lty = lty, ...)
+        x, col = col[2], pch = 20, cex = 0.5, n = length(x), lwd = lwd[2], lty = lty, ...)
       if (missing(xlim)) {
         xlim <- p2$x.limits
       }
-      p1 <- lattice::histogram(x, col = col[1], xlim = xlim, nint = nint, 
-                               lwd = lwd[1], ...)
-      p <- update(c(p1, p2), layout = c(1, 2), 
-                  ylab = list(c("Percent of Total", "Density")), ...)
+      p1 <- lattice::histogram(x, col = col[1], xlim = xlim, nint = nint, lwd = lwd[1], ...)
+      p <- update(c(p1, p2), layout = c(1, 2), ylab = list(c("Percent of Total", "Density")), ...)
     }
     return(p)
   }

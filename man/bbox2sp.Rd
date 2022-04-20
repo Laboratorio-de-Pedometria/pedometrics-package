@@ -9,40 +9,37 @@ bbox2sp(obj, sp = "SpatialPolygons", keep.crs = TRUE)
 \arguments{
 \item{obj}{Object of class Spatial*.}
 
-\item{sp}{Class of the resulting object. Available options are
-\code{"SpatialPoints"}, \code{"SpatialPointsDataFrame"},
-\code{"SpatialPolygons"} and \code{"SpatialPolygonsDataFrame"}.}
+\item{sp}{Class of the resulting object. Available options are \code{"SpatialPoints"},
+\code{"SpatialPointsDataFrame"}, \code{"SpatialPolygons"}, and \code{"SpatialPolygonsDataFrame"}.}
 
-\item{keep.crs}{Logical for assigning the same coordinate reference system
-to the resulting Spatial* object.}
+\item{keep.crs}{Logical for assigning the same coordinate reference system to the resulting
+Spatial* object.}
 }
 \value{
 An object of class SpatialPoints* or SpatialPolygons*.
 }
 \description{
-This function takes the bounding box of a Spatial* object and creates a
-SpatialPoints* or SpatialPolygons* object from it.
+This function takes the bounding box of a Spatial* object and creates a SpatialPoints* or
+SpatialPolygons* object from it.
 }
 \note{
-Some of the solutions used to build this function were found in the
-source code of the R-package \pkg{intamapInteractive}. As such, the authors
-of that package, Edzer Pebesma \email{edzer.pebesma@uni-muenster.de} and
-Jon Skoien \email{jon.skoien@gmail.com}, are entitled
-\sQuote{contributors} to the R-package \pkg{pedometrics}.
+Some of the solutions used to build this function were found in the source code of the
+R-package \strong{intamapInteractive}. As such, the authors of that package, Edzer Pebesma
+\email{edzer.pebesma@uni-muenster.de} and Jon Skoien \email{jon.skoien@gmail.com}, are entitled
+\sQuote{contributors} to the R-package \strong{pedometrics}.
 }
 \examples{
 if (interactive()) {
 data(meuse, package = "sp")
 sp::coordinates(meuse) <- ~ x + y
-bbox2sp(meuse, keep.crs = FALSE)
+bb <- bbox2sp(obj = meuse, keep.crs = FALSE)
 }
 }
 \references{
-Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos, S.J. Melles
-and G. Spiliopoulos (2013).
-\emph{intamapInteractive: procedures for automated interpolation - methods only to be used interactively, not}
-\emph{included in intamap package.} R package version 1.1-10.
-\url{https://CRAN.R-project.org/package=intamapInteractive}
+Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos,
+S.J. Melles and G. Spiliopoulos (2013). \emph{intamapInteractive: procedures for automated
+interpolation - methods only to be used interactively, not included in intamap package.} R
+package version 1.1-10. \url{https://CRAN.R-project.org/package=intamapInteractive}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

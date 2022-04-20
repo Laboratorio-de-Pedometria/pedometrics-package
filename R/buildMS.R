@@ -1,41 +1,47 @@
 #' Build a series of linear models using automated variable selection
-#' 
-#' This function allows building a series of linear models (\code{lm}) using 
-#' one or more automated variable selection implemented in function 
-#' \code{stepVIF} and \code{stepAIC}.
-#' 
-#' @param formula A list containing one or several model formulas (a symbolic
-#' description of the model to be fitted).
+#'
+#' This function allows building a series of linear models with [stats::lm()] using one or more
+#' automated variable selection implemented in function [pedometrics::stepVIF()] and
+#' [MASS::stepAIC()].
+#'
+#' @param formula A list containing one or several model formulas (a symbolic description of the
+#' model to be fitted).
+#'
 #' @param data Data frame containing the variables in the model formulas.
-#' @param vif Logical for performing backward variable selection using the 
-#' Variance-Inflation Factor (VIF). Defaults to \code{VIF = FALSE}.
-#' @param vif.threshold Numeric value setting the maximum acceptable VIF value.
-#' Defaults to \code{vif.threshold = 10}.
-#' @param vif.verbose Logical for printing iteration results of backward 
-#' variable selection using the VIF. Defaults to \code{vif.verbose = FALSE}.
-#' @param aic Logical for performing variable selection using Akaike 
-#' Information Criterion (AIC). Defaults to \code{aic = FALSE}.
-#' @param aic.direction Character string setting the direction of variable 
-#' selection when using AIC. Available options are \code{"both"}, 
-#' \code{"forward"}, and \code{"backward"}. Defaults to 
-#' \code{aic.direction = "both"}.
-#' @param aic.trace Logical for printing iteration results of variable selection
-#' using the AIC. Defaults to \code{aic.trace = FALSE}.
-#' @param aic.steps Integer value setting the maximum number of steps to be
-#' considered for variable selection using the AIC. Defaults to 
-#' \code{aic.steps = 5000}.
-#' @param ... Further arguments passed to the function \code{stepAIC}.
-#' 
+#'
+#' @param vif Logical for performing backward variable selection using the Variance-Inflation Factor
+#' (VIF). Defaults to `VIF = FALSE`.
+#'
+#' @param vif.threshold Numeric value setting the maximum acceptable VIF value. Defaults to
+#' `vif.threshold = 10`.
+#'
+#' @param vif.verbose Logical for printing iteration results of backward variable selection using
+#' the VIF. Defaults to `vif.verbose = FALSE`.
+#'
+#' @param aic Logical for performing variable selection using Akaike's Information Criterion (AIC).
+#' Defaults to `aic = FALSE`.
+#'
+#' @param aic.direction Character string setting the direction of variable selection when using AIC.
+#' Available options are `"both"`, `"forward"`, and `"backward"`. Defaults to
+#' `aic.direction = "both"`.
+#'
+#' @param aic.trace Logical for printing iteration results of variable selection using the AIC.
+#' Defaults to `aic.trace = FALSE`.
+#'
+#' @param aic.steps Integer value setting the maximum number of steps to be considered for variable
+#' selection using the AIC. Defaults to `aic.steps = 5000`.
+#'
+#' @param ... Further arguments passed to [MASS::stepAIC()].
+#'
 #' @details
-#' This function was devised to deal with a list of linear model formulas. The 
-#' main objective is to bring together several functions commonly used when
-#' building linear models, such as automated variable selection. In the current 
-#' implementation, variable selection can be done using \code{stepVIF} or 
-#' \code{stepAIC} or both. \code{stepVIF} is a backward variable selection
-#' procedure, while \code{stepAIC} supports backward, forward, and bidirectional
-#' variable selection. For more information about these functions, please visit 
-#' their respective help pages.
-#' 
+#' This function was devised to deal with a list of linear model formulas. The main objective is to
+#' bring together several functions commonly used when building linear models, such as automated
+#' variable selection. In the current implementation, variable selection can be done using
+#' [pedometrics::stepVIF()] or [MASS::stepAIC()] or both. [pedometrics::stepVIF()] is a backward
+#' variable selection procedure, while [MASS::stepAIC()] supports backward, forward, and
+#' bidirectional variable selection. For more information about these functions, please visit their
+#' respective help pages.
+#'
 #' An important feature of \code{buildMS} is that it records the initial number
 #' of candidate predictor variables and observations offered to the model, and 
 #' adds this information as an attribute to the final selected model. Such 
@@ -95,18 +101,12 @@
 #' cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 #' }
 # FUNCTION #########################################################################################
-buildMS <- 
-  function (formula, data, vif = FALSE, vif.threshold = 10, vif.verbose = FALSE, aic = FALSE,
-            aic.direction = "both", aic.trace = FALSE, aic.steps = 5000, ...) {
-    # Check if suggested packages are installed
-    pkg <- c("MASS", "pbapply")
-    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
-    if (any(id)) {
-      pkg <- paste(pkg[which(id)], collapse = " ")
-      stop_out <- paste0("Package(s) needed for this function to work but not installed: ", pkg)
-      stop(stop_out, call. = FALSE)
-    }
-    # check arguments ##########################################################
+buildMS <-
+  function(formula, data, vif = FALSE, vif.threshold = 10, vif.verbose = FALSE, aic = FALSE,
+          aic.direction = "both", aic.trace = FALSE, aic.steps = 5000, ...) {
+    # check if suggested packages are installed
+    if (!requireNamespace("MASS")) stop("MASS package is missing")
+    # check arguments
     if (missing(formula)) {
       stop("'formula' is a mandatory argument")
     }
@@ -119,20 +119,20 @@ buildMS <-
     if (class(data) != "data.frame") {
       data <- as.data.frame(data)
     }
-    # lm()
+    # stats::lm
     print("fitting multiple linear regression model using OLS")
     model <- lapply(formula, function (X) stats::lm(X, data))
     # get the initial number of candidate predictors and observations
     p <- sapply(model, function (X) dim(stats::model.matrix(X))[2])
     n <- sapply(model, function (X) dim(stats::model.matrix(X))[1])
-    # stepVIF()
+    # pedometrics::stepVIF
     if (vif) {
       print("backward predictor variable selection using VIF")
-      model <- lapply(model, function (X) {
+      model <- lapply(model, function(X) {
         stepVIF(X, threshold = vif.threshold, verbose = vif.verbose)
       })
     }
-    # stepAIC()
+    # MASS::stepAIC
     if (aic) {
       print_aic <- ifelse(aic.direction == "both", "both way", aic.direction)
       print_out <- paste0(print_aic, " predictor variable selection using AIC")
@@ -143,13 +143,13 @@ buildMS <-
     }
     # Prepare output - add attributes to the final model
     a <- lapply(model, attributes)
-    for (i in 1:length(a)) {
+    for (i in seq_along(a)) {
       a[[i]]$p <- p[i]
     }
-    for (i in 1:length(a)) {
+    for (i in seq_along(a)) {
       a[[i]]$n <- n[i]
     }
-    for (i in 1:length(model)) {
+    for (i in seq_along(model)) {
       attributes(model[[i]]) <- a[[i]]
     }
     return(model)

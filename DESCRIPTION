@@ -1,6 +1,6 @@
 Package: pedometrics
-Version: 0.8.1
-Date: 2021-11-16
+Version: 0.9.0
+Date: 2022-04-19
 Title: Miscellaneous Pedometric Tools
 Description: An R implementation of some useful tools employed in the field of pedometrics.
 Authors@R: c(
@@ -50,7 +50,7 @@ Suggests:
     RColorBrewer,
     sp,
     SpatialTools,
-    spsurvey (< 5.0),
+    spsurvey,
     xtable
 License: GPL (>= 2)
 Encoding: UTF-8

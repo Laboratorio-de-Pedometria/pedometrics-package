@@ -67,28 +67,20 @@
 #' }
 # FUNCTION #########################################################################################
 stepVIF <-
-  function (model, threshold = 10, verbose = FALSE) {
-    
-    # Check if suggested packages are installed
-    # car is an activelly maintained package with a long list of authors/contributors, including R-Core
-    # http://r-forge.r-project.org/projects/car/
-    if (!requireNamespace("car", quietly = TRUE)) {
-      stop(paste("Package 'car' needed for this function to work. ",
-                 "Please install it.", sep = ""), call. = FALSE)
-    }
-    
+  function(model, threshold = 10, verbose = FALSE) {
+    # check if suggested packages are installed
+    if (!requireNamespace("car")) stop("car package is missing")
+    # check function arguments
     if (!inherits(model, "lm")) {
       stop ("'model' must be of class 'lm'")
     }
     if (threshold <= 0) {
       stop ("'threshold' must be a positive number")
     }
-    
     # set conditional variable (number of iterations = number of variables)
     iter <- dim(stats::model.frame(model))[2]
     iter0 <- iter
-
-        while (iter > 0) {
+    while (iter > 0) {
       iter <- iter - 1
       # calculate generalized variance-inflation factors
       init_vif <- data.frame(car::vif(model))
@@ -134,7 +126,7 @@ stepVIF <-
           end_vif <- data.frame(sqrt(end_vif[, 1]))
         }
       # check VIF
-      end_vif <- max(end_vif*end_vif)
+      end_vif <- max(end_vif * end_vif)
       if (verbose) {  # print the results of each iteration (if requested)
         tab <- round(init_vif[names(vars_vif),]^2)
         names(tab) <- names(vars_vif)
@@ -151,5 +143,5 @@ stepVIF <-
       if (end_vif <= threshold)  # evaluate model vif
         break
     }
-    return (model)
+    return(model)
   }

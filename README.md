@@ -6,7 +6,7 @@ pedometrics: Miscellaneous Pedometric Tools
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![packageversion](https://img.shields.io/badge/devel%20version-0.8.0-firebrick.svg?style=flat-square)](commits/master)
+[![packageversion](https://img.shields.io/badge/devel%20version-0.9.0-firebrick.svg?style=flat-square)](commits/master)
 [![Build
 Status](https://travis-ci.org/samuel-rosa/pedometrics.svg?branch=master)](https://travis-ci.org/samuel-rosa/pedometrics)
 [![CRAN](https://www.r-pkg.org/badges/version/pedometrics)](https://cran.r-project.org/package=pedometrics)
@@ -52,22 +52,22 @@ The latest stable version of the **pedometrics** package generally can
 be installed from the Comprehensive R Archive Network
 ([CRAN](https://CRAN.R-project.org/package=pedometrics)).
 
-    # Install pedometrics from CRAN
+    # Install package pedometrics from CRAN
     install.packages(pkgs = "pedometrics")
 
 If installation from CRAN fails, you can install the development version
 of the **pedometrics** package available on
-[GitHub](https://github.com/laboratorio-de-pedometria/pedometrics) using
-the **devtools** package. If you are using a
+[GitHub](https://github.com/laboratorio-de-pedometria/pedometrics-package)
+using the **remotes** package. If you are using a
 [Windows](https://cran.r-project.org/bin/windows/) machine, however, you
 will need to install
 [Rtools](https://cran.r-project.org/bin/windows/Rtools/) first.
 
-    # Install pedometrics from GitHub
-    if (!require(devtools)) {
-      install.packages(pkgs = "devtools")
+    # Install package pedometrics from GitHub
+    if (!require(remotes)) {
+      install.packages(pkgs = "remotes")
     }
-    devtools::install_github(repo = "laboratorio-de-pedometria/pedometrics")
+    remotes::install_github(repo = "laboratorio-de-pedometria/pedometrics")
 
 How to collaborate
 ------------------

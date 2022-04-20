@@ -1,5 +1,9 @@
 # News
 
+## pedometrics 0.8.2
+
+* __Improvement 1.__
+
 ## pedometrics 0.8.1
 
 * __Improvement.__ Improved documentation on how to install the development version from GitHub.

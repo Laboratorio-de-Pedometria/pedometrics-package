@@ -47,29 +47,19 @@
 #' lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
 #' lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
 #' }
-# FUNCTION - MAIN ##############################################################
+# FUNCTION - MAIN ##################################################################################
 vgmLags <-
-  function (coords, n.lags = 7, type = "exp", cutoff = 0.5, base = 2, 
-            zero = 0.001, count = "pairs") {
-    
-    # Check if suggested packages are installed
-    pkg <- c("SpatialTools")
-    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
-    if (any(id)) {
-      pkg <- paste(pkg[which(id)], collapse = " ")
-      stop(paste("Package(s) needed for this function to work but not",
-                 "installed: ", pkg, sep = ""), call. = FALSE)
-    }
-    
-    # Compute cutoff
+  function(coords, n.lags = 7, type = "exp", cutoff = 0.5, base = 2, zero = 0.001,
+    count = "pairs") {
+    # check if suggested packages are installed
+    if (!requireNamespace("SpatialTools")) stop("SpatialTools package is missing")
+    # compute cutoff
     if (class(coords) %in% c("matrix", "data.frame", "array")) {
-      cutoff <- sqrt(
-        sum(apply(apply(coords[, 1:2], 2, range), 2, diff) ^ 2)) * cutoff
+      cutoff <- sqrt(sum(apply(apply(coords[, 1:2], 2, range), 2, diff) ^ 2)) * cutoff
     } else {
       message("'coords' should be a data frame with the projected coordinates")
     }
-    
-    # Compute the boundaries of the lag-distance classes
+    # compute the boundaries of the lag-distance classes
     n_pts <- nrow(coords)
     lags <- switch(
       type,
@@ -81,25 +71,20 @@ vgmLags <-
         c(zero, rev(cutoff / idx))
       }
     )
-    
     # Count the number of points or point-pairs per lag-distance class
     dm <- SpatialTools::dist1(as.matrix(coords))
-    ppl <- switch (
+    ppl <- switch(
       count,
       pairs = { # Point-pairs per lag-distance class
-        diff(sapply(
-          1:length(lags), function (i) 
-            length(which(dm <= lags[i]))) - n_pts) * 0.5
+        diff(sapply(seq_along(lags), function(i) length(which(dm <= lags[i]))) - n_pts) * 0.5
       },
       points = { # Points per lag-distance class
-        sapply(1:n.lags, function (i)
-          length(unique(c(
-            which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)))))
+        sapply(1:n.lags, function(i)
+          length(unique(c(which(dm > lags[i] & dm <= lags[i + 1], arr.ind = TRUE)))))
       })
-    
     # Output with attributes
     a <- attributes(lags)
     a$count <- ppl
     attributes(lags) <- a
-    return (lags)
+    return(lags)
   }

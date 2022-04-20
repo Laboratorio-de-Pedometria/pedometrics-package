@@ -5,21 +5,22 @@
 #  deprecate functions
 # 'moments' is used in plotHD -- work to remove it from Suggests
 
-# update dependencies ----
+# Test package #####################################################################################
+# install.packages("rgeos", dependencies = TRUE)
+# install.packages("Matrix", dependencies = TRUE)
+# Dependencies
 update(remotes::package_deps(packages = "pedometrics"))
 update(remotes::package_deps(packages = "devtools"))
-
-# turn on/off development mode
-# devtools::dev_mode()
+# Reverse dependency tools
+devtools::revdep()
+# Render README
+rmarkdown::render("README.Rmd")
 
 # RCpp
 # Avoid error
 # Error in dyn.load(dllfile) :
 # unable to load shared object <...>.so
 Rcpp::compileAttributes()
-
-# Render README
-rmarkdown::render("README.Rmd")
 
 # check documentation ----
 roxygen2::roxygenise()
@@ -39,11 +40,12 @@ devtools::check_win_release()
 devtools::check_win_oldrelease()
 
 # check in R-hub ----
-# rhub::validate_email(email = 'alessandrosamuelrosa@gmail.com')
-rhub::check_for_cran()
-# rhub::check(platform = c('windows-x86_64-devel'))
+# rhub::validate_email(email = "alessandrosamuelrosa@gmail.com")
+# rhub::check_on_windows()
 # rhub::platforms()
-# devtools::check_rhub(env_vars = c("_R_CHECK_FORCE_SUGGESTS_" = "false")) # scape missing suggested packages
+platforms <- c("fedora-clang-devel",
+  "ubuntu-gcc-release", "debian-clang-devel", "windows-x86_64-devel")
+devtools::check_rhub(platforms = platforms)
 
 # check all downstream dependencies
 source("revdep/check.R")

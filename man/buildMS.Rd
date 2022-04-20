@@ -18,54 +18,51 @@ buildMS(
 )
 }
 \arguments{
-\item{formula}{A list containing one or several model formulas (a symbolic
-description of the model to be fitted).}
+\item{formula}{A list containing one or several model formulas (a symbolic description of the
+model to be fitted).}
 
 \item{data}{Data frame containing the variables in the model formulas.}
 
-\item{vif}{Logical for performing backward variable selection using the
-Variance-Inflation Factor (VIF). Defaults to \code{VIF = FALSE}.}
+\item{vif}{Logical for performing backward variable selection using the Variance-Inflation Factor
+(VIF). Defaults to \code{VIF = FALSE}.}
 
-\item{vif.threshold}{Numeric value setting the maximum acceptable VIF value.
-Defaults to \code{vif.threshold = 10}.}
+\item{vif.threshold}{Numeric value setting the maximum acceptable VIF value. Defaults to
+\code{vif.threshold = 10}.}
 
-\item{vif.verbose}{Logical for printing iteration results of backward
-variable selection using the VIF. Defaults to \code{vif.verbose = FALSE}.}
+\item{vif.verbose}{Logical for printing iteration results of backward variable selection using
+the VIF. Defaults to \code{vif.verbose = FALSE}.}
 
-\item{aic}{Logical for performing variable selection using Akaike
-Information Criterion (AIC). Defaults to \code{aic = FALSE}.}
+\item{aic}{Logical for performing variable selection using Akaike's Information Criterion (AIC).
+Defaults to \code{aic = FALSE}.}
 
-\item{aic.direction}{Character string setting the direction of variable
-selection when using AIC. Available options are \code{"both"},
-\code{"forward"}, and \code{"backward"}. Defaults to
+\item{aic.direction}{Character string setting the direction of variable selection when using AIC.
+Available options are \code{"both"}, \code{"forward"}, and \code{"backward"}. Defaults to
 \code{aic.direction = "both"}.}
 
-\item{aic.trace}{Logical for printing iteration results of variable selection
-using the AIC. Defaults to \code{aic.trace = FALSE}.}
+\item{aic.trace}{Logical for printing iteration results of variable selection using the AIC.
+Defaults to \code{aic.trace = FALSE}.}
 
-\item{aic.steps}{Integer value setting the maximum number of steps to be
-considered for variable selection using the AIC. Defaults to
-\code{aic.steps = 5000}.}
+\item{aic.steps}{Integer value setting the maximum number of steps to be considered for variable
+selection using the AIC. Defaults to \code{aic.steps = 5000}.}
 
-\item{...}{Further arguments passed to the function \code{stepAIC}.}
+\item{...}{Further arguments passed to \code{\link[MASS:stepAIC]{MASS::stepAIC()}}.}
 }
 \value{
 A list containing the fitted linear models.
 }
 \description{
-This function allows building a series of linear models (\code{lm}) using
-one or more automated variable selection implemented in function
-\code{stepVIF} and \code{stepAIC}.
+This function allows building a series of linear models with \code{\link[stats:lm]{stats::lm()}} using one or more
+automated variable selection implemented in function \code{\link[=stepVIF]{stepVIF()}} and
+\code{\link[MASS:stepAIC]{MASS::stepAIC()}}.
 }
 \details{
-This function was devised to deal with a list of linear model formulas. The
-main objective is to bring together several functions commonly used when
-building linear models, such as automated variable selection. In the current
-implementation, variable selection can be done using \code{stepVIF} or
-\code{stepAIC} or both. \code{stepVIF} is a backward variable selection
-procedure, while \code{stepAIC} supports backward, forward, and bidirectional
-variable selection. For more information about these functions, please visit
-their respective help pages.
+This function was devised to deal with a list of linear model formulas. The main objective is to
+bring together several functions commonly used when building linear models, such as automated
+variable selection. In the current implementation, variable selection can be done using
+\code{\link[=stepVIF]{stepVIF()}} or \code{\link[MASS:stepAIC]{MASS::stepAIC()}} or both. \code{\link[=stepVIF]{stepVIF()}} is a backward
+variable selection procedure, while \code{\link[MASS:stepAIC]{MASS::stepAIC()}} supports backward, forward, and
+bidirectional variable selection. For more information about these functions, please visit their
+respective help pages.
 
 An important feature of \code{buildMS} is that it records the initial number
 of candidate predictor variables and observations offered to the model, and

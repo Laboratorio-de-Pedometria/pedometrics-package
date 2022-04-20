@@ -11,7 +11,7 @@
 #' large matrices.
 #' @return A numeric vector with the minimum value of each row if the matrix.
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[matrixStats]{rowMins}}
+#' @seealso `rowMins()` in \url{https://cran.r-project.org/package=matrixStats}.
 #' @keywords univar
 #' @import Rcpp
 #' @export

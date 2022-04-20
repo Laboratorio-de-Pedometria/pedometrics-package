@@ -75,6 +75,7 @@
 #' 
 #' @return An object of class \code{data.frame} ready to be used to feed the
 #' argument \code{data.cont} when creating a \code{spsurvey.analysis} object.
+#' 
 #' @note Data of \code{type = "xy"} cannot be submitted to cluster aggregation
 #' in the present version.
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
@@ -95,8 +96,8 @@
 #'                     wgt = rep(1, length(my.data$id)), vartype = "SRS")
 #' }
 #' }
-#' 
-gcpDiff <- 
+####################################################################################################
+gcpDiff <-
   function(measured, predicted, type = "xy", aggregate = FALSE, rounding = 0) {
     if(type == "xy") {  # difference in the geographic space
       measured <- coordenadas(measured)
@@ -148,4 +149,3 @@ gcpDiff <-
     }
     print(erro)
   }
-# End!

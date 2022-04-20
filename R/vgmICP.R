@@ -82,30 +82,21 @@
 #' @examples
 #' data(meuse, package = "sp")
 #' icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
-# FUNCTION - MAIN #############################################################################################
-vgmICP <- 
-  function (z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30, model = "matern", nu = 0.5, 
-            estimator = "qn", plotit = FALSE) {
-    
-    # Check arguments
+# FUNCTION - MAIN ##################################################################################
+vgmICP <-
+  function(z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30, model = "matern", nu = 0.5,
+          estimator = "qn", plotit = FALSE) {
+    # check if suggested packages are installed
+    if (!requireNamespace("georob")) stop("georob package is missing")
+    if (!requireNamespace("geoR")) stop("geoR package is missing")
+    # check function arguments
     cov_models <- c(
-      "matern", "exponential", "gaussian", "spherical", "circular", "cubic", "wave", "linear", "power", 
-      "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting", "gneiting.matern", "pure.nugget")
-    
+      "matern", "exponential", "gaussian", "spherical", "circular", "cubic", "wave", "linear",
+      "power", "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting",
+      "gneiting.matern", "pure.nugget")
     if (!model %in% cov_models) {
-      stop (paste("model '", model, "' is not implemented", sep = ""))
+      stop(paste("model '", model, "' is not implemented", sep = ""))
     }
-    
-    # Check if suggested packages are installed
-    # geoR has been orphaned on 2020-01-12
-    # pkg <- c("georob", "geoR")
-    pkg <- c("georob")
-    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
-    if (any(id)) {
-      pkg <- paste(pkg[which(id)], collapse = " ")
-      stop(paste("Package(s) needed for this function to work but not installed:", pkg), call. = FALSE)
-    }
-    
     # Check lags and max.dist
     if (missing(lags)) {
       if (method %in% c("a", "c")) {
@@ -116,12 +107,10 @@ vgmICP <-
     }
     cutoff <- sqrt(
       sum(apply(apply(coords[, 1:2], 2, range), 2, diff) ^ 2)) * cutoff
-    
     # Compute variogram
     v <- georob::sample.variogram(
       object = z, locations = coords, lag.dist.def = lags, max.lag = cutoff, estimator = estimator)
     lags0 <- length(v$lag.dist)
-    
     # Merge lag-distance classes that have too few point-pairs
     if (any(v$npairs < min.npairs)) {
       message("correcting lags for minimum number of point-pairs...")
@@ -129,15 +118,15 @@ vgmICP <-
       while (length(idx) >= 1) {
         lags <- lags[-idx[1]]
         v <- georob::sample.variogram(
-          object = z, locations = coords, lag.dist.def = lags, max.lag = cutoff, estimator = estimator)
+          object = z, locations = coords, lag.dist.def = lags, max.lag = cutoff,
+          estimator = estimator)
         idx <- which(v$npairs < min.npairs) + 1
       }
     }
     if (plotit) {
       graphics::plot(v)
     }
-    
-    # SILL ----------------------------------------------------------------------------------------------------
+    # SILL -----------------------------------------------------------------------------------------
     # The initial guess for the sill should be the easiest among all
     # parameters needed to fit a covariance model. Several rules are used in the
     # literature:
@@ -172,8 +161,7 @@ vgmICP <-
     if (plotit) {
       graphics::abline(h = sill, lty = "dashed")
     }
-    
-    # RANGE ---------------------------------------------------------------------------------------------------
+    # RANGE ----------------------------------------------------------------------------------------
     # In general, the initial guess for the range (scale) parameter is made based on the lag-distance classes
     # and on the dimensions of the study area. A common rule is to compute the initial range as half the 
     # maximum distance up to which lag-distance classes have been defined (Jian et al., 1996; Larrondo et al.,
@@ -223,21 +211,19 @@ vgmICP <-
       range <- range / 2.991457
     } else {
       # "matern", "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting", "gneiting.matern"
-      if (requireNamespace('geoR', quietly = TRUE)) {
+      if (requireNamespace("geoR", quietly = TRUE)) {
         range <- range / geoR::practicalRange(cov.model = model, phi = 1, kappa = nu)
       } else {
         message(
-          paste('geoR not installed... returning guess of practical range for model', model)
+          paste("geoR not installed... returning guess of practical range for model ", model)
         )
         range <- range
       }
     }
-    
     if (plotit) {
       graphics::abline(v = range, lty = "dashed")
     }
-    
-    # NUGGET --------------------------------------------------------------------------------------------------
+    # NUGGET ---------------------------------------------------------------------------------------
     # The initial guess for the nugget variance is commonly made using one of
     # the following rules:
     # 1) use the minimum semivariance in the sample variogram (Hiemstra et al.,
@@ -251,7 +237,6 @@ vgmICP <-
     nugget <- switch(
       method,
       a = { # Samuel-Rosa
-        
         # Is the minimum gamma in lags others than the first?
         # 
         if (which.min(v$gamma) > 1) {
@@ -403,7 +388,6 @@ vgmICP <-
     if (plotit) {
       graphics::abline(h = nugget, lty = "dashed")
     }
-    
     # Guess the partial sill for a pure nugget effect model
     if (nugget < sill) {
       p_sill <- sill - nugget
@@ -411,8 +395,7 @@ vgmICP <-
       # p_sill <- 1e-12
       p_sill <- nugget * 1e-3
     }
-    
     # Prepare output
     res <- c(range = range, p_sill = p_sill, nugget = nugget)
-    return (res)
+    return(res)
   }

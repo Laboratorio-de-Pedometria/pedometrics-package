@@ -102,7 +102,6 @@ my.spsurvey <-
                     wgt = rep(1, length(my.data$id)), vartype = "SRS")
 }
 }
-
 }
 \references{
 Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey

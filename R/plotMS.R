@@ -214,19 +214,14 @@
 #' 
 # FUNCTION #####################################################################
 plotMS <-
-  function (obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2),
-            size = 0.5, arrange = "desc", color = NULL, 
-            xlim = NULL, ylab = NULL, xlab = NULL, at = NULL, ...) {
-    
-    # Check if suggested packages are installed
-    pkg <- c("grDevices", "grid", "plyr")
-    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
-    if (any(id)) {
-      pkg <- paste(pkg[which(id)], collapse = " ")
-      stop(paste("Package(s) needed for this function to work but not",
-                 "installed: ", pkg, sep = ""), call. = FALSE)
-    }
-    
+  function(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5, arrange = "desc",
+    color = NULL, xlim = NULL, ylab = NULL, xlab = NULL, at = NULL, ...) {
+    # check if suggested packages are installed
+    if (!requireNamespace("grDevices")) stop("grDevices package is missing")
+    if (!requireNamespace("lattice")) stop("lattice package is missing")
+    if (!requireNamespace("grid")) stop("grid package is missing")
+    if (!requireNamespace("plyr")) stop("plyr package is missing")
+    # check function arguments
     if (missing(obj)) {
       stop("<obj> is a mandatory argument")
     }
@@ -256,8 +251,7 @@ plotMS <-
                 "ADJ_r2")
       nam1 <- colnames(obj)[line]
       if (!any(colnames(obj)[line] == nam0)) {
-        stop(paste("<ylab> should be provided for performance statistics <",
-                   nam1, ">",  sep = ""))
+        stop(paste0("<ylab> should be provided for performance statistics <", nam1, ">"))
       }
     }
     if (!missing(xlab)) {
@@ -276,8 +270,8 @@ plotMS <-
     if (length(pch) != 2) {
       stop("<pch> should have length equal to 2")
     }
-    # prepare data #############################################################
-    if (class(line) == "numeric") {
+    # prepare data
+    if (inherits(line, "numeric")) {
       line <- colnames(obj)[line]
     }
     if (any(line == c("r2", "adj_r2", "ADJ_r2"))) {
@@ -306,8 +300,8 @@ plotMS <-
     if (missing(xlab)) {
       xlab <- "Model ranking"
     }
-    if (missing(ylab)){
-      if (class(line) == "numeric") {
+    if (missing(ylab)) {
+      if (inherits(line, "numeric")) {
         line <- colnames(obj)[line]
       }
       if (line == "candidates") {
@@ -326,35 +320,31 @@ plotMS <-
         yl <- "NRMSE"
       }
       if (line == "r2") {
-        yl <- expression(paste(R^2, sep = ''))
+        yl <- expression(paste0(R^2))
       }
       if (any(line == c("adj_r2", "ADJ_r2"))) {
-        yl <- expression(paste('Adjusted ',R^2, sep = ''))
+        yl <- expression(paste0("Adjusted ", R^2))
       }
       ylab <- list(c(yl, "Design"))
     }
     rank_center <- rep(NA, dim(grid)[2])
-    for (i in 1:length(rank_center)) {
-      rank_center[i] <- 
-        mean(cbind(x, grid)[, 1][which(cbind(x, grid)[, i + 1] == ind)])
+    for (i in seq_along(rank_center)) {
+      rank_center[i] <- mean(cbind(x, grid)[, 1][which(cbind(x, grid)[, i + 1] == ind)])
     }
     grid <- grid[, order(rank_center, decreasing = TRUE)]
     p1 <- lattice::xyplot(
-      y ~ x, xlim = rev(grDevices::extendrange(xlim, f = 0)), type = type, 
-      pch = pch[1], scales = list(y = list(rot = 0), x = list(at = at)))
+      y ~ x, xlim = rev(grDevices::extendrange(xlim, f = 0)), type = type, pch = pch[1],
+      scales = list(y = list(rot = 0), x = list(at = at)))
     p2 <- lattice::levelplot(
       grid, colorkey = FALSE, xlim = rev(grDevices::extendrange(xlim, f = 0)),
       col.regions = color, scales = list(y = list(rot = 90)),
       panel = function (...) {
         lattice::panel.levelplot(...)
-        grid::grid.points(x = sort(rank_center, decreasing = TRUE), 
-                    seq(1, dim(grid)[2], 1),
-                    pch = pch[2], size = grid::unit(size, "char"))
+        grid::grid.points(x = sort(rank_center, decreasing = TRUE),
+          seq(1, dim(grid)[2], 1), pch = pch[2], size = grid::unit(size, "char"))
         })
-    
     # Print plot
-    update(c(p1, p2), layout = c(1, 2), xlab = xlab, 
-           ylab = ylab, aspect = c((dim(grid)[2] * 2) / dim(grid)[1]),
-           par.settings = list(layout.heights = list(panel = c(0.5, 0.5))), ...)
+    update(c(p1, p2), layout = c(1, 2), xlab = xlab,
+      ylab = ylab, aspect = c((dim(grid)[2] * 2) / dim(grid)[1]),
+      par.settings = list(layout.heights = list(panel = c(0.5, 0.5))), ...)
     }
-

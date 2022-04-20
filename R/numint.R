@@ -34,126 +34,128 @@
 #' 
 #' # Single numeric value
 #' isNumint(1.1) # FALSE
-# FUNCTION - NUMERIC INTEGERS ##################################################
+# FUNCTION - NUMERIC INTEGERS ######################################################################
 #' @rdname numint
 #' @export
 isNumint <-
-  function (x) {
-    if (is.integer(x) || is.factor(x) || is.character(x)) return (FALSE)
+  function(x) {
+    if (is.integer(x) || is.factor(x) || is.character(x)) {
+      return(FALSE)
+    }
     if (is.numeric(x) && length(x) > 1) {
       res <- ifelse(round(x, digits = 0) == x, TRUE, FALSE)
       res <- ifelse(length(unique(res)) == 1, TRUE, FALSE)
     } else {
       res <- ifelse(round(x, digits = 0) == x, TRUE, FALSE)
     }
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 allNumint <-
-  function (x) {
+  function(x) {
     res <- sapply(x, pedometrics::isNumint)
     res <- all(res == TRUE)
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 anyNumint <-
-  function (x) {
+  function(x) {
     res <- sapply(x, pedometrics::isNumint)
     res <- any(res == TRUE)
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 whichNumint <-
-  function (x) {
+  function(x) {
     res <- sapply(x, pedometrics::isNumint)
     res <- which(res == TRUE)
-    return (res)
+    return(res)
   }
-# FUNCTION - INTEGERS ##########################################################
+# FUNCTION - INTEGERS ##############################################################################
 #' @rdname numint
 #' @export
 allInteger <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.integer)
     res <- all(res == TRUE)
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 anyInteger <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.integer)
     res <- any(res == TRUE)
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 whichInteger <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.integer)
     res <- which(res == TRUE)
-    return (res)
+    return(res)
   }
-# FUNCTION - FACTORS ###########################################################
+# FUNCTION - FACTORS ###############################################################################
 #' @rdname numint
 #' @export
 allFactor <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.factor)
     res <- all(res == TRUE)
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 anyFactor <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.factor)
     res <- any(res == TRUE)
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 whichFactor <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.factor)
     res <- which(res == TRUE)
-    return (res)
+    return(res)
   }
-# FUNCTION - NUMERIC ###########################################################
+# FUNCTION - NUMERIC ###############################################################################
 #' @rdname numint
 #' @export
 allNumeric <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.numeric)
     res <- all(res == TRUE)
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 anyNumeric <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.numeric)
     res <- any(res == TRUE)
-    return (res)
+    return(res)
   }
 #' @rdname numint
 #' @export
 whichNumeric <-
-  function (x) {
+  function(x) {
     res <- sapply(x, is.numeric)
     res <- which(res == TRUE)
-    return (res)
+    return(res)
   }
-# FUNCTION - IS ONE TYPE #######################################################
+# FUNCTION - IS ONE TYPE ###########################################################################
 #' @rdname numint
 #' @export
 uniqueClass <-
-  function (x) {
+  function(x) {
     res <- sapply(x, class)
     res <- length(unique(res))
     res <- ifelse(res == 1, TRUE, FALSE)
-    return (res)
+    return(res)
   }

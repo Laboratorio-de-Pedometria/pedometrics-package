@@ -18,24 +18,24 @@
 # This function is similar to stats::terms
 #' @export
 #' @rdname trend
-trend.terms <- 
-  function (x) {
+trend.terms <-
+  function(x) {
     cl <- class(x)
     if (all(cl == c("likGRF", "variomodel"))) {
       res <- all.vars(x$trend)
     }
-    return (res)
+    return(res)
   }
 # FUNCTION - EXTRACT TREND MATRIX ##############################################
 # This function is similar to stats::model.frame
 #' @export
 #' @rdname trend
 trend.matrix <-
-  function (x) {
+  function(x) {
     cl <- class(x)
     if (all(cl == c("likGRF", "variomodel"))) {
       res <- x$trend.matrix[, -1]
       colnames(res) <- trend.terms(x)
     }
-    return (res)
+    return(res)
   }

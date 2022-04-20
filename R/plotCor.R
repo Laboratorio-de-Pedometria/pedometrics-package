@@ -53,68 +53,51 @@
 # FUNCTION #########################################################################################
 plotCor <-
   function (r, r2, col, breaks, col.names, ...) {
-    
     # Check if suggested packages are installed
-    if (!requireNamespace("RColorBrewer", quietly = TRUE)) {
-      stop (paste("Package 'RColorBrewer' needed for this function to work. ",
-                 "Please install it.", sep = ""), call. = FALSE)
-    }
-    if (!requireNamespace("fields", quietly = TRUE)) {
-      stop (paste("Package 'fields' needed for this function to work. ",
-                 "Please install it.", sep = ""), call. = FALSE)
-    }
-    
+    if (!requireNamespace("RColorBrewer")) stop("RColorBrewer package is missing")
+    if (!requireNamespace("fields")) stop("fields package is missing")
     # Check arguments
     if (diff(dim(r)) != 0) {
       stop ("'r' should be a square matrix")
     }
-    
     par0 <- graphics::par()
     on.exit(suppressWarnings(graphics::par(par0)))
-    
     # In case we have two correlation matrices
     # Note that the diagonal is filled with NAs
     if (!missing(r2)) {
       if (diff(dim(r2)) != 0) {
-        stop ("'r2' should be a square matrix")
+        stop("'r2' should be a square matrix")
       }
       if (ncol(r2) != ncol(r)) {
-        stop ("'r' and 'r2' should have the same dimensions")
+        stop("'r' and 'r2' should have the same dimensions")
       }
-      
       r[upper.tri(r)] <- r2[upper.tri(r2)]
       diag(r) <- NA_real_
-      
       # if (missing(mar)) {
       #   mar <- c(4, 4, 4, 6) + 0.1
       # }
     }
-    
     # Missing color ramp
     if (missing(col)) {
       col <- RColorBrewer::brewer.pal(11, name = "RdBu")
       col <- grDevices::colorRampPalette(col)
       col <- rev(col(100))
     }
-    
     # Missing breaks
     if (missing(breaks)) {
       breaks <- seq(-1, 1, length.out = 101)
     }
-    
     n_col <- ncol(r)
-    
     # The correlation matrix need to be transposed/transformed
     r <- t(r[n_col:1, ])
     # graphics::par(mar = mar)
     fields::image.plot(r, axes = FALSE, col = col, breaks = breaks, legend.shrink = 1)
     graphics::box()
     graphics::text(
-      x = (rep(1:n_col, n_col) - 1) / (n_col - 1), y = (rep(1:n_col, each = n_col) - 1) / (n_col - 1), 
+      x = (rep(1:n_col, n_col) - 1) / (n_col - 1),
+      y = (rep(1:n_col, each = n_col) - 1) / (n_col - 1),
       labels = as.numeric(r), col = ifelse(abs(as.numeric(r)) >= 0.9, "ivory", "black"), ...)
-    
     at <- seq(0, 1, length.out = n_col)
-    
     # Column names
     if (missing(col.names)) {
       col_names <- colnames(r)

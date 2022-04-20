@@ -54,52 +54,41 @@
 # FUNCTION #########################################################################################
 plotESDA <- 
   function (z, lat, lon, lags = NULL, cutoff = NULL, width = c(cutoff / 20), leg.pos = "right") {
-    
     # Check if suggested packages are installed
-    pkg <- c("gstat", "sp")
-    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
-    if (any(id)) {
-      pkg <- paste(pkg[which(id)], collapse = " ")
-      stop(paste("Package(s) needed for this function to work but not",
-                 "installed: ", pkg, sep = ""), call. = FALSE)
-    }
-    
+    if (!requireNamespace("gstat")) stop("gstat package is missing")
+    if (!requireNamespace("sp")) stop("sp package is missing")
     if (missing(z)) {
-      stop("<z> is a mandatory argument")
+      stop("'z' is a mandatory argument")
     }
     if (missing(lon)) {
-      stop("<lon> is a mandatory argument")
+      stop("'lon' is a mandatory argument")
     }
     if (missing(lat)) {
-      stop("<lat> is a mandatory argument")
+      stop("'lat' is a mandatory argument")
     }
     if (!any(class(z) == c("numeric", "integer"))) {
-      stop("<z> should be of class numeric or integer")
+      stop("'z' should be of class numeric or integer")
     }
     if (!any(class(lat) == c("numeric", "integer"))) {
-      stop("<lat> should be of class numeric or integer")
+      stop("'lat' should be of class numeric or integer")
     }
     if (!any(class(lon) == c("numeric", "integer"))) {
-      stop("<lon> should be of class numeric or integer")
+      stop("'lon' should be of class numeric or integer")
     }
     if (length(unique(c(length(z), length(lat), length(lon)))) > 1) {
-      stop("<z>, <lat> and <lon> must have the same length")
+      stop("'z', 'lat', and 'lon' must have the same length")
     }
     db <- data.frame(lon = lon, lat = lat, z = z)
     sp::coordinates(db) <- ~ lon + lat
-    
     # Estimate the cutoff
     if (is.null(cutoff)) {
       cutoff <- max(gstat::variogram(z ~ 1, loc = db)$dist)
     }
-    
     # Bubble plot
     v1 <- sp::bubble(db, zcol = "z", fill = FALSE, main = "", maxsize = 1, key.space = leg.pos)
-    
     # Variogram map
     v2 <- gstat::variogram(z ~ 1, loc = db, map = TRUE, cutoff = cutoff, width = width)
     v2 <- sp::spplot(v2$map[2], col.regions = sp::bpy.colors(64))
-    
     # Sample variogram
     if (is.null(lags)) {
       v3 <- gstat::variogram(z ~ 1, loc = db, cutoff = cutoff, width = width)
@@ -107,10 +96,8 @@ plotESDA <-
       v3 <- gstat::variogram(z ~ 1, loc = db, boundaries = lags)
     }
     v3 <- plot(v3, cex = 0.5, type = "b", pch = 20, asp = 1)
-    
     # Histogram
     v4 <- plotHD(z, HD = "over", stats = FALSE, asp = 1, xlab = "z", col = c("skyblue", "red"))
-    
     print(v4, split = c(1, 1, 2, 2), more = TRUE)
     print(v3, split = c(1, 2, 2, 2), more = TRUE)
     print(v1, split = c(2, 1, 2, 2), more = TRUE)

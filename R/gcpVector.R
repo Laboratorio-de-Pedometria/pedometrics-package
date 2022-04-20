@@ -11,16 +11,20 @@
 #' coordinate between two sets of GCP.
 #' @param dy Numeric vector containing the difference on the \sQuote{y}
 #' coordinate between two sets of GCP.
+#' 
 #' @return An object of the class \code{data.frame} containing the module, its
 #' square and azimuth. These three columns are named \sQuote{module},
 #' \sQuote{sq.module} and \sQuote{azimuth}.
+#' 
 #' @note This function was adapted from `VecStatGraphs2D::LoadData()`.
+#' 
 #' @author Juan Carlos Ruiz Cuetos \email{bilba_t@@hotmail.com}\cr Maria
 #' Eugenia Polo Garcia \email{mepolo@@unex.es}\cr Pablo Garcia Rodriguez
 #' \email{pablogr@@unex.es}\cr Alessandro Samuel-Rosa
 #' \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[pedometrics]{gcpDiff}}
-#' 
+#'
+#' @seealso [pedometrics::gcpDiff()]
+#'
 #' @references
 #' Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012).
 #' _VecStatGraphs2D: Vector analysis using graphical and analytical methods in 2D_. R package 
@@ -30,8 +34,8 @@
 #' @examples
 #' x <- gcpVector(dx = rnorm(3, 5, 10), dy = rnorm(3, 5, 10))
 ####################################################################################################
-gcpVector <-  
-  function (dx, dy) {
+gcpVector <-
+  function(dx, dy) {
     vec <- sqrt((dx * dx) + (dy * dy))
     vec2 <- vec * vec
     azim1 <- (180 * (atan(dx / dy)) / pi)

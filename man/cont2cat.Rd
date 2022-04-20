@@ -4,7 +4,7 @@
 \alias{cont2cat}
 \alias{breakPoints}
 \alias{stratify}
-\title{Categorize/stratify continuous variable(s)}
+\title{Categorize/stratify numerical variable(s)}
 \usage{
 cont2cat(x, breaks, integer = FALSE)
 
@@ -13,18 +13,20 @@ breakPoints(x, n, type = "area", prop = FALSE)
 stratify(x, n, type = "area", integer = FALSE)
 }
 \arguments{
-\item{x}{Vector, data frame or matrix with data on the continuous variable(s) to be categorized/stratified.}
+\item{x}{Vector, data frame or matrix with data on the numerical variable(s) to be
+categorized/stratified.}
 
-\item{breaks}{Vector or list containing the lower and upper limits that should be used to break the
-continuous variable(s) into categories. See \sQuote{Details} for more information.}
+\item{breaks}{Vector or list containing the lower and upper limits that should be used to break
+the numerical variable(s) into categories. See \sQuote{Details} for more information.}
 
-\item{integer}{Logical value indicating if the categorical variable(s) be returned as \code{integer}s. Defaults
-to \code{integer = FALSE}, i.e. the variable(s) will be returned as \code{factor}s.}
+\item{integer}{Logical value indicating if the categorical variable(s) should be returned as
+\code{integer}s. Defaults to \code{integer = FALSE}, i.e. the variable(s) will be returned as \code{factor}s.}
 
-\item{n}{Integer value indicating the number of strata that should be created.}
+\item{n}{Integer value indicating the number of categories/strata that should be created.}
 
-\item{type}{Character value indicating the type of strata that should be used, with options \code{"area"}, for
-equal-area, and \code{"range"}, for equal-range strata. Defaults to \code{type = "area"}.}
+\item{type}{Character value indicating the type of categories/strata that should be used, with
+options \code{"area"}, for equal-area, and \code{"range"}, for equal-range strata. Defaults to
+\code{type = "area"}.}
 
 \item{prop}{Logical value indicating if the strata proportions should be returned? Defaults to
 \code{prop = FALSE}.}
@@ -33,12 +35,12 @@ equal-area, and \code{"range"}, for equal-range strata. Defaults to \code{type =
 A vector, data frame, or matrix, depending on the class of \code{x}.
 }
 \description{
-Create break points, compute strata proportions, and stratify continuous variable(s) to create categorical
-variable(s).
+Create break points, compute strata proportions, and stratify numerical variable(s) to create
+categorical variable(s).
 }
 \details{
-Argument \code{breaks} must be a vector if \code{x} is a vector, but a list if \code{x} is a data frame or matrix. Using a
-list allows breaking each column of \code{x} into different number of categories.
+Argument \code{breaks} must be a vector if \code{x} is a vector, but a list if \code{x} is a data frame or
+matrix. Using a list allows breaking each column of \code{x} into different number of categories.
 }
 \examples{
 ## Compute the break points of marginal strata
@@ -46,7 +48,7 @@ x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
 x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
 x
 
-## Convert continuous data into categorical data
+## Convert numerical data into categorical data
 # Matrix
 x <- y <- c(1:10)
 x <- cbind(x, y)

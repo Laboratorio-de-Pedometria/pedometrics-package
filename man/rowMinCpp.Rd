@@ -24,7 +24,7 @@ x <- matrix(rnorm(20), nrow = 5)
 rowMinCpp(x)
 }
 \seealso{
-\code{\link[matrixStats]{rowMins}}
+\code{rowMins()} in \url{https://cran.r-project.org/package=matrixStats}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

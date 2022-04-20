@@ -13,23 +13,17 @@ cramer(x)
 A matrix with the Cramer's V between the categorical variables.
 }
 \description{
-Compute the Cramer's V, a descriptive statistic that measures the
-association between categorical variables.
+Compute the Cramer's V, a descriptive statistic that measures the association between categorical
+variables.
 }
 \details{
 Any integer variable is internally converted to a factor.
 }
 \note{
-The original code is available at \url{http://sas-and-r.blogspot.nl/},
-Example 8.39: calculating Cramer's V, posted by Ken Kleinman on Friday, June
-3, 2011. As such, Ken Kleinman \email{Ken_Kleinman@hms.harvard.edu} is
-entitled a \sQuote{contributor} to the R-package \pkg{pedometrics}.
-
-The function \code{bigtabulate} used to compute the chi-squared test is the
-main bottleneck in the current version of \code{cramer}. Ideally it will be
-implemented in C++.
-
-See also \code{vcd::assocstats()}.
+The original code is available at \url{https://sas-and-r.blogspot.com/}, Example 8.39:
+calculating Cramer's V, posted by Ken Kleinman on Friday, June 3, 2011. As such, Ken Kleinman
+\email{Ken_Kleinman@hms.harvard.edu} is entitled a \sQuote{contributor} to the R-package
+\strong{pedometrics}.
 }
 \examples{
 if (interactive()) {

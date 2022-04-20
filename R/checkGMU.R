@@ -183,24 +183,20 @@
 #' resa$error;resb$error
 #' resa$goodness;resb$goodness
 #' }
-# FUNCTION #####################################################################
+# FUNCTION #########################################################################################
 checkGMU <-
-  function (observed, simulated, pi = seq(0.01, 0.99, 0.01),
-            symmetric = TRUE, plotit = TRUE) {
-    
+  function(observed, simulated, pi = seq(0.01, 0.99, 0.01), symmetric = TRUE, plotit = TRUE) {
     # Initial settings
     n_pts <- length(observed)
     n_pis <- length(pi)
-    
     # If required, compute the symmetric probability intervals
     if (symmetric) {
-      pi_bounds <- 
-        sapply(1:length(pi), function (i) c(1 - pi[i], 1 + pi[i]) / 2)
+      pi_bounds <-
+        sapply(seq_along(pi), function(i) c(1 - pi[i], 1 + pi[i]) / 2)
       message("Processing ", n_pis, " symmetric probability intervals...")
     } else {
       message("Processing ", n_pis, " probability intervals...")
     }
-    
     # Do true values fall into each of the (symmetric) probability intervals?
     fall <- matrix(nrow = n_pts, ncol = n_pis)
     width <- matrix(nrow = n_pts, ncol = n_pis)
@@ -225,37 +221,32 @@ checkGMU <-
       for (i in 1:n_pts) {
         x <- simulated[i, ]
         y <- observed[i]
-        lowwer <- min(x)
-        g_lowwer <- min(observed)
+        lower <- min(x)
+        g_lower <- min(observed)
         for (j in 1:n_pis) {
           # Local
           upper <- stats::quantile(x = x, probs = pi[j])
           fall[i, j] <- y <= upper
-          width[i, j] <- as.numeric(upper - lowwer)
+          width[i, j] <- as.numeric(upper - lower)
           # Global
           g_upper <- stats::quantile(x = observed, probs = pi[j])
           g_fall[i, j] <- y <= g_upper
-          g_width[i, j] <- as.numeric(g_upper - g_lowwer)
+          g_width[i, j] <- as.numeric(g_upper - g_lower)
         }
       }
     }
-    
-    # Compute the proportion of true values that fall into each of the 
-    # (symmetric) probability intervals
+    # Compute the proportion of true values that fall into each of the (symmetric) probability
+    # intervals
     count <- apply(fall, 2, sum)
     prop <- count / n_pts
-    
     g_count <- apply(g_fall, 2, sum)
     # g_prop <- g_count / n_pts
-    
     # Compute the average width of the (symmetric) probability intervals into
     # each the true values fall
     width <- width * fall
     width <- apply(width, 2, sum) / count
-    
     g_width <- g_width * g_fall
     g_width <- apply(g_width, 2, sum) / g_count
-    
     # Compute summary statistics
     accu <- prop >= pi
     pi_idx <- which(accu)
@@ -273,43 +264,38 @@ checkGMU <-
     corr <- stats::cor(pred, observed) # linear correlation
     error_stats <- data.frame(me = me, mse = mse, srmse = srmse, cor = corr)
     good_meas <- data.frame(A = accu, P = prec, G = good, symmetric = symmetric)
-    
     if (plotit) {
       on.exit(graphics::par())
       graphics::par(mfrow = c(2, 2))
       cex <- ifelse(n_pts > 10, 0.5, 1)
-      
       # Coverage probability plot
       graphics::plot(
-        0:1, 0:1, type = 'n', main = "Coverage probability",
+        0:1, 0:1, type = "n", main = "Coverage probability",
         xlab = "Probability interval", ylab = "Proportion")
       graphics::abline(a = 0, b = 1)
       graphics::points(x = pi, y = prop, cex = cex)
       if (symmetric) {
         graphics::text(x = 1, y = 0, labels = "Symmetric PIs", pos = 2)
       }
-      
       # PI-width plot
       lim <- range(c(width, g_width), na.rm = TRUE)
       graphics::plot(
-        x = width, y = g_width, ylim = lim, xlab = "Local", 
+        x = width, y = g_width, ylim = lim, xlab = "Local",
         ylab = "Global", cex = cex, xlim = lim, main = "PI width")
       graphics::abline(a = 0, b = 1)
       if (symmetric) {
         graphics::text(x = lim[2], y = lim[1], labels = "Symmetric PIs", pos = 2)
       }
-      
       # Plot observed vs simulated values
       lim <- range(c(observed, pred))
       graphics::plot(
         x = observed, pred, main = "Observed vs Simulated", xlab = "Observed",
         ylim = lim, xlim = lim, ylab = "Simulated (average)", cex = cex)
       graphics::abline(a = 0, b = 1)
-      
       # Plot box plots
       idx <- 1:n_pts
       idx <- idx[order(rank(observed))]
-      if (n_pts > 100) { 
+      if (n_pts > 100) {
         sub_idx <- round(seq(1, n_pts, length.out = 100))
         graphics::boxplot(
           t(simulated[idx[sub_idx], ]), col = "yellow", pars = list(cex = cex),
@@ -327,10 +313,8 @@ checkGMU <-
       graphics::title(
         main = "Distribution of values", xlab = xlab, ylab = "Distribution")
     }
-    
     # Output
-    res <- list(data = data.frame(pi = pi, prop = prop, width = width), 
-                error = error_stats, goodness = good_meas)
-    return (res)
-    
+    res <- list(data = data.frame(pi = pi, prop = prop, width = width),
+      error = error_stats, goodness = good_meas)
+    return(res)
   }

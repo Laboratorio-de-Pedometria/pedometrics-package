@@ -1,37 +1,34 @@
 #' Association between categorical variables
-#' 
-#' Compute the Cramer's V, a descriptive statistic that measures the 
-#' association between categorical variables.
-#' 
+#'
+#' Compute the Cramer's V, a descriptive statistic that measures the association between categorical
+#' variables.
+#'
 #' @param x Data frame or matrix with a set of categorical variables.
-#' 
+#'
 #' @details
 #' Any integer variable is internally converted to a factor.
-#' 
+#'
 #' @return
 #' A matrix with the Cramer's V between the categorical variables.
-#' 
+#'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' 
+#'
 #' @note
-#' The original code is available at \url{http://sas-and-r.blogspot.nl/},
-#' Example 8.39: calculating Cramer's V, posted by Ken Kleinman on Friday, June
-#' 3, 2011. As such, Ken Kleinman \email{Ken_Kleinman@@hms.harvard.edu} is 
-#' entitled a \sQuote{contributor} to the R-package \pkg{pedometrics}.
-#' 
-#' The function \code{bigtabulate} used to compute the chi-squared test is the
-#' main bottleneck in the current version of \code{cramer}. Ideally it will be
-#' implemented in C++.
-#' 
-#' See also `vcd::assocstats()`.
-#' 
+#' The original code is available at \url{https://sas-and-r.blogspot.com/}, Example 8.39:
+#' calculating Cramer's V, posted by Ken Kleinman on Friday, June 3, 2011. As such, Ken Kleinman
+#' \email{Ken_Kleinman@@hms.harvard.edu} is entitled a \sQuote{contributor} to the R-package
+#' __pedometrics__.
+#'
+# The function \code{bigtabulate} used to compute the chi-squared test is the main bottleneck in
+# the current version of [pedometrics::cramer()]. Ideally it will be implemented in C++.
+#'
 #' @references
 #' Cramér, H. _Mathematical methods of statistics_. Princeton: Princeton University Press, p. 575,
 #' 1946.
-#' 
-#' Everitt, B. S. _The Cambridge dictionary of statistics_. Cambridge: Cambridge University Press, 
+#'
+#' Everitt, B. S. _The Cambridge dictionary of statistics_. Cambridge: Cambridge University Press,
 #' p. 432, 2006.
-#' 
+#'
 #' @export
 #' @examples
 #' if (interactive()) {
@@ -41,9 +38,8 @@
 #' }
 # FUNCTION #########################################################################################
 cramer <-
-  function (x) {
+  function(x) {
     nam <- colnames(x)
-    
     # perform some checks
     check <- sapply(x, is.factor)
     if (any(check == FALSE)) {
@@ -55,7 +51,6 @@ cramer <-
     if (any(check < 2L)) {
       stop("each variable must have at least 2 levels")
     }
-    
     # the statistics is calculated using a for loop
     res <- matrix(NA, nrow = dim(x)[2], ncol = dim(x)[2])
     for (i in 1:dim(x)[2]) {
@@ -71,11 +66,11 @@ cramer <-
     }
     colnames(res) <- nam
     rownames(res) <- nam
-    return (res) 
+    return(res)
   }
 # Pearson's Chi-squared statistic ##############################################
 .chisqStat <-
-  function (x, y) {
+  function(x, y) {
     #x <- table(x, y)
     OBSERVED <- table(x, y)
     # OBSERVED <- bigtabulate::bigtabulate(cbind(x, y), ccols = c(1, 2))
@@ -87,5 +82,5 @@ cramer <-
     #STATISTIC <- sum((abs(OBSERVED - EXPECTED) - YATES) ^ 2 / EXPECTED)
     #STATISTIC <- sum(abs(OBSERVED - EXPECTED) ^ 2 / EXPECTED)
     STATISTIC <- sum(abs(OBSERVED - EXPECTED) ^ 2 / EXPECTED, na.rm = TRUE)
-    return (STATISTIC)
+    return(STATISTIC)
   }

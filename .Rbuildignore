@@ -5,11 +5,18 @@ build-package.R
 ^.*\.so$
 ^\.travis\.yml$
 # R code
+
 R/popStats.R
+R/coordenadas.R
+R/cdfPlot.R
+R/cdfStats.R
+
 # Markdown
+
 cran-comments.md
 README.md
 README.Rmd
 revdep
 ^plot-esda.png
 ^CRAN-RELEASE$
+pedometrics-package.code-workspace

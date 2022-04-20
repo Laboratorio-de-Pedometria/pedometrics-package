@@ -72,21 +72,13 @@ optimRandomForest <-
   function (x, y, niter = 10, nruns = 100, ntree = 500, ntrain = 2/3, 
             nodesize = 5, mtry = max(floor(ncol(x) / 3), 1), profile = TRUE,
             progress = TRUE) {
-    
     # Check if suggested packages are installed
-    pkg <- c("randomForest", "utils")
-    id <- !sapply(pkg, requireNamespace, quietly = TRUE)
-    if (any(id)) {
-      pkg <- paste(pkg[which(id)], collapse = " ")
-      stop(paste("Package(s) needed for this function to work but not",
-                 "installed: ", pkg, sep = ""), call. = FALSE)
-    }
-    
+    if (!requireNamespace("randomForest")) stop("randomForest package is missing")
+    if (!requireNamespace("utils")) stop("utils package is missing")    
     # Settings
     nsample <- length(y)
     if (ntrain < 1) ntrain <- round(nsample * ntrain)
     ntest <- nsample - ntrain
-    
     # Start simulation
     if (progress) {
       pb <- utils::txtProgressBar(min = 1, max = niter, style = 3) 
@@ -95,94 +87,77 @@ optimRandomForest <-
     for (k in 1:nruns) {
       id.train <- sample(1:nsample, ntrain, replace = FALSE)
       id.test <- c(1:nsample)[-id.train]
-      
       res <- .iterRandomForest(
         xtrain = x[id.train, ], ytrain = y[id.train], xtest = x[id.test, ], 
         ntree = ntree, mtry = mtry, nodesize = nodesize, niter = niter)
-      
       # prediction for test cases of this holding-out
       res <- res[, -c(1:ntrain)]
-      
       mse <- rbind(mse, apply(((t(res) - y[id.test]) ^ 2), 2, mean))
-      
       if (progress) utils::setTxtProgressBar(pb, k)
     }
     if (progress) close(pb)
-    
     # Prepare output
     colnames(mse) <- paste("iter-", 1:niter, sep = "")
     res <- list(
       mse = data.frame(
         mean = apply(mse, 2, mean),  sd = apply(mse, 2, stats::sd)),
-      call = data.frame(nruns = nruns, ntree = ntree,  ntrain = ntrain, 
-                        ntest = ntest, nodesize = nodesize, mtry = mtry))
-    
+        call = data.frame(nruns = nruns, ntree = ntree,  ntrain = ntrain,
+          ntest = ntest, nodesize = nodesize, mtry = mtry))
     # Plot mse profile
     if (profile) {
       .profRandomForest(mse = mse, nruns = nruns, niter = niter)
     }
-    
     # Output
-    return (res)
+    return(res)
   }
-# INTERNAL FUNCTION - ITERATIONS ###############################################
+# INTERNAL FUNCTION - ITERATIONS ###################################################################
 .iterRandomForest <- 
-  function (xtrain, ytrain, xtest, ntree, nodesize, mtry, niter) {
+  function(xtrain, ytrain, xtest, ntree, nodesize, mtry, niter) {
     # xtrain is the design matrix for training cases, n*p; 
     # ytrain is the response for training cases, a vector of length n;
     # xtest is the design matrix for test cases, m*p;
     # ntree is the number of trees per forest;
     # nodesize is the maximal node size per tree;
     # niter is the number of iterations for the bias-correction RFs.
-    
     # Initial settings
     ni <- 0
     ntrain <- nrow(xtrain)
     ntest <- nrow(xtest)
     pred.iter <- NULL # This records the predicted value for all X's
     b <- ytrain # Reponse of training data of each iteration
-    
     repeat {
       ni <- ni + 1
       RF.temp <- randomForest::randomForest(
         x = xtrain, y = b, ntree = ntree, mtry = mtry, nodesize = nodesize)
       bpred.oob <- RF.temp$predicted
-      
       # Predict for test cases
       bpred.test <- as.numeric(predict(object = RF.temp, newdata = xtest))
       pred.iter <- rbind(pred.iter, c(bpred.oob, bpred.test))
       b <- b - bpred.oob
       if (ni >= niter) break
     } # repeat ends
-    
     rownames(pred.iter) <- paste("iter-", 1:niter, sep = "")
     colnames(pred.iter) <- c(
       paste("Tr-", 1:ntrain, sep = ""),  paste("Test-", 1:ntest, sep = ""))
-    
     # This saves the final prediction results of different iterations of BC
     pred <- pred.iter[1,]
     for (k in 2:niter) {
       pred <- rbind(pred, apply(pred.iter[1:k,], 2, sum))
     } # for k ends
-    
     rownames(pred) <- paste("iter-", 1:niter, sep = "")
     colnames(pred) <- c(
       paste("Tr-", 1:ntrain, sep = ""), paste("Test-", 1:ntest, sep = ""))
-    
     return(pred)
-    
   }
 # INTERNAL FUNCTION - PLOT MSE PROFILE #########################################
 .profRandomForest <-
   function (mse, nruns, niter) {
-    
     # Prepare data for plotting
     eb <- apply(mse, 2, stats::sd) / sqrt(nruns)
     mse <- apply(mse, 2, mean)
     upper <- (mse + eb) / mse[1]
     lower <- (mse - eb) / mse[1]
     mse <- mse / mse[1]
-    
     # Plotting
     graphics::plot(
       1:niter, mse, type = "b", ylim = c(min(lower), max(upper)),

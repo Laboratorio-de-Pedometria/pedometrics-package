@@ -39,7 +39,7 @@ Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012).
 version 1.6. \url{https://CRAN.R-project.org/package=VecStatGraphs2D}
 }
 \seealso{
-\code{\link[pedometrics]{gcpDiff}}
+\code{\link[=gcpDiff]{gcpDiff()}}
 }
 \author{
 Juan Carlos Ruiz Cuetos \email{bilba_t@hotmail.com}\cr Maria
