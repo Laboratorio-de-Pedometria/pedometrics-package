@@ -22,3 +22,4 @@ revdep
 ^plot-esda.png
 ^CRAN-RELEASE$
 pedometrics-package.code-workspace
+^CRAN-SUBMISSION$
