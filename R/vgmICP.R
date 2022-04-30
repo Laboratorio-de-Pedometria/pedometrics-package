@@ -1,39 +1,40 @@
 #' Initial covariance parameters (ICP)
-#' 
-#' Guess the initial values for the covariance parameters required to fit a variogram model.
-#' 
-#' @inheritParams vgmLags
-#' 
-#' @param z Numeric vector with the values of the response variable for which the initial values for the
-#' covariance parameters should be guessed.
-#' 
-#' @param lags Numeric scalar defining the width of the lag-distance classes, or a numeric vector with the 
-#' lower and upper bounds of the lag-distance classes. If missing, the lag-distance classes are computed using 
-#' \code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more information.
-#' 
-#' @param method Character keyword defining the method used for guessing the initial covariance parameters. 
-#' Defaults to \code{method = "a"}. See \sQuote{Details} for more information.
-#' 
-#' @param min.npairs Positive integer defining the minimum number of point-pairs required so that a 
-#' lag-distance class is used for guessing the initial covariance parameters. Defaults to `min.npairs = 30`.
-#' 
-#' @param model Character keyword defining the variogram model that will be fitted to the data. Currently, 
-#' most basic variogram models are accepted. See \code{\link[geoR]{cov.spatial}} for more information. Defaults
-#' to `model = "matern"`.
-#' 
-#' @param nu numerical value for the additional smoothness parameter \eqn{\nu} of the correlation function. See
-#' \code{\link[RandomFields]{RMmodel}} and argument \code{kappa} of \code{\link[geoR]{cov.spatial}} for more 
-#' information.
-#' 
-#' @param plotit Should the guessed initial covariance parameters be plotted along with the sample variogram? 
-#' Defaults to \code{plotit = FALSE}.
-#' 
-#' @param estimator Character keyword defining the estimator for computing the sample variogram, with options 
-#' `"qn"`, `"mad"`, `"matheron"`, and `"ch"`. Defaults to `estimator = "qn"`. See
-#' `georob::sample.variogram()` for more details.
 #'
-#' @return A vector of numeric values: the guesses for the covariance parameters nugget, partial sill, and 
-#' range.
+#' Guess the initial values for the covariance parameters required to fit a variogram model.
+#'
+#' @inheritParams vgmLags
+#'
+#' @param z Numeric vector with the values of the response variable for which the initial values for
+#' the covariance parameters should be guessed.
+#'
+#' @param lags Numeric scalar defining the width of the lag-distance classes, or a numeric vector
+#' with the lower and upper bounds of the lag-distance classes. If missing, the lag-distance classes
+#' are computed using [pedometrics::vgmLags()]. See \sQuote{Details} for more information.
+#'
+#' @param method Character keyword defining the method used for guessing the initial covariance
+#' parameters. Defaults to `method = "a"`. See \sQuote{Details} for more information.
+#'
+#' @param min.npairs Positive integer defining the minimum number of point-pairs required so that a
+#' lag-distance class is used for guessing the initial covariance parameters. Defaults to
+#' `min.npairs = 30`.
+#'
+#' @param model Character keyword defining the variogram model that will be fitted to the data.
+#' Currently, most basic variogram models are accepted. See \code{\link[geoR]{cov.spatial}} for more
+#' information. Defaults to `model = "matern"`.
+#'
+#' @param nu numerical value for the additional smoothness parameter \eqn{\nu} of the correlation
+#' function. See [RandomFields::RMmodel()] and argument `kappa` of [geoR::cov.spatial()] for more
+#' information.
+#'
+#' @param plotit Should the guessed initial covariance parameters be plotted along with the sample
+#' variogram? Defaults to `plotit = FALSE`.
+#'
+#' @param estimator Character keyword defining the estimator for computing the sample variogram,
+#' with options `"qn"`, `"mad"`, `"matheron"`, and `"ch"`. Defaults to `estimator = "qn"`. See
+#' [georob::sample.variogram()] for more details.
+#'
+#' @return A vector of numeric values: the guesses for the covariance parameters nugget, partial
+#' sill, and range.
 #'
 #' @details There are five methods two guess the initial covariance parameters  (ICP). Two of them, `"a"` and
 #' `"c"`, rely a sample variogram with exponentially spaced lag-distance classes, while the other three, `"b"`,
@@ -52,8 +53,8 @@
 #' Method `"d"` was developed by \doi{10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
 #'
 #' Method `"e"` was proposed by \href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of \href{http://www.gslib.com/}{GSLIB}.
-#' 
-#' @references 
+#'
+#' @references
 #' 
 #' Desassis, N. & Renard, D. Automatic variogram modelling by iterative least squares: univariate and 
 #' multivariate cases. _Mathematical Geosciences_. Springer Science \eqn{+} Business Media, v. 45, p. 453-470,
@@ -80,8 +81,10 @@
 #' @export
 #' 
 #' @examples
+#' if (require(sp)) {
 #' data(meuse, package = "sp")
 #' icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
+#' }
 # FUNCTION - MAIN ##################################################################################
 vgmICP <-
   function(z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30, model = "matern", nu = 0.5,

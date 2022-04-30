@@ -43,6 +43,7 @@ Argument \code{breaks} must be a vector if \code{x} is a vector, but a list if \
 matrix. Using a list allows breaking each column of \code{x} into different number of categories.
 }
 \examples{
+if (require(SpatialTools)) {
 ## Compute the break points of marginal strata
 x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
 x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
@@ -71,6 +72,7 @@ y
 x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
 x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
 x
+}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

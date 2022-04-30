@@ -222,6 +222,7 @@ Use the original functions \code{\link[lattice]{xyplot}} and
 }
 
 \examples{
+if (require(plyr)) {
 # This example follows the discussion in section "Details"
 # Note that the data.frame is created manually
 id <- c(1:8)
@@ -234,7 +235,7 @@ p <- plotMS(obj, grid = c(2:4), line = "adj_r2", ind = 1,
             color = c("lightyellow", "palegreen"),
             main = "Model Series Plot")
 print(p)
-
+}
 }
 \references{
 Deepayan Sarkar (2008). \emph{Lattice: Multivariate Data Visualization with

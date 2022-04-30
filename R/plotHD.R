@@ -1,26 +1,23 @@
 #' Histogram and density plot
-#' 
-#' This function plots a histogram and a density plot of a single variable 
-#' using the R-package \pkg{lattice}.
-#' 
-#' @param x Vector of numeric values of the variable for which the histogram 
-#' nd density plot should be created.
-#' 
-#' @param HD Character value indicating the type of plot to be created. 
-#' Available options are \code{"over"}, to create a histogram superimposed by 
-#' the theoretical density plot of a normally distributed variable, and 
-#' \code{"stack"}, to create a histogram and an empirical density plot in
-#' separated panels. Defaults to \code{HD = "over"}.
-#' 
-#' @param nint Integer specifying the number of histogram bins. Defaults to
-#' \code{nint = 20}.
-#' 
-#' @param stats Logical to indicate if descriptive statistics of the variable
-#' \code{x} should be added to the plot. Available only when \code{HD = "over"}.
-#' The function tries to automatically find the best location to put the 
-#' descriptive statistics given the shape of the histogram. Defaults to 
-#' \code{stats = TRUE}.
-#' 
+#'
+#' This function plots a histogram and a density plot of a single variable using the R-package
+#' **lattice**.
+#'
+#' @param x Vector of numeric values of the variable for which the histogram and density plot
+#' should be created.
+#'
+#' @param HD Character value indicating the type of plot to be created. Available options are
+#' `"over"`, to create a histogram superimposed by the theoretical density plot of a normally
+#' distributed variable, and `"stack"`, to create a histogram and an empirical density plot in
+#' separated panels. Defaults to `HD = "over"`.
+#'
+#' @param nint Integer specifying the number of histogram bins. Defaults to `nint = 20`.
+#'
+#' @param stats Logical to indicate if descriptive statistics of the variable `x` should be added
+#' to the plot. Available only when `HD = "over"`. The function tries to automatically find the
+#' best location to put the descriptive statistics given the shape of the histogram. Defaults to 
+#' `stats = TRUE`.
+#'
 #' @param digits Integer indicating the number of decimal places to be used 
 #' when printing the statistics of the variable \code{x}. Defaults to 
 #' \code{digits = 2}.
@@ -60,24 +57,26 @@
 #' @return
 #' An object of class \code{"trellis"}. The 
 #' \code{\link[lattice]{update.trellis}} method can be used to update components
-#' of the object and the \code{\link[lattice]{print.trellis}} print method 
+#' of the object and the \code{\link[lattice]{print.trellis}} print method
 #' (usually called by default) will plot it on an appropriate plotting device.
-#' 
+#'
 #' @references
-#' Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with 
+#' Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with
 #' R}, Springer. \url{http://lmdvr.r-forge.r-project.org/}
-#' 
+#'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' 
-#' @seealso \code{\link[lattice]{histogram}}, 
+#'
+#' @seealso \code{\link[lattice]{histogram}},
 #' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}}.
 #' @import lattice latticeExtra
 #' @importFrom stats update
 #' @export
 #' @examples
+#' if (require(moments)) {
 #' x <- rnorm(100, 10, 2)
 #' p1 <- plotHD(x, HD = "stack")
 #' p2 <- plotHD(x, HD = "over")
+#' }
 # FUNCTION #########################################################################################
 # TODO:
 #   - moments::skewness() is used here, creating an entry in Suggests. To avoid this, implement code

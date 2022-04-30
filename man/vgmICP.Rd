@@ -18,44 +18,45 @@ vgmICP(
 )
 }
 \arguments{
-\item{z}{Numeric vector with the values of the response variable for which the initial values for the
-covariance parameters should be guessed.}
+\item{z}{Numeric vector with the values of the response variable for which the initial values for
+the covariance parameters should be guessed.}
 
 \item{coords}{Data frame or matrix with the projected x- and y-coordinates.}
 
-\item{lags}{Numeric scalar defining the width of the lag-distance classes, or a numeric vector with the
-lower and upper bounds of the lag-distance classes. If missing, the lag-distance classes are computed using
-\code{\link[pedometrics]{vgmLags}}. See \sQuote{Details} for more information.}
+\item{lags}{Numeric scalar defining the width of the lag-distance classes, or a numeric vector
+with the lower and upper bounds of the lag-distance classes. If missing, the lag-distance classes
+are computed using \code{\link[=vgmLags]{vgmLags()}}. See \sQuote{Details} for more information.}
 
 \item{cutoff}{Numeric value defining the fraction of the diagonal of the
 rectangle that spans the data (bounding box) that should be used to set the
 maximum distance up to which lag-distance classes should be computed.
 Defaults to \code{cutoff = 0.5}, i.e. half the diagonal of the bounding box.}
 
-\item{method}{Character keyword defining the method used for guessing the initial covariance parameters.
-Defaults to \code{method = "a"}. See \sQuote{Details} for more information.}
+\item{method}{Character keyword defining the method used for guessing the initial covariance
+parameters. Defaults to \code{method = "a"}. See \sQuote{Details} for more information.}
 
 \item{min.npairs}{Positive integer defining the minimum number of point-pairs required so that a
-lag-distance class is used for guessing the initial covariance parameters. Defaults to \code{min.npairs = 30}.}
+lag-distance class is used for guessing the initial covariance parameters. Defaults to
+\code{min.npairs = 30}.}
 
-\item{model}{Character keyword defining the variogram model that will be fitted to the data. Currently,
-most basic variogram models are accepted. See \code{\link[geoR]{cov.spatial}} for more information. Defaults
-to \code{model = "matern"}.}
+\item{model}{Character keyword defining the variogram model that will be fitted to the data.
+Currently, most basic variogram models are accepted. See \code{\link[geoR]{cov.spatial}} for more
+information. Defaults to \code{model = "matern"}.}
 
-\item{nu}{numerical value for the additional smoothness parameter \eqn{\nu} of the correlation function. See
-\code{\link[RandomFields]{RMmodel}} and argument \code{kappa} of \code{\link[geoR]{cov.spatial}} for more
+\item{nu}{numerical value for the additional smoothness parameter \eqn{\nu} of the correlation
+function. See \code{\link[RandomFields:RMmodel]{RandomFields::RMmodel()}} and argument \code{kappa} of \code{\link[geoR:cov.spatial]{geoR::cov.spatial()}} for more
 information.}
 
-\item{estimator}{Character keyword defining the estimator for computing the sample variogram, with options
-\code{"qn"}, \code{"mad"}, \code{"matheron"}, and \code{"ch"}. Defaults to \code{estimator = "qn"}. See
-\code{georob::sample.variogram()} for more details.}
+\item{estimator}{Character keyword defining the estimator for computing the sample variogram,
+with options \code{"qn"}, \code{"mad"}, \code{"matheron"}, and \code{"ch"}. Defaults to \code{estimator = "qn"}. See
+\code{\link[georob:sample.variogram]{georob::sample.variogram()}} for more details.}
 
-\item{plotit}{Should the guessed initial covariance parameters be plotted along with the sample variogram?
-Defaults to \code{plotit = FALSE}.}
+\item{plotit}{Should the guessed initial covariance parameters be plotted along with the sample
+variogram? Defaults to \code{plotit = FALSE}.}
 }
 \value{
-A vector of numeric values: the guesses for the covariance parameters nugget, partial sill, and
-range.
+A vector of numeric values: the guesses for the covariance parameters nugget, partial
+sill, and range.
 }
 \description{
 Guess the initial values for the covariance parameters required to fit a variogram model.
@@ -83,8 +84,10 @@ Method \code{"e"} was proposed by \href{http://www.ccgalberta.com/ccgresources/r
 Package \strong{geoR} is used to guess the range (scale) parameter of the following covariance models: "matern" (except when \code{nu = 0.5}), "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting", and "gneiting.matern". However, \strong{geoR} is an orphan package since 2020-01-12. Thus, if \strong{geoR} is not installed, a guess of the practical range of these covariance models is returned. The practical range is the distance at which the semivariance reaches its maximum, i.e. the sill.
 }
 \examples{
+if (require(sp)) {
 data(meuse, package = "sp")
 icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
+}
 }
 \references{
 Desassis, N. & Renard, D. Automatic variogram modelling by iterative least squares: univariate and

@@ -20,26 +20,23 @@ plotHD(
 )
 }
 \arguments{
-\item{x}{Vector of numeric values of the variable for which the histogram
-nd density plot should be created.}
+\item{x}{Vector of numeric values of the variable for which the histogram and density plot
+should be created.}
 
-\item{HD}{Character value indicating the type of plot to be created.
-Available options are \code{"over"}, to create a histogram superimposed by
-the theoretical density plot of a normally distributed variable, and
-\code{"stack"}, to create a histogram and an empirical density plot in
+\item{HD}{Character value indicating the type of plot to be created. Available options are
+\code{"over"}, to create a histogram superimposed by the theoretical density plot of a normally
+distributed variable, and \code{"stack"}, to create a histogram and an empirical density plot in
 separated panels. Defaults to \code{HD = "over"}.}
 
-\item{nint}{Integer specifying the number of histogram bins. Defaults to
-\code{nint = 20}.}
+\item{nint}{Integer specifying the number of histogram bins. Defaults to \code{nint = 20}.}
 
 \item{digits}{Integer indicating the number of decimal places to be used
 when printing the statistics of the variable \code{x}. Defaults to
 \code{digits = 2}.}
 
-\item{stats}{Logical to indicate if descriptive statistics of the variable
-\code{x} should be added to the plot. Available only when \code{HD = "over"}.
-The function tries to automatically find the best location to put the
-descriptive statistics given the shape of the histogram. Defaults to
+\item{stats}{Logical to indicate if descriptive statistics of the variable \code{x} should be added
+to the plot. Available only when \code{HD = "over"}. The function tries to automatically find the
+best location to put the descriptive statistics given the shape of the histogram. Defaults to
 \code{stats = TRUE}.}
 
 \item{BoxCox}{Logical to indicate if the variable \code{x} should be
@@ -75,8 +72,8 @@ of the object and the \code{\link[lattice]{print.trellis}} print method
 (usually called by default) will plot it on an appropriate plotting device.
 }
 \description{
-This function plots a histogram and a density plot of a single variable
-using the R-package \pkg{lattice}.
+This function plots a histogram and a density plot of a single variable using the R-package
+\strong{lattice}.
 }
 \details{
 The user should visit the help pages of \code{\link[lattice]{histogram}},
@@ -85,9 +82,11 @@ The user should visit the help pages of \code{\link[lattice]{histogram}},
 more details about the main functions used to built \code{plotHD}.
 }
 \examples{
+if (require(moments)) {
 x <- rnorm(100, 10, 2)
 p1 <- plotHD(x, HD = "stack")
 p2 <- plotHD(x, HD = "over")
+}
 }
 \references{
 Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with

@@ -31,6 +31,7 @@
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @aliases cont2cat breakPoints stratify
 #' @examples
+#' if (require(SpatialTools)) {
 #' ## Compute the break points of marginal strata
 #' x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
 #' x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
@@ -54,11 +55,12 @@
 #' breaks <- c(1, 2, 4, 8, 10)
 #' y <- cont2cat(x, breaks, integer = TRUE)
 #' y
-#' 
+#'
 #' ## Stratification
 #' x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
 #' x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
 #' x
+#' }
 # FUNCTION - CONVERT CONTINUOUS DATA INTO CATEGORICAL DATA #########################################
 #' @export
 #' @rdname cont2cat
@@ -157,6 +159,8 @@ breakPoints <-
 #' @rdname cont2cat
 stratify <-
   function(x, n, type = "area", integer = FALSE) {
+    # Check if suggested packages are installed
+    if (!requireNamespace("SpatialTools")) stop("SpatialTools package is missing")
     # Compute break points
     breaks <- breakPoints(x = x, n = n, type = type)
     # Convert continuous data into categorical data

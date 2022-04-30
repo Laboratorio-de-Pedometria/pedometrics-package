@@ -188,15 +188,16 @@
 #' code of the R-package \pkg{mvtsplot}. As such, the author of that package, 
 #' Roger D. Peng \email{rpeng@@jhsph.edu}, is entitled \sQuote{contributors} to
 #' the R-package \pkg{pedometrics}.
-#' 
+#'
 #' @section Warning:
 #' Use the original functions \code{\link[lattice]{xyplot}} and 
 #' \code{\link[lattice]{levelplot}} for higher customization.
-#' 
+#'
 #' @seealso \code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}.
 #' @importFrom stats update
 #' @export
 #' @examples
+#' if (require(plyr)) {
 #' # This example follows the discussion in section "Details"
 #' # Note that the data.frame is created manually
 #' id <- c(1:8)
@@ -209,9 +210,8 @@
 #'             color = c("lightyellow", "palegreen"),
 #'             main = "Model Series Plot")
 #' print(p)
-#' 
+#' }
 #' @keywords hplot
-#' 
 # FUNCTION #####################################################################
 plotMS <-
   function(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5, arrange = "desc",
