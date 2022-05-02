@@ -1,8 +1,12 @@
 # News
 
+## pedometrics 0.11.0
+
+* __Improvement__ Run local and remote tests. Prepare comments to CRAN maintainers.
+
 ## pedometrics 0.10.1
 
-* __Bug fiz__ Fixed mistaken use of a Suggested package in an example unconditionally on its
+* __Bug fix__ Fixed mistaken use of a Suggested package in an example unconditionally on its
   availability.
 * __Improvement__ Run local and remote tests. Prepare comments to CRAN maintainers.
 
