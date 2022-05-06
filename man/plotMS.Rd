@@ -41,52 +41,42 @@ See \sQuote{Details} for more information.}
 the performance statistics using \code{\link[lattice:xyplot]{lattice::xyplot()}}. Defaults \code{type = c("b", "g")}. See
 \code{\link[lattice:panel.xyplot]{lattice::panel.xyplot()}} for more information on how to set this argument.}
 
-\item{pch}{Vector with two integer values specifying the symbols to be used
-to plot points. The first sets the symbol used to plot the performance
-statistic, while the second sets the symbol used to plot the mean rank of
-the indicator set using argument \code{ind}. Defaults to
-\code{pch = c(20, 2)}. See \code{\link[graphics]{points}} for possible values
-and their interpretation.}
+\item{pch}{Vector with two integer values specifying the symbols to be used to plot points. The
+first sets the symbol used to plot the performance statistic, while the second sets the symbol
+used to plot the mean rank of the indicator set using argument \code{ind}. Defaults to
+\code{pch = c(20, 2)}. See \code{\link[graphics:points]{graphics::points()}} for possible values and their interpretation.}
 
-\item{size}{Numeric value specifying the size of the symbols used for
-plotting the mean rank of the indicator set using argument \code{ind}.
-Defaults to \code{size = 0.5}. See \code{\link[grid]{grid.points}} for more
-information.}
+\item{size}{Numeric value specifying the size of the symbols used for plotting the mean rank of
+the indicator set using argument \code{ind}. Defaults to \code{size = 0.5}. See \code{\link[grid:grid.points]{grid::grid.points()}} for
+more information.}
 
-\item{arrange}{Character string indicating how the model series should be
-arranged, which can be in ascending (\code{asc}) or descending (\code{desc})
-order. Defaults to \code{arrange = "desc"}. See \code{\link[plyr]{arrange}}
-for more information.}
+\item{arrange}{Character string indicating how the model series should be arranged, which can be
+in ascending (\code{asc}) or descending (\code{desc}) order. Defaults to \code{arrange = "desc"}. See
+\code{\link[plyr:arrange]{plyr::arrange()}} for more information.}
 
-\item{color}{Vector defining the colors to be used in the grid produced by
-function \code{levelplot}. If \code{NULL}, defaults to
-\code{color = cm.colors(n)}, where \code{n} is the number of unique values
-in the columns defined by argument \code{grid}. See
-\code{\link[grDevices]{cm.colors}} to see how to use other color palettes.}
+\item{color}{Vector defining the colors to be used in the grid produced by function
+\code{\link[lattice:levelplot]{lattice::levelplot()}}. If \code{color = NULL}, defaults to \code{color = cm.colors(n)}, where \code{n} is the
+number of unique values in the columns defined by argument \code{grid}. See \code{\link[grDevices:palettes]{grDevices::cm.colors()}}
+to see how to use other color palettes.}
 
-\item{xlim}{Numeric vector of length 2, giving the x coordinates range. If
-\code{NULL} (which is the recommended value), defaults to
-\code{xlim = c(0.5, dim(obj)[1] + 0.5)}. This is, so far, the optimum range
-for adequate plotting.}
+\item{xlim}{Numeric vector of length 2, giving the x coordinates range. If \code{xlim = NULL} (which
+is the recommended value), defaults to  \code{xlim = c(0.5, dim(obj)[1] + 0.5)}. This is, so far, the
+optimum range for adequate plotting.}
 
-\item{ylab}{Character vector of length 2, giving the y-axis labels. When
-\code{obj} is a \code{data.frame} returned by \code{statsMS}, and the
-performance statistic passed to argument \code{line} is one of those
-calculated by \code{statsMS} (\code{"candidates"}, \code{"df"},
-\code{"aic"}, \code{"rmse"}, \code{"nrmse"}, \code{"r2"}, \code{"adj_r2"} or
-\code{"ADJ_r2"}), the function tries to automatically identify the correct
-\code{ylab}.}
+\item{ylab}{Character vector of length 2, giving the y-axis labels. When \code{obj} is a \code{data.frame}
+returned by \code{\link[=statsMS]{statsMS()}}, and the performance statistic passed to argument
+\code{line} is one of those calculated by \code{\link[=statsMS]{statsMS()}} (\code{"candidates"}, \code{"df"}, \code{"aic"},
+\code{"rmse"}, \code{"nrmse"}, \code{"r2"}, \code{"adj_r2"}, or \code{"ADJ_r2"}), the function tries to automatically
+identify the correct \code{ylab}.}
 
-\item{xlab}{Character vector of length 1, giving the x-axis labels. Defaults
-to \code{xlab = "Model ranking"}.}
+\item{xlab}{Character vector of length 1, giving the x-axis labels. Defaults \code{xlab = "Model ranking"}.}
 
-\item{at}{Numeric vector indicating the location of tick marks along the x
-axis (in native coordinates).}
+\item{at}{Numeric vector indicating the location of tick marks along the x axis (in native
+coordinates).}
 
-\item{...}{Other arguments for plotting, although most of these have no been
-tested. Argument \code{asp}, for example, is not effective since the function
-automatically identifies the best aspect for plotting based on the dimensions
-of the design data.}
+\item{...}{Other arguments for plotting, although most of these have no been tested. Argument
+\code{asp}, for example, is not effective since the function automatically identifies the best aspect
+for plotting based on the dimensions of the design data.}
 }
 \value{
 An object of class \code{"trellis"} consisting of a model series plot.
@@ -99,27 +89,26 @@ series). It generally is used to access the results of functions \code{\link[=bu
 performance measure.
 }
 \details{
-This section gives more details about arguments \code{obj}, \code{grid},
-\code{line}, \code{arrange}, and \code{ind}.
+This section gives more details about arguments \code{obj}, \code{grid}, \code{line}, \code{arrange}, and \code{ind}.
+
 \subsection{obj}{
-The argument \code{obj} usually constitutes a \code{data.frame} returned by
-\code{statsMS}. However, the user can use any \code{data.frame} object as far
-as it contains the two basic units of information needed:
+The argument \code{obj} usually constitutes a \code{data.frame} returned by \code{\link[=statsMS]{statsMS()}}.
+However, the user can use any \code{data.frame} object as far as it contains the two basic units of
+information needed:
 \enumerate{
 \item design data passed with argument \code{grid}
 \item performance statistic passed with argument \code{line}
 }
 }
 \subsection{grid}{
-The argument \code{grid} indicates the \emph{design} data which is used to
-produce the grid output in the top of the model series plot. By \emph{design}
-we mean the data that specify the structure of each model and how they differ
-from each other. Suppose that eight linear models were fit using three types
-of predictor variables (\code{a}, \code{b}, and \code{c}). Each of these
-predictor variables is available in two versions that differ by their
-accuracy, where \code{0} means a less accurate predictor variable, while
-\code{1} means a more accurate predictor variable. This yields 2^3 = 8 total
-possible combinations. The \emph{design} data would be of the following form:
+The argument \code{grid} indicates the \emph{design} data which is used to produce the grid output in the
+top of the model series plot. By \emph{design} we mean the data that specify the structure of each
+model and how they differ from each other. Suppose that eight linear models were fit using three
+types of predictor variables (\code{a}, \code{b}, and \code{c}). Each of these predictor variables is available
+in two versions that differ by their accuracy, where \code{0} means a less accurate predictor
+variable, while \code{1} means a more accurate predictor variable. This yields 2^3 = 8 total possible
+combinations. The \emph{design} data would be of the following form:
+
 \verb{
 > design
   a b c
@@ -134,26 +123,23 @@ possible combinations. The \emph{design} data would be of the following form:
 }
 }
 \subsection{line}{
-The argument \code{line} corresponds to the performance statistic that is
-used to arrange the models in ascending or descending order, and to produce
-the line output in the bottom of the model series plot. For example, it can
-be a series of values of adjusted coefficient of determination, one for each
-model:
+The argument \code{line} corresponds to the performance statistic that is used to arrange the models
+in ascending or descending order, and to produce the line output in the bottom of the model
+series plot. For example, it can be a series of values of adjusted coefficient of determination,
+one for each model:
 
 \verb{
 adj_r2 <- c(0.87, 0.74, 0.81, 0.85, 0.54, 0.86, 0.90, 0.89)
 }
 }
 \subsection{arrange}{
-The argument \code{arrange} automatically arranges the model series
-according to the performance statistics selected with argument \code{line}.
-If \code{obj} is a \code{data.frame} returned by \code{statsMS()}, then the
-function uses standard arranging approaches. For most performance
-statistics, the models are arranged in descending order. The exception is
-when \code{"r2"}, \code{"adj_r2"} or \code{"ADJ_r2"} are used, in which case
-the models are arranged in ascending order. This means that the model with
-lowest value appears in the leftmost side of the model series plot, while the
-models with the highest value appears in the rightmost side of the plot.
+The argument \code{arrange} automatically arranges the model series according to the performance
+statistics selected with argument \code{line}. If \code{obj} is a \code{data.frame} returned by
+\code{\link[=statsMS]{statsMS()}}, then the function uses standard arranging approaches. For most
+performance statistics, the models are arranged in descending order. The exception is when
+\code{"r2"}, \code{"adj_r2"}, or \code{"ADJ_r2"} are used, in which case the models are arranged in ascending
+order. This means that the model with lowest value appears in the leftmost side of the model
+series plot, while the models with the highest value appears in the rightmost side of the plot.
 
 \verb{
 > arrange(obj, adj_r2)
@@ -168,29 +154,25 @@ models with the highest value appears in the rightmost side of the plot.
 8  7 1 1 0   0.90
 }
 
-This results suggest that the best performing model is that of \code{id = 7},
-while the model of \code{id = 5} is the poorest one.
+This results suggest that the best performing model is that of \code{id = 7}, while the model of
+\code{id = 5} is the poorest one.
 }
 \subsection{ind}{
-The model series plot allows to see how the design influences model
-performance. This is achieved mainly through the use of different colors in
-the grid output, where each unique value in the \emph{design} data is
-represented by a different color. For the example given above, one could
-try to see if the models built with the more accurate versions of the
-predictor variables have a better performance by identifying their relative
-distribution in the model series plot. The models placed at the
-rightmost side of the plot are those with the best performance.
+The model series plot allows to see how the design influences model performance. This is achieved
+mainly through the use of different colors in the grid output, where each unique value in the
+\emph{design} data is represented by a different color. For the example given above, one could try to
+see if the models built with the more accurate versions of the predictor variables have a better
+performance by identifying their relative distribution in the model series plot. The models
+placed at the rightmost side of the plot are those with the best performance.
 
-The argument \code{ind} provides another tool to help identifying how the
-design, more specifically how each variable in the \emph{design} data,
-influences model performance. This is done by simply calculating the mean
-ranking of the models that were built using the updated version of each
-predictor variable. This very same mean ranking is also used to rank the
-predictor variables and thus identify which of them is the most important.
+The argument \code{ind} provides another tool to help identifying how the design, more specifically
+how each variable in the \emph{design} data, influences model performance. This is done by simply
+calculating the mean ranking of the models that were built using the updated version of each
+predictor variable. This very same mean ranking is also used to rank the predictor variables and
+thus identify which of them is the most important.
 
-After arranging the \code{design} data described above using the adjusted
-coefficient of determination, the following mean rank is obtained for each
-predictor variable:
+After arranging the \code{design} data described above using the adjusted coefficient of
+determination, the following mean rank is obtained for each predictor variable:
 
 \verb{
 > rank_center
@@ -198,22 +180,20 @@ predictor variable:
 1 5.75 6.25 5.25
 }
 
-This result suggests that the best model performance is obtained when using
-the updated version of the predictor variable \code{b}. In the model series
-plot, the predictor variable \code{b} appears in the top row, while the
-predictor variable \code{c} appears in the bottom row.
+This result suggests that the best model performance is obtained when using the updated version
+of the predictor variable \code{b}. In the model series plot, the predictor variable \code{b} appears in
+the top row, while the predictor variable \code{c} appears in the bottom row.
 }
 }
 \note{
-Some of the solutions used to build this function were found in the source
-code of the R-package \pkg{mvtsplot}. As such, the author of that package,
-Roger D. Peng \email{rpeng@jhsph.edu}, is entitled \sQuote{contributors} to
-the R-package \pkg{pedometrics}.
+Some of the solutions used to build this function were found in the source code of the R-package
+\strong{mvtsplot}. As such, the author of that package, Roger D. Peng \email{rpeng@jhsph.edu}, is
+entitled \sQuote{contributors} to the R-package \strong{pedometrics}.
 }
 \section{Warning}{
 
-Use the original functions \code{\link[lattice]{xyplot}} and
-\code{\link[lattice]{levelplot}} for higher customization.
+Use the original functions \code{\link[lattice:xyplot]{lattice::xyplot()}} and \code{\link[lattice:levelplot]{lattice::levelplot()}} for higher
+customization.
 }
 
 \examples{
@@ -233,17 +213,17 @@ print(p)
 }
 }
 \references{
-Deepayan Sarkar (2008). \emph{Lattice: Multivariate Data Visualization with
-R.} Springer, New York. ISBN 978-0-387-75968-5.
+Deepayan Sarkar (2008). \emph{Lattice: Multivariate Data Visualization with R.} Springer, New York.
+ISBN 978-0-387-75968-5.
 
-Roger D. Peng (2008). \emph{A method for visualizing multivariate time series
-data.} Journal of Statistical Software. v. 25 (Code Snippet), p. 1-17.
+Roger D. Peng (2008). \emph{A method for visualizing multivariate time series data.} Journal of
+Statistical Software. v. 25 (Code Snippet), p. 1-17.
 
 Roger D. Peng (2012). \emph{mvtsplot: Multivariate Time Series Plot.} R package version 1.0-1.
 \url{https://CRAN.R-project.org/package=mvtsplot}.
 }
 \seealso{
-\code{\link[lattice]{levelplot}}, \code{\link[lattice]{xyplot}}.
+\code{\link[lattice:xyplot]{lattice::xyplot()}} \code{\link[lattice:levelplot]{lattice::levelplot()}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

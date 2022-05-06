@@ -75,6 +75,7 @@ isNumint(1) # TRUE
 
 # Single numeric value
 isNumint(1.1) # FALSE
+
 }
 \seealso{
 \code{\link[base:numeric]{base::is.numeric()}}, \code{\link[base:integer]{base::is.integer()}}, \code{\link[base:factor]{base::is.factor()}}.

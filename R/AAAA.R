@@ -5,7 +5,7 @@
 #' text
 #' @importFrom georob georob sample.variogram
 #' @importFrom stats dnorm extractAIC formula lm median model.frame cor model.matrix residuals sd
-#' quantile var update
+#' quantile var
 # @importFrom randomForest randomForest
 #  geoR has been orphaned on 2020-01-12
 #' @importFrom geoR practicalRange

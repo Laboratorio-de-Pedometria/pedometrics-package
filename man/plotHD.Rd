@@ -31,70 +31,63 @@ separated panels. Defaults to \code{HD = "over"}.}
 \item{nint}{Integer specifying the number of histogram bins. Defaults to \code{nint = 20}.}
 
 \item{digits}{Integer indicating the number of decimal places to be used
-when printing the statistics of the variable \code{x}. Defaults to
-\code{digits = 2}.}
+when printing the statistics of the variable \code{x}. Defaults to \code{digits = 2}.}
 
 \item{stats}{Logical to indicate if descriptive statistics of the variable \code{x} should be added
 to the plot. Available only when \code{HD = "over"}. The function tries to automatically find the
 best location to put the descriptive statistics given the shape of the histogram. Defaults to
 \code{stats = TRUE}.}
 
-\item{BoxCox}{Logical to indicate if the variable \code{x} should be
-transformed using the Box-Cox family of power transformations. The estimated
-lambda value of the Box-Cox transform is printed in the console. It is set to
-zero when negative. Defaults to \code{BoxCox = FALSE}.}
+\item{BoxCox}{Logical to indicate if the variable \code{x} should be transformed using the Box-Cox
+family of power transformations. The estimated lambda value of the Box-Cox transform is printed
+in the console. It is set to zero when negative. Defaults to \code{BoxCox = FALSE}.}
 
-\item{col}{Vector of two elements, the first indicating the color of the
-histogram, the second indicating the color of the density plot. Defaults to
-\code{col = c("lightgray", "black")}.}
+\item{col}{Vector of two elements, the first indicating the color of the histogram, the second
+indicating the color of the density plot. Defaults to \code{col = c("lightgray", "black")}.}
 
-\item{lwd}{Vector of two elements, the first indicating the line width of the
-histogram, the second indicating the line width of the density plot. Defaults
-to \code{lwd = c(1, 1)}.}
+\item{lwd}{Vector of two elements, the first indicating the line width of the histogram, the
+second indicating the line width of the density plot. Defaults to \code{lwd = c(1, 1)}.}
 
-\item{lty}{Character value indicating the line type for the density plot.
-Defaults to \code{lty = "dashed"}.}
+\item{lty}{Character value indicating the line type for the density plot. Defaults to
+\code{lty = "dashed"}.}
 
-\item{xlim}{Vector of two elements defining the limits of the x axis. The
-function automatically optimizes \code{xlim} based on the density plot.}
+\item{xlim}{Vector of two elements defining the limits of the x axis. The function automatically
+optimizes \code{xlim} based on the density plot.}
 
-\item{ylim}{Vector of two elements defining the limits of the y axis. The
-function automatically optimizes \code{ylim} based both histogram and density
-plot.}
+\item{ylim}{Vector of two elements defining the limits of the y axis. The function automatically
+optimizes \code{ylim} based both histogram and density plot.}
 
-\item{...}{Other arguments that can be passed to \pkg{lattice} functions.
-There is no guarantee that they will work.}
+\item{...}{Other arguments that can be passed to \strong{lattice} functions. There is no guarantee
+that they will work.}
 }
 \value{
-An object of class \code{"trellis"}. The
-\code{\link[lattice]{update.trellis}} method can be used to update components
-of the object and the \code{\link[lattice]{print.trellis}} print method
-(usually called by default) will plot it on an appropriate plotting device.
+An object of class \code{"trellis"}. The \code{\link[lattice:update.trellis]{lattice::update.trellis()}} method can be used to update
+components of the object and the \code{\link[lattice:print.trellis]{lattice::print.trellis()}} print method (usually called by
+default) will plot it on an appropriate plotting device.
 }
 \description{
 This function plots a histogram and a density plot of a single variable using the R-package
 \strong{lattice}.
 }
 \details{
-The user should visit the help pages of \code{\link[lattice]{histogram}},
-\code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}},
-\code{car::powerTransform()} and \code{car::bcPower()} to obtain
-more details about the main functions used to built \code{plotHD}.
+The user should visit the help pages of \code{\link[lattice:histogram]{lattice::histogram()}}, \code{\link[lattice:histogram]{lattice::densityplot()}},
+\code{\link[lattice:panel.functions]{lattice::panel.mathdensity()}}, \code{\link[car:powerTransform]{car::powerTransform()}}, and \code{\link[car:bcPower]{car::bcPower()}} to obtain more
+details about the main functions used to built \code{\link[=plotHD]{plotHD()}}.
 }
 \examples{
-if (all(c(require(moments), require(car), require(lattice)))) {
+if (all(c(require(moments), require(car), require(lattice), require(latticeExtra)))) {
   x <- rnorm(100, 10, 2)
   p1 <- plotHD(x, HD = "stack")
   p2 <- plotHD(x, HD = "over")
 }
+
 }
 \references{
-Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with
-R}, Springer. \url{http://lmdvr.r-forge.r-project.org/}
+Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with R}, Springer.
+\url{http://lmdvr.r-forge.r-project.org/}
 }
 \seealso{
-\code{\link[lattice]{histogram}},
-\code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}}.
+\code{\link[lattice:histogram]{lattice::histogram()}}, \code{\link[lattice:histogram]{lattice::densityplot()}}, \code{\link[lattice:panel.functions]{lattice::panel.mathdensity()}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

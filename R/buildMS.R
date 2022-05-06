@@ -50,9 +50,9 @@
 #' freedom is close to the number of candidate predictor variables initially offered to the model
 #' (Harrell, 2001). With the initial number of candidate predictor variables and observations
 #' offered to the model, one can calculate penalized or adjusted measures of model performance. For
-#' models built using [pedometrics::builtMS()], this can be done using [pedometrics::statsMS()].
+#' models built using [pedometrics::buildMS()], this can be done using [pedometrics::statsMS()].
 #'
-#' Some important details should be clear when using [pedometrics::builtMS()]:
+#' Some important details should be clear when using [pedometrics::buildMS()]:
 #'
 #' * this function was originally devised to deal with a list of formulas, but can also be used with
 #'   a single formula;
@@ -95,6 +95,7 @@
 #' data <- cpus1[cpus.samp,2:8]
 #' cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 #' }
+#' 
 #' @export
 # FUNCTION #########################################################################################
 buildMS <-

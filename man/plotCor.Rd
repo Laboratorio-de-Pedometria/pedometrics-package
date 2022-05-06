@@ -53,6 +53,7 @@ if (all(c(require(sp), require(fields)))) {
   r2 <- round(r2, 2)
   plotCor(r, r2)
 }
+
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

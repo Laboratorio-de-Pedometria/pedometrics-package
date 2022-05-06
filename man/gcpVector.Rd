@@ -23,18 +23,16 @@ two sets of ground control points (GCP). It is suited to perform calculations fo
 coordinates only. The origin is set in the y coordinate, and rotation performed clockwise.
 }
 \note{
-This function was adapted from package's VecStatGraphs2D function \code{LoadData()}.
+This function was adapted from package's \strong{VecStatGraphs2D} function \code{LoadData()}.
 }
 \examples{
 x <- gcpVector(dx = rnorm(3, 5, 10), dy = rnorm(3, 5, 10))
+
 }
 \references{
 Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012). \emph{VecStatGraphs2D: Vector analysis using
 graphical and analytical methods in 2D}. R package version 1.6.
 \url{https://CRAN.R-project.org/package=VecStatGraphs2D}.
-}
-\seealso{
-\code{\link[=gcpDiff]{gcpDiff()}}
 }
 \author{
 Juan Carlos Ruiz Cuetos \email{bilba_t@hotmail.com}\cr Maria Eugenia Polo Garcia

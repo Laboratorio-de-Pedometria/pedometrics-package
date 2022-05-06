@@ -1,6 +1,5 @@
 APCOM
 ASRtools
-Ames
 BEX
 BV
 Baafi
@@ -8,7 +7,6 @@ Babin
 Balkema
 Baume
 Brasília
-Breiman
 CNPq
 Chichester
 Chorti
@@ -51,16 +49,12 @@ Jian
 Jiang
 Kinwer
 Larrondo
-Liaw
 Lisse
 Lúcia
-MSPE
 Melles
 Monette
 Multivariable
-Nettleton
 Neufeld
-Nordman
 Olea
 PEV
 PIs
@@ -68,6 +62,7 @@ Papritz
 Pebesma
 Pedometric
 Peng
+RColorBrewer
 Rdoc
 Renard
 Rtools
@@ -103,7 +98,6 @@ cgi
 collinear
 cran
 de
-debias
 df
 et
 gencauchy
@@ -129,17 +123,14 @@ lm
 matern
 modelling
 mvtsplot
-nd
 packageversion
 pbapply
 pedometric
 pedometricians
-randomForest
 rosa
 roxygen
 samuel
 semivariance
-siteID
 spsann
 spsurvey
 svg
@@ -147,4 +138,3 @@ th
 wikipedia
 xn
 xtable
-xyz

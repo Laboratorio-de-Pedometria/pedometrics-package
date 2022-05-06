@@ -202,6 +202,7 @@
 #' print(p)
 #' }
 #' @keywords hplot
+#' @importFrom stats update
 #' @export
 # FUNCTION #########################################################################################
 plotMS <-

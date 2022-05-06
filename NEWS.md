@@ -1,5 +1,19 @@
 # News
 
+## pedometrics 0.11.1
+
+* __Bug fixes__
+  * The documentation of a few functions was missing the returned value. This was fixed. Now all
+    functions have the returned value clearly specified.
+  * The documentation of a few functions was using `\dontrun{}`. This was fixed. Now all functions
+    have at least one example that can be run conditionally on the availability of certain packages
+    or if R is being used interactively.
+* __Improvement 1__ Function documentation was cleaned up.
+* __Improvement 2__ In previous versions, `plotCor()` required `RColorBrewer::brewer.pal()` to
+    set the color palette. Now the color palette is hard-coded and package __RColorBrewer__ was
+    thus removed from _Suggests_.
+* __Improvement 3__ Run local and remote tests. Prepare comments to CRAN maintainers.
+
 ## pedometrics 0.11.0
 
 * __Improvement__ Run local and remote tests. Prepare comments to CRAN maintainers.

@@ -53,6 +53,7 @@ if (require(sp)) {
   data(meuse, package = "sp")
   p <- plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
 }
+
 }
 \references{
 Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John Wiley \& Sons, p.900, 1993.

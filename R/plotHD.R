@@ -68,6 +68,8 @@
 #'   p1 <- plotHD(x, HD = "stack")
 #'   p2 <- plotHD(x, HD = "over")
 #' }
+#' 
+#' @importFrom stats update
 #' @export
 # FUNCTION #########################################################################################
 # TODO:

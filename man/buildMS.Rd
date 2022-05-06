@@ -64,16 +64,16 @@ variable selection procedure, while \code{\link[MASS:stepAIC]{MASS::stepAIC()}} 
 bidirectional variable selection. For more information about these functions, please visit their
 respective help pages.
 
-An important feature of \code{buildMS()} is that it records the initial number of candidate predictor
-variables and observations offered to the model, and adds this information as an attribute to the
-final selected model. Such feature was included because variable selection procedures result
-biased linear models (too optimistic), and the effective number of degrees of freedom is close to
-the number of candidate predictor variables initially offered to the model (Harrell, 2001). With
-the initial number of candidate predictor variables and observations offered to the model, one
-can calculate penalized or adjusted measures of model performance. For models built using
-\code{builtMS()}, this can be done using \code{\link[=statsMS]{statsMS()}}.
+An important feature of \code{\link[=buildMS]{buildMS()}} is that it records the initial number of
+candidate predictor variables and observations offered to the model, and adds this information as
+an attribute to the final selected model. Such feature was included because variable selection
+procedures result biased linear models (too optimistic), and the effective number of degrees of
+freedom is close to the number of candidate predictor variables initially offered to the model
+(Harrell, 2001). With the initial number of candidate predictor variables and observations
+offered to the model, one can calculate penalized or adjusted measures of model performance. For
+models built using \code{\link[=buildMS]{buildMS()}}, this can be done using \code{\link[=statsMS]{statsMS()}}.
 
-Some important details should be clear when using \code{buildMS()}:
+Some important details should be clear when using \code{\link[=buildMS]{buildMS()}}:
 \itemize{
 \item this function was originally devised to deal with a list of formulas, but can also be used with
 a single formula;
@@ -84,7 +84,8 @@ which function is affected by a given argument without having to go check the do
 }
 }
 \section{TODO}{
- Add option to set the order in which \code{stepAIC} and \code{stepVIF} are run.
+
+Add option to set the order in which \code{\link[MASS:stepAIC]{MASS::stepAIC()}} and \code{\link[=stepVIF]{stepVIF()}} are run.
 }
 
 \examples{
@@ -104,6 +105,7 @@ cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin +
 data <- cpus1[cpus.samp,2:8]
 cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 }
+
 }
 \references{
 Harrell, F. E. (2001) \emph{Regression modelling strategies: with applications to linear models,
@@ -113,7 +115,7 @@ Venables, W. N. and Ripley, B. D. (2002) \emph{Modern applied statistics with S.
 New York: Springer.
 }
 \seealso{
-\code{\link[pedometrics]{stepVIF}}, \code{\link[pedometrics]{statsMS}}.
+\code{\link[=stepVIF]{stepVIF()}}, \code{\link[=statsMS]{statsMS()}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
