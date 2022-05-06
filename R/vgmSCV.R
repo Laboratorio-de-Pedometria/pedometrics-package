@@ -1,9 +1,10 @@
 #' Spatially correlated variance (SCV)
 #' 
+#' @description 
 #' Compute the proportion of the variance that is spatially correlated.
 #' 
-#' @param obj Variogram model fitted with available function in geostatistical
-#' packages such as \pkg{gstat}, \pkg{geoR}, and \pkg{georob}.
+#' @param obj Variogram model fitted with available function in geostatistical packages such as
+#' __gstat__, __geoR__, and __georob__.
 #' 
 #' @param digits Integer indicating the number of decimal places to be used.
 #' 
@@ -12,7 +13,7 @@
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @seealso \code{\link[pedometrics]{vgmLags}}
+#' @seealso [pedometrics::vgmLags()]
 #' 
 #' @aliases vgmSCV vgmSCV.variomodel vgmSCV.variogramModel vgmSCV.georob
 #' 
@@ -20,12 +21,15 @@
 #' @export
 #' @examples
 #' if (require(geoR)) {
-#'   ml <- likfit(s100, ini=c(0.5, 0.5), fix.nug = TRUE)
+#'   ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
 #'   res <- vgmSCV(ml)
 #' }
-####################################################################################################
-vgmSCV <- function(obj, digits = 4) UseMethod("vgmSCV")
-# FUNCTION - geoR ##############################################################
+# FUNCTION - general ###############################################################################
+vgmSCV <- 
+  function(obj, digits = 4) {
+    UseMethod("vgmSCV")
+  }
+# FUNCTION - geoR ##################################################################################
 #' @rdname vgmSCV
 #' @export
 vgmSCV.variomodel <-
@@ -34,7 +38,7 @@ vgmSCV.variomodel <-
     res <- round(unname(res), digits = digits)
     return(res)
   }
-# FUNCTION - gstat #############################################################
+# FUNCTION - gstat #################################################################################
 #' @export
 #' @rdname vgmSCV
 vgmSCV.variogramModel <-
@@ -43,7 +47,7 @@ vgmSCV.variogramModel <-
     res <- round(unname(res), digits = digits)
     return(res)
   }
-# FUNCTION - georob ############################################################
+# FUNCTION - georob ################################################################################
 #' @export
 #' @rdname vgmSCV
 vgmSCV.georob <-

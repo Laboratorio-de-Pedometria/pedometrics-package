@@ -1,52 +1,50 @@
 #' Lag-distance classes for variogram estimation
 #' 
+#' @description 
 #' Computation of lag-distance classes for variogram estimation.
 #' 
 #' @param coords Data frame or matrix with the projected x- and y-coordinates.
 #' 
-#' @param n.lags Integer value defining the number of lag-distance classes that 
-#' should be computed. Defaults to \code{n = 7}.
+#' @param n.lags Integer value defining the number of lag-distance classes that should be computed.
+#' Defaults to `n = 7`.
 #' 
-#' @param type Character value defining the type of lag-distance classes that
-#' should be computed, with options \code{"equi"} (equidistant) and \code{"exp"}
-#' (exponential). Defaults to \code{type = "exp"}.
+#' @param type Character value defining the type of lag-distance classes that should be computed,
+#' with options `"equi"` (equidistant) and `"exp"` (exponential). Defaults to `type = "exp"`.
 #' 
-#' @param cutoff Numeric value defining the fraction of the diagonal of the
-#' rectangle that spans the data (bounding box) that should be used to set the
-#' maximum distance up to which lag-distance classes should be computed. 
-#' Defaults to \code{cutoff = 0.5}, i.e. half the diagonal of the bounding box.
+#' @param cutoff Numeric value defining the fraction of the diagonal of the rectangle that spans the
+#' data (bounding box) that should be used to set the maximum distance up to which lag-distance
+#' classes should be computed. Defaults to `cutoff = 0.5`, i.e. half the diagonal of the bounding
+#' box.
 #' 
-#' @param base Numeric value defining the base of the exponential expression 
-#' used to create exponentially spaced lag-distance classes. Used only when 
-#' \code{type = "exp"}. Defaults to \code{base = 2}, i.e. the width of the 
-#' rightmost lag-distance classes is equal to half the diagonal of 
-#' \code{cutoff}, and so on.
+#' @param base Numeric value defining the base of the exponential expression used to create
+#' exponentially spaced lag-distance classes. Used only when `type = "exp"`. Defaults to `base = 2`,
+#' i.e. the width of the rightmost lag-distance classes is equal to half the diagonal of `cutoff`,
+#' and so on.
 #' 
-#' @param zero Numeric value setting the minimum pair-wise separation distance 
-#' that should be used to compute the lag-distance classes. Defaults to 
-#' \code{zero = 0.0001}.
+#' @param zero Numeric value setting the minimum pair-wise separation distance that should be used
+#' to compute the lag-distance classes. Defaults to `zero = 0.0001`.
 #' 
-#' @param count Should the number of points (\code{"points"}) or point-pairs 
-#' (\code{"pairs"}) per lag-distance class be computed? Defaults to 
-#' \code{count = "pairs"}.
+#' @param count Should the number of points (`"points"`) or point-pairs (`"pairs"`) per lag-distance
+#' class be computed? Defaults to `count = "pairs"`.
 #' 
 #' @return
 #' Vector of numeric values with the lower and upper boundaries of the lag-distance classes. The
 #' number of points or point-pairs per lag-distance class is returned as an attribute.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @concept variogram
+#' 
 #' @references
-#' Truong, P. N.; Heuvelink, G. B. M.; Gosling, J. P. Web-based tool for expert
-#' elicitation of the variogram. \emph{Computers and Geosciences}. v. 51, p.
-#' 390-399, 2013.
-#' @export
+#' Truong, P. N.; Heuvelink, G. B. M.; Gosling, J. P. Web-based tool for expert elicitation of the
+#' variogram. _Computers and Geosciences_. v. 51, p. 390-399, 2013.
+#' 
 #' @examples
-#' if (require(SpatialTools)) {
+#' if (all(c(require(SpatialTools), require(sp)))) {
 #'   data(meuse, package = "sp")
 #'   lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
 #'   lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
 #' }
+#' @concept variogram
+#' @export
 # FUNCTION - MAIN ##################################################################################
 vgmLags <-
   function(coords, n.lags = 7, type = "exp", cutoff = 0.5, base = 2, zero = 0.001,

@@ -1,5 +1,6 @@
 #' Create Spatial object from a bounding box
 #'
+#' @description 
 #' This function takes the bounding box of a Spatial* object and creates a SpatialPoints* or
 #' SpatialPolygons* object from it.
 #'
@@ -27,14 +28,14 @@
 #' interpolation - methods only to be used interactively, not included in intamap package._ R
 #' package version 1.1-10. \url{https://CRAN.R-project.org/package=intamapInteractive}.
 #'
-#' @keywords misc spatial
-#' @export
 #' @examples
 #' if (require(sp)) {
 #' data(meuse, package = "sp")
 #' sp::coordinates(meuse) <- ~ x + y
 #' bb <- bbox2sp(obj = meuse, keep.crs = FALSE)
 #' }
+#' @keywords misc spatial
+#' @export
 # FUNCTION #########################################################################################
 bbox2sp <-
   function(obj, sp = "SpatialPolygons", keep.crs = TRUE) {

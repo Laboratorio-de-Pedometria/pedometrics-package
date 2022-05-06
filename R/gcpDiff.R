@@ -1,21 +1,20 @@
 #' Difference on xyz coordinates between ground control points
 #' 
-#' This function estimates the difference, absolute difference, and squared
-#' difference on x, y and z coordinates of two sets of ground control points
-#' (GCP). It also estimates the module (difference vector), its square and
-#' azimuth. The result is a data frame ready to be used to define a object of
-#' class \code{spsurvey.object}.
+#' @description 
+#' This function estimates the difference, absolute difference, and squared difference on x, y and z
+#' coordinates of two sets of ground control points (GCP). It also estimates the module (difference
+#' vector), its square and azimuth. The result is a data frame ready to be used to define a object
+#' of class `spsurvey.object`.
 #' 
 #' @details
 #' \subsection{Type of data}{
-#' Two types of validation data that can be submitted to function
-#' \code{gcpDiff()}: those coming from horizontal (positional) validation
-#' exercises (\code{type = "xy"}), and those coming from vertical validation
-#' exercises (\code{type = "z"}).
+#' Two types of validation data that can be submitted to function \code{gcpDiff()}: those coming
+#' from horizontal (positional) validation exercises (\code{type = "xy"}), and those coming from
+#' vertical validation exercises (\code{type = "z"}).
 #' 
-#' Horizontal (positional) validation exercises compare the position of
-#' \code{measured} point data with the position of \code{predicted} point data.
-#' Horizontal displacement (error) is measured in both \sQuote{x} and
+#' Horizontal (positional) validation exercises compare the position of \code{measured} point data
+#' with the position of \code{predicted} point data. Horizontal displacement (error) is measured in
+#' both \sQuote{x} and
 #' \sQuote{y} coordinates, and is used to calculate the error vector (module)
 #' and its azimuth.  Both objects \code{measured} and \code{predicted} used
 #' with function \code{gcpDiff()} must be of class
@@ -73,16 +72,19 @@
 #' 
 #' @param rounding Rounding level of the data in the output data frame.
 #' 
-#' @return An object of class \code{data.frame} ready to be used to feed the
-#' argument \code{data.cont} when creating a \code{spsurvey.analysis} object.
+#' @return
+#' An object of class \code{data.frame} ready to be used to feed the argument \code{data.cont} when
+#' creating a \code{spsurvey.analysis} object.
 #' 
-#' @note Data of \code{type = "xy"} cannot be submitted to cluster aggregation
-#' in the present version.
+#' @note Data of \code{type = "xy"} cannot be submitted to cluster aggregation in the present
+#' version.
+#' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @seealso \code{\link[pedometrics]{coordenadas}}, \code{\link[pedometrics]{gcpVector}}.
-#' @references Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey
-#' Design and Analysis. R package version 2.6. URL: \url{https://www.epa.gov/}.
-#' @export
+#' 
+#' @references
+#' Kincaid, T. M. and Olsen, A. R. (2013). spsurvey: Spatial Survey Design and Analysis. R package
+#' version 2.6. URL: \url{https://www.epa.gov/}.
+#' 
 #' @examples
 #' 
 #' \dontrun{
@@ -96,6 +98,7 @@
 #'                     wgt = rep(1, length(my.data$id)), vartype = "SRS")
 #' }
 #' }
+#' @export
 ####################################################################################################
 gcpDiff <-
   function(measured, predicted, type = "xy", aggregate = FALSE, rounding = 0) {

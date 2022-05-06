@@ -22,28 +22,24 @@ plotMS(
 )
 }
 \arguments{
-\item{obj}{Object of class \code{data.frame}, generally returned by
-\code{\link[pedometrics]{statsMS}}, containing a 1) series of performance
-statistics of several models, and 2) the design information of each model.
+\item{obj}{Object of class \code{data.frame}, generally returned by \code{\link[=statsMS]{statsMS()}},
+containing a 1) series of performance statistics of several models, and 2) the design information
+of each model. See \sQuote{Details} for more information.}
+
+\item{grid}{Vector of integer values or character strings indicating the columns of the
+\code{data.frame} containing the design data which will be gridded using the function
+\code{\link[lattice:levelplot]{lattice::levelplot()}}. See \sQuote{Details} for more information.}
+
+\item{line}{Character string or integer value indicating which of the performance statistics
+(usually calculated by \code{\link[=statsMS]{statsMS()}}) should be plotted using the function
+\code{\link[lattice:xyplot]{lattice::xyplot()}}. See \sQuote{Details} for more information.}
+
+\item{ind}{Integer value indicating for which group of models the mean rank is to be calculated.
 See \sQuote{Details} for more information.}
 
-\item{grid}{Vector of integer values or character strings indicating the
-columns of the \code{data.frame} containing the design data which will be
-gridded using the function \code{\link[lattice]{levelplot}}. See
-\sQuote{Details} for more information.}
-
-\item{line}{Character string or integer value indicating which of the
-performance statistics (usually calculated by \code{statsMS}) should be
-plotted using the function \code{\link[lattice]{xyplot}}. See
-\sQuote{Details} for more information.}
-
-\item{ind}{Integer value indicating for which group of models the mean rank
-is to be calculated. See \sQuote{Details} for more information.}
-
-\item{type}{Vector of character strings indicating some of the effects to be
-used when plotting the performance statistics using \code{xyplot}. Defaults
-to \code{type = c("b", "g")}. See \code{\link[lattice]{panel.xyplot}}
-for more information on how to set this argument.}
+\item{type}{Vector of character strings indicating some of the effects to be used when plotting
+the performance statistics using \code{\link[lattice:xyplot]{lattice::xyplot()}}. Defaults \code{type = c("b", "g")}. See
+\code{\link[lattice:panel.xyplot]{lattice::panel.xyplot()}} for more information on how to set this argument.}
 
 \item{pch}{Vector with two integer values specifying the symbols to be used
 to plot points. The first sets the symbol used to plot the performance
@@ -96,11 +92,11 @@ of the design data.}
 An object of class \code{"trellis"} consisting of a model series plot.
 }
 \description{
-This function produces a graphical output that allows the examination of the
-effect of using different model specifications (design) on the predictive
-performance of these models (a model series). It generally is used to access
-the results of functions \code{buildMS} and \code{statsMS}, but can be
-easily adapted to work with any model structure and performance measure.
+This function produces a graphical output that allows the examination of the effect of using
+different model specifications (design) on the predictive performance of these models (a model
+series). It generally is used to access the results of functions \code{\link[=buildMS]{buildMS()}} and
+\code{\link[=statsMS]{statsMS()}}, but can be easily adapted to work with any model structure and
+performance measure.
 }
 \details{
 This section gives more details about arguments \code{obj}, \code{grid},

@@ -16,8 +16,8 @@ vgmSCV(obj, digits = 4)
 \method{vgmSCV}{georob}(obj, digits = 4)
 }
 \arguments{
-\item{obj}{Variogram model fitted with available function in geostatistical
-packages such as \pkg{gstat}, \pkg{geoR}, and \pkg{georob}.}
+\item{obj}{Variogram model fitted with available function in geostatistical packages such as
+\strong{gstat}, \strong{geoR}, and \strong{georob}.}
 
 \item{digits}{Integer indicating the number of decimal places to be used.}
 }
@@ -29,12 +29,12 @@ Compute the proportion of the variance that is spatially correlated.
 }
 \examples{
 if (require(geoR)) {
-  ml <- likfit(s100, ini=c(0.5, 0.5), fix.nug = TRUE)
+  ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
   res <- vgmSCV(ml)
 }
 }
 \seealso{
-\code{\link[pedometrics]{vgmLags}}
+\code{\link[=vgmLags]{vgmLags()}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

@@ -1,5 +1,6 @@
 #' Build a series of linear models using automated variable selection
 #'
+#' @description 
 #' This function allows building a series of linear models with [stats::lm()] using one or more
 #' automated variable selection implemented in function [pedometrics::stepVIF()] and
 #' [MASS::stepAIC()].
@@ -42,16 +43,16 @@
 #' bidirectional variable selection. For more information about these functions, please visit their
 #' respective help pages.
 #'
-#' An important feature of `buildMS()` is that it records the initial number of candidate predictor
-#' variables and observations offered to the model, and adds this information as an attribute to the
-#' final selected model. Such feature was included because variable selection procedures result
-#' biased linear models (too optimistic), and the effective number of degrees of freedom is close to
-#' the number of candidate predictor variables initially offered to the model (Harrell, 2001). With
-#' the initial number of candidate predictor variables and observations offered to the model, one
-#' can calculate penalized or adjusted measures of model performance. For models built using
-#' `builtMS()`, this can be done using [pedometrics::statsMS()].
+#' An important feature of [pedometrics::buildMS()] is that it records the initial number of
+#' candidate predictor variables and observations offered to the model, and adds this information as
+#' an attribute to the final selected model. Such feature was included because variable selection
+#' procedures result biased linear models (too optimistic), and the effective number of degrees of
+#' freedom is close to the number of candidate predictor variables initially offered to the model
+#' (Harrell, 2001). With the initial number of candidate predictor variables and observations
+#' offered to the model, one can calculate penalized or adjusted measures of model performance. For
+#' models built using [pedometrics::builtMS()], this can be done using [pedometrics::statsMS()].
 #'
-#' Some important details should be clear when using `buildMS()`:
+#' Some important details should be clear when using [pedometrics::builtMS()]:
 #'
 #' * this function was originally devised to deal with a list of formulas, but can also be used with
 #'   a single formula;
@@ -60,7 +61,8 @@
 #'   in the original functions, and received a prefix (`aic` or `vif`) to help the user identifying
 #'   which function is affected by a given argument without having to go check the documentation.
 #'
-#' @return A list containing the fitted linear models.
+#' @return
+#' A list containing the fitted linear models.
 #'
 #' @references
 #' Harrell, F. E. (2001) _Regression modelling strategies: with applications to linear models,
@@ -71,11 +73,10 @@
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
-#' @section TODO: Add option to set the order in which \code{stepAIC} and \code{stepVIF} are run.
+#' @section TODO:
+#' Add option to set the order in which [MASS::stepAIC()] and [pedometrics::stepVIF()] are run.
 #'
-#' @seealso \code{\link[pedometrics]{stepVIF}}, \code{\link[pedometrics]{statsMS}}.
-#'
-#' @export
+#' @seealso [pedometrics::stepVIF()], [pedometrics::statsMS()]
 #'
 #' @examples
 #' if (interactive()) {
@@ -94,6 +95,7 @@
 #' data <- cpus1[cpus.samp,2:8]
 #' cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 #' }
+#' @export
 # FUNCTION #########################################################################################
 buildMS <-
   function(formula, data, vif = FALSE, vif.threshold = 10, vif.verbose = FALSE, aic = FALSE,

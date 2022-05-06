@@ -1,5 +1,6 @@
 #' Initial covariance parameters (ICP)
-#'
+#' 
+#' @description 
 #' Guess the initial values for the covariance parameters required to fit a variogram model.
 #'
 #' @inheritParams vgmLags
@@ -19,7 +20,7 @@
 #' `min.npairs = 30`.
 #'
 #' @param model Character keyword defining the variogram model that will be fitted to the data.
-#' Currently, most basic variogram models are accepted. See \code{\link[geoR]{cov.spatial}} for more
+#' Currently, most basic variogram models are accepted. See [geoR::cov.spatial()] for more
 #' information. Defaults to `model = "matern"`.
 #'
 #' @param nu numerical value for the additional smoothness parameter \eqn{\nu} of the correlation
@@ -39,12 +40,12 @@
 #'
 #' @details
 #' There are five methods two guess the initial covariance parameters  (ICP). Two of them, `"a"` and
-#' `"c"`, rely a sample variogram with exponentially spaced lag-distance classes, while the other three, `"b"`,
-#' `"d"`, and `"e"`, use equidistant lag-distance classes (see \code{\link[pedometrics]{vgmLags}}). All of them
-#' are \href{https://en.wikipedia.org/wiki/Heuristic}{heuristic}.
+#' `"c"`, rely a sample variogram with exponentially spaced lag-distance classes, while the other
+#' three, `"b"`, `"d"`, and `"e"`, use equidistant lag-distance classes (see
+#' [pedometrics::vgmLags()]). All of them are [heuristic](https://en.wikipedia.org/wiki/Heuristic).
 #'
-#' Method `"a"` was developed in-house and is the most elaborated of them, specially for guessing the nugget
-#' variance.
+#' Method `"a"` was developed in-house and is the most elaborated of them, specially for guessing
+#' the nugget variance.
 #'
 #' Method `"b"` was proposed by \doi{10.1016/0098-3004(95)00095-X}{Jian et al. (1996)} and
 #' is implemented in \href{https://support.sas.com/documentation/cdl/en/statug/63347/HTML/default/viewer.htm#statug_variogram_a0000000593.htm}{SAS/STAT(R) 9.22}.
@@ -57,36 +58,39 @@
 #' Method `"e"` was proposed by \href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of \href{http://www.gslib.com/}{GSLIB}.
 #'
 #' @references
+#' Desassis, N. & Renard, D. Automatic variogram modelling by iterative least squares: univariate
+#' and multivariate cases. _Mathematical Geosciences_. Springer Science + Business Media, v. 45, p.
+#' 453-470, 2012.
 #' 
-#' Desassis, N. & Renard, D. Automatic variogram modelling by iterative least squares: univariate and 
-#' multivariate cases. _Mathematical Geosciences_. Springer Science \eqn{+} Business Media, v. 45, p. 453-470,
-#' 2012.
+#' Hiemstra, P. H.; Pebesma, E. J.; Twenhöfel, C. J. & Heuvelink, G. B. Real-time automatic
+#' interpolation of ambient gamma dose rates from the Dutch radioactivity monitoring network.
+#' _Computers & Geosciences_. Elsevier BV, v. 35, p. 1711-1721, 2009.
 #' 
-#' Hiemstra, P. H.; Pebesma, E. J.; Twenhöfel, C. J. & Heuvelink, G. B. Real-time automatic interpolation of
-#' ambient gamma dose rates from the Dutch radioactivity monitoring network. _Computers & Geosciences_. 
-#' Elsevier BV, v. 35, p. 1711-1721, 2009.
+#' Jian, X.; Olea, R. A. & Yu, Y.-S. Semivariogram modelling by weighted least squares. _Computers &
+#' Geosciences_. Elsevier BV, v. 22, p. 387-397, 1996.
 #' 
-#' Jian, X.; Olea, R. A. & Yu, Y.-S. Semivariogram modelling by weighted least squares. 
-#' _Computers & Geosciences_. Elsevier BV, v. 22, p. 387-397, 1996.
-#' 
-#' Larrondo, P. F.; Neufeld, C. T. & Deutsch, C. V. _VARFIT: a program for semi-automatic variogram modelling_.
-#' Edmonton: Department of Civil and Environmental Engineering, University of Alberta, p. 17, 2003.
+#' Larrondo, P. F.; Neufeld, C. T. & Deutsch, C. V. _VARFIT: a program for semi-automatic variogram
+#' modelling_. Edmonton: Department of Civil and Environmental Engineering, University of Alberta,
+#' p. 17, 2003.
 #' 
 #' @note 
-#' Package __geoR__ is used to guess the range (scale) parameter of the following covariance models: "matern" (except when `nu = 0.5`), "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting", and "gneiting.matern". However, __geoR__ is an orphan package since 2020-01-12. Thus, if __geoR__ is not installed, a guess of the practical range of these covariance models is returned. The practical range is the distance at which the semivariance reaches its maximum, i.e. the sill.
+#' Package __geoR__ is used to guess the range (scale) parameter of the following covariance models:
+#' "matern" (except when `nu = 0.5`), "powered.exponential", "stable", "cauchy", "gencauchy",
+#' "gneiting", and "gneiting.matern". If __geoR__ is not installed, a guess of the practical range
+#' of these covariance models is returned. The practical range is the distance at which the
+#' semivariance reaches its maximum, i.e. the sill.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @seealso \code{\link[pedometrics]{vgmLags}}
-#' 
-#' @concept variogram
-#' @export
+#' @seealso [pedometrics::vgmLags()]
 #' 
 #' @examples
 #' if (require(sp)) {
 #'   data(meuse, package = "sp")
 #'   icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
 #' }
+#' @concept variogram
+#' @export
 # FUNCTION - MAIN ##################################################################################
 vgmICP <-
   function(z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30, model = "matern", nu = 0.5,

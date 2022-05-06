@@ -1,7 +1,8 @@
 #' Histogram and density plot
-#'
+#' 
+#' @description
 #' This function plots a histogram and a density plot of a single variable using the R-package
-#' **lattice**.
+#' __lattice__.
 #'
 #' @param x Vector of numeric values of the variable for which the histogram and density plot
 #' should be created.
@@ -19,64 +20,55 @@
 #' `stats = TRUE`.
 #'
 #' @param digits Integer indicating the number of decimal places to be used 
-#' when printing the statistics of the variable \code{x}. Defaults to 
-#' \code{digits = 2}.
+#' when printing the statistics of the variable `x`. Defaults to `digits = 2`.
 #' 
-#' @param BoxCox Logical to indicate if the variable \code{x} should be 
-#' transformed using the Box-Cox family of power transformations. The estimated
-#' lambda value of the Box-Cox transform is printed in the console. It is set to
-#' zero when negative. Defaults to \code{BoxCox = FALSE}.
+#' @param BoxCox Logical to indicate if the variable `x` should be transformed using the Box-Cox
+#' family of power transformations. The estimated lambda value of the Box-Cox transform is printed
+#' in the console. It is set to zero when negative. Defaults to `BoxCox = FALSE`.
 #' 
-#' @param col Vector of two elements, the first indicating the color of the
-#' histogram, the second indicating the color of the density plot. Defaults to 
-#' \code{col = c("lightgray", "black")}.
+#' @param col Vector of two elements, the first indicating the color of the histogram, the second
+#' indicating the color of the density plot. Defaults to `col = c("lightgray", "black")`.
 #' 
-#' @param lwd Vector of two elements, the first indicating the line width of the
-#' histogram, the second indicating the line width of the density plot. Defaults 
-#' to \code{lwd = c(1, 1)}.
+#' @param lwd Vector of two elements, the first indicating the line width of the histogram, the
+#' second indicating the line width of the density plot. Defaults to `lwd = c(1, 1)`.
 #' 
-#' @param lty Character value indicating the line type for the density plot.
-#' Defaults to \code{lty = "dashed"}.
+#' @param lty Character value indicating the line type for the density plot. Defaults to
+#' `lty = "dashed"`.
 #' 
-#' @param xlim Vector of two elements defining the limits of the x axis. The
-#' function automatically optimizes \code{xlim} based on the density plot.
+#' @param xlim Vector of two elements defining the limits of the x axis. The function automatically
+#' optimizes `xlim` based on the density plot.
 #' 
-#' @param ylim Vector of two elements defining the limits of the y axis. The
-#' function automatically optimizes \code{ylim} based both histogram and density 
-#' plot.
+#' @param ylim Vector of two elements defining the limits of the y axis. The function automatically
+#' optimizes `ylim` based both histogram and density plot.
 #' 
-#' @param ... Other arguments that can be passed to \pkg{lattice} functions. 
-#' There is no guarantee that they will work.
+#' @param ... Other arguments that can be passed to __lattice__ functions. There is no guarantee
+#' that they will work.
 #' 
 #' @details
-#' The user should visit the help pages of \code{\link[lattice]{histogram}},
-#' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}}, 
-#' `car::powerTransform()` and `car::bcPower()` to obtain 
-#' more details about the main functions used to built \code{plotHD}.
+#' The user should visit the help pages of [lattice::histogram()], [lattice::densityplot()],
+#' [lattice::panel.mathdensity()], [car::powerTransform()], and [car::bcPower()] to obtain more
+#' details about the main functions used to built [pedometrics::plotHD()].
 #' 
 #' @return
-#' An object of class \code{"trellis"}. The 
-#' \code{\link[lattice]{update.trellis}} method can be used to update components
-#' of the object and the \code{\link[lattice]{print.trellis}} print method
-#' (usually called by default) will plot it on an appropriate plotting device.
+#' An object of class `"trellis"`. The [lattice::update.trellis()] method can be used to update
+#' components of the object and the [lattice::print.trellis()] print method (usually called by
+#' default) will plot it on an appropriate plotting device.
 #'
 #' @references
-#' Sarkar, Deepayan (2008) \emph{Lattice: Multivariate Data Visualization with
-#' R}, Springer. \url{http://lmdvr.r-forge.r-project.org/}
+#' Sarkar, Deepayan (2008) _Lattice: Multivariate Data Visualization with R_, Springer.
+#' \url{http://lmdvr.r-forge.r-project.org/}
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
-#' @seealso \code{\link[lattice]{histogram}},
-#' \code{\link[lattice]{densityplot}}, \code{\link[lattice]{panel.mathdensity}}.
-#' @import lattice latticeExtra
-#' @importFrom stats update
-#' @export
+#' @seealso [lattice::histogram()], [lattice::densityplot()], [lattice::panel.mathdensity()]
+#' 
 #' @examples
-#' if (all(c(require(moments), require(car), require(lattice)))) {
+#' if (all(c(require(moments), require(car), require(lattice), require(latticeExtra)))) {
 #'   x <- rnorm(100, 10, 2)
 #'   p1 <- plotHD(x, HD = "stack")
 #'   p2 <- plotHD(x, HD = "over")
 #' }
+#' @export
 # FUNCTION #########################################################################################
 # TODO:
 #   - moments::skewness() is used here, creating an entry in Suggests. To avoid this, implement code
@@ -89,6 +81,7 @@ plotHD <-
     if (!requireNamespace("moments")) stop("moments package is missing")
     if (!requireNamespace("car")) stop("car package is missing")
     if (!requireNamespace("lattice")) stop("lattice package is missing")
+    if (!requireNamespace("latticeExtra")) stop("latticeExtra package is missing")
     if (BoxCox) {
       # Check if the variable has negative values
       check <- any(x <= 0)

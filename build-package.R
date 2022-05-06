@@ -31,7 +31,9 @@ devtools::run_examples()
 
 # check for Linux (local) ----
 devtools::check(env_vars = c(`_R_CHECK_DEPENDS_ONLY_` = TRUE))
-devtools::check(document = TRUE, manual = TRUE, force_suggests = TRUE)
+devtools::check(
+  document = TRUE, manual = TRUE, vignettes = TRUE, force_suggests = TRUE, incoming = TRUE,
+  remote = TRUE)
 
 # check for Windows (remote) ----
 devtools::check_win_devel()

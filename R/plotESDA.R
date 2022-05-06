@@ -46,15 +46,13 @@
 #'
 #' @seealso [pedometrics::plotHD()]
 #'
-#' @importFrom graphics plot
-#'
-#' @export
-#'
 #' @examples
 #' if (require(sp)) {
 #'   data(meuse, package = "sp")
 #'   p <- plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
 #' }
+#' 
+#' @export
 # FUNCTION #########################################################################################
 plotESDA <- 
   function(z, lat, lon, lags = NULL, cutoff = NULL, width = c(cutoff / 20), leg.pos = "right") {

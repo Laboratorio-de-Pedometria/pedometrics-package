@@ -24,129 +24,112 @@
 #' are given bellow.
 #'
 #' \subsection{Error statistics}{
-#' Error statistics measure how well the GMU predicts the measured values at the
-#' validation points. Four error statistics are presented:
+#' Error statistics measure how well the GMU predicts the measured values at the validation points.
+#' Four error statistics are presented:
 #' 
 #' \describe{
 #' \item{Mean error (ME)}{
-#' Measures the bias of the predictions of the GMU, being defined as the mean of
-#' the differences between the average of the simulated values and the observed
-#' values, i.e. the average of all simulations is taken as the predicted value.
+#' Measures the bias of the predictions of the GMU, being defined as the mean of the differences
+#' between the average of the simulated values and the observed values, i.e. the average of all
+#' simulations is taken as the predicted value.
 #' }
 #' \item{Mean squared error (MSE)}{
-#' Measures the accuracy of the predictions of the GMU, being defined as the
-#' mean of the squared differences between the average of the simulated values
-#' and the observed values.
+#' Measures the accuracy of the predictions of the GMU, being defined as the mean of the squared
+#' differences between the average of the simulated values and the observed values.
 #' }
 #' \item{Scaled root mean squared error (SRMSE)}{
-#' Measures how well the GMU estimate of the prediction error variance (PEV)
-#' approximates the observed prediction error variance, where the first is 
-#' given by the variance of the simulated values, while the second is given by
-#' the squared differences between the average of the simulated values, i.e. 
-#' the squared error (SE). The SRMSE is computed as the average of SE / PEV, 
-#' where SRMSE > 1 indicates underestimation, while SRMSE < 1 indicates
-#' overestimation.
+#' Measures how well the GMU estimate of the prediction error variance (PEV) approximates the
+#' observed prediction error variance, where the first is given by the variance of the simulated
+#' values, while the second is given by the squared differences between the average of the simulated
+#' values, i.e. the squared error (SE). The SRMSE is computed as the average of SE / PEV, where
+#' SRMSE > 1 indicates underestimation, while SRMSE < 1 indicates overestimation.
 #' }
 #' \item{Pearson correlation coefficient}{
-#' Measures how close the GMU predictions are to the observed values. A scatter 
-#' plot of the observed values versus the average of the simulated values 
-#' can be used to check for possible unwanted outliers and non-linearities. 
-#' The square of the Pearson correlation coefficient measures the fraction 
-#' of the overall spread of observed values that is explained by the GMU, 
-#' that is, the amount of variance explained (AVE), also known as coefficient 
-#' of determination or ratio of scatter.
+#' Measures how close the GMU predictions are to the observed values. A scatter plot of the observed
+#' values versus the average of the simulated values can be used to check for possible unwanted
+#' outliers and non-linearities. The square of the Pearson correlation coefficient measures the
+#' fraction of the overall spread of observed values that is explained by the GMU, that is, the
+#' amount of variance explained (AVE), also known as coefficient of determination or ratio of
+#' scatter.
 #' }
 #' }
 #' }
 #' \subsection{Coverage probabilities}{
-#' The coverage probability of an interval is given by the number of times that
-#' that interval contains its parameter over several replications of an
-#' experiment. For example, consider the interquartile range \eqn{IQR = Q3 - Q1}
-#' of a Gaussian distributed variable with mean equal to zero and variance equal 
-#' to one. The nominal coverage probability of the IQR is 0.5, i.e. two 
-#' quarters of the data fall within the IQR. Suppose we generate a Gaussian 
-#' distributed \emph{random} variable with the same mean and variance and count
-#' the number of values that fall within the IQR defined above: about 0.5 of 
-#' its values will fall within the IQR. If we continue generating Gaussian
-#' distributed \emph{random} variables with the same mean and variance, on 
-#' average, 0.5 of the values will fall in that interval.
+#' The coverage probability of an interval is given by the number of times that that interval
+#' contains its parameter over several replications of an experiment. For example, consider the
+#' interquartile range \eqn{IQR = Q3 - Q1} of a Gaussian distributed variable with mean equal to
+#' zero and variance equal to one. The nominal coverage probability of the IQR is 0.5, i.e. two
+#' quarters of the data fall within the IQR. Suppose we generate a Gaussian distributed
+#' _random_ variable with the same mean and variance and count the number of values that fall within
+#' the IQR defined above: about 0.5 of its values will fall within the IQR. If we continue
+#' generating Gaussian distributed _random_ variables with the same mean and variance, on average,
+#' 0.5 of the values will fall in that interval.
 #' 
-#' Coverage probabilities are very useful to evaluate the local quality of a
-#' GMU: the closer the observed coverage probabilities of a sequence of 
-#' probability intervals (PI) are to the nominal coverage probabilities of 
-#' those PIs, the better the modeling of the local uncertainty.
+#' Coverage probabilities are very useful to evaluate the local quality of a GMU: the closer the
+#' observed coverage probabilities of a sequence of probability intervals (PI) are to the nominal
+#' coverage probabilities of those PIs, the better the modeling of the local uncertainty.
 #' 
-#' Two types of PIs can be used here: symmetric, median-centered PIs, and 
-#' left-bounded PIs. Papritz & Dubois (1999) recommend using left-bounded PIs 
-#' because they are better at evidencing deviations for both large and small 
-#' PIs. The authors also point that the coverage probabilities of the symmetric,
-#' median-centered PIs can be read from the coverage probability plots produced 
-#' using left-bounded PIs.
+#' Two types of PIs can be used here: symmetric, median-centered PIs, and left-bounded PIs. Papritz
+#' & Dubois (1999) recommend using left-bounded PIs because they are better at evidencing deviations
+#' for both large and small PIs. The authors also point that the coverage probabilities of the
+#' symmetric, median-centered PIs can be read from the coverage probability plots produced using
+#' left-bounded PIs.
 #' 
-#' In both cases, the PIs are computed at each validation location using the 
-#' quantiles of the conditional cumulative distribution function (ccdf) defined
-#' by the set of realizations at that validation location. For a sequence of 
-#' PIs of increasing width, we check which of them contains the observed value 
-#' at all validation locations. We then average the results over all validation 
-#' locations to compute the proportion of PIs (with the same width) that 
-#' contains the observed value: this gives the coverage probability of the PIs.
+#' In both cases, the PIs are computed at each validation location using the quantiles of the
+#' conditional cumulative distribution function (ccdf) defined by the set of realizations at that
+#' validation location. For a sequence of PIs of increasing width, we check which of them contains
+#' the observed value at all validation locations. We then average the results over all validation
+#' locations to compute the proportion of PIs (with the same width) that contains the observed
+#' value: this gives the coverage probability of the PIs.
 #' 
-#' Deutsch (1997) proposed three summary measures of the coverage 
-#' probabilities to assess the local \emph{goodness} of a GMU: accuracy ($A$),
-#' precision ($P$), and goodness ($G$). According to Deutsch (1997), a GMU can 
-#' be considered \dQuote{good} if it is both accurate and precise. Although 
-#' easy to compute, these measures seem not to have been explored by many 
-#' geostatisticians, except for the studies developed by Pierre Goovaerts and 
-#' his later software implementation (Goovaerts, 2009). Richmond (2001) 
-#' suggests that they should not be used as the only measures of the local 
+#' Deutsch (1997) proposed three summary measures of the coverage probabilities to assess the local
+#' _goodness_ of a GMU: accuracy ($A$), precision ($P$), and goodness ($G$). According to Deutsch
+#' (1997), a GMU can be considered \dQuote{good} if it is both accurate and precise. Although easy
+#' to compute, these measures seem not to have been explored by many geostatisticians, except for
+#' the studies developed by Pierre Goovaerts and his later software implementation (Goovaerts,
+#' 2009). Richmond (2001) suggests that they should not be used as the only measures of the local
 #' quality of a GMU.
 #' 
 #' \describe{
 #' \item{Accuracy}{
-#' An accurate GMU is that for which the proportion \eqn{p^*} of true values 
-#' falling within the $p$ PI is equal to or larger than the nominal probability
-#' $p$, that is, when \eqn{p^* \geq p}. In the coverage probability plot, a GMU 
-#' will be more accurate when all points are on or above the 1:1 line. The 
-#' range of $A$ goes from 0 (lest accurate) to 1 (most accurate).
+#' An accurate GMU is that for which the proportion \eqn{p^*} of true values falling within the $p$
+#' PI is equal to or larger than the nominal probability $p$, that is, when \eqn{p^* \geq p}. In the
+#' coverage probability plot, a GMU will be more accurate when all points are on or above the 1:1
+#' line. The range of $A$ goes from 0 (lest accurate) to 1 (most accurate).
 #' }
 #' \item{Precision}{
-#' The \emph{precision}, $P$, is defined only for an accurate GMU, and measures
-#' how close \eqn{p^*} is to $p$. The range of $P$ goes from 0 (lest precise) to 1
-#' (most precise). Thus, a GMU will be more accurate when all points in the 
-#' PI-width plot are on or above the 1:1 line.
+#' The _precision_, $P$, is defined only for an accurate GMU, and measures how close \eqn{p^*} is to
+#' $p$. The range of $P$ goes from 0 (lest precise) to 1 (most precise). Thus, a GMU will be more
+#' accurate when all points in the PI-width plot are on or above the 1:1 line.
 #' }
 #' \item{Goodness}{
-#' The \emph{goodness}, $G$, is a measure of the departure of the points from
-#' the 1:1 line in the coverage probability plot. $G$ ranges from 0 (minimum
-#' goodness) to 1 (maximum goodness), the maximum $G$ being achieved when 
-#' \eqn{p^* = p}, that is, all points in both coverage probability and interval 
-#' width plots are exactly on the 1:1 line.
+#' The _goodness_, $G$, is a measure of the departure of the points from the 1:1 line in the
+#' coverage probability plot. $G$ ranges from 0 (minimum goodness) to 1 (maximum goodness), the
+#' maximum $G$ being achieved when \eqn{p^* = p}, that is, all points in both coverage probability
+#' and interval width plots are exactly on the 1:1 line.
 #' }
 #' }
-#' It is worth noting that the coverage probability and PI-width plots are 
-#' relevant mainly to GMU created using \emph{conditional simulations}, that is,
-#' simulations that are locally conditioned to the data observed at the 
-#' validation locations. Conditioning the simulations locally serves the 
-#' purposes of honoring the available data and reducing the variance of the
-#' output realizations. This is why one would like to find the points falling
-#' above the 1:1 line in both coverage probability and PI-width plots. For
-#' \emph{unconditional simulations}, that is, simulations that are only globally
-#' conditioned to the histogram (and variogram) of the data observed at the
-#' validation locations, one would expect to find that, over a large number 
-#' of simulations, the whole set of possible values (i.e. the global histogram)
-#' can be generated at any node of the simulation grid. In other words, it is 
-#' expected to find all points on the 1:1 line in both coverage probability and 
-#' PI-width plots. Deviations from the 1:1 line could then be used as evidence 
-#' of problems in the simulation.
+#' It is worth noting that the coverage probability and PI-width plots are relevant mainly to GMU
+#' created using _conditional simulations_, that is, simulations that are locally conditioned to the
+#' data observed at the validation locations. Conditioning the simulations locally serves the
+#' purposes of honoring the available data and reducing the variance of the output realizations.
+#' This is why one would like to find the points falling above the 1:1 line in both coverage
+#' probability and PI-width plots. For _unconditional simulations_, that is, simulations that are
+#' only globally conditioned to the histogram (and variogram) of the data observed at the validation
+#' locations, one would expect to find that, over a large number of simulations, the whole set of
+#' possible values (i.e. the global histogram) can be generated at any node of the simulation grid.
+#' In other words, it is expected to find all points on the 1:1 line in both coverage probability
+#' and PI-width plots. Deviations from the 1:1 line could then be used as evidence of problems in
+#' the simulation.
 #' }
-#' @return A `list` of summary measures and plots of the coverage probability and width of
-#' probability intervals.
+#' @return
+#' A `list` of summary measures and plots of the coverage probability and width of probability
+#' intervals.
 #'
 #' @references
-#'
 #' Deutsch, C. Direct assessment of local accuracy and precision. Baafi, E. Y. & Schofield, N. A.
-#' (Eds.) _Geostatistics Wollongong '96_. Dordrecht: Kinwer Academic Publishers, v. I, p.
-#' 115-125, 1997.
+#' (Eds.) _Geostatistics Wollongong '96_. Dordrecht: Kinwer Academic Publishers, v. I, p. 115-125,
+#' 1997.
 #'
 #' Papritz, A. & Dubois, J. R. Mapping heavy metals in soil by (non-)linear kriging: an empirical
 #' validation. Gómez-Hernández, J.; Soares, A. & Froidevaux, R. (Eds.) _geoENV II -- Geostatistics
@@ -169,8 +152,6 @@
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
-#' @export
-#'
 #' @examples
 #' if (interactive()) {
 #'  set.seed(2001)
@@ -182,6 +163,7 @@
 #'  resa$error; resb$error
 #'  resa$goodness; resb$goodness
 #' }
+#' @export
 # FUNCTION #########################################################################################
 checkGMU <-
   function(observed, simulated, pi = seq(0.01, 0.99, 0.01), symmetric = TRUE, plotit = TRUE) {

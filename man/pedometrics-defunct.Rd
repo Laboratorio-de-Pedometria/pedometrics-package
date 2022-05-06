@@ -20,9 +20,9 @@ cdfTable(...)
 
 gcpDiff(...)
 
-trend.terms(x)
+trend.terms(...)
 
-trend.matrix(x)
+trend.matrix(...)
 }
 \arguments{
 \item{...}{Not used.}

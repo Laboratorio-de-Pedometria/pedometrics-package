@@ -28,11 +28,10 @@
 #' correlation plot will contain correlations from `r`, correlations from `r2` will be in the upper
 #' triangle, and the diagonal will be empty.
 #'
-#' @return A correlation plot.
+#' @return
+#' A correlation plot.
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#'
-#' @export
 #'
 #' @examples
 #' if (all(c(require(sp), require(fields)))) {
@@ -49,6 +48,8 @@
 #'   r2 <- round(r2, 2)
 #'   plotCor(r, r2)
 #' }
+#' 
+#' @export
 # FUNCTION #########################################################################################
 plotCor <-
   function(r, r2, col, breaks, col.names, ...) {

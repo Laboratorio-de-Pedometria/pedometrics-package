@@ -1,5 +1,6 @@
 #' Association between categorical variables
 #'
+#' @description 
 #' Compute the Cramer's V, a descriptive statistic that measures the association between categorical
 #' variables.
 #'
@@ -29,13 +30,13 @@
 #' Everitt, B. S. _The Cambridge dictionary of statistics_. Cambridge: Cambridge University Press,
 #' p. 432, 2006.
 #'
-#' @export
 #' @examples
 #' if (interactive()) {
 #' data(meuse, package = "sp")
 #' str(meuse)
 #' test <- cramer(meuse[, c("ffreq", "soil", "lime", "landuse")])
 #' }
+#' @export
 # FUNCTION #########################################################################################
 cramer <-
   function(x) {

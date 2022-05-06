@@ -12,9 +12,6 @@
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
-#' @aliases isNumint allNumint anyNumint allInteger anyInteger allFactor anyFactor allNumeric
-#' anyNumeric uniqueClass
-#'
 #' @examples
 #' # Vector of integers
 #' x <- 1:10
@@ -36,6 +33,10 @@
 #'
 #' # Single numeric value
 #' isNumint(1.1) # FALSE
+#' 
+#' @aliases isNumint allNumint anyNumint allInteger anyInteger allFactor anyFactor allNumeric
+#' anyNumeric uniqueClass
+#' 
 # FUNCTION - NUMERIC INTEGERS ######################################################################
 #' @rdname numint
 #' @export

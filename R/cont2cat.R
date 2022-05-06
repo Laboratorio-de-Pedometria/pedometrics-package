@@ -1,5 +1,6 @@
 #' Categorize/stratify numerical variable(s)
-#'
+#' 
+#' @description
 #' Create break points, compute strata proportions, and stratify numerical variable(s) to create
 #' categorical variable(s).
 #'
@@ -29,7 +30,7 @@
 #' A vector, data frame, or matrix, depending on the class of `x`.
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @aliases cont2cat breakPoints stratify
+#' 
 #' @examples
 #' if (require(SpatialTools)) {
 #' ## Compute the break points of marginal strata
@@ -61,6 +62,7 @@
 #' x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
 #' x
 #' }
+#' @aliases cont2cat breakPoints stratify
 # FUNCTION - CONVERT CONTINUOUS DATA INTO CATEGORICAL DATA #########################################
 #' @export
 #' @rdname cont2cat
