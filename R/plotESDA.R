@@ -69,13 +69,13 @@ plotESDA <-
     if (missing(lat)) {
       stop("'lat' is a mandatory argument")
     }
-    if (!any(class(z) == c("numeric", "integer"))) {
+    if (!inherits(z, c("numeric", "integer"))) {
       stop("'z' should be of class numeric or integer")
     }
-    if (!any(class(lat) == c("numeric", "integer"))) {
+    if (!inherits(lat, c("numeric", "integer"))) {
       stop("'lat' should be of class numeric or integer")
     }
-    if (!any(class(lon) == c("numeric", "integer"))) {
+    if (!inherits(lon, c("numeric", "integer"))) {
       stop("'lon' should be of class numeric or integer")
     }
     if (length(unique(c(length(z), length(lat), length(lon)))) > 1) {

@@ -43,16 +43,17 @@
 #' bidirectional variable selection. For more information about these functions, please visit their
 #' respective help pages.
 #'
-#' An important feature of [pedometrics::buildMS()] is that it records the initial number of
-#' candidate predictor variables and observations offered to the model, and adds this information as
-#' an attribute to the final selected model. Such feature was included because variable selection
+#' An important feature of [pedometrics::buildModelSeries()] is that it records the initial number
+#' of candidate predictor variables and observations offered to the model, and adds this information
+#' as an attribute to the final selected model. Such feature was included because variable selection
 #' procedures result biased linear models (too optimistic), and the effective number of degrees of
 #' freedom is close to the number of candidate predictor variables initially offered to the model
 #' (Harrell, 2001). With the initial number of candidate predictor variables and observations
 #' offered to the model, one can calculate penalized or adjusted measures of model performance. For
-#' models built using [pedometrics::buildMS()], this can be done using [pedometrics::statsMS()].
+#' models built using [pedometrics::buildModelSeries()], this can be done using
+#' [pedometrics::statsMS()].
 #'
-#' Some important details should be clear when using [pedometrics::buildMS()]:
+#' Some important details should be clear when using [pedometrics::buildModelSeries()]:
 #'
 #' * this function was originally devised to deal with a list of formulas, but can also be used with
 #'   a single formula;
@@ -93,12 +94,13 @@
 #'                   formula(log10(perf) ~ syct + mmin + cach + chmin + chmax),
 #'                   formula(log10(perf) ~ mmax + cach + chmin + chmax + perf))
 #' data <- cpus1[cpus.samp,2:8]
-#' cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
+#' cpus.ms <- buildModelSeries(cpus.form, data, vif = TRUE, aic = TRUE)
 #' }
 #' 
+#' @aliases buildMS buildModelSeries
 #' @export
 # FUNCTION #########################################################################################
-buildMS <-
+buildModelSeries <-
   function(formula, data, vif = FALSE, vif.threshold = 10, vif.verbose = FALSE, aic = FALSE,
           aic.direction = "both", aic.trace = FALSE, aic.steps = 5000, ...) {
     # check if suggested packages are installed
@@ -107,13 +109,13 @@ buildMS <-
     if (missing(formula)) {
       stop("'formula' is a mandatory argument")
     }
-    if (class(formula) != "list") {
+    if (!inherits(formula, "list")) {
       formula <- list(formula)
     }
     if (missing(data)) {
       stop("'data' is a mandatory argument")
     }
-    if (class(data) != "data.frame") {
+    if (!inherits(data, "data.frame")) {
       data <- as.data.frame(data)
     }
     # stats::lm
@@ -151,3 +153,6 @@ buildMS <-
     }
     return(model)
   }
+#' @export
+#' @rdname buildMS.Rd
+buildMS <- buildModelSeries

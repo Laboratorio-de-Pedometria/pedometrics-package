@@ -85,7 +85,7 @@
 #' @seealso [pedometrics::vgmLags()]
 #' 
 #' @examples
-#' if (require(sp)) {
+#' if (all(c(require(sp), require(georob), require(geoR)))) {
 #'   data(meuse, package = "sp")
 #'   icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
 #' }

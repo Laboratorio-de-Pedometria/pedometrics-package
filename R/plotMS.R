@@ -226,19 +226,19 @@ plotMS <-
     if (missing(ind)) {
       stop("'ind' is a mandatory argument")
     }
-    if (class(obj) != "data.frame") {
+    if (!inherits(obj, "data.frame")) {
       stop("'obj' should be of class data.frame")
     }
-    if (!any(class(grid) == c("integer", "character", "numeric"))) {
+    if (!inherits(grid, c("integer", "character", "numeric"))) {
       stop("'grid' should be an integer value or a character string")
     }
-    if (!any(class(line) == c("integer", "character", "numeric"))) {
+    if (!inherits(line, c("integer", "character", "numeric"))) {
       stop("'line' should be an integer value or a character string")
     }
-    if (!any(class(ind) == c("integer", "numeric")) || round(ind) != ind) {
+    if (!inherits(ind, c("integer", "numeric")) || round(ind) != ind) {
       stop("'ind' should be an integer value")
     }
-    if (any(class(line) == c("integer", "numeric"))) {
+    if (inherits(line, c("integer", "numeric"))) {
       nam0 <- c("candidates", "df", "aic", "rmse", "nrmse", "r2", "adj_r2", "ADJ_r2")
       nam1 <- colnames(obj)[line]
       if (!any(colnames(obj)[line] == nam0)) {

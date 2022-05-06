@@ -12,7 +12,8 @@
 * __Improvement 2__ In previous versions, `plotCor()` required `RColorBrewer::brewer.pal()` to
     set the color palette. Now the color palette is hard-coded and package __RColorBrewer__ was
     thus removed from _Suggests_.
-* __Improvement 3__ Run local and remote tests. Prepare comments to CRAN maintainers.
+* __Improvement 3__ Add `Additional_repositories` to _DESCRIPTION_ as a means to deal with archived
+    packages such as __geoR__ and __georob__.
 
 ## pedometrics 0.11.0
 

@@ -101,16 +101,16 @@ statsMS <-
     if (missing(model)) {
       stop("'model' is a mandatory argument")
     }
-    if (!any(class(model) == c("list", "lm"))) {
+    if (!inherits(model, c("list", "lm"))) {
       stop("'model' should be of class list or lm")
     }
     if (!missing(design.info)) {
-      if (class(design.info) != "data.frame") {
+      if (!inherits(design.info, "data.frame")) {
         stop("'design.info' should be of class data.frame")
       }
     }
     if (!missing(arrange.by)) {
-      if (class(arrange.by) != "character") {
+      if (!inherits(arrange.by, "character")) {
         stop("'arrange.by' should be of class character")
       }
     }
