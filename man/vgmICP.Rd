@@ -55,8 +55,8 @@ with options \code{"qn"}, \code{"mad"}, \code{"matheron"}, and \code{"ch"}. Defa
 variogram? Defaults to \code{plotit = FALSE}.}
 }
 \value{
-A vector of numeric values: the guesses for the covariance parameters nugget, partial
-sill, and range.
+A vector of numeric values: the guesses for the covariance parameters nugget, partial sill, and
+range.
 }
 \description{
 Guess the initial values for the covariance parameters required to fit a variogram model.
@@ -85,8 +85,8 @@ Package \strong{geoR} is used to guess the range (scale) parameter of the follow
 }
 \examples{
 if (require(sp)) {
-data(meuse, package = "sp")
-icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
+  data(meuse, package = "sp")
+  icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
 }
 }
 \references{

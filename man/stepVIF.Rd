@@ -49,11 +49,10 @@ returns the original linear model.
 }
 \note{
 More on the use of GVIF to measure the collinearity in linear models containing categorical predictor
-variables can be found on \href{https://stats.stackexchange.com/questions/70679/which-variance-inflation-factor-should-i-be-using-textgvif-or-textgvif/}{StackExchange}.
+variables can be found on \href{https://stats.stackexchange.com/questions/70679/}{StackExchange}.
 }
 \examples{
-if (interactive()) {
-  library(car)
+if (require(car)) {
   fit <- lm(prestige ~ income + education + type, data = Duncan)
   fit <- stepVIF(fit, threshold = 10, verbose = TRUE)
 }

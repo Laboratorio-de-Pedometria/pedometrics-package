@@ -44,18 +44,17 @@ that should be used to compute the lag-distance classes. Defaults to
 \code{count = "pairs"}.}
 }
 \value{
-Vector of numeric values with the lower and upper boundaries of the
-lag-distance classes. The number of points or point-pairs per lag-distance
-class is returned as an attribute.
+Vector of numeric values with the lower and upper boundaries of the lag-distance classes. The
+number of points or point-pairs per lag-distance class is returned as an attribute.
 }
 \description{
 Computation of lag-distance classes for variogram estimation.
 }
 \examples{
-if (interactive()) {
-data(meuse, package = "sp")
-lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
-lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
+if (require(SpatialTools)) {
+  data(meuse, package = "sp")
+  lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
+  lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
 }
 }
 \references{

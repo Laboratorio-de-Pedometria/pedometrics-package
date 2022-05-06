@@ -7,6 +7,8 @@
 \alias{vgmSCV.georob}
 \title{Spatially correlated variance (SCV)}
 \usage{
+vgmSCV(obj, digits = 4)
+
 \method{vgmSCV}{variomodel}(obj, digits = 4)
 
 \method{vgmSCV}{variogramModel}(obj, digits = 4)
@@ -20,11 +22,16 @@ packages such as \pkg{gstat}, \pkg{geoR}, and \pkg{georob}.}
 \item{digits}{Integer indicating the number of decimal places to be used.}
 }
 \value{
-Numeric value indicating the proportion of the variance that is
-spatially correlated.
+Numeric value indicating the proportion of the variance that is spatially correlated.
 }
 \description{
 Compute the proportion of the variance that is spatially correlated.
+}
+\examples{
+if (require(geoR)) {
+  ml <- likfit(s100, ini=c(0.5, 0.5), fix.nug = TRUE)
+  res <- vgmSCV(ml)
+}
 }
 \seealso{
 \code{\link[pedometrics]{vgmLags}}
