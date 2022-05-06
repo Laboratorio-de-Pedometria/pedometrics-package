@@ -7,11 +7,14 @@ build-package.R
 
 ## R code
 
-R/coordenadas.R
 R/cdfPlot.R
 R/cdfStats.R
 R/cdfTable.R
+R/coordenadas.R
+R/gcpDiff.R
+R/optimRandomForest
 R/popStats.R
+R/trend.R
 
 ## Markdown
 

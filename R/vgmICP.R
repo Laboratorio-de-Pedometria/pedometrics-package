@@ -33,10 +33,12 @@
 #' with options `"qn"`, `"mad"`, `"matheron"`, and `"ch"`. Defaults to `estimator = "qn"`. See
 #' [georob::sample.variogram()] for more details.
 #'
-#' @return A vector of numeric values: the guesses for the covariance parameters nugget, partial
-#' sill, and range.
+#' @return
+#' A vector of numeric values: the guesses for the covariance parameters nugget, partial sill, and
+#' range.
 #'
-#' @details There are five methods two guess the initial covariance parameters  (ICP). Two of them, `"a"` and
+#' @details
+#' There are five methods two guess the initial covariance parameters  (ICP). Two of them, `"a"` and
 #' `"c"`, rely a sample variogram with exponentially spaced lag-distance classes, while the other three, `"b"`,
 #' `"d"`, and `"e"`, use equidistant lag-distance classes (see \code{\link[pedometrics]{vgmLags}}). All of them
 #' are \href{https://en.wikipedia.org/wiki/Heuristic}{heuristic}.
@@ -82,8 +84,8 @@
 #' 
 #' @examples
 #' if (require(sp)) {
-#' data(meuse, package = "sp")
-#' icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
+#'   data(meuse, package = "sp")
+#'   icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
 #' }
 # FUNCTION - MAIN ##################################################################################
 vgmICP <-

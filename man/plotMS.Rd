@@ -93,8 +93,7 @@ automatically identifies the best aspect for plotting based on the dimensions
 of the design data.}
 }
 \value{
-An object of class \code{"trellis"} consisting of a model series
-plot.
+An object of class \code{"trellis"} consisting of a model series plot.
 }
 \description{
 This function produces a graphical output that allows the examination of the

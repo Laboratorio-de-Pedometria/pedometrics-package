@@ -25,12 +25,12 @@
 #' Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos,
 #' S.J. Melles and G. Spiliopoulos (2013). _intamapInteractive: procedures for automated
 #' interpolation - methods only to be used interactively, not included in intamap package._ R
-#' package version 1.1-10. \url{https://CRAN.R-project.org/package=intamapInteractive}
+#' package version 1.1-10. \url{https://CRAN.R-project.org/package=intamapInteractive}.
 #'
 #' @keywords misc spatial
 #' @export
 #' @examples
-#' if (interactive()) {
+#' if (require(sp)) {
 #' data(meuse, package = "sp")
 #' sp::coordinates(meuse) <- ~ x + y
 #' bb <- bbox2sp(obj = meuse, keep.crs = FALSE)
@@ -40,6 +40,7 @@ bbox2sp <-
   function(obj, sp = "SpatialPolygons", keep.crs = TRUE) {
     # Check if suggested packages are installed
     if (!requireNamespace("sp")) stop("sp package is missing")
+    # Check function arguments
     if (!inherits(obj, "Spatial")) {
       stop("'obj' should be of class Spatial")
     }

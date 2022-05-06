@@ -64,39 +64,33 @@ variable selection procedure, while \code{\link[MASS:stepAIC]{MASS::stepAIC()}} 
 bidirectional variable selection. For more information about these functions, please visit their
 respective help pages.
 
-An important feature of \code{buildMS} is that it records the initial number
-of candidate predictor variables and observations offered to the model, and
-adds this information as an attribute to the final selected model. Such
-feature was included because variable selection procedures result biased
-linear models (too optimistic), and the effective number of degrees of
-freedom is close to the number of candidate predictor variables initially
-offered to the model (Harrell, 2001). With the initial number of candidate
-predictor variables and observations offered to the model, one can calculate
-penalized or adjusted measures of model performance. For models built using
-\code{builtMS}, this can be done using \code{statsMS}.
+An important feature of \code{buildMS()} is that it records the initial number of candidate predictor
+variables and observations offered to the model, and adds this information as an attribute to the
+final selected model. Such feature was included because variable selection procedures result
+biased linear models (too optimistic), and the effective number of degrees of freedom is close to
+the number of candidate predictor variables initially offered to the model (Harrell, 2001). With
+the initial number of candidate predictor variables and observations offered to the model, one
+can calculate penalized or adjusted measures of model performance. For models built using
+\code{builtMS()}, this can be done using \code{\link[=statsMS]{statsMS()}}.
 
-Some important details should be clear when using \code{buildMS}:
-
-\enumerate{
-\item this function was originally devised to deal with a list of formulas,
-but can also be used with a single formula;
-\item in the current implementation, \code{stepVIF} runs before
-\code{stepAIC};
-\item function arguments imported from \code{stepAIC} and \code{stepVIF}
-were named as in the original functions, and received a prefix (\code{aic}
-or \code{vif}) to help the user identifying which function is affected by a
-given argument without having to go check the documentation.
+Some important details should be clear when using \code{buildMS()}:
+\itemize{
+\item this function was originally devised to deal with a list of formulas, but can also be used with
+a single formula;
+\item in the current implementation, \code{\link[=stepVIF]{stepVIF()}} runs before \code{\link[MASS:stepAIC]{MASS::stepAIC()}};
+\item function arguments imported from \code{\link[MASS:stepAIC]{MASS::stepAIC()}} and \code{\link[=stepVIF]{stepVIF()}} were named as
+in the original functions, and received a prefix (\code{aic} or \code{vif}) to help the user identifying
+which function is affected by a given argument without having to go check the documentation.
 }
 }
 \section{TODO}{
- Add option to set the order in which \code{stepAIC} and
-\code{stepVIF} are run.
+ Add option to set the order in which \code{stepAIC} and \code{stepVIF} are run.
 }
 
 \examples{
 if (interactive()) {
-# based on the second example of function stepAIC
-require(MASS)
+# based on the second example of MASS::stepAIC()
+library("MASS")
 cpus1 <- cpus
 for(v in names(cpus)[2:7])
   cpus1[[v]] <- cut(cpus[[v]], unique(stats::quantile(cpus[[v]])),
@@ -112,12 +106,11 @@ cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
 }
 }
 \references{
-Harrell, F. E. (2001) \emph{Regression modelling strategies: with
-applications to linear models, logistic regression, and survival analysis.}
-First edition. New York: Springer.
+Harrell, F. E. (2001) \emph{Regression modelling strategies: with applications to linear models,
+logistic regression, and survival analysis.} First edition. New York: Springer.
 
-Venables, W. N. and Ripley, B. D. (2002) \emph{Modern applied statistics
-with S.} Fourth edition. New York: Springer.
+Venables, W. N. and Ripley, B. D. (2002) \emph{Modern applied statistics with S.} Fourth edition.
+New York: Springer.
 }
 \seealso{
 \code{\link[pedometrics]{stepVIF}}, \code{\link[pedometrics]{statsMS}}.

@@ -168,8 +168,7 @@
 #' plot, the predictor variable \code{b} appears in the top row, while the 
 #' predictor variable \code{c} appears in the bottom row.
 #' }
-#' @return An object of class \code{"trellis"} consisting of a model series 
-#' plot.
+#' @return An object of class \code{"trellis"} consisting of a model series plot.
 #' 
 #' @references
 #' Deepayan Sarkar (2008). \emph{Lattice: Multivariate Data Visualization with 

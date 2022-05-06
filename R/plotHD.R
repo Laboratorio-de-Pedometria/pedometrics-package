@@ -72,10 +72,10 @@
 #' @importFrom stats update
 #' @export
 #' @examples
-#' if (require(moments)) {
-#' x <- rnorm(100, 10, 2)
-#' p1 <- plotHD(x, HD = "stack")
-#' p2 <- plotHD(x, HD = "over")
+#' if (all(c(require(moments), require(car), require(lattice)))) {
+#'   x <- rnorm(100, 10, 2)
+#'   p1 <- plotHD(x, HD = "stack")
+#'   p2 <- plotHD(x, HD = "over")
 #' }
 # FUNCTION #########################################################################################
 # TODO:
@@ -113,7 +113,7 @@ plotHD <-
       }
       p <- lattice::histogram(
         x, type = "density", col = col[1], xlim = xlim, nint = nint, lwd = lwd[1], ...,
-        panel = function (x, ...) {
+        panel = function(x, ...) {
           lattice::panel.grid(h = -1, v = -1, lty = "dotted")
           lattice::panel.histogram(x, ...)
           lattice::panel.rug(x, col = col[2], lwd = lwd[1])

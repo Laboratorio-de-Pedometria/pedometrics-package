@@ -82,10 +82,10 @@ The user should visit the help pages of \code{\link[lattice]{histogram}},
 more details about the main functions used to built \code{plotHD}.
 }
 \examples{
-if (require(moments)) {
-x <- rnorm(100, 10, 2)
-p1 <- plotHD(x, HD = "stack")
-p2 <- plotHD(x, HD = "over")
+if (all(c(require(moments), require(car), require(lattice)))) {
+  x <- rnorm(100, 10, 2)
+  p1 <- plotHD(x, HD = "stack")
+  p2 <- plotHD(x, HD = "over")
 }
 }
 \references{

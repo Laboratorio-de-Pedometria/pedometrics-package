@@ -21,15 +21,12 @@ A numeric vector with the adjusted coefficient of determination.
 \description{
 Calculates the adjusted coefficient of determination of a multiple linear regression model.
 }
-\details{
-Details will be added later.
-}
 \examples{
 x <- adjR2(r2 = 0.95, n = 100, p = 80)
 }
 \references{
-Coefficient of determination. Wikipedia, The Free Encyclopedia.
-Available at https://en.wikipedia.org/wiki/Coefficient_of_determination.
+Coefficient of determination. Wikipedia, The Free Encyclopedia. Available at
+\url{https://en.wikipedia.org/wiki/Coefficient_of_determination}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

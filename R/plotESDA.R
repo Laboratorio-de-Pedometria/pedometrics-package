@@ -1,62 +1,67 @@
 #' Plots for exploratory spatial data analysis (ESDA)
-#' 
-#' This function creates four plots for exploratory spatial data analysis 
-#' (ESDA): histogram + density plot, bubble plot, variogram plot, and variogram 
-#' map.
-#' 
-#' @param z Vector of numeric values of the variable for with ESDA plots should 
-#' be created.
-#' @param lat Vector of numeric values containing the y coordinate (latitude) 
-#' of the point locations where the \code{z} variable was observed.
-#' @param lon Vector of numeric values containing the x coordinate (longitude) 
-#' of the point locations where the \code{z} variable was observed.
-#' @param lags (optional) Numerical vector; upper boundaries of lag-distance classes. See argument 
-#' `boundaries` of \code{\link[gstat]{variogram}} for more info.
-#' @param cutoff (optional) Integer value defining the spatial separation distance up to which point pairs are 
-#' included in semi-variance estimates. Defaults to the length of the diagonal of the box spanning the data 
-#' divided by three.
-#' @param width Integer value specifying the width of subsequent distance 
-#' intervals into which data point pairs are grouped for semi-variance 
-#' estimates. Defaults to \code{width = cutoff / 20}.
-#' 
-#' @param leg.pos (optional) Character value indication the location of the legend of the bubble plot. 
-#' Defaults to `leg.pos = "right"`
-#' 
+#'
+#' @description
+#' This function creates four plots for exploratory spatial data analysis (ESDA): histogram +
+#' density plot, bubble plot, variogram plot, and variogram map.
+#'
+#' @param z Vector of numeric values of the variable for with ESDA plots should be created.
+#'
+#' @param lat Vector of numeric values containing the y coordinate (latitude) of the point locations
+#' where the `z` variable was observed.
+#'
+#' @param lon Vector of numeric values containing the x coordinate (longitude) of the point
+#' locations where the `z` variable was observed.
+#'
+#' @param lags (optional) Numerical vector; upper boundaries of lag-distance classes. See argument
+#' `boundaries` of [gstat::variogram()] for more info.
+#'
+#' @param cutoff (optional) Integer value defining the spatial separation distance up to which point
+#' pairs are included in semi-variance estimates. Defaults to the length of the diagonal of the box
+#' spanning the data divided by three.
+#'
+#' @param width Integer value specifying the width of subsequent distance intervals into which data
+#' point pairs are grouped for semi-variance estimates. Defaults to `width = cutoff / 20`.
+#'
+#' @param leg.pos (optional) Character value indication the location of the legend of the bubble
+#' plot. Defaults to `leg.pos = "right"`.
+#'
 #' @details
-#' The user should visit the help pages of `gstat::variogram()`, \code{\link[pedometrics]{plotHD}},
-#' `sp::bubble()` and `sp::spplot()` to obtain more details about the main functions used to built
-#' \code{plotESDA}.
-#' 
+#' The user should visit the help pages of [gstat::variogram()], [pedometrics::plotHD()],
+#' [sp::bubble()] and [sp::spplot()] to obtain more details about the main functions used to built
+#' [pedometrics::plotESDA()].
+#'
 #' @return
-#' Four plots: histogram and density plot, bubble plot, empirical variogram, 
-#' and variogram map.
-#' 
+#' Four plots: histogram and density plot, bubble plot, empirical variogram, and variogram map.
+#'
 #' @references
-#' Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John 
-#' Wiley \& Sons, p.900, 1993.
-#' 
-#' Pebesma, E.J. (2004) Multivariable geostatistics in S: the gstat package. 
-#' \emph{Computers \& Geosciences}, 30:683-691, 2004.
-#' 
-#' Webster, R. \& Oliver, M.A. \emph{Geostatistics for environmental 
-#' scientists}. Chichester: John Wiley \& Sons, p.315, 2007.
-#' 
+#' Cressie, N.A.C. (1993) _Statistics for Spatial Data_. New York: John Wiley \& Sons, p.900, 1993.
+#'
+#' Pebesma, E.J. (2004) Multivariable geostatistics in S: the gstat package. _Computers \&
+#' Geosciences_, 30:683-691, 2004.
+#'
+#' Webster, R. \& Oliver, M.A. _Geostatistics for environmental scientists_. Chichester: John Wiley
+#' \& Sons, p.315, 2007.
+#'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' 
-#' @seealso \code{\link[pedometrics]{plotHD}}
+#'
+#' @seealso [pedometrics::plotHD()]
+#'
 #' @importFrom graphics plot
+#'
 #' @export
+#'
 #' @examples
-#' \dontrun{
+#' if (require(sp)) {
 #'   data(meuse, package = "sp")
 #'   p <- plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
 #' }
 # FUNCTION #########################################################################################
 plotESDA <- 
-  function (z, lat, lon, lags = NULL, cutoff = NULL, width = c(cutoff / 20), leg.pos = "right") {
+  function(z, lat, lon, lags = NULL, cutoff = NULL, width = c(cutoff / 20), leg.pos = "right") {
     # Check if suggested packages are installed
     if (!requireNamespace("gstat")) stop("gstat package is missing")
     if (!requireNamespace("sp")) stop("sp package is missing")
+    # Check package arguments
     if (missing(z)) {
       stop("'z' is a mandatory argument")
     }

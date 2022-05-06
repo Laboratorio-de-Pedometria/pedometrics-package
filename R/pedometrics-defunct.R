@@ -36,3 +36,24 @@ cdfTable <-
     msg <- "'pedometrics::cdfTable()' is defunct.\nSee https://github.com/samuel-rosa/ASRtools"
     .Defunct(msg = msg)
   }
+#' @export
+#' @rdname pedometrics-defunct
+gcpDiff <-
+  function(...) {
+    msg <- "'pedometrics::gcpDiff()' is defunct.\nSee https://github.com/samuel-rosa/ASRtools"
+    .Defunct(msg = msg)
+  }
+#' @export
+#' @rdname pedometrics-defunct
+trend.terms <-
+  function(...) {
+    msg <- "'pedometrics::trend.terms()' is defunct.\nSee https://github.com/samuel-rosa/ASRtools"
+    .Defunct(msg = msg)
+  }
+#' @export
+#' @rdname pedometrics-defunct
+trend.matrix <-
+  function(...) {
+    msg <- "'pedometrics::trend.matrix()' is defunct.\nSee https://github.com/samuel-rosa/ASRtools"
+    .Defunct(msg = msg)
+  }

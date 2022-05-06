@@ -1,37 +1,39 @@
 #' Tests for data types
-#' 
+#'
+#' @description
 #' Evaluate the data type contained in an object.
-#' 
+#'
 #' @param x Object to be tested.
-#' 
+#'
 #' @return
-#' \code{TRUE} or \code{FALSE} depending on whether \code{x} contains a given data type.
-#' 
-#' @seealso \code{\link[base]{is.numeric}}, \code{\link[base]{is.integer}},
-#' \code{\link[base]{is.factor}}.
-#' 
+#' `TRUE` or `FALSE` depending on whether `x` contains a given data type.
+#'
+#' @seealso [base::is.numeric()], [base::is.integer()], [base::is.factor()].
+#'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' @aliases isNumint allNumint anyNumint allInteger anyInteger allFactor
-#' anyFactor allNumeric anyNumeric uniqueClass
+#'
+#' @aliases isNumint allNumint anyNumint allInteger anyInteger allFactor anyFactor allNumeric
+#' anyNumeric uniqueClass
+#'
 #' @examples
 #' # Vector of integers
 #' x <- 1:10
 #' isNumint(x) # FALSE
-#' 
+#'
 #' # Vector of numeric integers
 #' x <- as.numeric(x)
 #' isNumint(x) # TRUE
-#' 
+#'
 #' # Vector of numeric values
 #' x <- c(1.1, 1, 1, 1, 2)
 #' isNumint(x) # FALSE
 #' allNumint(x) # FALSE
 #' anyNumint(x) # TRUE
 #' whichNumint(x)
-#' 
+#'
 #' # Single numeric integer
 #' isNumint(1) # TRUE
-#' 
+#'
 #' # Single numeric value
 #' isNumint(1.1) # FALSE
 # FUNCTION - NUMERIC INTEGERS ######################################################################

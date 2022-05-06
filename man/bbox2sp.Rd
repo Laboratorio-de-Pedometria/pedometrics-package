@@ -29,7 +29,7 @@ R-package \strong{intamapInteractive}. As such, the authors of that package, Edz
 \sQuote{contributors} to the R-package \strong{pedometrics}.
 }
 \examples{
-if (interactive()) {
+if (require(sp)) {
 data(meuse, package = "sp")
 sp::coordinates(meuse) <- ~ x + y
 bb <- bbox2sp(obj = meuse, keep.crs = FALSE)
@@ -39,7 +39,7 @@ bb <- bbox2sp(obj = meuse, keep.crs = FALSE)
 Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos,
 S.J. Melles and G. Spiliopoulos (2013). \emph{intamapInteractive: procedures for automated
 interpolation - methods only to be used interactively, not included in intamap package.} R
-package version 1.1-10. \url{https://CRAN.R-project.org/package=intamapInteractive}
+package version 1.1-10. \url{https://CRAN.R-project.org/package=intamapInteractive}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

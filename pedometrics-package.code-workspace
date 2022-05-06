@@ -7,8 +7,11 @@
 	"settings": {
 		"cSpell.words": [
 			"bbox",
+			"collinearity",
 			"CRAN",
-			"nrmse"
+			"meuse",
+			"nrmse",
+			"Venables"
 		]
 	}
 }

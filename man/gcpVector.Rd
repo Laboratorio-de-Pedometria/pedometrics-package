@@ -7,43 +7,37 @@
 gcpVector(dx, dy)
 }
 \arguments{
-\item{dx}{Numeric vector containing the difference on the \sQuote{x}
-coordinate between two sets of GCP.}
+\item{dx}{Numeric vector containing the difference on the \sQuote{x} coordinate between two sets
+of GCP.}
 
-\item{dy}{Numeric vector containing the difference on the \sQuote{y}
-coordinate between two sets of GCP.}
+\item{dy}{Numeric vector containing the difference on the \sQuote{y} coordinate between two sets
+of GCP.}
 }
 \value{
-An object of the class \code{data.frame} containing the module, its
-square and azimuth. These three columns are named \sQuote{module},
-\sQuote{sq.module} and \sQuote{azimuth}.
+A data frame containing the module, its square and azimuth. These three columns are named
+\sQuote{module}, \sQuote{sq.module} and \sQuote{azimuth}.
 }
 \description{
-This function calculates the module and azimuth of the difference on x and y
-coordinates between two sets of ground control points (GCP).
-}
-\details{
-This function is suited to perform calculations for topographical
-coordinates only. The origin is set in the y coordinate, and rotation
-performed clockwise.
+This function calculates the module and azimuth of the difference on x and y coordinates between
+two sets of ground control points (GCP). It is suited to perform calculations for topographical
+coordinates only. The origin is set in the y coordinate, and rotation performed clockwise.
 }
 \note{
-This function was adapted from \code{VecStatGraphs2D::LoadData()}.
+This function was adapted from package's VecStatGraphs2D function \code{LoadData()}.
 }
 \examples{
 x <- gcpVector(dx = rnorm(3, 5, 10), dy = rnorm(3, 5, 10))
 }
 \references{
-Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012).
-\emph{VecStatGraphs2D: Vector analysis using graphical and analytical methods in 2D}. R package
-version 1.6. \url{https://CRAN.R-project.org/package=VecStatGraphs2D}
+Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012). \emph{VecStatGraphs2D: Vector analysis using
+graphical and analytical methods in 2D}. R package version 1.6.
+\url{https://CRAN.R-project.org/package=VecStatGraphs2D}.
 }
 \seealso{
 \code{\link[=gcpDiff]{gcpDiff()}}
 }
 \author{
-Juan Carlos Ruiz Cuetos \email{bilba_t@hotmail.com}\cr Maria
-Eugenia Polo Garcia \email{mepolo@unex.es}\cr Pablo Garcia Rodriguez
-\email{pablogr@unex.es}\cr Alessandro Samuel-Rosa
-\email{alessandrosamuelrosa@gmail.com}
+Juan Carlos Ruiz Cuetos \email{bilba_t@hotmail.com}\cr Maria Eugenia Polo Garcia
+\email{mepolo@unex.es}\cr Pablo Garcia Rodriguez \email{pablogr@unex.es}\cr Alessandro
+Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}
 }

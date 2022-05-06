@@ -1,30 +1,28 @@
 #' Evaluation of geostatistical models of uncertainty
-#' 
-#' Evaluate the local quality of a geostatistical model of uncertainty 
-#' (GMU) using summary measures and graphical displays.
-#' 
-#' @param observed Vector of observed values at the validation points. See 
-#' \sQuote{Details} for more information.
-#' 
-#' @param simulated Data frame or matrix with simulated values (columns) for
-#' each validation point (rows). See \sQuote{Details} for more information.
-#' 
-#' @param pi Vector defining the width of the series of probability intervals.
-#' Defaults to \code{pi = seq(0.01, 0.99, 0.01)}. See \sQuote{Details} for more 
+#'
+#' @description
+#' Evaluate the local quality of a geostatistical model of uncertainty (GMU) using summary measures
+#' and graphical displays.
+#'
+#' @param observed Vector of observed values at the validation points. See \sQuote{Details} for more
 #' information.
-#' 
-#' @param symmetric Logical for choosing the type of probability interval.
-#' Defaults to \code{symmetric = TRUE}. See \sQuote{Details} for more 
-#' information.
-#' 
-#' @param plotit Logical for plotting the results. Defaults to 
-#' \code{plotit = TRUE}.
-#' 
-#' @details 
-#' There is no standard way of evaluating the local quality of a GMU. The 
-#' collection of summary measures and graphical displays presented here is far
-#' from being comprehensive. A few definitions are given bellow.
-#' 
+#'
+#' @param simulated Data frame or matrix with simulated values (columns) for each validation point
+#' (rows). See \sQuote{Details} for more information.
+#'
+#' @param pi Vector defining the width of the series of probability intervals. Defaults to
+#' `pi = seq(0.01, 0.99, 0.01)`. See \sQuote{Details} for more information.
+#'
+#' @param symmetric Logical for choosing the type of probability interval. Defaults to
+#' `symmetric = TRUE`. See \sQuote{Details} for more information.
+#'
+#' @param plotit Logical for plotting the results. Defaults to `plotit = TRUE`.
+#'
+#' @details
+#' There is no standard way of evaluating the local quality of a GMU. The collection of summary
+#' measures and graphical displays presented here is far from being comprehensive. A few definitions
+#' are given bellow.
+#'
 #' \subsection{Error statistics}{
 #' Error statistics measure how well the GMU predicts the measured values at the
 #' validation points. Four error statistics are presented:
@@ -141,47 +139,48 @@
 #' PI-width plots. Deviations from the 1:1 line could then be used as evidence 
 #' of problems in the simulation.
 #' }
-#' @references 
-#' 
-#' Deutsch, C. Direct assessment of local accuracy and precision. Baafi, E. Y. 
-#' & Schofield, N. A. (Eds.) \emph{Geostatistics Wollongong '96}. Dordrecht:
-#' Kinwer Academic Publishers, v. I, p. 115-125, 1997.
-#' 
-#' Papritz, A. & Dubois, J. R. Mapping heavy metals in soil by (non-)linear
-#' kriging: an empirical validation. Gómez-Hernández, J.; Soares, A. & 
-#' Froidevaux, R. (Eds.) \emph{geoENV II -- Geostatistics for Environmental
-#' Applications}. Springer, p. 429-440, 1999.
-#' 
-#' Goovaerts, P. Geostatistical modelling of uncertainty in soil science.
-#' \emph{Geoderma}. v. 103, p. 3 - 26, 2001.
-#' 
-#' Goovaerts, P. AUTO-IK: a 2D indicator kriging program for the automated 
-#' non-parametric modeling of local uncertainty in earth sciences. 
-#' \emph{Computers & Geosciences}. v. 35, p. 1255-1270, 2009.
-#' 
-#' Richmond, A. J. Maximum profitability with minimum risk and effort. Xie, H.;
-#' Wang, Y. & Jiang, Y. (Eds.) \emph{Proceedings 29th APCOM}. Lisse: A. A.
-#' Balkema, p. 45-50, 2001.
-#' 
-#' Ripley, B. D. \emph{Stochastic simulation}. New York: John Wiley & Sons, 
-#' p. 237, 1987.
-#' 
-#' @note Comments by Pierre Goovaerts \email{pierre.goovaerts@@biomedware.com} 
-#' were important to describe how to use the coverage probability and 
-#' PI-width plots when a GMU is created using unconditional simulations.
-#' 
+#' @return A `list` of summary measures and plots of the coverage probability and width of
+#' probability intervals.
+#'
+#' @references
+#'
+#' Deutsch, C. Direct assessment of local accuracy and precision. Baafi, E. Y. & Schofield, N. A.
+#' (Eds.) _Geostatistics Wollongong '96_. Dordrecht: Kinwer Academic Publishers, v. I, p.
+#' 115-125, 1997.
+#'
+#' Papritz, A. & Dubois, J. R. Mapping heavy metals in soil by (non-)linear kriging: an empirical
+#' validation. Gómez-Hernández, J.; Soares, A. & Froidevaux, R. (Eds.) _geoENV II -- Geostatistics
+#' for Environmental Applications_. Springer, p. 429-440, 1999.
+#'
+#' Goovaerts, P. Geostatistical modelling of uncertainty in soil science. _Geoderma_. v. 103, p.
+#' 3 - 26, 2001.
+#'
+#' Goovaerts, P. AUTO-IK: a 2D indicator kriging program for the automated non-parametric modeling
+#' of local uncertainty in earth sciences. _Computers & Geosciences_. v. 35, p. 1255-1270, 2009.
+#'
+#' Richmond, A. J. Maximum profitability with minimum risk and effort. Xie, H.; Wang, Y. & Jiang, Y.
+#' (Eds.) _Proceedings 29th APCOM_. Lisse: A. A. Balkema, p. 45-50, 2001.
+#'
+#' Ripley, B. D. _Stochastic simulation_. New York: John Wiley & Sons, p. 237, 1987.
+#'
+#' @note Comments by Pierre Goovaerts \email{pierre.goovaerts@@biomedware.com} were important to
+#' describe how to use the coverage probability and PI-width plots when a GMU is created using
+#' unconditional simulations.
+#'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
+#'
 #' @export
+#'
 #' @examples
-#' \dontrun{
-#' set.seed(2001)
-#' observed <- round(rnorm(100), 3)
-#' simulated <- t(
-#'   sapply(1:length(observed), function (i) round(rnorm(100), 3)))
-#' resa <- checkGMU(observed, simulated, symmetric = T)
-#' resb <- checkGMU(observed, simulated, symmetric = F)
-#' resa$error;resb$error
-#' resa$goodness;resb$goodness
+#' if (interactive()) {
+#'  set.seed(2001)
+#'  observed <- round(rnorm(100), 3)
+#'  simulated <- t(
+#'    sapply(1:length(observed), function (i) round(rnorm(100), 3)))
+#'  resa <- checkGMU(observed, simulated, symmetric = T)
+#'  resb <- checkGMU(observed, simulated, symmetric = F)
+#'  resa$error; resb$error
+#'  resa$goodness; resb$goodness
 #' }
 # FUNCTION #########################################################################################
 checkGMU <-
@@ -314,7 +313,7 @@ checkGMU <-
         main = "Distribution of values", xlab = xlab, ylab = "Distribution")
     }
     # Output
-    res <- list(data = data.frame(pi = pi, prop = prop, width = width),
+    res <- list(data = data.frame(pi = pi, prop = prop, width = width), 
       error = error_stats, goodness = good_meas)
     return(res)
   }

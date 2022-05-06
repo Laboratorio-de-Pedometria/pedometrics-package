@@ -5,6 +5,9 @@
 \alias{cdfPlot}
 \alias{cdfStats}
 \alias{cdfTable}
+\alias{gcpDiff}
+\alias{trend.terms}
+\alias{trend.matrix}
 \title{Defunct functions in the \strong{pedometrics} package}
 \usage{
 coordenadas(...)
@@ -14,6 +17,12 @@ cdfPlot(...)
 cdfStats(...)
 
 cdfTable(...)
+
+gcpDiff(...)
+
+trend.terms(x)
+
+trend.matrix(x)
 }
 \arguments{
 \item{...}{Not used.}

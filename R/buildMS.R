@@ -42,51 +42,45 @@
 #' bidirectional variable selection. For more information about these functions, please visit their
 #' respective help pages.
 #'
-#' An important feature of \code{buildMS} is that it records the initial number
-#' of candidate predictor variables and observations offered to the model, and 
-#' adds this information as an attribute to the final selected model. Such 
-#' feature was included because variable selection procedures result biased 
-#' linear models (too optimistic), and the effective number of degrees of 
-#' freedom is close to the number of candidate predictor variables initially
-#' offered to the model (Harrell, 2001). With the initial number of candidate
-#' predictor variables and observations offered to the model, one can calculate
-#' penalized or adjusted measures of model performance. For models built using
-#' \code{builtMS}, this can be done using \code{statsMS}.
-#' 
-#' Some important details should be clear when using \code{buildMS}:
-#' 
-#' \enumerate{
-#' \item this function was originally devised to deal with a list of formulas, 
-#' but can also be used with a single formula;
-#' \item in the current implementation, \code{stepVIF} runs before 
-#' \code{stepAIC};
-#' \item function arguments imported from \code{stepAIC} and \code{stepVIF} 
-#' were named as in the original functions, and received a prefix (\code{aic} 
-#' or \code{vif}) to help the user identifying which function is affected by a 
-#' given argument without having to go check the documentation.
-#' }
-#' 
+#' An important feature of `buildMS()` is that it records the initial number of candidate predictor
+#' variables and observations offered to the model, and adds this information as an attribute to the
+#' final selected model. Such feature was included because variable selection procedures result
+#' biased linear models (too optimistic), and the effective number of degrees of freedom is close to
+#' the number of candidate predictor variables initially offered to the model (Harrell, 2001). With
+#' the initial number of candidate predictor variables and observations offered to the model, one
+#' can calculate penalized or adjusted measures of model performance. For models built using
+#' `builtMS()`, this can be done using [pedometrics::statsMS()].
+#'
+#' Some important details should be clear when using `buildMS()`:
+#'
+#' * this function was originally devised to deal with a list of formulas, but can also be used with
+#'   a single formula;
+#' * in the current implementation, [pedometrics::stepVIF()] runs before [MASS::stepAIC()];
+#' * function arguments imported from [MASS::stepAIC()] and [pedometrics::stepVIF()] were named as
+#'   in the original functions, and received a prefix (`aic` or `vif`) to help the user identifying
+#'   which function is affected by a given argument without having to go check the documentation.
+#'
 #' @return A list containing the fitted linear models.
-#' 
+#'
 #' @references
-#' Harrell, F. E. (2001) \emph{Regression modelling strategies: with 
-#' applications to linear models, logistic regression, and survival analysis.}
-#' First edition. New York: Springer.
-#' 
-#' Venables, W. N. and Ripley, B. D. (2002) \emph{Modern applied statistics 
-#' with S.} Fourth edition. New York: Springer.
-#' 
+#' Harrell, F. E. (2001) _Regression modelling strategies: with applications to linear models,
+#' logistic regression, and survival analysis._ First edition. New York: Springer.
+#'
+#' Venables, W. N. and Ripley, B. D. (2002) _Modern applied statistics with S._ Fourth edition.
+#' New York: Springer.
+#'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
-#' 
-#' @section TODO: Add option to set the order in which \code{stepAIC} and
-#' \code{stepVIF} are run.
-#' 
+#'
+#' @section TODO: Add option to set the order in which \code{stepAIC} and \code{stepVIF} are run.
+#'
 #' @seealso \code{\link[pedometrics]{stepVIF}}, \code{\link[pedometrics]{statsMS}}.
+#'
 #' @export
+#'
 #' @examples
 #' if (interactive()) {
-#' # based on the second example of function stepAIC
-#' require(MASS)
+#' # based on the second example of MASS::stepAIC()
+#' library("MASS")
 #' cpus1 <- cpus
 #' for(v in names(cpus)[2:7])
 #'   cpus1[[v]] <- cut(cpus[[v]], unique(stats::quantile(cpus[[v]])),
@@ -121,10 +115,10 @@ buildMS <-
     }
     # stats::lm
     print("fitting multiple linear regression model using OLS")
-    model <- lapply(formula, function (X) stats::lm(X, data))
+    model <- lapply(formula, function(X) stats::lm(X, data))
     # get the initial number of candidate predictors and observations
-    p <- sapply(model, function (X) dim(stats::model.matrix(X))[2])
-    n <- sapply(model, function (X) dim(stats::model.matrix(X))[1])
+    p <- sapply(model, function(X) dim(stats::model.matrix(X))[2])
+    n <- sapply(model, function(X) dim(stats::model.matrix(X))[1])
     # pedometrics::stepVIF
     if (vif) {
       print("backward predictor variable selection using VIF")
@@ -137,7 +131,7 @@ buildMS <-
       print_aic <- ifelse(aic.direction == "both", "both way", aic.direction)
       print_out <- paste0(print_aic, " predictor variable selection using AIC")
       print(print_out)
-      model <- lapply(model, function (X) {
+      model <- lapply(model, function(X) {
         MASS::stepAIC(X, direction = aic.direction, steps = aic.steps, trace = aic.trace, ...)
       })
     }

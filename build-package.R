@@ -30,8 +30,8 @@ spelling::spell_check_package()
 devtools::run_examples()
 
 # check for Linux (local) ----
-devtools::check(env_vars = c(`_R_CHECK_DEPENDS_ONLY_` = TRUE, NOT_CRAN = TRUE))
-devtools::check(document = TRUE, manual = TRUE, force_suggests = TRUE, run_dont_test = TRUE)
+devtools::check(env_vars = c(`_R_CHECK_DEPENDS_ONLY_` = TRUE))
+devtools::check(document = TRUE, manual = TRUE, force_suggests = TRUE)
 
 # check for Windows (remote) ----
 devtools::check_win_devel()

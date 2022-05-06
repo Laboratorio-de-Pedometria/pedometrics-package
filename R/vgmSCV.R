@@ -1,4 +1,3 @@
-vgmSCV <- function (obj, digits = 4) UseMethod("vgmSCV")
 #' Spatially correlated variance (SCV)
 #' 
 #' Compute the proportion of the variance that is spatially correlated.
@@ -8,16 +7,27 @@ vgmSCV <- function (obj, digits = 4) UseMethod("vgmSCV")
 #' 
 #' @param digits Integer indicating the number of decimal places to be used.
 #' 
-#' @return Numeric value indicating the proportion of the variance that is 
-#' spatially correlated.
+#' @return
+#' Numeric value indicating the proportion of the variance that is spatially correlated.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
+#' 
 #' @seealso \code{\link[pedometrics]{vgmLags}}
+#' 
 #' @aliases vgmSCV vgmSCV.variomodel vgmSCV.variogramModel vgmSCV.georob
+#' 
 #' @concept variogram
-#' @name vgmSCV
 #' @export
+#' @examples
+#' if (require(geoR)) {
+#'   ml <- likfit(s100, ini=c(0.5, 0.5), fix.nug = TRUE)
+#'   res <- vgmSCV(ml)
+#' }
+####################################################################################################
+vgmSCV <- function(obj, digits = 4) UseMethod("vgmSCV")
 # FUNCTION - geoR ##############################################################
+#' @rdname vgmSCV
+#' @export
 vgmSCV.variomodel <-
   function(obj, digits = 4) {
     res <- obj$sigmasq / (obj$sigmasq + obj$tausq)

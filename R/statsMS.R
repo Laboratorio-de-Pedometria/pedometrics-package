@@ -1,19 +1,20 @@
 #' Obtain performance statistics of a series of linear models
-#' 
-#' This function returns several statistics measuring the performance of a 
-#' series of linear models built using the function \code{buildMS}, with an 
-#' option to rank the models based on one of the returned performance 
-#' statistics.
-#' 
-#' @param model A list of linear models returned by \code{buildMS}.
+#'
+#' @description
+#' This function returns several statistics measuring the performance of a series of linear models
+#' built using the function [pedometrics::buildMS()], with an option to rank the models based on one
+#' of the returned performance statistics.
+#'
+#' @param model A list of linear models returned by [pedometrics::buildMS()].
+#'
 #' @param design.info Extra information about the linear models in the series.
-#' @param arrange.by Character string defining if the table with the 
-#' performance statistics of the linear models should be arranged, and which 
-#' column should be used. Available options are \code{"candidates"}, 
-#' \code{"df"}, \code{"aic"}, \code{"rmse"}, \code{"nrmse"}, \code{"r2"}, 
-#' \code{"adj_r2"}, and \code{"ADJ_r2"}. Descending order is used by default and 
-#' cannot be changed in the current implementation. See \sQuote{Value} for more 
-#' information.
+#'
+#' @param arrange.by Character string defining if the table with the performance statistics of the
+#' linear models should be arranged, and which column should be used. Available options are
+#' `"candidates"`, `"df"`, `"aic"`, `"rmse"`, `"nrmse"`, `"r2"`, `"adj_r2"`, and `"ADJ_r2"`.
+#' Descending order is used by default and cannot be changed in the current implementation. See
+#' \sQuote{Value} for more information.
+#'
 #' @param digits Integer or vector with six integers indicating the number of 
 #' decimal places to be used to round the performance statistics. If a vector 
 #' is passed to the function, the number of decimal places should be in the 
@@ -69,32 +70,29 @@
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
 #' @section TODO:
-#' \enumerate{
-#' \item Include other performance statistics such as: PRESS, BIC, Mallow's Cp, 
-#' max(VIF);
-#' \item Add option to select which performance statistics should be returned.
-#' }
-#' 
-#' @seealso \code{\link[pedometrics]{buildMS}}, \code{\link[pedometrics]{plotMS}}
+#' * Include other performance statistics such as: PRESS, BIC, Mallow's Cp, max(VIF);
+#' * Add option to select which performance statistics should be returned.
+#'
+#' @seealso [pedometrics::buildMS()], [pedometrics::plotMS()]
 #' @export
 #' @examples
-#' \dontrun{
-#' # based on the second example of function stepAIC
-#' require(MASS)
-#' cpus1 <- cpus
-#' for(v in names(cpus)[2:7])
-#'   cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])), 
-#'                     include.lowest = TRUE)
-#' cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
-#' cpus.samp <- sample(1:209, 100)
-#' cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin +
-#'                   chmax + perf),
-#'                   formula(log10(perf) ~ syct + mmin + cach + chmin + chmax),
-#'                   formula(log10(perf) ~ mmax + cach + chmin + chmax + perf))
-#' data <- cpus1[cpus.samp,2:8]
-#' cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
-#' cpus.des <- data.frame(a = c(0, 1, 0), b = c(1, 0, 1), c = c(1, 1, 0))
-#' stats <- statsMS(cpus.ms, design.info = cpus.des, arrange.by = "aic")
+#' if (require(plyr)) {
+#'   # based on the second example of function MASS:stepAIC()
+#'   require(MASS)
+#'   cpus1 <- cpus
+#'   for(v in names(cpus)[2:7])
+#'     cpus1[[v]] <- cut(cpus[[v]], unique(quantile(cpus[[v]])), 
+#'                       include.lowest = TRUE)
+#'   cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
+#'   cpus.samp <- sample(1:209, 100)
+#'   cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin +
+#'                     chmax + perf),
+#'                     formula(log10(perf) ~ syct + mmin + cach + chmin + chmax),
+#'                     formula(log10(perf) ~ mmax + cach + chmin + chmax + perf))
+#'   data <- cpus1[cpus.samp,2:8]
+#'   cpus.ms <- buildMS(cpus.form, data, vif = TRUE, aic = TRUE)
+#'   cpus.des <- data.frame(a = c(0, 1, 0), b = c(1, 0, 1), c = c(1, 1, 0))
+#'   stats <- statsMS(cpus.ms, design.info = cpus.des, arrange.by = "aic")
 #' }
 # FUNCTION #########################################################################################
 statsMS <-

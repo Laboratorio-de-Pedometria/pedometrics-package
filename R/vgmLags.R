@@ -30,9 +30,9 @@
 #' (\code{"pairs"}) per lag-distance class be computed? Defaults to 
 #' \code{count = "pairs"}.
 #' 
-#' @return Vector of numeric values with the lower and upper boundaries of the 
-#' lag-distance classes. The number of points or point-pairs per lag-distance
-#' class is returned as an attribute.
+#' @return
+#' Vector of numeric values with the lower and upper boundaries of the lag-distance classes. The
+#' number of points or point-pairs per lag-distance class is returned as an attribute.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' @concept variogram
@@ -42,10 +42,10 @@
 #' 390-399, 2013.
 #' @export
 #' @examples
-#' if (interactive()) {
-#' data(meuse, package = "sp")
-#' lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
-#' lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
+#' if (require(SpatialTools)) {
+#'   data(meuse, package = "sp")
+#'   lags_points <- vgmLags(coords = meuse[, 1:2], count = "points")
+#'   lags_pairs <- vgmLags(coords = meuse[, 1:2], count = "pairs")
 #' }
 # FUNCTION - MAIN ##################################################################################
 vgmLags <-
