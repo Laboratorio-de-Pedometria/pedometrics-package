@@ -46,7 +46,8 @@ devtools::check_win_oldrelease()
 # rhub::platforms()
 platforms <- c("fedora-clang-devel",
   "ubuntu-gcc-release", "debian-clang-devel", "windows-x86_64-devel")
-devtools::check_rhub(platforms = platforms, interactive = FALSE)
+devtools::check_rhub(platforms = platforms, interactive = FALSE,
+  env_vars = c(`_R_CHECK_FORCE_SUGGESTS_` = "false"))
 
 # upload to CRAN ----
 # devtools::build()

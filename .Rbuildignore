@@ -12,7 +12,7 @@ R/cdfStats.R
 R/cdfTable.R
 R/coordenadas.R
 R/gcpDiff.R
-R/optimRandomForest
+R/optimRandomForest.R
 R/popStats.R
 R/trend.R
 

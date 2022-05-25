@@ -1,11 +1,12 @@
 Package: pedometrics
 Version: 0.11.1
-Date: 2022-05-06
+Date: 2022-05-25
 Title: Miscellaneous Pedometric Tools
 Description: An R implementation of some useful tools employed in the field of pedometrics. Some of
     these tools use the popular geostatistical packages geoR and georob. From time to time, these
-    suggested packages may be archived due to issues with their own dependencies. Formerly available
-    versions can be obtained from the CRAN archive.
+    suggested packages may be archived (temporarily removed from CRAN) due to issues with their own
+    dependencies. Formerly available versions can be obtained from the CRAN archive
+    <https://cran.r-project.org/src/contrib/Archive/>.
 Authors@R: c(
     person("Alessandro", "Samuel-Rosa", role = c("aut", "cre"),
        email = "alessandrosamuelrosa@gmail.com",
@@ -29,7 +30,6 @@ Authors@R: c(
     person("Ruo", "Xu", role = "ctb", email = "xuruo.isu@gmail.com")
        )
 URL: https://github.com/Laboratorio-de-Pedometria/pedometrics-package
-Additional_repositories: https://cran.r-project.org/src/contrib/Archive/
 BugReports: https://github.com/Laboratorio-de-Pedometria/pedometrics-package/issues
 Depends:
     R (>= 3.2.0)
@@ -56,7 +56,7 @@ Suggests:
 License: GPL (>= 2)
 Encoding: UTF-8
 Repository: CRAN
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 SystemRequirements: pandoc
 Roxygen: list(markdown = TRUE)
 Language: en-US

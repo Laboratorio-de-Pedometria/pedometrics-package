@@ -98,8 +98,9 @@
 #' }
 #' 
 #' @aliases buildMS buildModelSeries
-#' @export
 # FUNCTION #########################################################################################
+#' @export
+#' @rdname buildModelSeries
 buildModelSeries <-
   function(formula, data, vif = FALSE, vif.threshold = 10, vif.verbose = FALSE, aic = FALSE,
           aic.direction = "both", aic.trace = FALSE, aic.steps = 5000, ...) {
@@ -154,5 +155,5 @@ buildModelSeries <-
     return(model)
   }
 #' @export
-#' @rdname buildMS.Rd
+#' @rdname buildModelSeries
 buildMS <- buildModelSeries
