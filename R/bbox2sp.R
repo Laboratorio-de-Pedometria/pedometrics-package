@@ -1,19 +1,25 @@
-#' Create Spatial object from a bounding box
+#' Create a Spatial* object from a bounding box
 #'
-#' @description 
-#' This function takes the bounding box of a Spatial* object and creates a SpatialPoints* or
-#' SpatialPolygons* object from it.
+#' @description
+#' Take the bounding box of a Spatial* object and create a SpatialPoints* or SpatialPolygons* object
+#' from it.
 #'
 #' @param obj Object of class Spatial*.
 #'
-#' @param sp Class of the resulting object. Available options are `"SpatialPoints"`,
-#' `"SpatialPointsDataFrame"`, `"SpatialPolygons"`, and `"SpatialPolygonsDataFrame"`.
+#' @param sp Class of the resulting object with options `"SpatialPolygons"` (default),
+#' `"SpatialPoints"`, `"SpatialPointsDataFrame"`, and `"SpatialPolygonsDataFrame"`.
 #'
 #' @param keep.crs Logical for assigning the same coordinate reference system to the resulting
-#' Spatial* object.
+#' Spatial* object. Defaults to `keep.crs = TRUE`.
 #'
 #' @return An object of class SpatialPoints* or SpatialPolygons*.
-#'
+#' 
+#' @section Requires
+#' The __sp__ package, provider of classes and methods for spatial data in R, is required for this
+#' function to work. The development version of the __sp__ package is available on
+#' <https://github.com/edzer/sp/>. Its old versions are available on the CRAN archive at
+#' <https://cran.r-project.org/src/contrib/Archive/sp/>.
+#' 
 #' @note Some of the solutions used to build this function were found in the source code of the
 #' R-package __intamapInteractive__. As such, the authors of that package, Edzer Pebesma
 #' \email{edzer.pebesma@@uni-muenster.de} and Jon Skoien \email{jon.skoien@@gmail.com}, are entitled
@@ -22,7 +28,6 @@
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
 #' @references
-#'
 #' Edzer Pebesma, Jon Skoien with contributions from Olivier Baume, A. Chorti, D.T. Hristopulos,
 #' S.J. Melles and G. Spiliopoulos (2013). _intamapInteractive: procedures for automated
 #' interpolation - methods only to be used interactively, not included in intamap package._ R
