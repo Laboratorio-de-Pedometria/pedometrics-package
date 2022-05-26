@@ -20,11 +20,11 @@
 #' `min.npairs = 30`.
 #'
 #' @param model Character keyword defining the variogram model that will be fitted to the data.
-#' Currently, most basic variogram models are accepted. See [geoR::cov.spatial()] for more
+#' Currently, most basic variogram models are accepted. See `geoR::cov.spatial()` for more
 #' information. Defaults to `model = "matern"`.
 #'
 #' @param nu numerical value for the additional smoothness parameter \eqn{\nu} of the correlation
-#' function. See [RandomFields::RMmodel()] and argument `kappa` of [geoR::cov.spatial()] for more
+#' function. See `RandomFields::RMmodel()` and argument `kappa` of `geoR::cov.spatial()` for more
 #' information.
 #'
 #' @param plotit Should the guessed initial covariance parameters be plotted along with the sample
@@ -32,14 +32,14 @@
 #'
 #' @param estimator Character keyword defining the estimator for computing the sample variogram,
 #' with options `"qn"`, `"mad"`, `"matheron"`, and `"ch"`. Defaults to `estimator = "qn"`. See
-#' [georob::sample.variogram()] for more details.
+#' `georob::sample.variogram()` for more details.
 #'
 #' @return
 #' A vector of numeric values: the guesses for the covariance parameters nugget, partial sill, and
 #' range.
 #'
 #' @details
-#' There are five methods two guess the initial covariance parameters  (ICP). Two of them, `"a"` and
+#' There are five methods two guess the initial covariance parameters (ICP). Two of them, `"a"` and
 #' `"c"`, rely a sample variogram with exponentially spaced lag-distance classes, while the other
 #' three, `"b"`, `"d"`, and `"e"`, use equidistant lag-distance classes (see
 #' [pedometrics::vgmLags()]). All of them are [heuristic](https://en.wikipedia.org/wiki/Heuristic).

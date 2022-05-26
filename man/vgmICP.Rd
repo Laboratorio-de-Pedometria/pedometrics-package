@@ -40,16 +40,16 @@ lag-distance class is used for guessing the initial covariance parameters. Defau
 \code{min.npairs = 30}.}
 
 \item{model}{Character keyword defining the variogram model that will be fitted to the data.
-Currently, most basic variogram models are accepted. See \code{\link[geoR:cov.spatial]{geoR::cov.spatial()}} for more
+Currently, most basic variogram models are accepted. See \code{geoR::cov.spatial()} for more
 information. Defaults to \code{model = "matern"}.}
 
 \item{nu}{numerical value for the additional smoothness parameter \eqn{\nu} of the correlation
-function. See \code{\link[RandomFields:RMmodel]{RandomFields::RMmodel()}} and argument \code{kappa} of \code{\link[geoR:cov.spatial]{geoR::cov.spatial()}} for more
+function. See \code{RandomFields::RMmodel()} and argument \code{kappa} of \code{geoR::cov.spatial()} for more
 information.}
 
 \item{estimator}{Character keyword defining the estimator for computing the sample variogram,
 with options \code{"qn"}, \code{"mad"}, \code{"matheron"}, and \code{"ch"}. Defaults to \code{estimator = "qn"}. See
-\code{\link[georob:sample.variogram]{georob::sample.variogram()}} for more details.}
+\code{georob::sample.variogram()} for more details.}
 
 \item{plotit}{Should the guessed initial covariance parameters be plotted along with the sample
 variogram? Defaults to \code{plotit = FALSE}.}
@@ -62,7 +62,7 @@ range.
 Guess the initial values for the covariance parameters required to fit a variogram model.
 }
 \details{
-There are five methods two guess the initial covariance parameters  (ICP). Two of them, \code{"a"} and
+There are five methods two guess the initial covariance parameters (ICP). Two of them, \code{"a"} and
 \code{"c"}, rely a sample variogram with exponentially spaced lag-distance classes, while the other
 three, \code{"b"}, \code{"d"}, and \code{"e"}, use equidistant lag-distance classes (see
 \code{\link[=vgmLags]{vgmLags()}}). All of them are \href{https://en.wikipedia.org/wiki/Heuristic}{heuristic}.
