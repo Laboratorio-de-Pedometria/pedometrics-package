@@ -14,8 +14,9 @@
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
-#' @references Coefficient of determination. Wikipedia, The Free Encyclopedia. Available at
-#' \url{https://en.wikipedia.org/wiki/Coefficient_of_determination}.
+#' @references
+#' Coefficient of determination. Wikipedia, The Free Encyclopedia. Available at
+#' <https://en.wikipedia.org/wiki/Coefficient_of_determination>.
 #'
 #' @keywords misc
 #'
