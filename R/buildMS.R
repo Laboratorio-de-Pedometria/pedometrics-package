@@ -1,9 +1,8 @@
 #' Build a series of linear models using automated variable selection
 #'
-#' @description 
-#' This function allows building a series of linear models with [stats::lm()] using one or more
-#' automated variable selection implemented in function [pedometrics::stepVIF()] and
-#' [MASS::stepAIC()].
+#' @description
+#' Build a series of linear models with [stats::lm()] using one or more automated variable
+#' selection methods implemented in the functions [pedometrics::stepVIF()] and [MASS::stepAIC()].
 #'
 #' @param formula A list containing one or several model formulas (a symbolic description of the
 #' model to be fitted).
@@ -11,7 +10,7 @@
 #' @param data Data frame containing the variables in the model formulas.
 #'
 #' @param vif Logical for performing backward variable selection using the Variance-Inflation Factor
-#' (VIF). Defaults to `VIF = FALSE`.
+#' (VIF). Defaults to `vif = FALSE`.
 #'
 #' @param vif.threshold Numeric value setting the maximum acceptable VIF value. Defaults to
 #' `vif.threshold = 10`.
@@ -22,9 +21,8 @@
 #' @param aic Logical for performing variable selection using Akaike's Information Criterion (AIC).
 #' Defaults to `aic = FALSE`.
 #'
-#' @param aic.direction Character string setting the direction of variable selection when using AIC.
-#' Available options are `"both"`, `"forward"`, and `"backward"`. Defaults to
-#' `aic.direction = "both"`.
+#' @param aic.direction Character string setting the direction of variable selection when using AIC,
+#' with options `"both"` (default), `"forward"`, and `"backward"`.
 #'
 #' @param aic.trace Logical for printing iteration results of variable selection using the AIC.
 #' Defaults to `aic.trace = FALSE`.
@@ -35,13 +33,13 @@
 #' @param ... Further arguments passed to [MASS::stepAIC()].
 #'
 #' @details
-#' This function was devised to deal with a list of linear model formulas. The main objective is to
-#' bring together several functions commonly used when building linear models, such as automated
-#' variable selection. In the current implementation, variable selection can be done using
-#' [pedometrics::stepVIF()] or [MASS::stepAIC()] or both. [pedometrics::stepVIF()] is a backward
-#' variable selection procedure, while [MASS::stepAIC()] supports backward, forward, and
-#' bidirectional variable selection. For more information about these functions, please visit their
-#' respective help pages.
+#' [pedometrics::buildModelSeries()] was devised to deal with a list of linear model formulas. The
+#' main objective is to bring together several functions commonly used when building linear models,
+#' such as automated variable selection. In the current implementation, variable selection can be
+#' done using [pedometrics::stepVIF()] or [MASS::stepAIC()] or both.
+#' [pedometrics::stepVIF()] is a backward variable selection procedure, while [MASS::stepAIC()]
+#' supports backward, forward, and bidirectional variable selection. For more information about
+#' these functions, please visit their respective help pages.
 #'
 #' An important feature of [pedometrics::buildModelSeries()] is that it records the initial number
 #' of candidate predictor variables and observations offered to the model, and adds this information
@@ -51,7 +49,7 @@
 #' (Harrell, 2001). With the initial number of candidate predictor variables and observations
 #' offered to the model, one can calculate penalized or adjusted measures of model performance. For
 #' models built using [pedometrics::buildModelSeries()], this can be done using
-#' [pedometrics::statsMS()].
+#' [pedometrics::statsModelSeries()].
 #'
 #' Some important details should be clear when using [pedometrics::buildModelSeries()]:
 #'
@@ -72,31 +70,41 @@
 #' Venables, W. N. and Ripley, B. D. (2002) _Modern applied statistics with S._ Fourth edition.
 #' New York: Springer.
 #'
+#' A. Samuel-Rosa, G. B. M. Heuvelink, G. de Mattos Vasques, and L. H. C. dos Anjos, Do more
+#' detailed environmental covariates deliver more accurate soil maps?, _Geoderma_, vol. 243–244,
+#' pp. 214–227, May 2015, doi: 10.1016/j.geoderma.2014.12.017.
+#' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
 #' @section TODO:
 #' Add option to set the order in which [MASS::stepAIC()] and [pedometrics::stepVIF()] are run.
+#' 
+#' @section Dependencies:
+#' The __MASS__ package, provider of support functions and datasets for Venables and Ripley's Modern
+#' Applied Statistics with S, is required for [pedometrics::buildModelSeries()] to work. The
+#' development version of the __MASS__ package is available on
+#' <https://www.stats.ox.ac.uk/pub/MASS4/> while its old versions are available on the CRAN archive
+#' at <https://cran.r-project.org/src/contrib/Archive/MASS/>.
 #'
 #' @seealso [pedometrics::stepVIF()], [pedometrics::statsMS()]
 #'
 #' @examples
 #' if (interactive()) {
-#' # based on the second example of MASS::stepAIC()
-#' library("MASS")
-#' cpus1 <- cpus
-#' for(v in names(cpus)[2:7])
-#'   cpus1[[v]] <- cut(cpus[[v]], unique(stats::quantile(cpus[[v]])),
-#'                     include.lowest = TRUE)
-#' cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
-#' cpus.samp <- sample(1:209, 100)
-#' cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin +
-#'                   chmax + perf),
-#'                   formula(log10(perf) ~ syct + mmin + cach + chmin + chmax),
-#'                   formula(log10(perf) ~ mmax + cach + chmin + chmax + perf))
-#' data <- cpus1[cpus.samp,2:8]
-#' cpus.ms <- buildModelSeries(cpus.form, data, vif = TRUE, aic = TRUE)
+#'   # based on the second example of MASS::stepAIC()
+#'   library("MASS")
+#'   cpus1 <- cpus
+#'   for(v in names(cpus)[2:7])
+#'     cpus1[[v]] <- cut(cpus[[v]], unique(stats::quantile(cpus[[v]])),
+#'                       include.lowest = TRUE)
+#'   cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
+#'   cpus.samp <- sample(1:209, 100)
+#'   cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin +
+#'                     chmax + perf),
+#'                     formula(log10(perf) ~ syct + mmin + cach + chmin + chmax),
+#'                     formula(log10(perf) ~ mmax + cach + chmin + chmax + perf))
+#'   data <- cpus1[cpus.samp,2:8]
+#'   cpus.ms <- buildModelSeries(cpus.form, data, vif = TRUE, aic = TRUE)
 #' }
-#' 
 #' @aliases buildMS buildModelSeries
 # FUNCTION #########################################################################################
 #' @export
