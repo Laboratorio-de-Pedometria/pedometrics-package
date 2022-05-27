@@ -1,15 +1,18 @@
 #' Model series plot
 #' 
 #' @description 
-#' This function produces a graphical output that allows the examination of the effect of using
-#' different model specifications (design) on the predictive performance of these models (a model
-#' series). It generally is used to access the results of functions [pedometrics::buildMS()] and
-#' [pedometrics::statsMS()], but can be easily adapted to work with any model structure and
-#' performance measure.
+#' Produce a graphical output to examine the effect of using different model specifications (design)
+#' on the predictive performance of these models (a model series). Devised to access the results of
+#' [pedometrics::buildModelSeries()] and [pedometrics::statsMS()], but can be easily adapted to
+#' work with any model structure and performance measure.
 #' 
 #' @param obj Object of class `data.frame`, generally returned by [pedometrics::statsMS()],
-#' containing a 1) series of performance statistics of several models, and 2) the design information
-#' of each model. See \sQuote{Details} for more information.
+#' containing:
+#' 
+#'    1. a series of performance statistics of several models, and
+#'    2. the design information of each model.
+#' 
+#' See \sQuote{Details} for more information.
 #' 
 #' @param grid Vector of integer values or character strings indicating the columns of the
 #' `data.frame` containing the design data which will be gridded using the function
@@ -23,7 +26,7 @@
 #' See \sQuote{Details} for more information.
 #' 
 #' @param type Vector of character strings indicating some of the effects to be used when plotting
-#' the performance statistics using [lattice::xyplot()]. Defaults `type = c("b", "g")`. See
+#' the performance statistics using [lattice::xyplot()]. Defaults to `type = c("b", "g")`. See
 #' [lattice::panel.xyplot()] for more information on how to set this argument.
 #' 
 #' @param pch Vector with two integer values specifying the symbols to be used to plot points. The
@@ -36,8 +39,8 @@
 #' more information.
 #' 
 #' @param arrange Character string indicating how the model series should be arranged, which can be
-#' in ascending (`asc`) or descending (`desc`) order. Defaults to `arrange = "desc"`. See
-#' [plyr::arrange()] for more information.
+#' in ascending (`"asc"`) or descending (`"desc"`, default) order.
+# See [plyr::arrange()] for more information.
 #' 
 #' @param color Vector defining the colors to be used in the grid produced by function
 #' [lattice::levelplot()]. If `color = NULL`, defaults to `color = cm.colors(n)`, where `n` is the
@@ -45,7 +48,7 @@
 #' to see how to use other color palettes.
 #' 
 #' @param xlim Numeric vector of length 2, giving the x coordinates range. If `xlim = NULL` (which
-#' is the recommended value), defaults to  `xlim = c(0.5, dim(obj)[1] + 0.5)`. This is, so far, the
+#' is the recommended value), defaults to `xlim = c(0.5, dim(obj)[1] + 0.5)`. This is, so far, the
 #' optimum range for adequate plotting.
 #' 
 #' @param ylab Character vector of length 2, giving the y-axis labels. When `obj` is a `data.frame`
@@ -54,8 +57,7 @@
 #' `"rmse"`, `"nrmse"`, `"r2"`, `"adj_r2"`, or `"ADJ_r2"`), the function tries to automatically
 #' identify the correct `ylab`.
 #' 
-#' @param xlab Character vector of length 1, giving the x-axis labels. Defaults `xlab = "Model
-#' ranking"`.
+#' @param xlab Character vector of unit length, the x-axis label. Defaults `xlab = "Model ranking"`.
 #' 
 #' @param at Numeric vector indicating the location of tick marks along the x axis (in native
 #' coordinates).
@@ -171,11 +173,27 @@
 #' Statistical Software. v. 25 (Code Snippet), p. 1-17.
 #' 
 #' Roger D. Peng (2012). _mvtsplot: Multivariate Time Series Plot._ R package version 1.0-1. 
-#' \url{https://CRAN.R-project.org/package=mvtsplot}.
+#' <https://CRAN.R-project.org/package=mvtsplot>.
+#' 
+#' A. Samuel-Rosa, G. B. M. Heuvelink, G. de Mattos Vasques, and L. H. C. dos Anjos, Do more
+#' detailed environmental covariates deliver more accurate soil maps?, _Geoderma_, vol. 243–244,
+#' pp. 214–227, May 2015, doi: 10.1016/j.geoderma.2014.12.017.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @note 
+#' @section Dependencies:
+# The __plyr__ package, provider of tools for splitting, applying and combining data in R, is
+# required for [pedometrics::plotModelSeries()] to work. The development version of the __plyr__
+# package is available on <https://github.com/hadley/plyr> while its old versions are available on
+# the CRAN archive at <https://cran.r-project.org/src/contrib/Archive/plyr/>.
+#' 
+#' The __grDevices__ package, provider of graphics devices and support for colours and fonts in R,
+#' is required for [pedometrics::plotModelSeries()] to work.
+#' 
+#' The __grid__ package, a rewrite of the graphics layout capabilities in R, is required for
+#' [pedometrics::plotModelSeries()] to work.
+#' 
+#' @note
 #' Some of the solutions used to build this function were found in the source code of the R-package
 #' __mvtsplot__. As such, the author of that package, Roger D. Peng \email{rpeng@@jhsph.edu}, is
 #' entitled \sQuote{contributors} to the R-package __pedometrics__.
@@ -187,32 +205,33 @@
 #' @seealso [lattice::xyplot()] [lattice::levelplot()]
 #' 
 #' @examples
-#' if (require(plyr)) {
-#' # This example follows the discussion in section "Details"
-#' # Note that the data.frame is created manually
-#' id <- c(1:8)
-#' design <- data.frame(a = c(0, 0, 1, 0, 1, 0, 1, 1),
-#'                      b = c(0, 0, 0, 1, 0, 1, 1, 1),
-#'                      c = c(0, 1, 0, 0, 1, 1, 0, 1))
-#' adj_r2 <- c(0.87, 0.74, 0.81, 0.85, 0.54, 0.86, 0.90, 0.89)
-#' obj <- cbind(id, design, adj_r2)
-#' p <- plotMS(obj, grid = c(2:4), line = "adj_r2", ind = 1, 
-#'             color = c("lightyellow", "palegreen"),
-#'             main = "Model Series Plot")
-#' print(p)
+# if (all(require(plyr), require(grDevices), require(grid))) {
+#' if (all(require(grDevices), require(grid))) {
+#'   # This example follows the discussion in section "Details"
+#'   # Note that the data.frame is created manually
+#'   id <- c(1:8)
+#'   design <- data.frame(a = c(0, 0, 1, 0, 1, 0, 1, 1),
+#'                        b = c(0, 0, 0, 1, 0, 1, 1, 1),
+#'                        c = c(0, 1, 0, 0, 1, 1, 0, 1))
+#'   adj_r2 <- c(0.87, 0.74, 0.81, 0.85, 0.54, 0.86, 0.90, 0.89)
+#'   obj <- cbind(id, design, adj_r2)
+#'   p <- plotModelSeries(obj, grid = c(2:4), line = "adj_r2", ind = 1, 
+#'               color = c("lightyellow", "palegreen"),
+#'               main = "Model Series Plot")
 #' }
 #' @keywords hplot
 #' @importFrom stats update
-#' @export
 # FUNCTION #########################################################################################
-plotMS <-
+#' @export
+#' @rdname plotModelSeries
+plotModelSeries <-
   function(obj, grid, line, ind, type = c("b", "g"), pch = c(20, 2), size = 0.5, arrange = "desc",
     color = NULL, xlim = NULL, ylab = NULL, xlab = NULL, at = NULL, ...) {
     # check if suggested packages are installed
     if (!requireNamespace("grDevices")) stop("grDevices package is missing")
-    if (!requireNamespace("lattice")) stop("lattice package is missing")
+    # if (!requireNamespace("lattice")) stop("lattice package is missing")
     if (!requireNamespace("grid")) stop("grid package is missing")
-    if (!requireNamespace("plyr")) stop("plyr package is missing")
+    # if (!requireNamespace("plyr")) stop("plyr package is missing")
     # check function arguments
     if (missing(obj)) {
       stop("'obj' is a mandatory argument")
@@ -266,9 +285,13 @@ plotMS <-
       line <- colnames(obj)[line]
     }
     if (any(line == c("r2", "adj_r2", "ADJ_r2"))) {
-      obj <- plyr::arrange(obj, plyr::desc(obj[, line]))
+      # obj <- plyr::arrange(obj, plyr::desc(obj[, line]))
+      idx_arrange <- order(obj[[line]], decreasing = TRUE)
+      obj <- obj[idx_arrange, ]
     } else {
-      obj <- plyr::arrange(obj, obj[, line])
+      # obj <- plyr::arrange(obj, obj[, line])
+      idx_arrange <- order(obj[[line]], decreasing = FALSE)
+      obj <- obj[idx_arrange, ]
     }
     grid <- as.matrix(obj[, grid])
     x <- seq(1, dim(obj)[1], 1)
@@ -339,3 +362,6 @@ plotMS <-
       ylab = ylab, aspect = c((dim(grid)[2] * 2) / dim(grid)[1]),
       par.settings = list(layout.heights = list(panel = c(0.5, 0.5))), ...)
     }
+#' @export
+#' @rdname plotModelSeries
+plotMS <- plotModelSeries
