@@ -1,48 +1,55 @@
-#' Initial covariance parameters (ICP)
-#' 
-#' @description 
-#' Guess the initial values for the covariance parameters required to fit a variogram model.
+#' Guess the parameters of a spatial covariance function
 #'
-#' @inheritParams vgmLags
+#' @description
+#' Guess the parameters of the spatial covariance function of a random, regionalized variable. A
+#' guess of such parameters is required to start the fitting functions of many geostatistical
+#' packages such as __gstat__, __geoR__, and __georob__.
 #'
-#' @param z Numeric vector with the values of the response variable for which the initial values for
-#' the covariance parameters should be guessed.
+#' @inheritParams variogramBins
 #'
-#' @param lags Numeric scalar defining the width of the lag-distance classes, or a numeric vector
-#' with the lower and upper bounds of the lag-distance classes. If missing, the lag-distance classes
-#' are computed using [pedometrics::vgmLags()]. See \sQuote{Details} for more information.
+#' @param z Numeric vector with the values of the regionalized variable for which the values for the
+#' spatial covariance parameters should be guessed.
 #'
-#' @param method Character keyword defining the method used for guessing the initial covariance
-#' parameters. Defaults to `method = "a"`. See \sQuote{Details} for more information.
+#' @param lags Numeric scalar defining the width of the variogram bins or a numeric vector with the
+#' lower and upper bounds of the variogram bins. If missing, the variogram bins are computed using
+#' [pedometrics::variogramBins()]. See \sQuote{Details} for more information.
+#'
+#' @param method Character keyword defining the method used for guessing the spatial covariance
+#' parameters of the regionalized variable. Defaults to `method = "a"`. See \sQuote{Details} for
+#' more information.
 #'
 #' @param min.npairs Positive integer defining the minimum number of point-pairs required so that a
-#' lag-distance class is used for guessing the initial covariance parameters. Defaults to
-#' `min.npairs = 30`.
+#' variogram bin is used to guessing the spatial covariance parameters of the  of the regionalized
+#' variable. Defaults to `min.npairs = 30`.
 #'
-#' @param model Character keyword defining the variogram model that will be fitted to the data.
-#' Currently, most basic variogram models are accepted. See `geoR::cov.spatial()` for more
-#' information. Defaults to `model = "matern"`.
+#' @param model Character keyword defining the spatial covariance function that will be fitted to
+#' the data of the regionalized variable. Currently, most of the basic spatial covariance function
+#' are accepted. See `geoR::cov.spatial()` for more information. Defaults to `model = "matern"`.
 #'
-#' @param nu numerical value for the additional smoothness parameter \eqn{\nu} of the correlation
-#' function. See `RandomFields::RMmodel()` and argument `kappa` of `geoR::cov.spatial()` for more
-#' information.
+#' @param nu Numerical value for the additional smoothness parameter \eqn{\nu} of the spatial
+#' covariance function of the regionalized variable. See `RandomFields::RMmodel()` and argument
+#' `kappa` of `geoR::cov.spatial()` for more information.
 #'
-#' @param plotit Should the guessed initial covariance parameters be plotted along with the sample
-#' variogram? Defaults to `plotit = FALSE`.
+#' @param plotit Should the guessed spatial covariance parameters be plotted along with the sample
+#' (experimental) variogram of the regionalized variable? Defaults to `plotit = FALSE`.
 #'
-#' @param estimator Character keyword defining the estimator for computing the sample variogram,
-#' with options `"qn"`, `"mad"`, `"matheron"`, and `"ch"`. Defaults to `estimator = "qn"`. See
-#' `georob::sample.variogram()` for more details.
+#' @param estimator Character keyword defining the estimator for computing the sample (experimental)
+#' variogram of the regionalized variable, with options `"qn"` (default), `"mad"`, `"matheron"`, and
+#' `"ch"`. See `georob::sample.variogram()` for more details.
 #'
 #' @return
-#' A vector of numeric values: the guesses for the covariance parameters nugget, partial sill, and
-#' range.
+#' A vector of numerical values, the guesses for the spatial covariance parameters of the
+#' regionalized variable:
+#' 
+#'   * nugget
+#'   * partial sill
+#'   * range
 #'
 #' @details
-#' There are five methods two guess the initial covariance parameters (ICP). Two of them, `"a"` and
-#' `"c"`, rely a sample variogram with exponentially spaced lag-distance classes, while the other
-#' three, `"b"`, `"d"`, and `"e"`, use equidistant lag-distance classes (see
-#' [pedometrics::vgmLags()]). All of them are [heuristic](https://en.wikipedia.org/wiki/Heuristic).
+#' There are five methods two guess the covariance parameters. Two of them, `"a"` and `"c"`, rely on
+#' a sample variogram with exponentially growing variogram bins, while the other three, `"b"`,
+#' `"d"`, and `"e"`, use equal-width variogram bins (see [pedometrics::variogramBins()]). All of
+#' them are [heuristic](https://en.wikipedia.org/wiki/Heuristic).
 #'
 #' Method `"a"` was developed in-house and is the most elaborated of them, specially for guessing
 #' the nugget variance.
@@ -55,7 +62,9 @@
 #'
 #' Method `"d"` was developed by \doi{10.1007/s11004-012-9434-1}{Desassis & Renard (2012)}.
 #'
-#' Method `"e"` was proposed by \href{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf}{Larrondo et al. (2003)} and is implemented in the VARFIT module of \href{http://www.gslib.com/}{GSLIB}.
+#' Method `"e"` was proposed by Larrondo et al. (2003)
+#' <http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf> and is implemented in the
+#' VARFIT module of GSLIB <http://www.gslib.com/>.
 #'
 #' @references
 #' Desassis, N. & Renard, D. Automatic variogram modelling by iterative least squares: univariate
@@ -74,25 +83,36 @@
 #' p. 17, 2003.
 #' 
 #' @note 
-#' Package __geoR__ is used to guess the range (scale) parameter of the following covariance models:
-#' "matern" (except when `nu = 0.5`), "powered.exponential", "stable", "cauchy", "gencauchy",
-#' "gneiting", and "gneiting.matern". If __geoR__ is not installed, a guess of the practical range
-#' of these covariance models is returned. The practical range is the distance at which the
+#' Package __geoR__ is used to guess the range (scale) parameter of the following spatial covariance
+#' functions: "matern" (except when `nu = 0.5`), "powered.exponential", "stable", "cauchy",
+#' "gencauchy", "gneiting", and "gneiting.matern". The practical range is the distance at which the
 #' semivariance reaches its maximum, i.e. the sill.
+#' 
+#' @section Dependencies:
+#' The __geoR__ package, provider of functions for the analysis of geostatistical data in R, is
+#' required for [pedometrics::variogramGuess()] to work. The development version of the __geoR__
+#' package is available on <http://www.leg.ufpr.br/geoR/> while its old versions are available on
+#' the CRAN archive at <https://cran.r-project.org/src/contrib/Archive/geoR/>.
+#' 
+#' The __georob__ package, provider of functions for the robust geostatistical analysis of spatial
+#' data in R, is required for [pedometrics::variogramGuess()] to work. The old versions of the
+#' __georob__ package are available on the CRAN archive at
+#' <https://cran.r-project.org/src/contrib/Archive/georob/>.
 #' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
-#' @seealso [pedometrics::vgmLags()]
+#' @seealso [pedometrics::variogramBins()]
 #' 
 #' @examples
 #' if (all(c(require(sp), require(georob), require(geoR)))) {
 #'   data(meuse, package = "sp")
-#'   icp <- vgmICP(z = log(meuse$copper), coords = meuse[, 1:2])
+#'   icp <- variogramGuess(z = log(meuse$copper), coords = meuse[, 1:2])
 #' }
 #' @concept variogram
-#' @export
 # FUNCTION - MAIN ##################################################################################
-vgmICP <-
+#' @export
+#' @rdname variogramGuess
+variogramGuess <-
   function(z, coords, lags, cutoff = 0.5, method = "a", min.npairs = 30, model = "matern", nu = 0.5,
           estimator = "qn", plotit = FALSE) {
     # check if suggested packages are installed
@@ -109,9 +129,9 @@ vgmICP <-
     # Check lags and max.dist
     if (missing(lags)) {
       if (method %in% c("a", "c")) {
-        lags <- vgmLags(coords, cutoff = cutoff)
+        lags <- variogramBins(coords, cutoff = cutoff)
       } else {
-        lags <- vgmLags(coords, n.lags = 15, type = "equi", cutoff = cutoff)
+        lags <- variogramBins(coords, n.lags = 15, type = "equi", cutoff = cutoff)
       }
     }
     cutoff <- sqrt(
@@ -187,12 +207,12 @@ vgmICP <-
     # is recorded. This value can be taken to be approximately equivalent to the practical range. Thus, it is
     # corrected using geoR::practicalRange.
     range <- switch(
-      method, 
+      method,
       a = { # Samuel-Rosa2015
         v$lag.dist[which.min(abs(v$gamma[-c(1, length(v$gamma))] - sill)) + 1]
-      }, 
+      },
       b = { # JianEtAl1996
-        lags[length(lags)] * 0.5 
+        lags[length(lags)] * 0.5
       },
       c = { # HiemstraEtAl2009
         sqrt(sum(apply(apply(coords, 2, range), 2, diff) ^ 2)) * 0.1
@@ -205,7 +225,6 @@ vgmICP <-
       }
     )
     # Correct initial guess of the range parameter
-    # geoR has been orphaned on 2020-01-12
     if (model %in% c('linear', 'power')) {
       range <- Inf
     } else if (model == 'pure.nugget') {
@@ -307,7 +326,6 @@ vgmICP <-
           # 
           # }
           # min(v$gamma)
-          
         } else {
           # The first lag-distance class holds the minimum gamma!
           # 
@@ -338,7 +356,6 @@ vgmICP <-
             if (!identical(order(v$gamma[1:3]), 1:3)) {
               # mean(c(v$gamma[1], min(v$gamma[-1])))
               mean(v$gamma[c(1, 3)])
-              
             } else {
               # Gamma increases monotonically from the first to the third lag,
               # but gamma at the first lag is too low. It may be better to use 
@@ -347,7 +364,6 @@ vgmICP <-
               # 
               # mean(v$gamma[c(1, 2)])
               mean(v$gamma[c(1, 1, 2)])
-              
             }
           } else {
             # Gamma in the second lag is closer to gamma in the first lag than
@@ -408,3 +424,6 @@ vgmICP <-
     res <- c(range = range, p_sill = p_sill, nugget = nugget)
     return(res)
   }
+#' @export
+#' @rdname variogramGuess
+vgmICP <- variogramGuess
