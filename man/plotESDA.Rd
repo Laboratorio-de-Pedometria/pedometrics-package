@@ -40,20 +40,33 @@ plot. Defaults to \code{leg.pos = "right"}.}
 Four plots: histogram and density plot, bubble plot, empirical variogram, and variogram map.
 }
 \description{
-This function creates four plots for exploratory spatial data analysis (ESDA): histogram +
-density plot, bubble plot, variogram plot, and variogram map.
+Create four plots for exploratory spatial data analysis (ESDA): histogram + density plot,
+bubble plot, variogram plot, and variogram map.
 }
 \details{
 The user should visit the help pages of \code{\link[gstat:variogram]{gstat::variogram()}}, \code{\link[=plotHD]{plotHD()}},
 \code{\link[sp:bubble]{sp::bubble()}} and \code{\link[sp:spplot]{sp::spplot()}} to obtain more details about the main functions used to built
 \code{\link[=plotESDA]{plotESDA()}}.
 }
+\section{Dependencies}{
+
+The \strong{sp} package, provider of classes and methods for spatial data in R, is required for
+\code{\link[=plotESDA]{plotESDA()}} to work. The development version of the \strong{sp} package is available on
+\url{https://github.com/edzer/sp/} while its old versions are available on the CRAN archive at
+\url{https://cran.r-project.org/src/contrib/Archive/sp/}.
+
+The \strong{gstat} package, provider of methods for spatial and spatio-temporal geostatistical
+modelling, prediction and simulation in R, is required for \code{\link[=plotESDA]{plotESDA()}} to work. The
+development version of the \strong{sp} package is available on \url{https://github.com/r-spatial/gstat}
+while its old versions are available on the CRAN archive at
+\url{https://cran.r-project.org/src/contrib/Archive/gstat/}.
+}
+
 \examples{
-if (require(sp)) {
+if (all(require(sp), require(gstat))) {
   data(meuse, package = "sp")
   p <- plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
 }
-
 }
 \references{
 Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John Wiley \& Sons, p.900, 1993.

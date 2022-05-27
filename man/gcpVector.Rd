@@ -18,8 +18,8 @@ A data frame containing the module, its square and azimuth. These three columns 
 \sQuote{module}, \sQuote{sq.module} and \sQuote{azimuth}.
 }
 \description{
-This function calculates the module and azimuth of the difference on x and y coordinates between
-two sets of ground control points (GCP). It is suited to perform calculations for topographical
+Calculate the module and azimuth of the difference on x and y coordinates between two sets of
+ground control points (GCP). It is suited to perform calculations for topographical
 coordinates only. The origin is set in the y coordinate, and rotation performed clockwise.
 }
 \note{

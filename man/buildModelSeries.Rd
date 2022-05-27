@@ -38,7 +38,7 @@ model to be fitted).}
 \item{data}{Data frame containing the variables in the model formulas.}
 
 \item{vif}{Logical for performing backward variable selection using the Variance-Inflation Factor
-(VIF). Defaults to \code{VIF = FALSE}.}
+(VIF). Defaults to \code{vif = FALSE}.}
 
 \item{vif.threshold}{Numeric value setting the maximum acceptable VIF value. Defaults to
 \code{vif.threshold = 10}.}
@@ -49,9 +49,8 @@ the VIF. Defaults to \code{vif.verbose = FALSE}.}
 \item{aic}{Logical for performing variable selection using Akaike's Information Criterion (AIC).
 Defaults to \code{aic = FALSE}.}
 
-\item{aic.direction}{Character string setting the direction of variable selection when using AIC.
-Available options are \code{"both"}, \code{"forward"}, and \code{"backward"}. Defaults to
-\code{aic.direction = "both"}.}
+\item{aic.direction}{Character string setting the direction of variable selection when using AIC,
+with options \code{"both"} (default), \code{"forward"}, and \code{"backward"}.}
 
 \item{aic.trace}{Logical for printing iteration results of variable selection using the AIC.
 Defaults to \code{aic.trace = FALSE}.}
@@ -65,18 +64,17 @@ selection using the AIC. Defaults to \code{aic.steps = 5000}.}
 A list containing the fitted linear models.
 }
 \description{
-This function allows building a series of linear models with \code{\link[stats:lm]{stats::lm()}} using one or more
-automated variable selection implemented in function \code{\link[=stepVIF]{stepVIF()}} and
-\code{\link[MASS:stepAIC]{MASS::stepAIC()}}.
+Build a series of linear models with \code{\link[stats:lm]{stats::lm()}} using one or more automated variable
+selection methods implemented in the functions \code{\link[=stepVIF]{stepVIF()}} and \code{\link[MASS:stepAIC]{MASS::stepAIC()}}.
 }
 \details{
-This function was devised to deal with a list of linear model formulas. The main objective is to
-bring together several functions commonly used when building linear models, such as automated
-variable selection. In the current implementation, variable selection can be done using
-\code{\link[=stepVIF]{stepVIF()}} or \code{\link[MASS:stepAIC]{MASS::stepAIC()}} or both. \code{\link[=stepVIF]{stepVIF()}} is a backward
-variable selection procedure, while \code{\link[MASS:stepAIC]{MASS::stepAIC()}} supports backward, forward, and
-bidirectional variable selection. For more information about these functions, please visit their
-respective help pages.
+\code{\link[=buildModelSeries]{buildModelSeries()}} was devised to deal with a list of linear model formulas. The
+main objective is to bring together several functions commonly used when building linear models,
+such as automated variable selection. In the current implementation, variable selection can be
+done using \code{\link[=stepVIF]{stepVIF()}} or \code{\link[MASS:stepAIC]{MASS::stepAIC()}} or both.
+\code{\link[=stepVIF]{stepVIF()}} is a backward variable selection procedure, while \code{\link[MASS:stepAIC]{MASS::stepAIC()}}
+supports backward, forward, and bidirectional variable selection. For more information about
+these functions, please visit their respective help pages.
 
 An important feature of \code{\link[=buildModelSeries]{buildModelSeries()}} is that it records the initial number
 of candidate predictor variables and observations offered to the model, and adds this information
@@ -86,7 +84,7 @@ freedom is close to the number of candidate predictor variables initially offere
 (Harrell, 2001). With the initial number of candidate predictor variables and observations
 offered to the model, one can calculate penalized or adjusted measures of model performance. For
 models built using \code{\link[=buildModelSeries]{buildModelSeries()}}, this can be done using
-\code{\link[=statsMS]{statsMS()}}.
+\code{\link[=statsModelSeries]{statsModelSeries()}}.
 
 Some important details should be clear when using \code{\link[=buildModelSeries]{buildModelSeries()}}:
 \itemize{
@@ -103,24 +101,32 @@ which function is affected by a given argument without having to go check the do
 Add option to set the order in which \code{\link[MASS:stepAIC]{MASS::stepAIC()}} and \code{\link[=stepVIF]{stepVIF()}} are run.
 }
 
-\examples{
-if (interactive()) {
-# based on the second example of MASS::stepAIC()
-library("MASS")
-cpus1 <- cpus
-for(v in names(cpus)[2:7])
-  cpus1[[v]] <- cut(cpus[[v]], unique(stats::quantile(cpus[[v]])),
-                    include.lowest = TRUE)
-cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
-cpus.samp <- sample(1:209, 100)
-cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin +
-                  chmax + perf),
-                  formula(log10(perf) ~ syct + mmin + cach + chmin + chmax),
-                  formula(log10(perf) ~ mmax + cach + chmin + chmax + perf))
-data <- cpus1[cpus.samp,2:8]
-cpus.ms <- buildModelSeries(cpus.form, data, vif = TRUE, aic = TRUE)
+\section{Dependencies}{
+
+The \strong{MASS} package, provider of support functions and datasets for Venables and Ripley's Modern
+Applied Statistics with S, is required for \code{\link[=buildModelSeries]{buildModelSeries()}} to work. The
+development version of the \strong{MASS} package is available on
+\url{https://www.stats.ox.ac.uk/pub/MASS4/} while its old versions are available on the CRAN archive
+at \url{https://cran.r-project.org/src/contrib/Archive/MASS/}.
 }
 
+\examples{
+if (interactive()) {
+  # based on the second example of MASS::stepAIC()
+  library("MASS")
+  cpus1 <- cpus
+  for(v in names(cpus)[2:7])
+    cpus1[[v]] <- cut(cpus[[v]], unique(stats::quantile(cpus[[v]])),
+                      include.lowest = TRUE)
+  cpus0 <- cpus1[, 2:8]  # excludes names, authors' predictions
+  cpus.samp <- sample(1:209, 100)
+  cpus.form <- list(formula(log10(perf) ~ syct + mmin + mmax + cach + chmin +
+                    chmax + perf),
+                    formula(log10(perf) ~ syct + mmin + cach + chmin + chmax),
+                    formula(log10(perf) ~ mmax + cach + chmin + chmax + perf))
+  data <- cpus1[cpus.samp,2:8]
+  cpus.ms <- buildModelSeries(cpus.form, data, vif = TRUE, aic = TRUE)
+}
 }
 \references{
 Harrell, F. E. (2001) \emph{Regression modelling strategies: with applications to linear models,
@@ -128,6 +134,10 @@ logistic regression, and survival analysis.} First edition. New York: Springer.
 
 Venables, W. N. and Ripley, B. D. (2002) \emph{Modern applied statistics with S.} Fourth edition.
 New York: Springer.
+
+A. Samuel-Rosa, G. B. M. Heuvelink, G. de Mattos Vasques, and L. H. C. dos Anjos, Do more
+detailed environmental covariates deliver more accurate soil maps?, \emph{Geoderma}, vol. 243–244,
+pp. 214–227, May 2015, doi: 10.1016/j.geoderma.2014.12.017.
 }
 \seealso{
 \code{\link[=stepVIF]{stepVIF()}}, \code{\link[=statsMS]{statsMS()}}

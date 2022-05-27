@@ -12,7 +12,7 @@ plotCor(r, r2, col, breaks, col.names, ...)
 \item{r2}{(optional) A second square matrix with correlation values.}
 
 \item{col}{(optional) Color table to use for \code{image} -- see \code{\link[graphics:image]{graphics::image()}} for details. The
-default is a colorblind-friendly palette created using \code{\link[RColorBrewer:ColorBrewer]{RColorBrewer::brewer.pal()}} (\code{"RdBu"}).}
+default is a colorblind-friendly palette created using the \strong{RColorBrewer} palette \code{"RdBu"}.}
 
 \item{breaks}{(optional) Break points in sorted order to indicate the intervals for assigning the
 colors. See \code{\link[fields:image.plot]{fields::image.plot()}} for more details.}
@@ -38,6 +38,14 @@ square correlation matrices using arguments \code{r} and \code{r2}. The lower tr
 correlation plot will contain correlations from \code{r}, correlations from \code{r2} will be in the upper
 triangle, and the diagonal will be empty.
 }
+\section{Dependencies}{
+
+The \strong{fields} package, provider of tools for spatial data in R, is required for
+\code{\link[=plotCor]{plotCor()}} to work. The development version of the \strong{fields} package is
+available on \url{https://github.com/dnychka/fieldsRPackage} while its old versions are available on
+the CRAN archive at \url{https://cran.r-project.org/src/contrib/Archive/fields/}.
+}
+
 \examples{
 if (all(c(require(sp), require(fields)))) {
   data(meuse, package = "sp")
@@ -53,7 +61,10 @@ if (all(c(require(sp), require(fields)))) {
   r2 <- round(r2, 2)
   plotCor(r, r2)
 }
-
+}
+\references{
+Neuwirth E (2022). \emph{RColorBrewer: ColorBrewer Palettes}. R package version 1.1-3,
+\url{https://CRAN.R-project.org/package=RColorBrewer}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

@@ -25,11 +25,19 @@ calculating Cramer's V, posted by Ken Kleinman on Friday, June 3, 2011. As such,
 \email{Ken_Kleinman@hms.harvard.edu} is entitled a \sQuote{contributor} to the R-package
 \strong{pedometrics}.
 }
+\section{Reverse dependencies}{
+
+The \strong{spsann} package, provider of methods for the optimization of sample configurations using
+spatial simulated annealing in R, requires \code{\link[=cramer]{cramer()}} for some of its functions to
+work. The development version of the \strong{spsann} package is available on
+\url{https://github.com/Laboratorio-de-Pedometria/spsann-package}.
+}
+
 \examples{
 if (interactive()) {
-data(meuse, package = "sp")
-str(meuse)
-test <- cramer(meuse[, c("ffreq", "soil", "lime", "landuse")])
+  data(meuse, package = "sp")
+  str(meuse)
+  test <- cramer(meuse[, c("ffreq", "soil", "lime", "landuse")])
 }
 }
 \references{

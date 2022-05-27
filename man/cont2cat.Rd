@@ -25,8 +25,7 @@ the numerical variable(s) into categories. See \sQuote{Details} for more informa
 \item{n}{Integer value indicating the number of categories/strata that should be created.}
 
 \item{type}{Character value indicating the type of categories/strata that should be used, with
-options \code{"area"}, for equal-area, and \code{"range"}, for equal-range strata. Defaults to
-\code{type = "area"}.}
+options \code{"area"} (default), for equal-area, and \code{"range"}, for equal-range strata.}
 
 \item{prop}{Logical value indicating if the strata proportions should be returned? Defaults to
 \code{prop = FALSE}.}
@@ -42,37 +41,62 @@ categorical variable(s).
 Argument \code{breaks} must be a vector if \code{x} is a vector, but a list if \code{x} is a data frame or
 matrix. Using a list allows breaking each column of \code{x} into different number of categories.
 }
+\section{Dependencies}{
+
+The \strong{SpatialTools} package, provider of tools for spatial data analysis in R, is required for
+\code{\link[=breakPoints]{breakPoints()}} and \code{\link[=stratify]{stratify()}} to work. The development version of
+the \strong{SpatialTools} package is available on \url{https://github.com/jfrench/SpatialTools} while its
+old versions are available on the CRAN archive at
+\url{https://cran.r-project.org/src/contrib/Archive/SpatialTools/}.
+}
+
+\section{Reverse dependencies}{
+
+The \strong{spsann} package, provider of methods for the optimization of sample configurations using
+spatial simulated annealing in R, requires \code{\link[=breakPoints]{breakPoints()}},
+\code{\link[=cont2cat]{cont2cat()}} and \code{\link[=stratify]{stratify()}} for some of its functions to work. The
+development version of the \strong{spsann} package is available on
+\url{https://github.com/Laboratorio-de-Pedometria/spsann-package}.
+}
+
 \examples{
 if (require(SpatialTools)) {
-## Compute the break points of marginal strata
-x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
-x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
-x
+  ## Compute the break points of marginal strata
+  x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
+  x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
 
-## Convert numerical data into categorical data
-# Matrix
-x <- y <- c(1:10)
-x <- cbind(x, y)
-breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
-y <- cont2cat(x, breaks)
-y
-# Data frame
-x <- y <- c(1:10)
-x <- data.frame(x, y)
-breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
-y <- cont2cat(x, breaks, integer = TRUE)
-y
-# Vector
-x <- c(1:10)
-breaks <- c(1, 2, 4, 8, 10)
-y <- cont2cat(x, breaks, integer = TRUE)
-y
+  ## Convert numerical data into categorical data
+  # Matrix
+  x <- y <- c(1:10)
+  x <- cbind(x, y)
+  breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
+  y <- cont2cat(x, breaks)
 
-## Stratification
-x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
-x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
-x
+  # Data frame
+  x <- y <- c(1:10)
+  x <- data.frame(x, y)
+  breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
+  y <- cont2cat(x, breaks, integer = TRUE)
+
+  # Vector
+  x <- c(1:10)
+  breaks <- c(1, 2, 4, 8, 10)
+  y <- cont2cat(x, breaks, integer = TRUE)
+
+  ## Stratification
+  x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
+  x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
+  x
 }
+}
+\references{
+B. Minasny and A. B. McBratney. A conditioned Latin hypercube method for sampling in the presence
+of ancillary information. \emph{Computers & Geosciences}, vol. 32, no. 9, pp. 1378–1388, Nov. 2006,
+doi: 10.1016/j.cageo.2005.12.009.
+
+T. Hengl, D. G. Rossiter, and A. Stein. Soil sampling strategies for spatial prediction by
+correlation with auxiliary maps. \emph{Australian Journal of Soil Research}, vol. 41, no. 8, pp.
+1403–1422, 2003, doi: 10.1071/SR03005.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

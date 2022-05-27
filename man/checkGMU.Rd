@@ -147,14 +147,14 @@ unconditional simulations.
 }
 \examples{
 if (interactive()) {
- set.seed(2001)
- observed <- round(rnorm(100), 3)
- simulated <- t(
-   sapply(1:length(observed), function (i) round(rnorm(100), 3)))
- resa <- checkGMU(observed, simulated, symmetric = T)
- resb <- checkGMU(observed, simulated, symmetric = F)
- resa$error; resb$error
- resa$goodness; resb$goodness
+  set.seed(2001)
+  observed <- round(rnorm(100), 3)
+  simulated <- t(
+    sapply(1:length(observed), function (i) round(rnorm(100), 3)))
+  resa <- checkGMU(observed, simulated, symmetric = T)
+  resb <- checkGMU(observed, simulated, symmetric = F)
+  resa$error; resb$error
+  resa$goodness; resb$goodness
 }
 }
 \references{

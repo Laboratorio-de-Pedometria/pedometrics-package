@@ -56,6 +56,15 @@ More on the use of GVIF to measure the collinearity in linear models containing 
 predictor variables can be found on
 \href{https://stats.stackexchange.com/questions/70679/}{StackExchange}.
 }
+\section{Dependencies}{
+
+The \strong{car} package, provider of functions to accompany Fox and Weisberg's An R Companion to
+Applied Regression, is required for \code{\link[=plotHist]{plotHist()}} to work. The development version of
+the \strong{car} package is available on \url{https://r-forge.r-project.org/projects/car/} while its old
+versions are available on the CRAN archive at
+\url{https://cran.r-project.org/src/contrib/Archive/car/}.
+}
+
 \examples{
 if (require(car)) {
   fit <- lm(prestige ~ income + education + type, data = Duncan)
@@ -75,6 +84,10 @@ Jersey: Pearson Prentice Hall.
 
 Venables, W. N. and Ripley, B. D. (2002) \emph{Modern Applied Statistics with S}. Fourth edition.
 Springer.
+
+A. Samuel-Rosa, G. B. M. Heuvelink, G. de Mattos Vasques, and L. H. C. dos Anjos, Do more
+detailed environmental covariates deliver more accurate soil maps?, \emph{Geoderma}, vol. 243–244,
+pp. 214–227, May 2015, doi: 10.1016/j.geoderma.2014.12.017.
 }
 \seealso{
 \code{\link[MASS:stepAIC]{MASS::stepAIC()}}

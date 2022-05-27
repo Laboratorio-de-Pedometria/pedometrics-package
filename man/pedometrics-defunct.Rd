@@ -34,3 +34,8 @@ No return value, called for side effects.
 The functions listed here are no longer part of the \strong{pedometrics} package. If you need to use
 any of these functions, you can still found at \url{https://github.com/samuel-rosa/ASRtools}.
 }
+\author{
+Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}\cr
+Tony Olsen \email{Olsen.Tony@epa.gov}\cr
+Tom Kincaid \email{Kincaid.Tom@epa.gov}
+}
