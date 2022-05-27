@@ -1,8 +1,7 @@
 #' Histogram and density plot
 #' 
 #' @description
-#' This function plots a histogram and a density plot of a single variable using the R-package
-#' __lattice__.
+#' Plot a histogram and a density plot of a single variable using the R-package __lattice__.
 #'
 #' @param x Vector of numeric values of the variable for which the histogram and density plot
 #' should be created.
@@ -62,25 +61,29 @@
 #'
 #' @seealso [lattice::histogram()], [lattice::densityplot()], [lattice::panel.mathdensity()]
 #' 
-#' @examples
-#' if (all(c(require(moments), require(car), require(lattice), require(latticeExtra)))) {
-#'   x <- rnorm(100, 10, 2)
-#'   p1 <- plotHD(x, HD = "stack")
-#'   p2 <- plotHD(x, HD = "over")
-#' }
+#' @section Dependencies:
+#' The __car__ package, provider of functions to accompany Fox and Weisberg's An R Companion to
+#' Applied Regression, is required for [pedometrics::plotHist()] to work. The development version of
+#' the __car__ package is available on <https://r-forge.r-project.org/projects/car/> while its old
+#' versions are available on the CRAN archive at
+#' <https://cran.r-project.org/src/contrib/Archive/car/>.
 #' 
+#' @examples
+#' if (all(c(require(car), require(lattice), require(latticeExtra)))) {
+#'   x <- rnorm(100, 10, 2)
+#'   p1 <- plotHist(x, HD = "stack")
+#'   p2 <- plotHist(x, HD = "over")
+#' }
 #' @importFrom stats update
-#' @export
 # FUNCTION #########################################################################################
 # TODO:
-#   - moments::skewness() is used here, creating an entry in Suggests. To avoid this, implement code
-#     to compute the skewness and remove 'moments' from Suggests.
 #   - replace 'lattice'-functions with 'graphics'-functions
-plotHD <-
+#' @export
+#' @rdname plotHist
+plotHist <-
   function(x, HD = "over", nint = 20, digits = 2, stats = TRUE, BoxCox = FALSE,
     col = c("lightgray", "black"), lwd = c(1, 1), lty = "dashed", xlim, ylim, ...) {
     # Check if suggested packages are installed
-    if (!requireNamespace("moments")) stop("moments package is missing")
     if (!requireNamespace("car")) stop("car package is missing")
     if (!requireNamespace("lattice")) stop("lattice package is missing")
     if (!requireNamespace("latticeExtra")) stop("latticeExtra package is missing")
@@ -124,7 +127,7 @@ plotHD <-
       }
       p$y.limits <- ylim
       if (stats) {
-        skw <- round(c(moments::skewness(x)), 2)
+        skw <- round(c(skewness(x)), 2)
         leg <- c(paste("Lambda = ", round(lambda, 4), "\n",
                        "Mean = ", round(mean(x), digits), " (",
                                   round(stats::sd(x), digits), ")\n",
@@ -162,3 +165,6 @@ plotHD <-
     }
     return(p)
   }
+#' @export
+#' @rdname plotHist
+plotHD <- plotHist
