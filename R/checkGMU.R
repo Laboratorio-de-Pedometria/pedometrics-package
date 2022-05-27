@@ -122,6 +122,7 @@
 #' and PI-width plots. Deviations from the 1:1 line could then be used as evidence of problems in
 #' the simulation.
 #' }
+#' 
 #' @return
 #' A `list` of summary measures and plots of the coverage probability and width of probability
 #' intervals.
@@ -154,17 +155,17 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'  set.seed(2001)
-#'  observed <- round(rnorm(100), 3)
-#'  simulated <- t(
-#'    sapply(1:length(observed), function (i) round(rnorm(100), 3)))
-#'  resa <- checkGMU(observed, simulated, symmetric = T)
-#'  resb <- checkGMU(observed, simulated, symmetric = F)
-#'  resa$error; resb$error
-#'  resa$goodness; resb$goodness
+#'   set.seed(2001)
+#'   observed <- round(rnorm(100), 3)
+#'   simulated <- t(
+#'     sapply(1:length(observed), function (i) round(rnorm(100), 3)))
+#'   resa <- checkGMU(observed, simulated, symmetric = T)
+#'   resb <- checkGMU(observed, simulated, symmetric = F)
+#'   resa$error; resb$error
+#'   resa$goodness; resb$goodness
 #' }
-#' @export
 # FUNCTION #########################################################################################
+#' @export
 checkGMU <-
   function(observed, simulated, pi = seq(0.01, 0.99, 0.01), symmetric = TRUE, plotit = TRUE) {
     # Initial settings
@@ -172,8 +173,7 @@ checkGMU <-
     n_pis <- length(pi)
     # If required, compute the symmetric probability intervals
     if (symmetric) {
-      pi_bounds <-
-        sapply(seq_along(pi), function(i) c(1 - pi[i], 1 + pi[i]) / 2)
+      pi_bounds <- sapply(seq_along(pi), function(i) c(1 - pi[i], 1 + pi[i]) / 2)
       message("Processing ", n_pis, " symmetric probability intervals...")
     } else {
       message("Processing ", n_pis, " probability intervals...")
@@ -281,8 +281,7 @@ checkGMU <-
         graphics::boxplot(
           t(simulated[idx[sub_idx], ]), col = "yellow", pars = list(cex = cex),
           names = idx[sub_idx])
-        graphics::points(
-          observed[idx[sub_idx]], col = "red", pch = 17, cex = cex)
+        graphics::points(observed[idx[sub_idx]], col = "red", pch = 17, cex = cex)
         xlab <- "Validation point (max of 100)"
       } else {
         graphics::boxplot(
@@ -291,11 +290,10 @@ checkGMU <-
         graphics::points(observed[idx], col = "red", pch = 17, cex = cex)
         xlab <- "Validation point"
       }
-      graphics::title(
-        main = "Distribution of values", xlab = xlab, ylab = "Distribution")
+      graphics::title(main = "Distribution of values", xlab = xlab, ylab = "Distribution")
     }
     # Output
-    res <- list(data = data.frame(pi = pi, prop = prop, width = width), 
+    res <- list(data = data.frame(pi = pi, prop = prop, width = width),
       error = error_stats, goodness = good_meas)
     return(res)
   }
