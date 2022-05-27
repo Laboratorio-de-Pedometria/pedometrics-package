@@ -1,8 +1,8 @@
 #' Plots for exploratory spatial data analysis (ESDA)
 #'
 #' @description
-#' This function creates four plots for exploratory spatial data analysis (ESDA): histogram +
-#' density plot, bubble plot, variogram plot, and variogram map.
+#' Create four plots for exploratory spatial data analysis (ESDA): histogram + density plot,
+#' bubble plot, variogram plot, and variogram map.
 #'
 #' @param z Vector of numeric values of the variable for with ESDA plots should be created.
 #'
@@ -44,16 +44,27 @@
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
+#' @section Dependencies:
+#' The __sp__ package, provider of classes and methods for spatial data in R, is required for
+#' [pedometrics::plotESDA()] to work. The development version of the __sp__ package is available on
+#' <https://github.com/edzer/sp/> while its old versions are available on the CRAN archive at
+#' <https://cran.r-project.org/src/contrib/Archive/sp/>.
+#' 
+#' The __gstat__ package, provider of methods for spatial and spatio-temporal geostatistical
+#' modelling, prediction and simulation in R, is required for [pedometrics::plotESDA()] to work. The
+#' development version of the __sp__ package is available on <https://github.com/r-spatial/gstat>
+#' while its old versions are available on the CRAN archive at
+#' <https://cran.r-project.org/src/contrib/Archive/gstat/>.
+#' 
 #' @seealso [pedometrics::plotHD()]
 #'
 #' @examples
-#' if (require(sp)) {
+#' if (all(require(sp), require(gstat))) {
 #'   data(meuse, package = "sp")
 #'   p <- plotESDA(z = meuse$zinc, lat = meuse$y, lon = meuse$x)
 #' }
-#' 
-#' @export
 # FUNCTION #########################################################################################
+#' @export
 plotESDA <- 
   function(z, lat, lon, lags = NULL, cutoff = NULL, width = c(cutoff / 20), leg.pos = "right") {
     # Check if suggested packages are installed
