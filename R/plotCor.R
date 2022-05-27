@@ -8,7 +8,7 @@
 #' @param r2 (optional) A second square matrix with correlation values.
 #'
 #' @param col (optional) Color table to use for `image` -- see [graphics::image()] for details. The
-#' default is a colorblind-friendly palette created using [RColorBrewer::brewer.pal()] (`"RdBu"`).
+#' default is a colorblind-friendly palette created using the __RColorBrewer__ palette `"RdBu"`.
 #'
 #' @param breaks (optional) Break points in sorted order to indicate the intervals for assigning the
 #' colors. See [fields::image.plot()] for more details.
@@ -30,8 +30,18 @@
 #'
 #' @return
 #' A correlation plot.
+#' 
+#' @section Dependencies:
+#' The __fields__ package, provider of tools for spatial data in R, is required for
+#' [pedometrics::plotCor()] to work. The development version of the __fields__ package is
+#' available on <https://github.com/dnychka/fieldsRPackage> while its old versions are available on
+#' the CRAN archive at <https://cran.r-project.org/src/contrib/Archive/fields/>.
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
+#' 
+#' @references
+#' Neuwirth E (2022). _RColorBrewer: ColorBrewer Palettes_. R package version 1.1-3,
+#' <https://CRAN.R-project.org/package=RColorBrewer>.
 #'
 #' @examples
 #' if (all(c(require(sp), require(fields)))) {
@@ -48,9 +58,8 @@
 #'   r2 <- round(r2, 2)
 #'   plotCor(r, r2)
 #' }
-#' 
-#' @export
 # FUNCTION #########################################################################################
+#' @export
 plotCor <-
   function(r, r2, col, breaks, col.names, ...) {
     # Check if suggested packages are installed
