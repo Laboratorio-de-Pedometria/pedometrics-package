@@ -58,7 +58,18 @@
 #' Venables, W. N. and Ripley, B. D. (2002) _Modern Applied Statistics with S_. Fourth edition.
 #' Springer.
 #' 
+#' A. Samuel-Rosa, G. B. M. Heuvelink, G. de Mattos Vasques, and L. H. C. dos Anjos, Do more
+#' detailed environmental covariates deliver more accurate soil maps?, _Geoderma_, vol. 243–244,
+#' pp. 214–227, May 2015, doi: 10.1016/j.geoderma.2014.12.017.
+#' 
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
+#' 
+#' @section Dependencies:
+#' The __car__ package, provider of functions to accompany Fox and Weisberg's An R Companion to
+#' Applied Regression, is required for [pedometrics::plotHist()] to work. The development version of
+#' the __car__ package is available on <https://r-forge.r-project.org/projects/car/> while its old
+#' versions are available on the CRAN archive at
+#' <https://cran.r-project.org/src/contrib/Archive/car/>.
 #' 
 #' @note
 #' More on the use of GVIF to measure the collinearity in linear models containing categorical
