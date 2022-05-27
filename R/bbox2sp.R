@@ -14,10 +14,10 @@
 #'
 #' @return An object of class SpatialPoints* or SpatialPolygons*.
 #' 
-#' @section Requires
-#' The __sp__ package, provider of classes and methods for spatial data in R, is required for this
-#' function to work. The development version of the __sp__ package is available on
-#' <https://github.com/edzer/sp/>. Its old versions are available on the CRAN archive at
+#' @section Dependencies:
+#' The __sp__ package, provider of classes and methods for spatial data in R, is required for
+#' [pedometrics::bbox2sp()] to work. The development version of the __sp__ package is available on
+#' <https://github.com/edzer/sp/> while its old versions are available on the CRAN archive at
 #' <https://cran.r-project.org/src/contrib/Archive/sp/>.
 #' 
 #' @note Some of the solutions used to build this function were found in the source code of the
@@ -35,13 +35,13 @@
 #'
 #' @examples
 #' if (require(sp)) {
-#' data(meuse, package = "sp")
-#' sp::coordinates(meuse) <- ~ x + y
-#' bb <- bbox2sp(obj = meuse, keep.crs = FALSE)
+#'   data(meuse, package = "sp")
+#'   sp::coordinates(meuse) <- ~ x + y
+#'   bb <- bbox2sp(obj = meuse, keep.crs = FALSE)
 #' }
 #' @keywords misc spatial
-#' @export
 # FUNCTION #########################################################################################
+#' @export
 bbox2sp <-
   function(obj, sp = "SpatialPolygons", keep.crs = TRUE) {
     # Check if suggested packages are installed
