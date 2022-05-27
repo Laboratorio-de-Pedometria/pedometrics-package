@@ -44,7 +44,6 @@ LinkingTo: Rcpp
 Suggests:
     car,
     fields,
-    geoR,
     georob,
     grDevices,
     grid,

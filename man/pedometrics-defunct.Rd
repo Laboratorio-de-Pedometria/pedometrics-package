@@ -8,7 +8,7 @@
 \alias{gcpDiff}
 \alias{trend.terms}
 \alias{trend.matrix}
-\title{Defunct functions in the \strong{pedometrics} package}
+\title{Defunct functions}
 \usage{
 coordenadas(...)
 
@@ -32,7 +32,8 @@ No return value, called for side effects.
 }
 \description{
 The functions listed here are no longer part of the \strong{pedometrics} package. If you need to use
-any of these functions, you can still found at \url{https://github.com/samuel-rosa/ASRtools}.
+any of these functions, you can still find them at \url{https://github.com/samuel-rosa/ASRtools} or
+\url{https://cran.r-project.org/src/contrib/Archive/pedometrics/}.
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}\cr

@@ -8,6 +8,7 @@
   * Package __moments__ is not in Suggests anymore. The moment coefficient of skewness used in
     `plotHD()` is now computed using the new function `skewness()`.
   * Package __plyr__ is not Suggests anymore.
+  * Package __geoR__ is not Suggests anymore.
 * __Improvement 3__ Extended documentation. Some __pedometrics__-functions depend on functions
   coming from other R-packages. These dependencies are now stated in the function help. This should
   enable users to get ready before missing-package warnings are issued. Links to old and

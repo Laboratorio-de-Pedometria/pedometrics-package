@@ -82,17 +82,17 @@
 #' modelling_. Edmonton: Department of Civil and Environmental Engineering, University of Alberta,
 #' p. 17, 2003.
 #' 
-#' @note 
-#' Package __geoR__ is used to guess the range (scale) parameter of the following spatial covariance
-#' functions: "matern" (except when `nu = 0.5`), "powered.exponential", "stable", "cauchy",
-#' "gencauchy", "gneiting", and "gneiting.matern". The practical range is the distance at which the
-#' semivariance reaches its maximum, i.e. the sill.
+# @note 
+# Package __geoR__ is used to guess the range (scale) parameter of the following spatial covariance
+# functions: "matern" (except when `nu = 0.5`), "powered.exponential", "stable", "cauchy",
+# "gencauchy", "gneiting", and "gneiting.matern". The practical range is the distance at which the
+# semivariance reaches its maximum, i.e. the sill.
 #' 
 #' @section Dependencies:
-#' The __geoR__ package, provider of functions for the analysis of geostatistical data in R, is
-#' required for [pedometrics::variogramGuess()] to work. The development version of the __geoR__
-#' package is available on <http://www.leg.ufpr.br/geoR/> while its old versions are available on
-#' the CRAN archive at <https://cran.r-project.org/src/contrib/Archive/geoR/>.
+# The __geoR__ package, provider of functions for the analysis of geostatistical data in R, is
+# required for [pedometrics::variogramGuess()] to work. The development version of the __geoR__
+# package is available on <http://www.leg.ufpr.br/geoR/> while its old versions are available on
+# the CRAN archive at <https://cran.r-project.org/src/contrib/Archive/geoR/>.
 #' 
 #' The __georob__ package, provider of functions for the robust geostatistical analysis of spatial
 #' data in R, is required for [pedometrics::variogramGuess()] to work. The old versions of the
@@ -104,7 +104,8 @@
 #' @seealso [pedometrics::variogramBins()]
 #' 
 #' @examples
-#' if (all(c(require(sp), require(georob), require(geoR)))) {
+# if (all(c(require(sp), require(georob), require(geoR)))) {
+#' if (all(c(require(sp), require(georob)))) {
 #'   data(meuse, package = "sp")
 #'   icp <- variogramGuess(z = log(meuse$copper), coords = meuse[, 1:2])
 #' }
@@ -117,7 +118,7 @@ variogramGuess <-
           estimator = "qn", plotit = FALSE) {
     # check if suggested packages are installed
     if (!requireNamespace("georob")) stop("georob package is missing")
-    if (!requireNamespace("geoR")) stop("geoR package is missing")
+    # if (!requireNamespace("geoR")) stop("geoR package is missing") # MOVED TO 
     # check function arguments
     cov_models <- c(
       "matern", "exponential", "gaussian", "spherical", "circular", "cubic", "wave", "linear",
@@ -206,6 +207,7 @@ variogramGuess <-
     # semivariance is closest to the variance. The separation distance at the centre of this lag-distance class
     # is recorded. This value can be taken to be approximately equivalent to the practical range. Thus, it is
     # corrected using geoR::practicalRange.
+    # geoR IS ARCHIVED FROM TIME TO TIME... IT MUST BE REMOVED FRO HERE!!!
     range <- switch(
       method,
       a = { # Samuel-Rosa2015
@@ -239,14 +241,15 @@ variogramGuess <-
       range <- range / 2.991457
     } else {
       # "matern", "powered.exponential", "stable", "cauchy", "gencauchy", "gneiting", "gneiting.matern"
-      if (requireNamespace("geoR", quietly = TRUE)) {
-        range <- range / geoR::practicalRange(cov.model = model, phi = 1, kappa = nu)
-      } else {
-        message(
-          paste("geoR not installed... returning guess of practical range for model ", model)
-        )
+      # geoR is archived from time to time...
+      # if (requireNamespace("geoR", quietly = TRUE)) {
+      #   range <- range / geoR::practicalRange(cov.model = model, phi = 1, kappa = nu)
+      # } else {
+      #   message(
+      #     paste("geoR not installed... returning guess of practical range for model ", model)
+      #   )
         range <- range
-      }
+      # }
     }
     if (plotit) {
       graphics::abline(v = range, lty = "dashed")

@@ -103,18 +103,8 @@ Method \code{"e"} was proposed by Larrondo et al. (2003)
 \url{http://www.ccgalberta.com/ccgresources/report05/2003-122-varfit.pdf} and is implemented in the
 VARFIT module of GSLIB \url{http://www.gslib.com/}.
 }
-\note{
-Package \strong{geoR} is used to guess the range (scale) parameter of the following spatial covariance
-functions: "matern" (except when \code{nu = 0.5}), "powered.exponential", "stable", "cauchy",
-"gencauchy", "gneiting", and "gneiting.matern". The practical range is the distance at which the
-semivariance reaches its maximum, i.e. the sill.
-}
 \section{Dependencies}{
 
-The \strong{geoR} package, provider of functions for the analysis of geostatistical data in R, is
-required for \code{\link[=variogramGuess]{variogramGuess()}} to work. The development version of the \strong{geoR}
-package is available on \url{http://www.leg.ufpr.br/geoR/} while its old versions are available on
-the CRAN archive at \url{https://cran.r-project.org/src/contrib/Archive/geoR/}.
 
 The \strong{georob} package, provider of functions for the robust geostatistical analysis of spatial
 data in R, is required for \code{\link[=variogramGuess]{variogramGuess()}} to work. The old versions of the
@@ -123,7 +113,7 @@ data in R, is required for \code{\link[=variogramGuess]{variogramGuess()}} to wo
 }
 
 \examples{
-if (all(c(require(sp), require(georob), require(geoR)))) {
+if (all(c(require(sp), require(georob)))) {
   data(meuse, package = "sp")
   icp <- variogramGuess(z = log(meuse$copper), coords = meuse[, 1:2])
 }
