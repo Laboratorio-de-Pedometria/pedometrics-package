@@ -15,7 +15,7 @@
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'
 #' @note
-#' The original code is available at \url{https://sas-and-r.blogspot.com/}, Example 8.39:
+#' The original code is available at <https://sas-and-r.blogspot.com/>, Example 8.39:
 #' calculating Cramer's V, posted by Ken Kleinman on Friday, June 3, 2011. As such, Ken Kleinman
 #' \email{Ken_Kleinman@@hms.harvard.edu} is entitled a \sQuote{contributor} to the R-package
 #' __pedometrics__.
@@ -29,15 +29,21 @@
 #'
 #' Everitt, B. S. _The Cambridge dictionary of statistics_. Cambridge: Cambridge University Press,
 #' p. 432, 2006.
+#' 
+#' @section Reverse dependencies:
+#' The __spsann__ package, provider of methods for the optimization of sample configurations using
+#' spatial simulated annealing in R, requires [pedometrics::cramer()] for some of its functions to
+#' work. The development version of the __spsann__ package is available on
+#' <https://github.com/Laboratorio-de-Pedometria/spsann-package>.
 #'
 #' @examples
 #' if (interactive()) {
-#' data(meuse, package = "sp")
-#' str(meuse)
-#' test <- cramer(meuse[, c("ffreq", "soil", "lime", "landuse")])
+#'   data(meuse, package = "sp")
+#'   str(meuse)
+#'   test <- cramer(meuse[, c("ffreq", "soil", "lime", "landuse")])
 #' }
-#' @export
 # FUNCTION #########################################################################################
+#' @export
 cramer <-
   function(x) {
     nam <- colnames(x)
