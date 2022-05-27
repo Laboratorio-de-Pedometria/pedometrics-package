@@ -18,13 +18,13 @@
 #' @aliases vgmSCV vgmSCV.variomodel vgmSCV.variogramModel vgmSCV.georob
 #' 
 #' @concept variogram
-#' @export
 #' @examples
 #' if (require(geoR)) {
-#'   ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
+#'   ml <- geoR::likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
 #'   res <- vgmSCV(ml)
 #' }
 # FUNCTION - general ###############################################################################
+#' @export
 vgmSCV <- 
   function(obj, digits = 4) {
     UseMethod("vgmSCV")
