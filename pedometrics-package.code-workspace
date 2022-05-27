@@ -9,6 +9,7 @@
 			"bbox",
 			"collinearity",
 			"CRAN",
+			"interquartile",
 			"meuse",
 			"nrmse",
 			"Venables"

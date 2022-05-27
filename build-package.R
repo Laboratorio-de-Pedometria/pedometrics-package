@@ -52,3 +52,6 @@ devtools::check_rhub(platforms = platforms, interactive = FALSE,
 # upload to CRAN ----
 # devtools::build()
 devtools::release(check = FALSE)
+
+
+devtools::load_all()

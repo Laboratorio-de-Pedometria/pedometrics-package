@@ -4,6 +4,7 @@ man-roxygen
 build-package.R
 ^.*\.so$
 ^\.travis\.yml$
+.vscode
 
 ## R code
 
