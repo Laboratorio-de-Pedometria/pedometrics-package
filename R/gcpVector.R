@@ -1,8 +1,8 @@
 #' Calculate module and azimuth
 #'
 #' @description
-#' This function calculates the module and azimuth of the difference on x and y coordinates between
-#' two sets of ground control points (GCP). It is suited to perform calculations for topographical
+#' Calculate the module and azimuth of the difference on x and y coordinates between two sets of
+#' ground control points (GCP). It is suited to perform calculations for topographical
 #' coordinates only. The origin is set in the y coordinate, and rotation performed clockwise.
 #'
 #' @param dx Numeric vector containing the difference on the \sQuote{x} coordinate between two sets
@@ -24,13 +24,13 @@
 #' @references
 #' Ruiz-Cuetos J.C., Polo M.E. and Rodriguez P.G. (2012). _VecStatGraphs2D: Vector analysis using
 #' graphical and analytical methods in 2D_. R package version 1.6.
-#' \url{https://CRAN.R-project.org/package=VecStatGraphs2D}.
+#' <https://CRAN.R-project.org/package=VecStatGraphs2D>.
 #'
 #' @examples
 #' x <- gcpVector(dx = rnorm(3, 5, 10), dy = rnorm(3, 5, 10))
 #' 
+# FUNCTION #########################################################################################
 #' @export
-####################################################################################################
 gcpVector <-
   function(dx, dy) {
     vec <- sqrt((dx * dx) + (dy * dy))
