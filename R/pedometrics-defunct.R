@@ -1,9 +1,15 @@
-#' Defunct functions in the __pedometrics__ package
+#' Defunct functions
 #'
 #' The functions listed here are no longer part of the __pedometrics__ package. If you need to use
-#' any of these functions, you can still found at \url{https://github.com/samuel-rosa/ASRtools}.
+#' any of these functions, you can still find them at <https://github.com/samuel-rosa/ASRtools> or
+#' <https://cran.r-project.org/src/contrib/Archive/pedometrics/>.
 #'
 #' @param ... Not used.
+#' 
+#' @author
+#' Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}\cr
+#' Tony Olsen \email{Olsen.Tony@@epa.gov}\cr
+#' Tom Kincaid \email{Kincaid.Tom@@epa.gov}
 #'
 #' @return No return value, called for side effects.
 #'
