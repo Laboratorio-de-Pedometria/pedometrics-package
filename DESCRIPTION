@@ -1,13 +1,17 @@
 Package: pedometrics
-Version: 0.11.2
-Date: 2022-05-26
+Version: 0.12.0
+Date: 2022-05-27
 Title: Miscellaneous Pedometric Tools
-Description: An R implementation of some useful tools employed in the field of pedometrics. Some of
-    these tools use the popular geostatistical packages geoR and georob. From time to time, these
-    suggested packages may be archived (temporarily removed from CRAN) due to issues with their own
-    dependencies. Formerly available versions can be obtained from the CRAN archive
-    <https://cran.r-project.org/src/contrib/Archive/> and from the CRAN mirror on GitHub
-    <https://github.com/cran/>.
+Description: An R implementation of methods employed in the field of pedometrics, soil science
+    discipline dedicated to studying the spatial, temporal, and spatio-temporal variation of soil
+    using statistical and computational methods. The methods found here include the calibration of
+    linear regression models using covariate selection strategies, computation of summary validation
+    statistics for predictions, generation of summary plots, evaluation of the local quality of a
+    geostatistical model of uncertainty, and so on. Other functions simply extend the
+    functionalities of or facilitate the usage of functions from other packages that are commonly
+    used for the analysis of soil data. Formerly available versions of suggested packages no longer
+    available from CRAN can be obtained from the CRAN archive
+    <https://cran.r-project.org/src/contrib/Archive/>.
 Authors@R: c(
     person("Alessandro", "Samuel-Rosa", role = c("aut", "cre"),
        email = "alessandrosamuelrosa@gmail.com",
@@ -18,8 +22,6 @@ Authors@R: c(
        comment = c(ORCID = "0000-0001-9463-1898")),
     person("Gerard B M", "Heuvelink", role = "ths", email = "gerard.heuvelink@wur.nl",
        comment = c(ORCID = "0000-0003-0959-9358")),
-    person("Tony", "Olsen", role = "ctb", email = "Olsen.Tony@epa.gov"), 
-    person("Tom", "Kincaid", role = "ctb", email = "Kincaid.Tom@epa.gov"), 
     person("Juan Carlos", "Ruiz Cuetos", role = "ctb", email = "bilba_t@hotmail.com"), 
     person("Maria Eugenia", "Polo Garcia", role = "ctb", email = "mepolo@unex.es"), 
     person("Pablo Garcia Rodriguez", role = "ctb", email = "pablogr@unex.es"), 
@@ -50,8 +52,6 @@ Suggests:
     knitr,
     MASS,
     methods,
-    moments,
-    plyr,
     sp,
     SpatialTools
 License: GPL (>= 2)

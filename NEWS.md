@@ -1,5 +1,25 @@
 # News
 
+## pedometrics 0.12.0
+
+* __Improvement 1__ New function `skewness()`: compute the moment coefficient of skewness of a
+  continuous, possibly non-normal variable.
+* __Improvement 2__ Reducing dependencies:
+  * Package __moments__ is not in Suggests anymore. The moment coefficient of skewness used in
+    `plotHD()` is now computed using the new function `skewness()`.
+  * Package __plyr__ is not Suggests anymore.
+* __Improvement 3__ Extended documentation. Some __pedometrics__-functions depend on functions
+  coming from other R-packages. These dependencies are now stated in the function help. This should
+  enable users to get ready before missing-package warnings are issued. Links to old and
+  development versions of those are provided as well. This should help users when a package is
+  temporarily removed from CRAN -- such as with __geoR__ and __georob__.
+* __Improvement 4__ DESCRIPTION.
+  * The package description was extended to state which tools are included in the package.
+  * The CRAN archive <https://cran.r-project.org/src/contrib/Archive/> is referenced so that users
+    can find formerly available versions of suggested packages that are no longer available from
+    CRAN because they were temporarily removed -- such as with __geoR__ and __georob__.
+  * Contributors of defunct functions were moved to `pedometrics-defunct.R`.
+
 ## pedometrics 0.11.1
 
 * __Bug fixes__

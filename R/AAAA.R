@@ -7,7 +7,6 @@
 #' @importFrom stats dnorm extractAIC formula lm median model.frame cor model.matrix residuals sd
 #' quantile var
 # @importFrom randomForest randomForest
-#  geoR has been orphaned on 2020-01-12
 #' @importFrom geoR practicalRange
-#' spsurvey had too many changes from version 5.0.0 onwards and was discarded as a dependency
-#  @importFrom spsurvey interp.axis interp.cdf
+# spsurvey had too many changes from version 5.0.0 onwards and was discarded as a dependency
+# @importFrom spsurvey interp.axis interp.cdf

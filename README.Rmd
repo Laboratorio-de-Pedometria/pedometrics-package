@@ -32,14 +32,15 @@ I would expect. But why? The answer seemed straightforward: because they were no
 program ready to be used. This was also making it difficult to reproduce the analyses carried out by others. 
 Creating a generic package for R -- a popular programming language among pedometricians -- could be a solution.
 
-The current __pedometrics__ package is an implementation of miscellaneous functions for various pedometric
-purposes. This includes the calibration of multiple linear regression models, the computation of summary
-validation statistics, the generation of plots, the evaluation of the local quality of a geostatistical model 
-of uncertainty, and so on. Other functions simply extend the functionalities of or facilitate the usage of
-functions from other packages that are commonly used for the analysis of pedometric data. Among these, one of
-the functions that I find very useful is `plotESDA()`. This function creates four plots for exploratory spatial
-data analysis (ESDA): a histogram + density plot, a bubble plot, a variogram plot, and a variogram map. The 
-figure below shows the result for the zinc concentration in the Meuse river data set.
+The current __pedometrics__ package is an implementation of miscellaneous functions for various
+pedometric purposes. This includes the calibration of multiple linear regression models, the 
+computation of summary validation statistics, the generation of plots, the evaluation of the local
+quality of a geostatistical model of uncertainty, and so on. Other functions simply extend the
+functionalities of or facilitate the usage of functions from other packages that are commonly used
+for the analysis of soil data. Among these, one of the functions that I find very useful is
+`plotESDA()`. This function creates four plots for exploratory spatial data analysis (ESDA): a 
+histogram + density plot, a bubble plot, a variogram plot, and a variogram map. The figure below 
+shows the result for the zinc concentration in the Meuse river data set.
 
 ![](https://raw.githubusercontent.com/laboratorio-de-pedometria/pedometrics/master/inst/extdata/plot-esda.png)
 
