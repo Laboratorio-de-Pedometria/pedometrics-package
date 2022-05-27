@@ -28,8 +28,9 @@ Numeric value indicating the proportion of the variance that is spatially correl
 Compute the proportion of the variance that is spatially correlated.
 }
 \examples{
-if (require(geoR)) {
-  ml <- geoR::likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
+if (interactive()) {
+  library(geoR)
+  ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
   res <- vgmSCV(ml)
 }
 }
