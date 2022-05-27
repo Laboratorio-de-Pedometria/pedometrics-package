@@ -13,8 +13,7 @@
 #' @param n Integer value indicating the number of categories/strata that should be created.
 #'
 #' @param type Character value indicating the type of categories/strata that should be used, with
-#' options `"area"`, for equal-area, and `"range"`, for equal-range strata. Defaults to
-#' `type = "area"`.
+#' options `"area"` (default), for equal-area, and `"range"`, for equal-range strata.
 #'
 #' @param integer Logical value indicating if the categorical variable(s) should be returned as
 #' `integer`s. Defaults to `integer = FALSE`, i.e. the variable(s) will be returned as `factor`s.
@@ -28,39 +27,60 @@
 #'
 #' @return
 #' A vector, data frame, or matrix, depending on the class of `x`.
+#' 
+#' @section Dependencies:
+#' The __SpatialTools__ package, provider of tools for spatial data analysis in R, is required for
+#' [pedometrics::breakPoints()] and [pedometrics::stratify()] to work. The development version of
+#' the __SpatialTools__ package is available on <https://github.com/jfrench/SpatialTools> while its
+#' old versions are available on the CRAN archive at
+#' <https://cran.r-project.org/src/contrib/Archive/SpatialTools/>.
+#' 
+#' @section Reverse dependencies:
+#' The __spsann__ package, provider of methods for the optimization of sample configurations using
+#' spatial simulated annealing in R, requires [pedometrics::breakPoints()],
+#' [pedometrics::cont2cat()] and [pedometrics::stratify()] for some of its functions to work. The
+#' development version of the __spsann__ package is available on
+#' <https://github.com/Laboratorio-de-Pedometria/spsann-package>.
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #' 
+#' @references
+#' B. Minasny and A. B. McBratney. A conditioned Latin hypercube method for sampling in the presence
+#' of ancillary information. _Computers & Geosciences_, vol. 32, no. 9, pp. 1378–1388, Nov. 2006,
+#' doi: 10.1016/j.cageo.2005.12.009.
+#' 
+#' T. Hengl, D. G. Rossiter, and A. Stein. Soil sampling strategies for spatial prediction by
+#' correlation with auxiliary maps. _Australian Journal of Soil Research_, vol. 41, no. 8, pp.
+#' 1403–1422, 2003, doi: 10.1071/SR03005.
+#' 
 #' @examples
 #' if (require(SpatialTools)) {
-#' ## Compute the break points of marginal strata
-#' x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
-#' x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
-#' x
+#'   ## Compute the break points of marginal strata
+#'   x <- data.frame(x = round(rnorm(10), 1), y = round(rlnorm(10), 1))
+#'   x <- breakPoints(x = x, n = 4, type = "area", prop = TRUE)
 #'
-#' ## Convert numerical data into categorical data
-#' # Matrix
-#' x <- y <- c(1:10)
-#' x <- cbind(x, y)
-#' breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
-#' y <- cont2cat(x, breaks)
-#' y
-#' # Data frame
-#' x <- y <- c(1:10)
-#' x <- data.frame(x, y)
-#' breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
-#' y <- cont2cat(x, breaks, integer = TRUE)
-#' y
-#' # Vector
-#' x <- c(1:10)
-#' breaks <- c(1, 2, 4, 8, 10)
-#' y <- cont2cat(x, breaks, integer = TRUE)
-#' y
+#'   ## Convert numerical data into categorical data
+#'   # Matrix
+#'   x <- y <- c(1:10)
+#'   x <- cbind(x, y)
+#'   breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
+#'   y <- cont2cat(x, breaks)
+#' 
+#'   # Data frame
+#'   x <- y <- c(1:10)
+#'   x <- data.frame(x, y)
+#'   breaks <- list(c(1, 2, 4, 8, 10), c(1, 5, 10))
+#'   y <- cont2cat(x, breaks, integer = TRUE)
+#' 
+#'   # Vector
+#'   x <- c(1:10)
+#'   breaks <- c(1, 2, 4, 8, 10)
+#'   y <- cont2cat(x, breaks, integer = TRUE)
 #'
-#' ## Stratification
-#' x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
-#' x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
-#' x
+#'   ## Stratification
+#'   x <- data.frame(x = round(rlnorm(10), 1), y = round(rnorm(10), 1))
+#'   x <- stratify(x = x, n = 4, type = "area", integer = TRUE)
+#'   x
 #' }
 #' @aliases cont2cat breakPoints stratify
 # FUNCTION - CONVERT CONTINUOUS DATA INTO CATEGORICAL DATA #########################################
@@ -68,8 +88,6 @@
 #' @rdname cont2cat
 cont2cat <-
   function(x, breaks, integer = FALSE) {
-    # Check if suggested packages are installed
-    if (!requireNamespace("SpatialTools")) stop("SpatialTools package is missing")
     # Process input
     x_cl <- class(x)
     x <- as.data.frame(x)
@@ -161,8 +179,6 @@ breakPoints <-
 #' @rdname cont2cat
 stratify <-
   function(x, n, type = "area", integer = FALSE) {
-    # Check if suggested packages are installed
-    if (!requireNamespace("SpatialTools")) stop("SpatialTools package is missing")
     # Compute break points
     breaks <- breakPoints(x = x, n = n, type = type)
     # Convert continuous data into categorical data
