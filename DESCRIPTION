@@ -1,6 +1,6 @@
 Package: pedometrics
 Version: 0.12.0
-Date: 2022-05-27
+Date: 2022-05-28
 Title: Miscellaneous Pedometric Tools
 Description: An R implementation of methods employed in the field of pedometrics, soil science
     discipline dedicated to studying the spatial, temporal, and spatio-temporal variation of soil

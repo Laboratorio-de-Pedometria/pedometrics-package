@@ -1,8 +1,5 @@
 # Build package
 
-# TODO
-# 'moments' is used in plotHD -- work to remove it from Suggests
-
 # Test package #####################################################################################
 # install.packages("rgeos", dependencies = TRUE)
 # install.packages("Matrix", dependencies = TRUE)

@@ -19,10 +19,14 @@
 #' 
 #' @concept variogram
 #' @examples
-#' if (interactive()) {
-#'   # library(geoR)
-#'   ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
-#'   res <- vgmSCV(ml)
+#' if (all(c(require(gstat), require(sp)))) {
+#'   library(gstat)
+#'   library(sp)
+#'   data(meuse)
+#'   sp::coordinates(meuse) <- ~ x + y
+#'   vgm1 <- gstat::variogram(log(zinc) ~ 1, meuse)
+#'   fit <- gstat::fit.variogram(vgm1, gstat::vgm(1, "Sph", 300, 1))
+#'   res <- vgmSCV(fit)
 #' }
 # FUNCTION - general ###############################################################################
 #' @export

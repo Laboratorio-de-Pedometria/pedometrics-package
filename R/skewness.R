@@ -16,7 +16,6 @@
 #' 
 #' D. N. Joanes and C. A. Gill, Comparing measures of sample skewness and kurtosis, _J Royal
 #' Statistical Soc D_, vol. 47, no. 1, pp. 183–189, Mar. 1998, doi: 10.1111/1467-9884.00122.
-#' URL: <https://onlinelibrary.wiley.com/doi/10.1111/1467-9884.00122>.
 #' 
 #' H. Cramér, _Mathematical Methods of Statistics_. Princeton: Princeton University Press, 1946,
 #' p. 575.
