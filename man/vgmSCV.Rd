@@ -29,13 +29,13 @@ Compute the proportion of the variance that is spatially correlated.
 }
 \examples{
 if (interactive()) {
-  library(geoR)
-  ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
-  res <- vgmSCV(ml)
+  # library(geoR)
+  # ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
+  # res <- vgmSCV(ml)
 }
 }
 \seealso{
-\code{\link[=vgmLags]{vgmLags()}}
+\code{\link[=variogramBins]{variogramBins()}}
 }
 \author{
 Alessandro Samuel-Rosa \email{alessandrosamuelrosa@gmail.com}

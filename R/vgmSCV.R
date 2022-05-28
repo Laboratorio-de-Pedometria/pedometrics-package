@@ -21,8 +21,8 @@
 #' @examples
 #' if (interactive()) {
 #'   # library(geoR)
-#'   # ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
-#'   # res <- vgmSCV(ml)
+#'   ml <- likfit(s100, ini = c(0.5, 0.5), fix.nug = TRUE)
+#'   res <- vgmSCV(ml)
 #' }
 # FUNCTION - general ###############################################################################
 #' @export
