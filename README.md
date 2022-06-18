@@ -6,13 +6,13 @@ pedometrics: Miscellaneous Pedometric Tools
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![packageversion](https://img.shields.io/badge/devel%20version-0.12.0-firebrick.svg?style=flat-square)](commits/master)
+[![packageversion](https://img.shields.io/badge/devel%20version-0.12.1-firebrick.svg?style=flat-square)](commits/master)
 [![Build
 Status](https://travis-ci.org/samuel-rosa/pedometrics.svg?branch=master)](https://travis-ci.org/samuel-rosa/pedometrics)
 [![CRAN](https://www.r-pkg.org/badges/version/pedometrics)](https://cran.r-project.org/package=pedometrics)
 [![cran
 checks](https://cranchecks.info/badges/worst/pedometrics)](https://cran.r-project.org/web/checks/check_results_pedometrics.html)
-[![Rdoc](http://www.rdocumentation.org/badges/version/pedometrics)](http://www.rdocumentation.org/packages/pedometrics)
+[![Rdoc](https://api.rdocumentation.org/badges/version/pedometrics)](http://www.rdocumentation.org/packages/pedometrics)
 [![Downloads](http://cranlogs.r-pkg.org/badges/pedometrics?color=brightgreen)](http://www.r-pkg.org/pkg/pedometrics)
 
 The **pedometrics** package was originally created to share the
