@@ -44,12 +44,12 @@ devtools::check_win_oldrelease("pedometrics-package/")
 # rhub::platforms()
 platforms <- c("fedora-clang-devel",
   "ubuntu-gcc-release", "debian-clang-devel", "windows-x86_64-devel")
-devtools::check_rhub( "pedometrics-package/",
+devtools::check_rhub("pedometrics-package/",
   platforms = platforms, interactive = FALSE, env_vars = c(`_R_CHECK_FORCE_SUGGESTS_` = "false"))
 
 # upload to CRAN ----
 # devtools::build()
-devtools::release(check = FALSE)
+devtools::release("pedometrics-package/", check = FALSE)
 
 
 devtools::load_all()
