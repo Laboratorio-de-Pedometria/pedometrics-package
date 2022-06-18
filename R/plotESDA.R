@@ -34,13 +34,13 @@
 #' Four plots: histogram and density plot, bubble plot, empirical variogram, and variogram map.
 #'
 #' @references
-#' Cressie, N.A.C. (1993) _Statistics for Spatial Data_. New York: John Wiley \& Sons, p.900, 1993.
+#' Cressie, N.A.C. (1993) _Statistics for Spatial Data_. New York: John Wiley and Sons, p.900, 1993.
 #'
-#' Pebesma, E.J. (2004) Multivariable geostatistics in S: the gstat package. _Computers \&
+#' Pebesma, E.J. (2004) Multivariable geostatistics in S: the gstat package. _Computers and
 #' Geosciences_, 30:683-691, 2004.
 #'
-#' Webster, R. \& Oliver, M.A. _Geostatistics for environmental scientists_. Chichester: John Wiley
-#' \& Sons, p.315, 2007.
+#' Webster, R., Oliver, M.A. _Geostatistics for environmental scientists_. Chichester: John Wiley
+#' and Sons, p.315, 2007.
 #'
 #' @author Alessandro Samuel-Rosa \email{alessandrosamuelrosa@@gmail.com}
 #'

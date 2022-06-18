@@ -69,13 +69,13 @@ if (all(require(sp), require(gstat))) {
 }
 }
 \references{
-Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John Wiley \& Sons, p.900, 1993.
+Cressie, N.A.C. (1993) \emph{Statistics for Spatial Data}. New York: John Wiley and Sons, p.900, 1993.
 
-Pebesma, E.J. (2004) Multivariable geostatistics in S: the gstat package. \emph{Computers \&
+Pebesma, E.J. (2004) Multivariable geostatistics in S: the gstat package. \emph{Computers and
 Geosciences}, 30:683-691, 2004.
 
-Webster, R. \& Oliver, M.A. \emph{Geostatistics for environmental scientists}. Chichester: John Wiley
-\& Sons, p.315, 2007.
+Webster, R., Oliver, M.A. \emph{Geostatistics for environmental scientists}. Chichester: John Wiley
+and Sons, p.315, 2007.
 }
 \seealso{
 \code{\link[=plotHD]{plotHD()}}

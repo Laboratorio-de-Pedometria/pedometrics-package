@@ -1,5 +1,10 @@
 # News
 
+## pedometrics 0.12.1
+
+* __Bug fix__ Remove escaped LaTeX specials in the documentation of `plotESDA()`. These escaped
+  LaTeX specials were resulting in notes in CRAN package check results for some flavors.
+
 ## pedometrics 0.12.0
 
 * __Improvement 1__ New function `skewness()`: compute the moment coefficient of skewness of a
